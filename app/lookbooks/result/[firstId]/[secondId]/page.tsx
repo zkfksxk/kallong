@@ -16,7 +16,7 @@ import { useCheckLookbookLiked } from '@/apis/querys/useCheckLookbookLiked';
 import { useGetLookbook } from '@/apis/querys/useGetLookbook';
 import { useToggleLookbookLike } from '@/apis/querys/useToggleLookbookLike';
 import { LookbookResult } from '@/components/lookbook-result';
-import { useOutsideClick } from '@/hooks/useOutsideclick';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useRemainingTime } from '@/hooks/useRemainingTime';
 
 export default function ResultPage() {
