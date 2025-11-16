@@ -2,8 +2,8 @@
 
 import { cookies } from 'next/headers';
 import { randomUUID } from 'crypto';
-import { Lookbook } from '@/shared/common/types';
-import { Database } from '@/shared/supabase/database.types';
+import { type Lookbook } from '@/shared/common/types';
+import { type Database } from '@/shared/supabase/database.types';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
 import { handleError } from '../AxiosObj';
 
@@ -80,7 +80,6 @@ export async function checkLookbookLiked(lookbook_id: string) {
 
   if (!anon_id) return false;
 
-  console.log('check!!');
   const { data, error } = await supabase
     .from('votes_log')
     .select('id')
@@ -93,5 +92,5 @@ export async function checkLookbookLiked(lookbook_id: string) {
     return false;
   }
 
-  return !!data;
+  return !!data; // null, undefined => false
 }

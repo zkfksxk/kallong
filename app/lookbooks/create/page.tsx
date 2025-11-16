@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import { ActionIcon, Button, Tabs, Text } from '@mantine/core';
 import { IoChevronBackOutline as Back } from 'react-icons/io5';
 import { useCreateLookbook } from '@/apis/querys/useCreateLookbook';
-import { LookbookForm } from '@/components/lookbook-form';
-import { LookbookImage } from '@/components/lookbook-image';
+import { CreateImage } from '@/components/lookbooks/create/create-image';
+import { LookbookForm } from '@/components/lookbooks/create/lookbook-form';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
 
 export default function CreateLookbooksPage() {
@@ -46,11 +46,11 @@ export default function CreateLookbooksPage() {
           </Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value='first' pt='md'>
-          <LookbookImage lookbook={firstLookbook} />
+          <CreateImage lookbook={firstLookbook} />
           <LookbookForm targetLookbook='first' />
         </Tabs.Panel>
         <Tabs.Panel value='second' pt='md'>
-          <LookbookImage lookbook={secondLookbook} />
+          <CreateImage lookbook={secondLookbook} />
           <LookbookForm targetLookbook='second' />
         </Tabs.Panel>
       </Tabs>

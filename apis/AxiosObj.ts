@@ -1,32 +1,32 @@
 import axios, { type AxiosInstance } from 'axios';
 
-export interface CustomError {
-  code?: number;
-  name: string;
-  message: string;
-}
+// export interface CustomError {
+//   code?: number;
+//   name: string;
+//   message: string;
+// }
 
-export const createCustomError = (error: unknown): CustomError => {
-  if (axios.isAxiosError(error)) {
-    return {
-      code: error.response?.status,
-      name: error.name,
-      message: error.message,
-    };
-  }
+// export const createCustomError = (error: unknown): CustomError => {
+//   if (axios.isAxiosError(error)) {
+//     return {
+//       code: error.response?.status,
+//       name: error.name,
+//       message: error.message,
+//     };
+//   }
 
-  if (error instanceof Error) {
-    return {
-      name: error.name,
-      message: error.message,
-    };
-  }
+//   if (error instanceof Error) {
+//     return {
+//       name: error.name,
+//       message: error.message,
+//     };
+//   }
 
-  return {
-    name: 'UnknownError',
-    message: '알 수 없는 에러가 발생했습니다.',
-  };
-};
+//   return {
+//     name: 'UnknownError',
+//     message: '알 수 없는 에러가 발생했습니다.',
+//   };
+// };
 
 export const handleError = (error: Error) => {
   console.error(error);

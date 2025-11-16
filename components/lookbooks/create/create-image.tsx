@@ -8,7 +8,7 @@ type Props = {
   lookbook: Lookbook;
 };
 
-export function LookbookImage({ lookbook }: Props) {
+export function CreateImage({ lookbook }: Props) {
   const { finalUrl, topUrl, bottomUrl, shoesUrl, accessoryUrls, background } =
     lookbook.data;
 

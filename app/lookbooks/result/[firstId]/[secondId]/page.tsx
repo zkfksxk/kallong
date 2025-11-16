@@ -15,7 +15,7 @@ import { TbCapture as Capture } from 'react-icons/tb';
 import { useCheckLookbookLiked } from '@/apis/querys/useCheckLookbookLiked';
 import { useGetLookbook } from '@/apis/querys/useGetLookbook';
 import { useToggleLookbookLike } from '@/apis/querys/useToggleLookbookLike';
-import { LookbookResult } from '@/components/lookbook-result';
+import { ResultImage } from '@/components/lookbooks/result/result-image';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useRemainingTime } from '@/hooks/useRemainingTime';
 
@@ -85,6 +85,18 @@ export default function ResultPage() {
   };
 
   const handleToggle = (lookbookId: string) => {
+    if (remainingTime === '00:00') {
+      notifications.show({
+        title: '투표 마감',
+        message: '이미 투표 시간이 종료되었습니다.',
+        icon: <Close color='red' size={24} />,
+        withCloseButton: false,
+        loading: false,
+        color: 'transperant',
+      });
+      return;
+    }
+
     toggleMutate(lookbookId, {
       onError: (error) => {
         notifications.show({
@@ -130,7 +142,7 @@ export default function ResultPage() {
           <Text size='xl' fw='bold' className='self-end'>
             {firstLookbook.name}
           </Text>
-          <LookbookResult lookbook={firstLookbook} />
+          <ResultImage lookbook={firstLookbook} />
           <div className='flex flex-row items-center justify-end'>
             <ActionIcon variant='transparent' size='52px' radius='xl'>
               {isFirstLookbookLiked ? (
@@ -146,7 +158,7 @@ export default function ResultPage() {
           <Text size='xl' fw='bold' className='self-end'>
             {secondLookbook.name}
           </Text>
-          <LookbookResult lookbook={secondLookbook} />
+          <ResultImage lookbook={secondLookbook} />
           <div className='flex flex-row items-center justify-end'>
             <ActionIcon variant='transparent' size='52px' radius='xl'>
               {isSecondLookbookLiked ? (

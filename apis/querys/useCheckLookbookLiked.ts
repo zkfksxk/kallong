@@ -5,6 +5,6 @@ import queryKeys from '../queryKeys';
 export function useCheckLookbookLiked(lookbook_id: string) {
   return useQuery({
     queryFn: () => checkLookbookLiked(lookbook_id),
-    queryKey: [queryKeys.LOOKBOOK_LIKED(lookbook_id)],
+    queryKey: [queryKeys.CHECK_LOOKBOOK_LIKED(lookbook_id)],
   });
 }

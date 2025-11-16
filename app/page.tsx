@@ -5,7 +5,13 @@ import { hanna } from '@/shared/common/theme';
 export default function Home() {
   return (
     <main className='bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center px-20 gap-15'>
-      <Text style={{ fontFamily: hanna.style.fontFamily, fontSize: '45pt' }}>
+      <Text
+        style={{
+          fontFamily: hanna.style.fontFamily,
+          fontSize: '40pt',
+          whiteSpace: 'nowrap',
+        }}
+      >
         내일 뭐 입지?
       </Text>
       <Link href='/lookbooks'>

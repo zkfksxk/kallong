@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Tabs } from '@mantine/core';
-import { LookbookEditor } from '@/components/lookbook-editor';
-import { LookbookImage } from '@/components/lookbook-image';
+import { CreateImage } from '@/components/lookbooks/create/create-image';
+import { LookbookEditor } from '@/components/lookbooks/editor/lookbook-editor';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
 
 export default function LookbooksPage() {
@@ -22,11 +22,11 @@ export default function LookbooksPage() {
           </Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value='first' pt='md'>
-          <LookbookImage lookbook={firstLookbook} />
+          <CreateImage lookbook={firstLookbook} />
           <LookbookEditor target='first' />
         </Tabs.Panel>
         <Tabs.Panel value='second' pt='md'>
-          <LookbookImage lookbook={secondLookbook} />
+          <CreateImage lookbook={secondLookbook} />
           <LookbookEditor target='second' />
         </Tabs.Panel>
       </Tabs>
