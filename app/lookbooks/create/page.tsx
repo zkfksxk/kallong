@@ -4,36 +4,65 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ActionIcon, Button, Tabs, Text } from '@mantine/core';
 import { IoChevronBackOutline as Back } from 'react-icons/io5';
-import { LookbookRes } from '@/apis/actions/lookbook';
 import { useCreateLookbook } from '@/apis/querys/useCreateLookbook';
+import { useUpdateLookbook } from '@/apis/querys/useUpdateLookbook';
 import { CreateImage } from '@/components/lookbooks/create/create-image';
 import { LookbookForm } from '@/components/lookbooks/create/lookbook-form';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
+import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 
 export default function CreateLookbooksPage() {
   const [activeTab, setActiveTab] = useState<string | null>('first');
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
   const { firstLookbook, secondLookbook } = useLookbookStore((s) => s);
-  const { mutateAsync, isPending } = useCreateLookbook();
+  const { mutateAsync: createMutate, isPending } = useCreateLookbook();
+  const { mutateAsync: updateMutate } = useUpdateLookbook();
 
   const isReadyToSubmit =
     firstLookbook.data.finalUrl && secondLookbook.data.finalUrl;
+
+  const uploadFile = async (lookbookId: string, file: File) => {
+    const supabase = createSupabaseBrowserClient();
+
+    const fileExtension = file.name.split('.').pop() || 'webp';
+    const fileName = `${Date.now()}-${crypto.randomUUID()}.${fileExtension}`;
+    const filePath = `${lookbookId}/${fileName}`;
+
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
+      .upload(filePath, file, { upsert: true });
+
+    if (uploadError) throw uploadError;
+
+    const {
+      data: { publicUrl },
+    } = supabase.storage
+      .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
+      .getPublicUrl(uploadData.path);
+
+    return publicUrl;
+  };
 
   const handleSubmit = async () => {
     if (submitting) return;
     setSubmitting(true);
     //2개의 Lookbook생성후 id 받음.
     try {
-      const firstData = (await mutateAsync({
-        lookbookData: firstLookbook,
-        file: firstLookbook.data.finalFile!,
-      })) as LookbookRes;
+      const [firstData, secondData] = await Promise.all([
+        createMutate(firstLookbook),
+        createMutate(secondLookbook),
+      ]);
 
-      const secondData = (await mutateAsync({
-        lookbookData: secondLookbook,
-        file: secondLookbook.data.finalFile!,
-      })) as LookbookRes;
+      const [firstImageUrl, secondImageUrl] = await Promise.all([
+        uploadFile(firstData.id, firstLookbook.data.finalFile!),
+        uploadFile(secondData.id, secondLookbook.data.finalFile!),
+      ]);
+
+      await Promise.all([
+        updateMutate({ id: firstData.id, image_url: firstImageUrl }),
+        updateMutate({ id: secondData.id, image_url: secondImageUrl }),
+      ]);
 
       //result 페이지로 리디렉션
       router.push(`/lookbooks/result/${firstData.id}/${secondData.id}`);

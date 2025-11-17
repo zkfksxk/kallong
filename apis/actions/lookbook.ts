@@ -67,34 +67,34 @@ export const upadateLookbook = async ({
   return data;
 };
 
-export const createPostWithImages = async ({
-  lookbookData,
-  file,
-}: {
-  lookbookData: Lookbook;
-  file: File;
-}) => {
-  const lookbook = await createLookbook(lookbookData);
+// export const createPostWithImages = async ({
+//   lookbookData,
+//   file,
+// }: {
+//   lookbookData: Lookbook;
+//   file: File;
+// }) => {
+//   const lookbook = await createLookbook(lookbookData);
 
-  try {
-    const fileExtension = file.name.split('.').pop() || 'webp';
-    const fileName = `${Date.now()}-${crypto.randomUUID()}.${fileExtension}`;
-    const filePath = `${lookbook.id}/${fileName}`;
-    const publicUrl = await uploadFile({
-      file: file,
-      filePath: filePath,
-    });
+//   try {
+//     const fileExtension = file.name.split('.').pop() || 'webp';
+//     const fileName = `${Date.now()}-${crypto.randomUUID()}.${fileExtension}`;
+//     const filePath = `${lookbook.id}/${fileName}`;
+//     const publicUrl = await uploadFile({
+//       file: file,
+//       filePath: filePath,
+//     });
 
-    const updatedLookbook = await upadateLookbook({
-      id: lookbook.id,
-      image_url: publicUrl,
-    });
+//     const updatedLookbook = await upadateLookbook({
+//       id: lookbook.id,
+//       image_url: publicUrl,
+//     });
 
-    return updatedLookbook;
-  } catch (error) {
-    handleError(error as Error);
-  }
-};
+//     return updatedLookbook;
+//   } catch (error) {
+//     handleError(error as Error);
+//   }
+// };
 
 export const getLookbook = async (id: string) => {
   const supabase = await createSupabaseServerClient();
@@ -163,28 +163,28 @@ export async function checkLookbookLiked(lookbook_id: string) {
   return !!data; // null, undefined => false
 }
 
-export async function uploadFile({
-  file,
-  filePath,
-}: {
-  file: File;
-  filePath: string;
-}) {
-  const supabase = await createSupabaseServerClient();
+// export async function uploadFile({
+//   file,
+//   filePath,
+// }: {
+//   file: File;
+//   filePath: string;
+// }) {
+//   const supabase = await createSupabaseServerClient();
 
-  const { data, error } = await supabase.storage
-    .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
-    .upload(filePath, file, { upsert: true });
+//   const { data, error } = await supabase.storage
+//     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
+//     .upload(filePath, file, { upsert: true });
 
-  if (error) {
-    handleError(error);
-  }
+//   if (error) {
+//     handleError(error);
+//   }
 
-  const {
-    data: { publicUrl },
-  } = supabase.storage
-    .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
-    .getPublicUrl(data!.path);
+//   const {
+//     data: { publicUrl },
+//   } = supabase.storage
+//     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
+//     .getPublicUrl(data!.path);
 
-  return publicUrl;
-}
+//   return publicUrl;
+// }
