@@ -142,7 +142,7 @@ export default function ResultPage() {
           <Text size='xl' fw='bold' className='self-end'>
             {firstLookbook.name}
           </Text>
-          <ResultImage lookbook={firstLookbook} />
+          <ResultImage image_url={firstLookbook.image_url} />
           <div className='flex flex-row items-center justify-end'>
             <ActionIcon variant='transparent' size='52px' radius='xl'>
               {isFirstLookbookLiked ? (
@@ -158,7 +158,7 @@ export default function ResultPage() {
           <Text size='xl' fw='bold' className='self-end'>
             {secondLookbook.name}
           </Text>
-          <ResultImage lookbook={secondLookbook} />
+          <ResultImage image_url={secondLookbook.image_url} />
           <div className='flex flex-row items-center justify-end'>
             <ActionIcon variant='transparent' size='52px' radius='xl'>
               {isSecondLookbookLiked ? (

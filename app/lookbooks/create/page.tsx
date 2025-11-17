@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ActionIcon, Button, Tabs, Text } from '@mantine/core';
 import { IoChevronBackOutline as Back } from 'react-icons/io5';
+import { LookbookRes } from '@/apis/actions/lookbook';
 import { useCreateLookbook } from '@/apis/querys/useCreateLookbook';
 import { CreateImage } from '@/components/lookbooks/create/create-image';
 import { LookbookForm } from '@/components/lookbooks/create/lookbook-form';
@@ -24,11 +25,18 @@ export default function CreateLookbooksPage() {
     setSubmitting(true);
     //2개의 Lookbook생성후 id 받음.
     try {
-      const firstId = await mutateAsync(firstLookbook);
-      const secondId = await mutateAsync(secondLookbook);
+      const firstData = (await mutateAsync({
+        lookbookData: firstLookbook,
+        file: firstLookbook.data.finalFile!,
+      })) as LookbookRes;
+
+      const secondData = (await mutateAsync({
+        lookbookData: secondLookbook,
+        file: secondLookbook.data.finalFile!,
+      })) as LookbookRes;
 
       //result 페이지로 리디렉션
-      router.push(`/lookbooks/result/${firstId}/${secondId}`);
+      router.push(`/lookbooks/result/${firstData.id}/${secondData.id}`);
     } catch (error) {
       console.error('룩북 생성 중 오류 발생:', error);
     } finally {

@@ -11,7 +11,7 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
     url,
     handleOpenImagePicker,
     handleUpload,
-    handleRemove,
+    handleRemoveFileAndFinalUrl,
   } = useLookbookEditor(targetLookbook, 'finalUrl');
 
   return (
@@ -39,7 +39,7 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
           radius='md'
           title='삭제'
           disabled={!url}
-          onClick={handleRemove}
+          onClick={handleRemoveFileAndFinalUrl}
         >
           <Delete size={32} />
         </ActionIcon>

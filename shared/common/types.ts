@@ -17,6 +17,7 @@ export type AccessoryUrls = {
 };
 
 export type Outfit = {
+  finalFile?: File;
   finalUrl?: string;
   topUrl?: string;
   bottomUrl?: string;

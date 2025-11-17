@@ -17,8 +17,9 @@ export type Database = {
       lookbook: {
         Row: {
           created_at: string;
+          creator_anon_id: string;
           id: string;
-          image_url: string;
+          image_url: string | null;
           is_deleted: boolean;
           name: string;
           nickname: string;
@@ -26,8 +27,9 @@ export type Database = {
         };
         Insert: {
           created_at?: string;
+          creator_anon_id: string;
           id?: string;
-          image_url: string;
+          image_url?: string | null;
           is_deleted?: boolean;
           name: string;
           nickname: string;
@@ -35,8 +37,9 @@ export type Database = {
         };
         Update: {
           created_at?: string;
+          creator_anon_id?: string;
           id?: string;
-          image_url?: string;
+          image_url?: string | null;
           is_deleted?: boolean;
           name?: string;
           nickname?: string;
@@ -81,6 +84,25 @@ export type Database = {
       lookbook_like: {
         Args: { p_anon_id: string; p_lookbook_id: string };
         Returns: boolean;
+      };
+      update_lookbook_image: {
+        Args: { p_anon_id: string; p_image_url: string; p_lookbook_id: string };
+        Returns: {
+          created_at: string;
+          creator_anon_id: string;
+          id: string;
+          image_url: string | null;
+          is_deleted: boolean;
+          name: string;
+          nickname: string;
+          votes: number;
+        }[];
+        SetofOptions: {
+          from: '*';
+          to: 'lookbook';
+          isOneToOne: false;
+          isSetofReturn: true;
+        };
       };
     };
     Enums: {

@@ -22,5 +22,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/lookbooks/result/:path*', '/api/:path*'],
+  matcher: ['/*', '/api/:path*'],
 };

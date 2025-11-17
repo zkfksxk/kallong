@@ -47,6 +47,27 @@ export function useLookbookEditor(
     }
   };
 
+  const setFileAndFinalUrl = (newFile?: File, newUrl?: string) => {
+    const prevUrl = lookbook.data.finalUrl;
+
+    const patch: Partial<Outfit> = {
+      finalFile: newFile,
+      finalUrl: newUrl,
+    };
+
+    if (targetLookbook === 'first') {
+      updateFirstLookbook(patch);
+    } else {
+      updateSecondLookbook(patch);
+    }
+
+    if (prevUrl && prevUrl.startsWith('blob:')) {
+      URL.revokeObjectURL(prevUrl);
+    }
+  };
+
+  const handleRemoveFileAndFinalUrl = () =>
+    setFileAndFinalUrl(undefined, undefined);
   const handleRemove = () => setUrl(undefined);
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,9 +90,13 @@ export function useLookbookEditor(
     }
 
     const reader = new FileReader();
-    reader.onload = (ev) => {
-      const url = ev.target?.result as string;
-      setUrl(url);
+    reader.onload = () => {
+      const url = URL.createObjectURL(file);
+      if (targetOutfit === 'finalUrl') {
+        setFileAndFinalUrl(file, url);
+      } else {
+        setUrl(url);
+      }
       input.value = '';
     };
     reader.readAsDataURL(file);
@@ -109,7 +134,7 @@ export function useLookbookEditor(
     handleOpenImagePicker,
     handleUpload,
     handleRemove,
+    handleRemoveFileAndFinalUrl,
     handleRemoveBackground,
-    setUrl,
   };
 }
