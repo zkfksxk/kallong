@@ -33,7 +33,10 @@ export default function CreateLookbooksPage() {
       .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
       .upload(filePath, file, { upsert: true });
 
-    if (uploadError) throw uploadError;
+    if (uploadError) {
+      console.log('upload fail', uploadError);
+      return;
+    }
 
     const {
       data: { publicUrl },
@@ -49,9 +52,18 @@ export default function CreateLookbooksPage() {
     setSubmitting(true);
     //2개의 Lookbook생성후 id 받음.
     try {
+      const firstLookbookProps = {
+        nickname: firstLookbook.nickname,
+        name: firstLookbook.name,
+      };
+      const secondLookbookProps = {
+        nickname: secondLookbook.nickname,
+        name: secondLookbook.name,
+      };
+
       const [firstData, secondData] = await Promise.all([
-        createMutate(firstLookbook),
-        createMutate(secondLookbook),
+        createMutate(firstLookbookProps),
+        createMutate(secondLookbookProps),
       ]);
 
       const [firstImageUrl, secondImageUrl] = await Promise.all([
@@ -60,8 +72,8 @@ export default function CreateLookbooksPage() {
       ]);
 
       await Promise.all([
-        updateMutate({ id: firstData.id, image_url: firstImageUrl }),
-        updateMutate({ id: secondData.id, image_url: secondImageUrl }),
+        updateMutate({ id: firstData.id, image_url: firstImageUrl! }),
+        updateMutate({ id: secondData.id, image_url: secondImageUrl! }),
       ]);
 
       //result 페이지로 리디렉션

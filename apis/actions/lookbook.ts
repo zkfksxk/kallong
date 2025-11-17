@@ -9,7 +9,7 @@ import { handleError } from '../AxiosObj';
 
 export type LookbookRes = Database['public']['Tables']['lookbook']['Row'];
 
-export const createLookbook = async (lookbookData: Lookbook) => {
+export const createLookbook = async (lookbookData: Partial<Lookbook>) => {
   const supabase = await createSupabaseServerClient();
   const cookieStore = await cookies();
   const anon_id = cookieStore.get('anon_id')?.value;
@@ -37,6 +37,7 @@ export const createLookbook = async (lookbookData: Lookbook) => {
     .single();
 
   if (error) {
+    console.log('create');
     handleError(error);
   }
   return data;
@@ -62,6 +63,7 @@ export const upadateLookbook = async ({
     .single();
 
   if (error) {
+    console.log('update');
     handleError(error);
   }
   return data;
