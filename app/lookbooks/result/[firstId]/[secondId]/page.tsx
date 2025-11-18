@@ -125,11 +125,11 @@ export default function ResultPage() {
   return (
     <main
       ref={notificationsRef}
-      className='relative bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center pb-25 px-10'
+      className='relative bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center'
     >
       <Notifications position='bottom-right' />
 
-      <div ref={captureRef} className='w-full flex flex-col flex-1'>
+      <div ref={captureRef} className='w-full flex flex-col flex-1 pb-20 px-10'>
         <div className='flex flex-col text-center'>
           <Text size='xxl' fw='bold'>
             결과 확인
@@ -146,9 +146,17 @@ export default function ResultPage() {
           <div className='flex flex-row items-center justify-end'>
             <ActionIcon variant='transparent' size='52px' radius='xl'>
               {isFirstLookbookLiked ? (
-                <HeartSharp size={32} onClick={() => handleToggle(firstId)} />
+                <HeartSharp
+                  size={32}
+                  color='red'
+                  onClick={() => handleToggle(firstId)}
+                />
               ) : (
-                <HeartOutline size={32} onClick={() => handleToggle(firstId)} />
+                <HeartOutline
+                  size={32}
+                  color='red'
+                  onClick={() => handleToggle(firstId)}
+                />
               )}
             </ActionIcon>
             <Text size='xl'>{firstLookbook.votes}</Text>
@@ -162,10 +170,15 @@ export default function ResultPage() {
           <div className='flex flex-row items-center justify-end'>
             <ActionIcon variant='transparent' size='52px' radius='xl'>
               {isSecondLookbookLiked ? (
-                <HeartSharp size={32} onClick={() => handleToggle(secondId)} />
+                <HeartSharp
+                  size={32}
+                  color='red'
+                  onClick={() => handleToggle(secondId)}
+                />
               ) : (
                 <HeartOutline
                   size={32}
+                  color='red'
                   onClick={() => handleToggle(secondId)}
                 />
               )}
@@ -177,31 +190,34 @@ export default function ResultPage() {
       <div className='absolute bottom-2 right-4'>
         <div className='group relative flex flex-col-reverse items-end gap-2'>
           <ActionIcon
-            variant='outline'
+            variant='filled'
             size='52px'
             radius='xl'
             ref={buttnRef}
+            color='black'
             onClick={handleToggleVisible}
           >
-            <Grid size={32} />
+            <Grid color='white' size={32} />
           </ActionIcon>
           {visible && (
             <>
               <ActionIcon
-                variant='outline'
+                variant='filled'
                 size='52px'
                 radius='xl'
+                color='black'
                 onClick={handleCopy}
               >
-                <Copy size={32} />
+                <Copy color='white' size={32} />
               </ActionIcon>
               <ActionIcon
-                variant='outline'
+                variant='filled'
                 size='52px'
                 radius='xl'
+                color='black'
                 onClick={handleCapture}
               >
-                <Capture size={32} />
+                <Capture color='white' size={32} />
               </ActionIcon>
             </>
           )}

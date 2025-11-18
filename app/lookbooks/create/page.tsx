@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ActionIcon, Button, Tabs, Text } from '@mantine/core';
+import { ActionIcon, Button, Tabs } from '@mantine/core';
 import { IoChevronBackOutline as Back } from 'react-icons/io5';
 import { useCreateLookbook } from '@/apis/querys/useCreateLookbook';
 import { useUpdateLookbook } from '@/apis/querys/useUpdateLookbook';
@@ -86,7 +86,7 @@ export default function CreateLookbooksPage() {
   };
 
   return (
-    <main className='relative bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center px-10 pb-5 justify-between'>
+    <main className='relative bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center px-10 pb-20 justify-between'>
       <Tabs color='black' value={activeTab} onChange={setActiveTab}>
         <Tabs.List>
           <Tabs.Tab value='first'>{firstLookbook.name || '첫번째 룩'}</Tabs.Tab>
@@ -103,17 +103,7 @@ export default function CreateLookbooksPage() {
           <LookbookForm targetLookbook='second' />
         </Tabs.Panel>
       </Tabs>
-      <div className='w-full flex flex-col gap-[50px] mt-[50px]'>
-        <Button
-          variant='filled'
-          color='blue.9'
-          size='xl'
-          radius='md'
-          onClick={handleSubmit}
-          disabled={!isReadyToSubmit || submitting || isPending}
-        >
-          저장하기
-        </Button>
+      <div className='w-full flex flex-col mt-20'>
         <div className='w-full flex flex-row items-center justify-between'>
           <ActionIcon
             variant='subtle'
@@ -124,7 +114,17 @@ export default function CreateLookbooksPage() {
           >
             <Back size={32} />
           </ActionIcon>
-          <div className='flex flex-col itme-center gap-0.5'>
+          <Button
+            variant='filled'
+            color='blue.9'
+            size='lg'
+            radius='md'
+            onClick={handleSubmit}
+            disabled={!isReadyToSubmit || submitting || isPending}
+          >
+            저장하기
+          </Button>
+          {/* <div className='flex flex-col itme-center gap-0.5'>
             <Text size='sm' c='gray'>
               혹시 누끼(배경 제거) 사진이 없으신가요?
             </Text>
@@ -136,7 +136,7 @@ export default function CreateLookbooksPage() {
             >
               에디터로 이동하기 ➡️
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </main>
