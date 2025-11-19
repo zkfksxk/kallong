@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { ActionIcon, Text } from '@mantine/core';
 import { Notifications, notifications } from '@mantine/notifications';
-import { toPng } from 'html-to-image';
+import { domToPng } from 'modern-screenshot';
 import { IoCopyOutline as Copy } from 'react-icons/io5';
 import { IoGridOutline as Grid } from 'react-icons/io5';
 import { IoCheckmarkCircle as Check } from 'react-icons/io5';
@@ -44,17 +44,13 @@ export default function ResultPage() {
     if (!captureRef.current) return;
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 300));
-
-      const dataUrl = await toPng(captureRef.current, {
+      const dataUrl = await domToPng(captureRef.current, {
         backgroundColor: '#FFFFFF',
-        pixelRatio: 3,
-        cacheBust: true,
-        includeQueryParams: true,
+        scale: 2,
       });
 
       const link = document.createElement('a');
-      link.download = `${2025}.png`;
+      link.download = `${new Date().getFullYear()}.png`;
       link.href = dataUrl;
       link.click();
     } catch (error) {
@@ -138,7 +134,9 @@ export default function ResultPage() {
             결과 확인
           </Text>
           <Text size='xl' fw='bold' c='red'>
-            {remainingTime}
+            {remainingTime === '00:00'
+              ? '투표가 종료되었습니다.'
+              : remainingTime}
           </Text>
         </div>
         <div className='w-full flex flex-col'>
