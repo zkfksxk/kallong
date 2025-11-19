@@ -20,10 +20,11 @@ export default function SettingPage() {
         </Text>
         <Text c='gray.7' size='sm'>
           • 현재 회원가입/로그인 기능이 없어 저장한 룩북은 수정이나 검색이
-          불가능해요! 꼭 URL을 메모해주세요.
+          불가능해요.
+          <span className='font-semibold'> 꼭 URL을 메모해주세요!</span>
         </Text>
         <Text c='gray.7' size='sm'>
-          • 하루가 경과한 룩북은 주기적으로 삭제합니다.
+          • 데이터는 주기적으로 삭제되니 투표 결과는 미리 저장하세요!
         </Text>
       </div>
       <Link href='/' className='mt-5'>
