@@ -27,11 +27,18 @@ export default function SettingPage() {
           • 데이터는 주기적으로 삭제되니 투표 결과는 미리 저장하세요!
         </Text>
       </div>
-      <Link href='/' className='mt-5'>
-        <Button variant='subtle' color='blue.9' size='md' radius='md' p='0'>
-          홈으로 이동하기 ➡️
-        </Button>
-      </Link>
+      <div className='flex flex-col mt-10 gap-1'>
+        <Link href='/' className='mt-5'>
+          <Button variant='subtle' color='blue.9' size='md' radius='md' p='0'>
+            홈으로 이동하기 ➡️
+          </Button>
+        </Link>
+        <Link href='https://naver.me/xE6S9jbW' className='mt-5'>
+          <Button variant='subtle' color='blue.9' size='md' radius='md' p='0'>
+            의견 제안하기 ➡️
+          </Button>
+        </Link>
+      </div>
     </main>
   );
 }
