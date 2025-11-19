@@ -18,6 +18,7 @@ import { useToggleLookbookLike } from '@/apis/querys/useToggleLookbookLike';
 import { ResultImage } from '@/components/lookbooks/result/result-image';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useRemainingTime } from '@/hooks/useRemainingTime';
+import { hanna } from '@/shared/common/theme';
 
 export default function ResultPage() {
   const [visible, setVisible] = useState(false);
@@ -43,9 +44,11 @@ export default function ResultPage() {
     if (!captureRef.current) return;
 
     try {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+
       const dataUrl = await toPng(captureRef.current, {
         backgroundColor: '#FFFFFF',
-        pixelRatio: 2,
+        pixelRatio: 3,
         cacheBust: true,
         includeQueryParams: true,
       });
@@ -162,7 +165,16 @@ export default function ResultPage() {
             <Text size='xl'>{firstLookbook.votes}</Text>
           </div>
         </div>
-        <div className='w-full flex flex-col mt-[40px]'>
+        <Text
+          style={{
+            fontFamily: hanna.style.fontFamily,
+            fontSize: '40pt',
+          }}
+          ta='center'
+        >
+          VS
+        </Text>
+        <div className='w-full flex flex-col'>
           <Text size='xl' fw='bold' className='self-end'>
             {secondLookbook.name}
           </Text>

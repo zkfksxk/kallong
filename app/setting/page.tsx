@@ -14,6 +14,18 @@ export default function SettingPage() {
       <Text c='black' size='md'>
         프로젝트가 재미있었다면 주변에 많이많이 홍보해주세요.☺
       </Text>
+      <div className='mt-4 p-4 bg-gray-50 rounded-lg'>
+        <Text c='black' size='sm' className='font-bold mb-2'>
+          주의사항
+        </Text>
+        <Text c='gray.7' size='sm'>
+          • 현재 회원가입/로그인 기능이 없어 저장한 룩북은 수정이나 검색이
+          불가능해요! 꼭 URL을 메모해주세요.
+        </Text>
+        <Text c='gray.7' size='sm'>
+          • 하루가 경과한 룩북은 주기적으로 삭제합니다.
+        </Text>
+      </div>
       <Link href='/' className='mt-5'>
         <Button variant='subtle' color='blue.9' size='md' radius='md' p='0'>
           홈으로 이동하기 ➡️

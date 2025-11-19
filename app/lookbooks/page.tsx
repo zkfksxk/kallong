@@ -49,7 +49,7 @@ export default function LookbooksPage() {
   };
 
   return (
-    <main className='bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center px-20 gap-15'>
+    <main className='bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center px-15 gap-15'>
       <div className='w-full flex flex-col gap-5'>
         <TextInput
           label='닉네임'
