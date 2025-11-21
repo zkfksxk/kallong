@@ -13,8 +13,8 @@ export default function LookbooksPage() {
   const [activeTab, setActiveTab] = useState<string | null>('first');
 
   return (
-    <main className='bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center  px-20 gap-10'>
-      <Tabs value={activeTab} onChange={setActiveTab}>
+    <main className='relative bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center px-10 pb-20 justify-between'>
+      <Tabs color='black' value={activeTab} onChange={setActiveTab}>
         <Tabs.List>
           <Tabs.Tab value='first'>{firstLookbook.name || '첫번째 룩'}</Tabs.Tab>
           <Tabs.Tab value='second'>
@@ -30,8 +30,14 @@ export default function LookbooksPage() {
           <LookbookEditor target='second' />
         </Tabs.Panel>
       </Tabs>
-      <Button variant='filed' onClick={() => router.push('/lookbooks/result')}>
-        결과 확인하기
+      <Button
+        variant='filled'
+        color='blue.9'
+        size='lg'
+        radius='md'
+        onClick={() => router.push('/lookbooks/create')}
+      >
+        돌아가기
       </Button>
     </main>
   );

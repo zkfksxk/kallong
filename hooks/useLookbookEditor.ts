@@ -1,18 +1,27 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import imageCompression from 'browser-image-compression';
 import { useRemoveBackground } from '@/apis/querys/useRemoveBackground';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
 import { AccessoryCategory, Outfit } from '@/shared/common/types';
+import { base64ToFile } from '@/shared/common/utils';
 
 export type TargetLookbook = 'first' | 'second';
 export type TargetOutfit = keyof Outfit;
+
+const options = {
+  maxSizeMB: 1,
+  maxWidthOrHeight: 1920,
+  useWebWorker: true,
+};
 
 export function useLookbookEditor(
   targetLookbook: TargetLookbook,
   targetOutfit: TargetOutfit,
   category?: AccessoryCategory
 ) {
+  const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const {
     firstLookbook,
@@ -68,9 +77,10 @@ export function useLookbookEditor(
 
   const handleRemoveFileAndFinalUrl = () =>
     setFileAndFinalUrl(undefined, undefined);
+
   const handleRemove = () => setUrl(undefined);
 
-  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.currentTarget;
     const file = input.files?.[0];
     if (!file) return;
@@ -89,21 +99,29 @@ export function useLookbookEditor(
       }
     }
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const url = URL.createObjectURL(file);
+    try {
+      // 이미지 압축
+      const compressedFile = await imageCompression(file, options);
+      const compressedUrl = URL.createObjectURL(compressedFile);
+
       if (targetOutfit === 'finalUrl') {
-        setFileAndFinalUrl(file, url);
+        setFileAndFinalUrl(compressedFile, compressedUrl);
       } else {
-        setUrl(url);
+        setUrl(compressedUrl);
       }
-      input.value = '';
-    };
-    reader.readAsDataURL(file);
+    } catch (error) {
+      console.error('Image compression failed:', error);
+      alert('이미지 업로드 중 오류가 발생했습니다.');
+    } finally {
+      setIsLoading(false); // 로딩 종료
+      input.value = ''; // 입력 초기화
+    }
   };
 
   const handleRemoveBackground = async () => {
     if (!url) return;
+
+    setIsLoading(true);
 
     try {
       const blob = await fetch(url).then((res) => res.blob());
@@ -113,24 +131,21 @@ export function useLookbookEditor(
       formData.append('image', file);
 
       const data = await removeBgAsync(file);
-      // const res = await fetch('http://localhost:4000/api/remove-bg', {
-      //   method: 'POST',
-      //   body: formData,
-      // });
-      // if (!res.ok) throw new Error('remove-bg failed');
-
-      // const data = await res.json();
       const newUrl = `data:image/png;base64,${data.image}`;
-      setUrl(newUrl);
+      const newFile = base64ToFile(data.image);
+      setFileAndFinalUrl(newFile, newUrl);
     } catch (err) {
       console.error(err);
       alert('배경 제거 중 오류가 발생했습니다.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return {
     fileInputRef,
     url,
+    isLoading,
     handleOpenImagePicker,
     handleUpload,
     handleRemove,

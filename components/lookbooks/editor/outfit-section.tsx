@@ -4,7 +4,10 @@ import { Outfit } from '@/shared/common/types';
 
 type Props = {
   targetLookbook: TargetLookbook;
-  targetOutfit: keyof Pick<Outfit, 'topUrl' | 'bottomUrl' | 'shoesUrl'>;
+  targetOutfit: keyof Pick<
+    Outfit,
+    'finalUrl' | 'topUrl' | 'bottomUrl' | 'shoesUrl'
+  >;
   title: string;
 };
 
@@ -12,6 +15,7 @@ export function OutfitSection({ targetLookbook, targetOutfit, title }: Props) {
   const {
     fileInputRef,
     url,
+    isLoading,
     handleOpenImagePicker,
     handleUpload,
     handleRemove,
@@ -29,17 +33,26 @@ export function OutfitSection({ targetLookbook, targetOutfit, title }: Props) {
         className='hidden'
       />
       <div className='flex gap-2'>
-        <Button variant='outline' onClick={handleOpenImagePicker}>
+        <Button
+          variant='outline'
+          disabled={!!url}
+          onClick={handleOpenImagePicker}
+        >
           추가
         </Button>
         <Button
           variant='outline'
           onClick={handleRemoveBackground}
-          disabled={!url}
+          disabled={isLoading || !url}
+          loading={isLoading}
         >
           배경 제거
         </Button>
-        <Button variant='outline' onClick={handleRemove} disabled={!url}>
+        <Button
+          variant='outline'
+          onClick={handleRemove}
+          disabled={isLoading || !url}
+        >
           사진 제거
         </Button>
       </div>

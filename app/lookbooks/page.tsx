@@ -61,13 +61,13 @@ export default function LookbooksPage() {
           label='첫 번째 룩'
           value={firstName}
           onChange={(e) => setFirstName(e.currentTarget.value)}
-          placeholder='꾸꾸'
+          placeholder='출근룩-A'
         />
         <TextInput
           label='두 번째 룩'
           value={secondName}
           onChange={(e) => setSecondName(e.currentTarget.value)}
-          placeholder='안꾸꾸'
+          placeholder='출근룩-B'
         />
       </div>
 

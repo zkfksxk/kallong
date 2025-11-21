@@ -98,7 +98,7 @@ export const THEME = createTheme({
           fontWeight: 700,
         },
         panel: {
-          marginTop: '32px',
+          marginTop: '20px',
           padding: 0,
         },
       },

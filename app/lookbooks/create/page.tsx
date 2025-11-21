@@ -9,6 +9,10 @@ import { useUpdateLookbook } from '@/apis/querys/useUpdateLookbook';
 import { CreateImage } from '@/components/lookbooks/create/create-image';
 import { LookbookForm } from '@/components/lookbooks/create/lookbook-form';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
+import {
+  MAX_FILE_SIZE_BYTES,
+  MAX_FILE_SIZE_MB,
+} from '@/shared/common/constants';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 
 export default function CreateLookbooksPage() {
@@ -31,7 +35,7 @@ export default function CreateLookbooksPage() {
 
     const { data: uploadData, error: uploadError } = await supabase.storage
       .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
-      .upload(filePath, file, { upsert: true });
+      .upload(filePath, file, { upsert: true }); // upset: true 존재x -> insert, 존재o -> update
 
     if (uploadError) {
       console.log('upload fail', uploadError);
@@ -50,7 +54,21 @@ export default function CreateLookbooksPage() {
   const handleSubmit = async () => {
     if (submitting) return;
     setSubmitting(true);
-    //2개의 Lookbook생성후 id 받음.
+    //2개의 Lookbook생성후 id 받음. const MAX_FILE_SIZE_MB = 10;
+    const file1 = firstLookbook.data.finalFile;
+    const file2 = secondLookbook.data.finalFile;
+
+    if (
+      file1!.size > MAX_FILE_SIZE_BYTES ||
+      file2!.size > MAX_FILE_SIZE_BYTES
+    ) {
+      alert(
+        `파일 크기가 ${MAX_FILE_SIZE_MB}MB를 초과했습니다. 업로드할 수 없습니다.`
+      );
+      setSubmitting(false);
+      return;
+    }
+
     try {
       const firstLookbookProps = {
         nickname: firstLookbook.nickname,
@@ -76,7 +94,6 @@ export default function CreateLookbooksPage() {
         updateMutate({ id: secondData.id, image_url: secondImageUrl! }),
       ]);
 
-      //result 페이지로 리디렉션
       router.push(`/lookbooks/result/${firstData.id}/${secondData.id}`);
     } catch (error) {
       console.error('룩북 생성 중 오류 발생:', error);
@@ -103,27 +120,20 @@ export default function CreateLookbooksPage() {
           <LookbookForm targetLookbook='second' />
         </Tabs.Panel>
       </Tabs>
-      <div className='w-full flex flex-col mt-20'>
-        <div className='w-full flex flex-row items-center justify-between'>
+
+      <div className='w-full flex flex-col'>
+        <div className='w-full flex flex-row items-center justify-between mt-20'>
           <ActionIcon
             variant='subtle'
             size='xl'
             radius='md'
             title='뒤로가기'
-            onClick={() => router.back()}
+            disabled={submitting}
+            onClick={() => router.push('/lookbooks')}
           >
             <Back size={32} />
           </ActionIcon>
-          <Button
-            variant='filled'
-            color='blue.9'
-            size='lg'
-            radius='md'
-            onClick={handleSubmit}
-            disabled={!isReadyToSubmit || submitting || isPending}
-          >
-            저장하기
-          </Button>
+
           {/* <div className='flex flex-col itme-center gap-0.5'>
             <Text size='sm' c='gray'>
               혹시 누끼(배경 제거) 사진이 없으신가요?
@@ -132,11 +142,21 @@ export default function CreateLookbooksPage() {
               variant='subtle'
               size='sm'
               onClick={() => router.push('/lookbooks/editor')}
-              className='mt-1'
             >
               에디터로 이동하기 ➡️
             </Button>
           </div> */}
+          <Button
+            variant='filled'
+            color='blue.9'
+            size='lg'
+            radius='md'
+            onClick={handleSubmit}
+            disabled={!isReadyToSubmit || submitting || isPending}
+            loading={submitting}
+          >
+            저장하기
+          </Button>
         </div>
       </div>
     </main>
