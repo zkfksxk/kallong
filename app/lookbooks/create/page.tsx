@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ActionIcon, Button, Tabs, Text } from '@mantine/core';
 import { IoChevronBackOutline as Back } from 'react-icons/io5';
@@ -19,12 +19,18 @@ export default function CreateLookbooksPage() {
   const [activeTab, setActiveTab] = useState<string | null>('first');
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
-  const { firstLookbook, secondLookbook } = useLookbookStore((s) => s);
+  const { firstLookbook, secondLookbook, reset } = useLookbookStore((s) => s);
   const { mutateAsync: createMutate, isPending } = useCreateLookbook();
   const { mutateAsync: updateMutate } = useUpdateLookbook();
 
   const isReadyToSubmit =
     firstLookbook.data.finalUrl && secondLookbook.data.finalUrl;
+
+  useEffect(() => {
+    return () => {
+      reset();
+    };
+  }, [reset]);
 
   const uploadFile = async (lookbookId: string, file: File) => {
     const supabase = createSupabaseBrowserClient();
