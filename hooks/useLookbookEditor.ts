@@ -113,7 +113,7 @@ export function useLookbookEditor(
       console.error('Image compression failed:', error);
       alert('이미지 업로드 중 오류가 발생했습니다.');
     } finally {
-      setIsLoading(false); // 로딩 종료
+      setIsLoading(false);
       input.value = ''; // 입력 초기화
     }
   };
@@ -130,7 +130,6 @@ export function useLookbookEditor(
       const formData = new FormData();
       formData.append('image', file);
 
-      console.log('배경제거전 파일 사이즈: ', file);
       const data = await removeBgAsync(file);
       const newUrl = `data:image/png;base64,${data.image}`;
       const newFile = base64ToFile(data.image);

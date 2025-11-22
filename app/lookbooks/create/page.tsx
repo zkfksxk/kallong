@@ -54,7 +54,7 @@ export default function CreateLookbooksPage() {
   const handleSubmit = async () => {
     if (submitting) return;
     setSubmitting(true);
-    //2개의 Lookbook생성후 id 받음. const MAX_FILE_SIZE_MB = 10;
+    //2개의 Lookbook생성후 id 받음. MAX_FILE_SIZE_MB = 10;
     const file1 = firstLookbook.data.finalFile;
     const file2 = secondLookbook.data.finalFile;
 
@@ -62,9 +62,7 @@ export default function CreateLookbooksPage() {
       file1!.size > MAX_FILE_SIZE_BYTES ||
       file2!.size > MAX_FILE_SIZE_BYTES
     ) {
-      alert(
-        `파일 크기가 ${MAX_FILE_SIZE_MB}MB를 초과했습니다. 업로드할 수 없습니다.`
-      );
+      alert(`파일 크기가 ${MAX_FILE_SIZE_MB}MB를 초과해 업로드할 수 없습니다.`);
       setSubmitting(false);
       return;
     }

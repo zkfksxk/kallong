@@ -27,8 +27,9 @@ export default function SettingPage() {
           • 데이터는 주기적으로 삭제되니 투표 결과는 미리 저장하세요!
         </Text>
         <Text c='gray.7' size='sm'>
-          • 누끼 사진은 저장되지 않아요. 무료 모델 기반이라 간단한 이미지 처리에
-          적합합니다.
+          • 누끼 사진은 저장되지 않습니다. 무료 모델 기반이라 간단한 배경의
+          이미지에 최적화되어 있습니다. 서버 용량 제한으로 간헐적 오류가 발생할
+          수 있으니 양해 부탁드립니다.
         </Text>
       </div>
       <div className='flex flex-col mt-10 gap-1'>
