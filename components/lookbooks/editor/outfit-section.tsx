@@ -42,18 +42,18 @@ export function OutfitSection({ targetLookbook, targetOutfit, title }: Props) {
         </Button>
         <Button
           variant='outline'
+          onClick={handleRemove}
+          disabled={isLoading || !url}
+        >
+          제거
+        </Button>
+        <Button
+          variant='outline'
           onClick={handleRemoveBackground}
           disabled={isLoading || !url}
           loading={isLoading}
         >
           배경 제거
-        </Button>
-        <Button
-          variant='outline'
-          onClick={handleRemove}
-          disabled={isLoading || !url}
-        >
-          사진 제거
         </Button>
       </div>
     </div>

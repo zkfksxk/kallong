@@ -120,16 +120,17 @@ export function useLookbookEditor(
 
   const handleRemoveBackground = async () => {
     if (!url) return;
-
     setIsLoading(true);
 
     try {
-      const blob = await fetch(url).then((res) => res.blob());
-      const file = new File([blob], 'image.png', { type: blob.type });
+      // const blob = await fetch(url).then((res) => res.blob());
+      // const file = new File([blob], 'image.png', { type: blob.type });
 
+      const file = lookbook.data.finalFile!;
       const formData = new FormData();
       formData.append('image', file);
 
+      console.log('배경제거전 파일 사이즈: ', file);
       const data = await removeBgAsync(file);
       const newUrl = `data:image/png;base64,${data.image}`;
       const newFile = base64ToFile(data.image);

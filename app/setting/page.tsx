@@ -12,7 +12,7 @@ export default function SettingPage() {
         룩북을 올리면 12시간 동안 투표할 수 있습니다!
       </Text>
       <Text c='black' size='md'>
-        프로젝트가 재미있었다면 주변에 많이많이 홍보해주세요.☺
+        프로젝트가 재미있었다면 주변에 많이 홍보해주세요.☺
       </Text>
       <div className='mt-4 p-4 bg-gray-50 rounded-lg'>
         <Text c='black' size='sm' className='font-bold mb-2'>
@@ -25,6 +25,10 @@ export default function SettingPage() {
         </Text>
         <Text c='gray.7' size='sm'>
           • 데이터는 주기적으로 삭제되니 투표 결과는 미리 저장하세요!
+        </Text>
+        <Text c='gray.7' size='sm'>
+          • 누끼 사진은 저장되지 않아요. 무료 모델 기반이라 간단한 이미지 처리에
+          적합합니다.
         </Text>
       </div>
       <div className='flex flex-col mt-10 gap-1'>
