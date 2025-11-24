@@ -1,8 +1,9 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { ActionIcon, Text } from '@mantine/core';
+import { ActionIcon, Button, Text } from '@mantine/core';
 import { Notifications, notifications } from '@mantine/notifications';
 import { domToPng } from 'modern-screenshot';
 import { IoCopyOutline as Copy } from 'react-icons/io5';
@@ -30,10 +31,16 @@ export default function ResultPage() {
   const notificationsRef = useRef<HTMLDivElement>(null);
   const buttnRef = useOutsideClick<HTMLButtonElement>(() => setVisible(false));
   const { mutate: toggleMutate } = useToggleLookbookLike();
-  const { data: firstLookbook, isLoading: firstLoading } =
-    useGetLookbook(firstId);
-  const { data: secondLookbook, isLoading: secondLoading } =
-    useGetLookbook(secondId);
+  const {
+    data: firstLookbook,
+    isLoading: firstLoading,
+    error: firstError,
+  } = useGetLookbook(firstId);
+  const {
+    data: secondLookbook,
+    isLoading: secondLoading,
+    error: secondError,
+  } = useGetLookbook(secondId);
   const { data: isFirstLookbookLiked } = useCheckLookbookLiked(firstId);
   const { data: isSecondLookbookLiked } = useCheckLookbookLiked(secondId);
   const remainingTime = useRemainingTime(firstLookbook?.created_at);
@@ -117,6 +124,19 @@ export default function ResultPage() {
         <Text size='xl' c='gray'>
           룩북을 불러오는 중...
         </Text>
+      </main>
+    );
+  }
+
+  if (firstError || secondError) {
+    return (
+      <main className=' bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center gap-2'>
+        <Text size='xl' c='gray'>
+          데이터 조회 실패...
+        </Text>
+        <Button component={Link} href='/' size='md' px='xl'>
+          홈으로
+        </Button>
       </main>
     );
   }
