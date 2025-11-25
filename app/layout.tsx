@@ -10,8 +10,9 @@ import '@mantine/notifications/styles.css';
 import { Analytics } from '@vercel/analytics/next';
 import { Footer } from '@/components/layouts/footer';
 import { Header } from '@/components/layouts/header';
-import { LookbookStoreProvider } from '@/hooks/lookbook-provider';
-import TanstackQueryProvider from '@/hooks/tanstackquery-provider';
+import { LookbookStoreProvider } from '@/hooks/provider/lookbook-provider';
+import { SessionStoreProvider } from '@/hooks/provider/session-provider';
+import TanstackQueryProvider from '@/hooks/provider/tanstackquery-provider';
 import { SITE_CONFIG } from '@/shared/common/constants';
 import { THEME } from '@/shared/common/theme';
 import './globals.css';
@@ -58,11 +59,13 @@ export default function RootLayout({
         <TanstackQueryProvider>
           <MantineProvider theme={THEME}>
             <Notifications />
-            <LookbookStoreProvider>
-              <Header />
-              {children}
-              <Footer />
-            </LookbookStoreProvider>
+            <SessionStoreProvider>
+              <LookbookStoreProvider>
+                <Header />
+                {children}
+                <Footer />
+              </LookbookStoreProvider>
+            </SessionStoreProvider>
           </MantineProvider>
         </TanstackQueryProvider>
         <Analytics />

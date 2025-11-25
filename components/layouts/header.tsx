@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { IoSettingsOutline as SettingIcon } from 'react-icons/io5';
+import { IoSettingsOutline as Setting } from 'react-icons/io5';
+import { IoPersonOutline as Person } from 'react-icons/io5';
 
 export const Header = () => {
   return (
@@ -14,10 +15,14 @@ export const Header = () => {
         px-5 
         mx-auto
         bg-white
+        gap-3
         '
     >
+      <Link href='/mypage'>
+        <Person color='black' size={28} style={{ cursor: 'pointer' }} />
+      </Link>
       <Link href='/setting'>
-        <SettingIcon color='black' size={32} style={{ cursor: 'pointer' }} />
+        <Setting color='black' size={28} style={{ cursor: 'pointer' }} />
       </Link>
     </header>
   );

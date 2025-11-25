@@ -8,7 +8,7 @@ import { useCreateLookbook } from '@/apis/querys/useCreateLookbook';
 import { useUpdateLookbook } from '@/apis/querys/useUpdateLookbook';
 import { CreateImage } from '@/components/lookbooks/create/create-image';
 import { LookbookForm } from '@/components/lookbooks/create/lookbook-form';
-import { useLookbookStore } from '@/hooks/lookbook-provider';
+import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
