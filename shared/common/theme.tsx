@@ -55,6 +55,7 @@ export const THEME = createTheme({
     lg: '1.125rem', //18px
     xl: '1.25rem', //20px
     xxl: '1.5rem', //24px
+    '2xl': '1.75rem', //28px
   },
   colors: {
     black: colorsTuple('#141414'),
@@ -66,7 +67,7 @@ export const THEME = createTheme({
     TextInput: {
       styles: {
         label: {
-          fontSize: '20px',
+          fontSize: '20px', //xl
           fontWeight: 700,
         },
         wrapper: {
@@ -75,7 +76,7 @@ export const THEME = createTheme({
         },
         input: {
           height: '100%',
-          fontSize: '16px',
+          fontSize: '16px', //md
           padding: '0 12px',
         },
       },
@@ -94,7 +95,7 @@ export const THEME = createTheme({
           textAlign: 'center',
         },
         tabLabel: {
-          fontSize: '20px',
+          fontSize: '20px', //xl
           fontWeight: 700,
         },
         panel: {

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Button, Text } from '@mantine/core';
+import { Text } from '@mantine/core';
 
 export default function SettingPage() {
   return (
@@ -34,14 +34,14 @@ export default function SettingPage() {
       </div>
       <div className='flex flex-col mt-10 gap-1'>
         <Link href='/' className='mt-5'>
-          <Button variant='subtle' color='blue.9' size='md' radius='md' p='0'>
+          <Text c='black' size='sm'>
             홈으로 이동하기 ➡️
-          </Button>
+          </Text>
         </Link>
         <Link href='https://naver.me/xE6S9jbW' className='mt-5'>
-          <Button variant='subtle' color='blue.9' size='md' radius='md' p='0'>
+          <Text c='black' size='sm'>
             의견 제안하기 ➡️
-          </Button>
+          </Text>
         </Link>
       </div>
     </main>

@@ -12,6 +12,7 @@ import { Footer } from '@/components/layouts/footer';
 import { Header } from '@/components/layouts/header';
 import { LookbookStoreProvider } from '@/hooks/lookbook-provider';
 import TanstackQueryProvider from '@/hooks/tanstackquery-provider';
+import CLIENT_THEME from '@/shared/common/clientTheme';
 import { SITE_CONFIG } from '@/shared/common/constants';
 import { THEME } from '@/shared/common/theme';
 import './globals.css';
@@ -49,6 +50,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const mergedTheme = {
+    ...THEME,
+    components: {
+      ...THEME.components,
+      ...CLIENT_THEME.components,
+    },
+  };
+
   return (
     <html lang='en' {...mantineHtmlProps}>
       <head>
@@ -56,7 +65,7 @@ export default function RootLayout({
       </head>
       <body>
         <TanstackQueryProvider>
-          <MantineProvider theme={THEME}>
+          <MantineProvider theme={mergedTheme}>
             <Notifications />
             <LookbookStoreProvider>
               <Header />

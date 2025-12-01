@@ -7,9 +7,9 @@ export default function Home() {
     <main className='bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center px-20 gap-15'>
       <Text
         style={{
-          fontFamily: hanna.style.fontFamily,
-          fontSize: '40pt',
+          fontSize: '4rem',
           whiteSpace: 'nowrap',
+          fontFamily: hanna.style.fontFamily,
         }}
       >
         내일 뭐 입지?
