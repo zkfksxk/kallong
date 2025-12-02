@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Text } from '@mantine/core';
 
@@ -27,22 +29,29 @@ export default function SettingPage() {
           • 데이터는 주기적으로 삭제되니 투표 결과는 미리 저장하세요!
         </Text>
         <Text c='gray.7' size='sm'>
-          • 누끼 사진은 저장되지 않습니다. 무료 모델 기반이라 간단한 배경의
-          이미지에 최적화되어 있습니다. 서버 용량 제한으로 간헐적 오류가 발생할
-          수 있으니 양해 부탁드립니다.
+          • 피드백이 적극 환영합니다. 폼에 남겨주시거나 커피 기부 시 메시지를
+          남겨주세요. 최대한 반영하겠습니다!
         </Text>
       </div>
-      <div className='flex flex-col mt-10 gap-1'>
-        <Link href='/' className='mt-5'>
+      <div className='flex flex-col mt-10 gap-5'>
+        <Link href='/'>
           <Text c='black' size='sm'>
             홈으로 이동하기 ➡️
           </Text>
         </Link>
-        <Link href='https://naver.me/xE6S9jbW' className='mt-5'>
+        <Link href='https://naver.me/xE6S9jbW'>
           <Text c='black' size='sm'>
             의견 제안하기 ➡️
           </Text>
         </Link>
+        <a
+          href='https://buymeacoffee.com/karanta'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='bg-[#e62d2d] text-white w-[180px] text-center px-4 py-2 rounded-md'
+        >
+          ☕ Buy me a coffee
+        </a>
       </div>
     </main>
   );
