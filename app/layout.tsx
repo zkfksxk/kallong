@@ -8,6 +8,7 @@ import '@mantine/core/styles.css';
 import { Notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
 import { Analytics } from '@vercel/analytics/next';
+import { GoogleAdSense } from '@/components/google-adsense';
 import { Footer } from '@/components/layouts/footer';
 import { Header } from '@/components/layouts/header';
 import { LookbookStoreProvider } from '@/hooks/lookbook-provider';
@@ -62,11 +63,7 @@ export default function RootLayout({
     <html lang='en' {...mantineHtmlProps}>
       <head>
         <ColorSchemeScript />
-        <script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-${process.env.NEXT_PUBLIC_GOOGLE_ADS}`}
-          crossOrigin='anonymous'
-        ></script>
+        <GoogleAdSense />
       </head>
       <body>
         <TanstackQueryProvider>
