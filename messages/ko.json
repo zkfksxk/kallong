@@ -34,6 +34,9 @@
       "removeBgButton": "배경 제거",
       "tabFinalUrl": "이미지",
       "finalUrlTitle": "이미지를 추가해보세요!"
+    },
+    "result": {
+      "title": "결과 확인"
     }
   }
 }
