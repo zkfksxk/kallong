@@ -1,7 +1,6 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { randomUUID } from 'crypto';
 import { type Lookbook } from '@/shared/common/types';
 import { type Database } from '@/shared/supabase/database.types';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
@@ -17,7 +16,7 @@ export const createLookbook = async (lookbookData: Partial<Lookbook>) => {
   if (!anon_id) {
     cookieStore.set({
       name: 'anon_id',
-      value: randomUUID(),
+      value: crypto.randomUUID(),
       httpOnly: true,
       secure: true,
       sameSite: 'lax',
@@ -37,7 +36,7 @@ export const createLookbook = async (lookbookData: Partial<Lookbook>) => {
     .single();
 
   if (error) {
-    console.log('create');
+    console.log('create', lookbookData, anon_id);
     handleError(error);
   }
   return data;
@@ -54,6 +53,18 @@ export const upadateLookbook = async ({
   const cookieStore = await cookies();
   const anon_id = cookieStore.get('anon_id')?.value;
 
+  if (!anon_id) {
+    cookieStore.set({
+      name: 'anon_id',
+      value: crypto.randomUUID(),
+      httpOnly: true,
+      secure: true,
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7, //7일
+    });
+  }
+
   const { data, error } = await supabase
     .rpc('update_lookbook_image', {
       p_lookbook_id: id,
@@ -68,35 +79,6 @@ export const upadateLookbook = async ({
   }
   return data;
 };
-
-// export const createPostWithImages = async ({
-//   lookbookData,
-//   file,
-// }: {
-//   lookbookData: Lookbook;
-//   file: File;
-// }) => {
-//   const lookbook = await createLookbook(lookbookData);
-
-//   try {
-//     const fileExtension = file.name.split('.').pop() || 'webp';
-//     const fileName = `${Date.now()}-${crypto.randomUUID()}.${fileExtension}`;
-//     const filePath = `${lookbook.id}/${fileName}`;
-//     const publicUrl = await uploadFile({
-//       file: file,
-//       filePath: filePath,
-//     });
-
-//     const updatedLookbook = await upadateLookbook({
-//       id: lookbook.id,
-//       image_url: publicUrl,
-//     });
-
-//     return updatedLookbook;
-//   } catch (error) {
-//     handleError(error as Error);
-//   }
-// };
 
 export const getLookbook = async (id: string) => {
   const supabase = await createSupabaseServerClient();
@@ -122,7 +104,7 @@ export const toggleLookbookLike = async (lookbook_id: string) => {
   if (!anon_id) {
     cookieStore.set({
       name: 'anon_id',
-      value: randomUUID(),
+      value: crypto.randomUUID(),
       httpOnly: true,
       secure: true,
       sameSite: 'lax',
@@ -164,6 +146,35 @@ export async function checkLookbookLiked(lookbook_id: string) {
 
   return !!data; // null, undefined => false
 }
+
+// export const createPostWithImages = async ({
+//   lookbookData,
+//   file,
+// }: {
+//   lookbookData: Lookbook;
+//   file: File;
+// }) => {
+//   const lookbook = await createLookbook(lookbookData);
+
+//   try {
+//     const fileExtension = file.name.split('.').pop() || 'webp';
+//     const fileName = `${Date.now()}-${crypto.randomUUID()}.${fileExtension}`;
+//     const filePath = `${lookbook.id}/${fileName}`;
+//     const publicUrl = await uploadFile({
+//       file: file,
+//       filePath: filePath,
+//     });
+
+//     const updatedLookbook = await upadateLookbook({
+//       id: lookbook.id,
+//       image_url: publicUrl,
+//     });
+
+//     return updatedLookbook;
+//   } catch (error) {
+//     handleError(error as Error);
+//   }
+// };
 
 // export async function uploadFile({
 //   file,

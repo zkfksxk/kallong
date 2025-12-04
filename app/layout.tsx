@@ -9,9 +9,6 @@ import { Notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
 import { Analytics } from '@vercel/analytics/next';
 import { GoogleAdSense } from '@/components/google-adsense';
-import { Footer } from '@/components/layouts/footer';
-import { Header } from '@/components/layouts/header';
-import { LookbookStoreProvider } from '@/hooks/lookbook-provider';
 import TanstackQueryProvider from '@/hooks/tanstackquery-provider';
 import CLIENT_THEME from '@/shared/common/clientTheme';
 import { SITE_CONFIG } from '@/shared/common/constants';
@@ -46,7 +43,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -60,7 +57,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang='en' {...mantineHtmlProps}>
+    <html lang='ko' {...mantineHtmlProps}>
       <head>
         <ColorSchemeScript />
         <GoogleAdSense />
@@ -69,11 +66,7 @@ export default function RootLayout({
         <TanstackQueryProvider>
           <MantineProvider theme={mergedTheme}>
             <Notifications />
-            <LookbookStoreProvider>
-              <Header />
-              {children}
-              <Footer />
-            </LookbookStoreProvider>
+            {children}
           </MantineProvider>
         </TanstackQueryProvider>
         <Analytics />

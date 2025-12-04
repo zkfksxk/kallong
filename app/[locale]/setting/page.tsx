@@ -2,8 +2,11 @@
 
 import Link from 'next/link';
 import { Text } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 
 export default function SettingPage() {
+  const t = useTranslations('Setting');
+
   return (
     <main className='relative bg-white max-w-[500px] w-full flex flex-1 flex-col px-10 pb-20 '>
       <Text c='black' size='md'>
@@ -36,12 +39,12 @@ export default function SettingPage() {
       <div className='flex flex-col mt-10 gap-5'>
         <Link href='/'>
           <Text c='black' size='sm'>
-            홈으로 이동하기 ➡️
+            {t('homebutton')} ➡️
           </Text>
         </Link>
         <Link href='https://naver.me/xE6S9jbW'>
           <Text c='black' size='sm'>
-            의견 제안하기 ➡️
+            {t('formbutton')} ➡️
           </Text>
         </Link>
         <a

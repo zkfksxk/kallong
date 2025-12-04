@@ -16,7 +16,7 @@ export const Footer = () => {
       <Text c='black'>
         © {`${new Date().getFullYear()} `}
         <Text span fw={600} c='black'>
-          Karanta{' '}
+          Kallong{' '}
         </Text>
         all rights reserved.
       </Text>

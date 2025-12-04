@@ -1,0 +1,39 @@
+{
+  "Home": {
+    "title": "내일 뭐 입지?",
+    "button": "시작하기"
+  },
+  "Setting": {
+    "homebutton": "홈으로 이동하기",
+    "formbutton": "의견 제안하기"
+  },
+  "Lookbooks": {
+    "main": {
+      "nicknameLabel": "닉네임",
+      "nicknamePlaceholder": "홍길동",
+      "firstLookLabel": "첫 번째 룩",
+      "firstLookPlaceholder": "출근룩-A",
+      "secondLookLabel": "두 번째 룩",
+      "secondLookPlaceholder": "출근룩-B",
+      "decorateButton": "꾸미기"
+    },
+    "create": {
+      "tabFirst": "첫 번째 룩",
+      "tabSecond": "두 번째 룩",
+      "saveButton": "저장하기",
+      "backButton": "뒤로가기",
+      "bgRemoveQuestion": "혹시 누끼(배경 제거) 사진이 없으신가요?",
+      "editorButton": "에디터로 이동하기"
+    },
+    "editor": {
+      "tabFirst": "첫 번째 룩",
+      "tabSecond": "두 번째 룩",
+      "backButton": "뒤로가기",
+      "addButton": "추가",
+      "removeButton": "제거",
+      "removeBgButton": "배경 제거",
+      "tabFinalUrl": "이미지",
+      "finalUrlTitle": "이미지를 추가해보세요!"
+    }
+  }
+}

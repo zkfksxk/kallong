@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Button, TextInput } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
+import { useRouter } from '@/i18n/navigation';
 import { validateInput } from '@/shared/common/utils';
 
 export default function LookbooksPage() {
+  const t = useTranslations('Lookbooks.main');
   const router = useRouter();
   const {
     firstLookbook,
@@ -52,22 +54,22 @@ export default function LookbooksPage() {
     <main className='bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center px-15 gap-15'>
       <div className='w-full flex flex-col gap-5'>
         <TextInput
-          label='닉네임'
+          label={t('nicknameLabel')}
           value={tempNickname}
           onChange={(e) => setTempNickname(e.currentTarget.value)}
-          placeholder='홍길동'
+          placeholder={t('nicknamePlaceholder')}
         />
         <TextInput
-          label='첫 번째 룩'
+          label={t('firstLookLabel')}
           value={firstName}
           onChange={(e) => setFirstName(e.currentTarget.value)}
-          placeholder='출근룩-A'
+          placeholder={t('firstLookPlaceholder')}
         />
         <TextInput
-          label='두 번째 룩'
+          label={t('secondLookLabel')}
           value={secondName}
           onChange={(e) => setSecondName(e.currentTarget.value)}
-          placeholder='출근룩-B'
+          placeholder={t('secondLookPlaceholder')}
         />
       </div>
 
@@ -78,7 +80,7 @@ export default function LookbooksPage() {
         size='lg'
         radius='md'
       >
-        꾸미기
+        {t('decorateButton')}
       </Button>
     </main>
   );

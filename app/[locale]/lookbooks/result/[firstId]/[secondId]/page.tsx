@@ -1,11 +1,11 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { ActionIcon, Button, Text } from '@mantine/core';
+import { ActionIcon, Text } from '@mantine/core';
 import { Notifications, notifications } from '@mantine/notifications';
 import { domToPng } from 'modern-screenshot';
+import { useTranslations } from 'next-intl';
 import { IoCopyOutline as Copy } from 'react-icons/io5';
 import { IoGridOutline as Grid } from 'react-icons/io5';
 import { IoCheckmarkCircle as Check } from 'react-icons/io5';
@@ -19,9 +19,11 @@ import { useToggleLookbookLike } from '@/apis/querys/useToggleLookbookLike';
 import { ResultImage } from '@/components/lookbooks/result/result-image';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useRemainingTime } from '@/hooks/useRemainingTime';
+import { Link } from '@/i18n/navigation';
 import { hanna } from '@/shared/common/theme';
 
 export default function ResultPage() {
+  const t = useTranslations('Lookbooks.result');
   const [visible, setVisible] = useState(false);
   const captureRef = useRef<HTMLDivElement>(null);
   const { firstId, secondId } = useParams<{
@@ -134,9 +136,7 @@ export default function ResultPage() {
         <Text size='xl' c='gray'>
           데이터 조회 실패...
         </Text>
-        <Button component={Link} href='/' size='md' px='xl'>
-          홈으로
-        </Button>
+        <Link href='/'>홈으로</Link>
       </main>
     );
   }
@@ -151,7 +151,7 @@ export default function ResultPage() {
       <div ref={captureRef} className='w-full flex flex-col flex-1 pb-20 px-10'>
         <div className='flex flex-col text-center'>
           <Text size='xxl' fw='bold'>
-            결과 확인
+            {t('title')}
           </Text>
           <Text size='xl' fw='bold' c='red'>
             {remainingTime === '00:00'

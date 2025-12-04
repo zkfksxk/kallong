@@ -1,14 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { ActionIcon, Button, Tabs, Text } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 import { IoChevronBackOutline as Back } from 'react-icons/io5';
 import { useCreateLookbook } from '@/apis/querys/useCreateLookbook';
 import { useUpdateLookbook } from '@/apis/querys/useUpdateLookbook';
 import { CreateImage } from '@/components/lookbooks/create/create-image';
 import { LookbookForm } from '@/components/lookbooks/create/lookbook-form';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
+import { useRouter } from '@/i18n/navigation';
 import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
@@ -16,6 +17,7 @@ import {
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 
 export default function CreateLookbooksPage() {
+  const t = useTranslations('Lookbooks.create');
   const [activeTab, setActiveTab] = useState<string | null>('first');
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
@@ -25,12 +27,6 @@ export default function CreateLookbooksPage() {
 
   const isReadyToSubmit =
     firstLookbook.data.finalUrl && secondLookbook.data.finalUrl;
-
-  useEffect(() => {
-    return () => {
-      reset();
-    };
-  }, [reset]);
 
   const uploadFile = async (lookbookId: string, file: File) => {
     const supabase = createSupabaseBrowserClient();
@@ -102,6 +98,7 @@ export default function CreateLookbooksPage() {
     } catch (error) {
       console.error('룩북 생성 중 오류 발생:', error);
     } finally {
+      reset();
       setSubmitting(false);
     }
   };
@@ -110,9 +107,11 @@ export default function CreateLookbooksPage() {
     <main className='relative bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center px-10 pb-20 justify-between'>
       <Tabs color='black' value={activeTab} onChange={setActiveTab}>
         <Tabs.List>
-          <Tabs.Tab value='first'>{firstLookbook.name || '첫번째 룩'}</Tabs.Tab>
+          <Tabs.Tab value='first'>
+            {firstLookbook.name || t('tabFirst')}
+          </Tabs.Tab>
           <Tabs.Tab value='second'>
-            {secondLookbook.name || '두번째 룩'}
+            {secondLookbook.name || t('tabSecond')}
           </Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value='first' pt='md'>
@@ -135,14 +134,14 @@ export default function CreateLookbooksPage() {
           disabled={!isReadyToSubmit || submitting || isPending}
           loading={submitting}
         >
-          저장하기
+          {t('saveButton')}
         </Button>
         <div className='w-full flex flex-row items-center justify-between mt-20'>
           <ActionIcon
             variant='subtle'
             size='xl'
             radius='md'
-            title='뒤로가기'
+            title={t('backButton')}
             disabled={submitting}
             onClick={() => router.push('/lookbooks')}
           >
@@ -151,14 +150,14 @@ export default function CreateLookbooksPage() {
 
           <div className='flex flex-col itme-center gap-0.5'>
             <Text size='sm' c='gray'>
-              혹시 누끼(배경 제거) 사진이 없으신가요?
+              {t('bgRemoveQuestion')}
             </Text>
             <Button
               variant='subtle'
               size='sm'
               onClick={() => router.push('/lookbooks/editor')}
             >
-              에디터로 이동하기 ➡️
+              {t('editorButton')} ➡️
             </Button>
           </div>
         </div>

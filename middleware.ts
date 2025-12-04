@@ -1,16 +1,19 @@
-import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { randomUUID } from 'crypto';
+import createIntlMiddleware from 'next-intl/middleware';
+import { routing } from './i18n/routing';
+
+const nextIntlMiddleware = createIntlMiddleware(routing);
 
 export function middleware(req: NextRequest) {
-  const res = NextResponse.next();
+  const res = nextIntlMiddleware(req);
+  const token = crypto.randomUUID();
 
   const anonId = req.cookies.get('anon_id')?.value;
 
   if (!anonId) {
     res.cookies.set({
       name: 'anon_id',
-      value: randomUUID(),
+      value: token,
       httpOnly: true,
       secure: true,
       sameSite: 'lax',
@@ -22,5 +25,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/*', '/api/:path*'],
+  matcher: ['/', '/(ko|en)/:path*', '/api/:path*'],
 };
