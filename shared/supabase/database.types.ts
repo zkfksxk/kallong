@@ -47,6 +47,30 @@ export type Database = {
         };
         Relationships: [];
       };
+      profile: {
+        Row: {
+          created_at: string;
+          email: string;
+          id: string;
+          nickname: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          email: string;
+          id?: string;
+          nickname?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          email?: string;
+          id?: string;
+          nickname?: string | null;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       votes_log: {
         Row: {
           created_at: string;
@@ -81,6 +105,7 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      generate_random_nickname: { Args: never; Returns: string };
       lookbook_like: {
         Args: { p_anon_id: string; p_lookbook_id: string };
         Returns: boolean;

@@ -6,7 +6,7 @@ export const Footer = () => {
       className='
         w-full 
         max-w-[500px] 
-        h-[80px] 
+        h-20
         bg-[#e1e5eb]
         flex 
         items-center 
@@ -16,7 +16,7 @@ export const Footer = () => {
       <Text c='black'>
         © {`${new Date().getFullYear()} `}
         <Text span fw={600} c='black'>
-          Karanta{' '}
+          Kallong{' '}
         </Text>
         all rights reserved.
       </Text>

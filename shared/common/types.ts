@@ -36,3 +36,22 @@ export type Vote = {
   firstLookbook: Lookbook;
   secondLookbook: Lookbook;
 };
+
+export type SignInForm = {
+  email: string;
+  password: string;
+};
+
+export type SignUpForm = {
+  email: string;
+  password: string;
+  nickname: string;
+};
+
+export type Profile = {
+  id: string;
+  email: string;
+  nickname: string;
+  created_at: string;
+  updated_at: string;
+};

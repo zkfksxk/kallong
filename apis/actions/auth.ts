@@ -1,7 +1,16 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { AuthApiError } from '@supabase/supabase-js';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
+import { handleAuthErrorMessage } from '../AxiosObj';
+
+export type AuthError = {
+  success: false;
+  code: string;
+  message: string;
+};
 
 const getURL = () => {
   let url =
@@ -12,20 +21,29 @@ const getURL = () => {
   url = url.startsWith('http') ? url : `https://${url}`;
   // Make sure to include a trailing `/`.
   url = url.endsWith('/') ? url : `${url}/`;
+
   return url;
 };
 
 export async function signUp({
   email,
   password,
+  nickname,
 }: {
   email: string;
   password: string;
+  nickname: string;
 }) {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      emailRedirectTo: `${getURL()}/auth/callback`,
+      data: {
+        nickname,
+      },
+    },
   });
 
   if (error) {
@@ -49,9 +67,24 @@ export async function signInWithPassword({
   });
 
   if (error) {
-    throw error;
-  }
+    if (error instanceof AuthApiError) {
+      const errorData: AuthError = {
+        success: false,
+        code: error.code ?? '',
+        message: handleAuthErrorMessage(error),
+      };
+      throw new Error(JSON.stringify(errorData));
+    }
 
+    throw new Error(
+      JSON.stringify({
+        success: false,
+        code: 'unknown_error',
+        message: error.message,
+      })
+    );
+  }
+  revalidatePath('/', 'layout');
   return data;
 }
 
@@ -86,16 +119,31 @@ export async function signOut() {
   return { success: true };
 }
 
-export async function getUser() {
+export async function getProfile(userId: string) {
   const supabase = await createSupabaseServerClient();
-  const user = await supabase.auth.getUser();
-  return user?.data?.user;
+  const { data, error } = await supabase
+    .from('profile')
+    .select('*')
+    .eq('id', userId)
+    .single();
+
+  if (error) {
+    if (error.code === 'PGRST116') {
+      return null; //데이터 없음
+    }
+    throw error;
+  }
+
+  return data;
 }
 
-export async function resetPasswordForEmail(email: string) {
+export async function resetPasswordForEmail(
+  email: string,
+  locale: string = 'ko'
+) {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${getURL()}/mypage/password/update`,
+    redirectTo: `${getURL()}/${locale}/auth/password/update`,
   });
 
   if (error) throw error;
@@ -108,6 +156,24 @@ export async function updatePassword(password: string) {
     password,
   });
 
-  if (error) throw error;
+  if (error) {
+    if (error instanceof AuthApiError) {
+      const errorData: AuthError = {
+        success: false,
+        code: error.code ?? '',
+        message: handleAuthErrorMessage(error),
+      };
+      throw new Error(JSON.stringify(errorData));
+    }
+
+    throw new Error(
+      JSON.stringify({
+        success: false,
+        code: 'unknown_error',
+        message: error.message,
+      })
+    );
+  }
+
   return data;
 }

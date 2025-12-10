@@ -8,11 +8,9 @@ import '@mantine/core/styles.css';
 import { Notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
 import { Analytics } from '@vercel/analytics/next';
-import { Footer } from '@/components/layouts/footer';
-import { Header } from '@/components/layouts/header';
-import { LookbookStoreProvider } from '@/hooks/provider/lookbook-provider';
-import { SessionStoreProvider } from '@/hooks/provider/session-provider';
+import { GoogleAdSense } from '@/components/google-adsense';
 import TanstackQueryProvider from '@/hooks/provider/tanstackquery-provider';
+import CLIENT_THEME from '@/shared/common/clientTheme';
 import { SITE_CONFIG } from '@/shared/common/constants';
 import { THEME } from '@/shared/common/theme';
 import './globals.css';
@@ -45,27 +43,30 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const mergedTheme = {
+    ...THEME,
+    components: {
+      ...THEME.components,
+      ...CLIENT_THEME.components,
+    },
+  };
+
   return (
-    <html lang='en' {...mantineHtmlProps}>
+    <html lang='ko' {...mantineHtmlProps}>
       <head>
         <ColorSchemeScript />
+        <GoogleAdSense />
       </head>
       <body>
         <TanstackQueryProvider>
-          <MantineProvider theme={THEME}>
-            <Notifications />
-            <SessionStoreProvider>
-              <LookbookStoreProvider>
-                <Header />
-                {children}
-                <Footer />
-              </LookbookStoreProvider>
-            </SessionStoreProvider>
+          <MantineProvider theme={mergedTheme}>
+            <Notifications position='bottom-center' />
+            {children}
           </MantineProvider>
         </TanstackQueryProvider>
         <Analytics />

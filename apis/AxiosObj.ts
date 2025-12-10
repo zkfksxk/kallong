@@ -1,6 +1,6 @@
 import { AuthError } from '@supabase/supabase-js';
 import axios, { type AxiosInstance } from 'axios';
-import { AUTH_ERROR_MESSAGE_MAP } from '@/shared/common/constants';
+import { AUTH_ERROR_MESSAGE_MAP } from './error';
 
 // export interface CustomError {
 //   code?: number;
@@ -31,8 +31,6 @@ import { AUTH_ERROR_MESSAGE_MAP } from '@/shared/common/constants';
 // };
 
 export const handleAuthErrorMessage = (error: unknown) => {
-  console.log('handleAuthErrorMessage', error);
-
   if (error instanceof AuthError && error.code) {
     return (
       AUTH_ERROR_MESSAGE_MAP[error.code] ??

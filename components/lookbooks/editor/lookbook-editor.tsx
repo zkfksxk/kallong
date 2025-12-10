@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Tabs, Text } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 import { OUTFIT_CATEGORY, OutfitCategory } from '@/shared/common/types';
 import { OutfitSection } from './outfit-section';
 
@@ -9,6 +10,7 @@ type Props = { target: 'first' | 'second' };
 type EditorTabValue = OutfitCategory | 'finalUrl' | 'background';
 
 export const LookbookEditor = ({ target }: Props) => {
+  const t = useTranslations('Lookbooks.editor');
   const [activeTab, setActiveTab] = useState<EditorTabValue | null>('finalUrl');
   // const {
   //   firstLookbook,
@@ -57,7 +59,7 @@ export const LookbookEditor = ({ target }: Props) => {
           <Text>악세사리</Text>
         </Tabs.Tab> */}
         <Tabs.Tab value='finalUrl'>
-          <Text>이미지</Text>
+          <Text>{t('tabFinalUrl')}</Text>
         </Tabs.Tab>
         {/* <Tabs.Tab value='background'>
           <Text>배경</Text>
@@ -91,7 +93,7 @@ export const LookbookEditor = ({ target }: Props) => {
         <OutfitSection
           targetLookbook={target}
           targetOutfit='finalUrl'
-          title='이미지를 추가해보세요!'
+          title={t('finalUrlTitle')}
         />
       </Tabs.Panel>
       {/* <Tabs.Panel value='background' mb='xl'>

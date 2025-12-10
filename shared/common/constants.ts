@@ -10,25 +10,38 @@ export const SITE_CONFIG = {
   image_alt: '내일 뭐 입지?',
 };
 
-export const AUTH_ERROR_MESSAGE_MAP: Record<string, string> = {
-  email_exists: '이미 사용 중인 이메일입니다.',
-  phone_exists: '이미 사용 중인 전화번호입니다.',
-  invalid_credentials: '이메일 또는 비밀번호가 올바르지 않습니다.',
-  user_not_found: '해당 유저를 찾을 수 없습니다.',
-  session_expired: '세션이 만료되었습니다. 다시 로그인해주세요.',
-  email_not_confirmed: '이메일 인증이 필요합니다.',
-  phone_not_confirmed: '전화번호 인증이 필요합니다.',
-  weak_password: '비밀번호가 너무 약합니다.',
-  signup_disabled: '현재 회원가입이 불가능한 상태입니다.',
-  user_already_exists: '이미 가입된 사용자입니다.',
-  captcha_failed: '보안 인증에 실패했습니다. 다시 시도해주세요.',
-  over_email_send_rate_limit:
-    '이메일 전송 한도를 초과했습니다. 잠시 후 다시 시도해주세요.',
-  over_sms_send_rate_limit:
-    '문자 전송 한도를 초과했습니다. 잠시 후 다시 시도해주세요.',
-  otp_expired: 'OTP 코드가 만료되었습니다. 다시 시도해주세요.',
-  otp_disabled: 'OTP 사용이 비활성화되어 있습니다.',
-  email_address_invalid: '유효하지 않은 이메일 주소입니다.',
-  same_password: '이전과 동일한 비밀번호는 사용할 수 없습니다.',
-  validation_failed: '이메일 주소가 올바르게 입력되지 않았습니다',
+export const AUTH_FORM_RULES = {
+  email: {
+    required: '이메일을 입력해주세요.',
+    pattern: {
+      value: /^[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9.-]{1,255}\.[a-zA-Z]{2,}$/i,
+      message: '이메일 형식이 아닙니다.',
+    },
+  },
+  password: {
+    required: '비밀번호를 입력해주세요.',
+    pattern: {
+      value: /^(?=.*[A-Za-z])(?=.*\d|(?=.*[@$!%*?&]))[A-Za-z\d@$!%*?&]{8,}$/,
+      message: '대소문자+숫자+특수문자 중 2가지 이상 포함해주세요.',
+    },
+    minLength: {
+      value: 8,
+      message: '8자이상 입력해주세요.',
+    },
+  },
+  nickname: {
+    required: '닉네임을 입력해주세요.',
+    minLength: {
+      value: 1,
+      message: '1자 이상 입력해주세요.',
+    },
+    maxLength: {
+      value: 10,
+      message: '10자 이하로 입력해주세요.',
+    },
+    pattern: {
+      value: /^[a-zA-Z0-9가-힣]{1,10}$/,
+      message: '대소문자, 한글, 숫자만 사용 가능합니다.',
+    },
+  },
 };
