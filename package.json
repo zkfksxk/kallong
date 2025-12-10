@@ -22,7 +22,7 @@
     "html-to-image": "^1.11.13",
     "lucide-react": "^0.553.0",
     "modern-screenshot": "^4.6.7",
-    "next": "15.3.3",
+    "next": "15.3.6",
     "next-intl": "^4.5.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
