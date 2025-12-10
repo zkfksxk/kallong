@@ -36,7 +36,6 @@ export const createLookbook = async (lookbookData: Partial<Lookbook>) => {
     .single();
 
   if (error) {
-    console.log('create', lookbookData, anon_id);
     handleError(error);
   }
   return data;
@@ -74,7 +73,6 @@ export const upadateLookbook = async ({
     .single();
 
   if (error) {
-    console.log('update');
     handleError(error);
   }
   return data;
