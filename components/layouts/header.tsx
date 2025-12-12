@@ -1,23 +1,33 @@
-import { IoSettingsOutline as SettingIcon } from 'react-icons/io5';
 import { Link } from '@/i18n/navigation';
+import { ICONS } from '@/shared/common/icon';
 
-export const Header = () => {
+interface HeaderProps {
+  leftComponent?: React.ReactNode;
+  className?: string;
+}
+
+export const Header = ({ leftComponent, className }: HeaderProps) => {
+  const { Setting } = ICONS;
+
   return (
     <header
-      className='
+      className={`
         w-full 
         max-w-[500px] 
-        h-[60px] 
+        h-18
         flex 
         items-center 
-        justify-end 
-        px-5 
+        ${leftComponent ? 'justify-between' : 'justify-end'}
         mx-auto
         bg-white
-        '
+        gap-3
+        z-50
+        ${className}
+        `}
     >
+      {leftComponent}
       <Link href='/setting'>
-        <SettingIcon color='black' size={32} style={{ cursor: 'pointer' }} />
+        <Setting color='black' size={24} />
       </Link>
     </header>
   );

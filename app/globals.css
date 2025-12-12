@@ -2,7 +2,7 @@
 
 :root {
   --background: #f8f9fa;
-  --foreground: #171717;
+  --foreground: #141414;
 }
 
 /* @theme inline {
@@ -34,4 +34,9 @@ body {
   min-height: 100vh;
   flex-direction: column;
   align-items: center;
+}
+
+.mantine-TextInput-input:focus,
+.mantine-TextInput-input:focus-within {
+  border-color: #141414 !important;
 }

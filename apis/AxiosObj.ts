@@ -1,4 +1,6 @@
+import { AuthError } from '@supabase/supabase-js';
 import axios, { type AxiosInstance } from 'axios';
+import { AUTH_ERROR_MESSAGE_MAP } from './error';
 
 // export interface CustomError {
 //   code?: number;
@@ -27,6 +29,17 @@ import axios, { type AxiosInstance } from 'axios';
 //     message: '알 수 없는 에러가 발생했습니다.',
 //   };
 // };
+
+export const handleAuthErrorMessage = (error: unknown) => {
+  if (error instanceof AuthError && error.code) {
+    return (
+      AUTH_ERROR_MESSAGE_MAP[error.code] ??
+      '알 수 없는 인증 오류가 발생했습니다. 잠시 후 다시 시도해주세요'
+    );
+  }
+
+  return '문제가 발생했습니다. 잠시 후 다시 시도해주세요';
+};
 
 export const handleError = (error: Error) => {
   console.error(error);

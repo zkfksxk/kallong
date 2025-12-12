@@ -3,16 +3,9 @@
 import { useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { ActionIcon, Text } from '@mantine/core';
-import { Notifications, notifications } from '@mantine/notifications';
+import { notifications } from '@mantine/notifications';
 import { domToPng } from 'modern-screenshot';
 import { useTranslations } from 'next-intl';
-import { IoCopyOutline as Copy } from 'react-icons/io5';
-import { IoGridOutline as Grid } from 'react-icons/io5';
-import { IoCheckmarkCircle as Check } from 'react-icons/io5';
-import { IoCloseCircle as Close } from 'react-icons/io5';
-import { IoHeartOutline as HeartOutline } from 'react-icons/io5';
-import { IoHeartSharp as HeartSharp } from 'react-icons/io5';
-import { TbCapture as Capture } from 'react-icons/tb';
 import { useCheckLookbookLiked } from '@/apis/querys/useCheckLookbookLiked';
 import { useGetLookbook } from '@/apis/querys/useGetLookbook';
 import { useToggleLookbookLike } from '@/apis/querys/useToggleLookbookLike';
@@ -20,7 +13,8 @@ import { ResultImage } from '@/components/lookbooks/result/result-image';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useRemainingTime } from '@/hooks/useRemainingTime';
 import { Link } from '@/i18n/navigation';
-import { hanna } from '@/shared/common/theme';
+import { ICONS } from '@/shared/common/icon';
+import { hanna } from '@/shared/theme/theme';
 
 export default function ResultPage() {
   const t = useTranslations('Lookbooks.result');
@@ -32,7 +26,6 @@ export default function ResultPage() {
   }>();
   const notificationsRef = useRef<HTMLDivElement>(null);
   const buttnRef = useOutsideClick<HTMLButtonElement>(() => setVisible(false));
-  const { mutate: toggleMutate } = useToggleLookbookLike();
   const {
     data: firstLookbook,
     isLoading: firstLoading,
@@ -43,9 +36,12 @@ export default function ResultPage() {
     isLoading: secondLoading,
     error: secondError,
   } = useGetLookbook(secondId);
+  const { mutate: toggleMutate } = useToggleLookbookLike();
   const { data: isFirstLookbookLiked } = useCheckLookbookLiked(firstId);
   const { data: isSecondLookbookLiked } = useCheckLookbookLiked(secondId);
   const remainingTime = useRemainingTime(firstLookbook?.created_at);
+
+  const { Heart, Check, Grid, Copy, Capture, Alert } = ICONS;
 
   const handleToggleVisible = () => setVisible((prev) => !prev);
 
@@ -62,9 +58,21 @@ export default function ResultPage() {
       link.download = `${new Date().getFullYear()}.png`;
       link.href = dataUrl;
       link.click();
+
+      notifications.show({
+        title: 'Successfully Captured',
+        message: '이미지 캡처가 완료되었습니다!',
+        icon: <Check color='blue' size={24} />,
+        loading: false,
+      });
     } catch (error) {
-      alert('캡처 실패, 다시 시도해 주세요.');
       console.error('캡처 실패:', error);
+      notifications.show({
+        title: 'Capture Failed',
+        message: '캡쳐 중 오류가 발생했습니다.',
+        icon: <Alert.Close color='red' size={24} />,
+        loading: false,
+      });
     }
   };
 
@@ -76,18 +84,14 @@ export default function ResultPage() {
         title: 'Successfully Copied',
         message: '링크가 복사되었습니다!',
         icon: <Check color='blue' size={24} />,
-        withCloseButton: false,
         loading: false,
-        color: 'transperant',
       });
     } catch {
       notifications.show({
         title: 'Copy Failed',
         message: '복사 중 오류가 발생했습니다.',
-        icon: <Close color='red' size={24} />,
-        withCloseButton: false,
+        icon: <Alert.Close color='red' size={24} />,
         loading: false,
-        color: 'transperant',
       });
     }
   };
@@ -97,10 +101,8 @@ export default function ResultPage() {
       notifications.show({
         title: '투표 마감',
         message: '이미 투표 시간이 종료되었습니다.',
-        icon: <Close color='red' size={24} />,
-        withCloseButton: false,
+        icon: <Alert.Close color='red' size={24} />,
         loading: false,
-        color: 'transperant',
       });
       return;
     }
@@ -110,10 +112,8 @@ export default function ResultPage() {
         notifications.show({
           title: 'Like Failed',
           message: '좋아요 처리에 실패했습니다. 다시 시도해 주세요.',
-          icon: <Close color='red' size={24} />,
-          withCloseButton: false,
+          icon: <Alert.Close color='red' size={24} />,
           loading: false,
-          color: 'transperant',
         });
         console.error('좋아요 토글 에러:', error);
       },
@@ -144,11 +144,9 @@ export default function ResultPage() {
   return (
     <main
       ref={notificationsRef}
-      className='relative bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center'
+      className='relative bg-white max-w-[500px] w-full mx-auto flex flex-1 pt-10 pb-40 flex-col items-center '
     >
-      <Notifications position='bottom-right' />
-
-      <div ref={captureRef} className='w-full flex flex-col flex-1 pb-20 px-10'>
+      <div ref={captureRef} className='w-full flex flex-col flex-1 px-10'>
         <div className='flex flex-col text-center'>
           <Text size='xxl' fw='bold'>
             {t('title')}
@@ -167,13 +165,13 @@ export default function ResultPage() {
           <div className='flex flex-row items-center justify-end'>
             <ActionIcon variant='transparent' size='52px' radius='xl'>
               {isFirstLookbookLiked ? (
-                <HeartSharp
+                <Heart.Fill
                   size={32}
                   color='red'
                   onClick={() => handleToggle(firstId)}
                 />
               ) : (
-                <HeartOutline
+                <Heart.Outline
                   size={32}
                   color='red'
                   onClick={() => handleToggle(firstId)}
@@ -200,13 +198,13 @@ export default function ResultPage() {
           <div className='flex flex-row items-center justify-end'>
             <ActionIcon variant='transparent' size='52px' radius='xl'>
               {isSecondLookbookLiked ? (
-                <HeartSharp
+                <Heart.Fill
                   size={32}
                   color='red'
                   onClick={() => handleToggle(secondId)}
                 />
               ) : (
-                <HeartOutline
+                <Heart.Outline
                   size={32}
                   color='red'
                   onClick={() => handleToggle(secondId)}
@@ -217,7 +215,7 @@ export default function ResultPage() {
           </div>
         </div>
       </div>
-      <div className='absolute bottom-2 right-4'>
+      <div className='absolute bottom-22 right-4'>
         <div className='group relative flex flex-col-reverse items-end gap-2'>
           <ActionIcon
             variant='filled'

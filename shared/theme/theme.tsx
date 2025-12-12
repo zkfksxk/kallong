@@ -45,6 +45,19 @@ const gray: MantineColorsTuple = [
   '#42536d',
 ];
 
+const red: MantineColorsTuple = [
+  '#ffe2e1',
+  '#ffe2e1',
+  '#ffc9c8',
+  '#ffc9c8',
+  '#e3231f',
+  '#e3231f',
+  '#CD1C18',
+  '#CD1C18',
+  '#A41613',
+  '#A41613',
+];
+
 export const THEME = createTheme({
   fontFamily: `${pretendard.style.fontFamily}, ${hanna.style.fontFamily}, ${DEFAULT_THEME.fontFamily}`,
   fontFamilyMonospace: 'Monaco, Courier, monospace',
@@ -62,8 +75,15 @@ export const THEME = createTheme({
     white: colorsTuple('#FAFAFA'),
     blue,
     gray,
+    red,
   },
   components: {
+    Notification: {
+      defaultProps: {
+        withCloseButton: false,
+        color: 'transparent',
+      },
+    },
     TextInput: {
       styles: {
         label: {

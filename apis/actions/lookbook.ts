@@ -1,36 +1,54 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { type Lookbook } from '@/shared/common/types';
 import { type Database } from '@/shared/supabase/database.types';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
 import { handleError } from '../AxiosObj';
+import { getAuthorId } from './auth';
 
 export type LookbookRes = Database['public']['Tables']['lookbook']['Row'];
 
 export const createLookbook = async (lookbookData: Partial<Lookbook>) => {
   const supabase = await createSupabaseServerClient();
-  const cookieStore = await cookies();
-  const anon_id = cookieStore.get('anon_id')?.value;
-
-  if (!anon_id) {
-    cookieStore.set({
-      name: 'anon_id',
-      value: crypto.randomUUID(),
-      httpOnly: true,
-      secure: true,
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 24 * 7, //7일
-    });
-  }
+  const { author_id, is_anon } = await getAuthorId();
 
   const { data, error } = await supabase
     .from('lookbook')
     .insert({
-      nickname: lookbookData.nickname,
+      vote_name: lookbookData.voteName,
       name: lookbookData.name,
-      creator_anon_id: anon_id,
+      author_id: author_id,
+      is_anon: is_anon,
+    })
+    .select()
+    .single();
+
+  if (error) {
+    handleError(error);
+  }
+  return data;
+};
+
+export const createVote = async ({
+  lookbook_id_a,
+  lookbook_id_b,
+  vote_name,
+}: {
+  lookbook_id_a: string;
+  lookbook_id_b: string;
+  vote_name: string;
+}) => {
+  const supabase = await createSupabaseServerClient();
+  const { author_id, is_anon } = await getAuthorId();
+
+  const { data, error } = await supabase
+    .from('vote')
+    .insert({
+      lookbook_id_a: lookbook_id_a,
+      lookbook_id_b: lookbook_id_b,
+      vote_name: vote_name,
+      author_id: author_id,
+      is_anon: is_anon,
     })
     .select()
     .single();
@@ -49,26 +67,13 @@ export const upadateLookbook = async ({
   image_url: string;
 }) => {
   const supabase = await createSupabaseServerClient();
-  const cookieStore = await cookies();
-  const anon_id = cookieStore.get('anon_id')?.value;
-
-  if (!anon_id) {
-    cookieStore.set({
-      name: 'anon_id',
-      value: crypto.randomUUID(),
-      httpOnly: true,
-      secure: true,
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 24 * 7, //7일
-    });
-  }
+  const { author_id } = await getAuthorId();
 
   const { data, error } = await supabase
     .rpc('update_lookbook_image', {
       p_lookbook_id: id,
       p_image_url: image_url,
-      p_anon_id: anon_id,
+      p_author_id: author_id,
     })
     .single();
 
@@ -96,24 +101,11 @@ export const getLookbook = async (id: string) => {
 
 export const toggleLookbookLike = async (lookbook_id: string) => {
   const supabase = await createSupabaseServerClient();
-  const cookieStore = await cookies();
-  const anon_id = cookieStore.get('anon_id')?.value;
-
-  if (!anon_id) {
-    cookieStore.set({
-      name: 'anon_id',
-      value: crypto.randomUUID(),
-      httpOnly: true,
-      secure: true,
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 24 * 7, //7일
-    });
-  }
+  const { author_id } = await getAuthorId();
 
   const { data, error } = await supabase.rpc('lookbook_like', {
     p_lookbook_id: lookbook_id,
-    p_anon_id: anon_id,
+    p_anon_id: author_id,
   });
 
   if (error) {
@@ -125,16 +117,15 @@ export const toggleLookbookLike = async (lookbook_id: string) => {
 
 export async function checkLookbookLiked(lookbook_id: string) {
   const supabase = await createSupabaseServerClient();
-  const cookieStore = await cookies();
-  const anon_id = cookieStore.get('anon_id')?.value;
+  const { author_id } = await getAuthorId();
 
-  if (!anon_id) return false;
+  if (!author_id) return false;
 
   const { data, error } = await supabase
     .from('votes_log')
     .select('id')
     .eq('lookbook_id', lookbook_id)
-    .eq('voter_anon_id', anon_id)
+    .eq('voter_anon_id', author_id)
     .maybeSingle();
 
   if (error) {
@@ -143,6 +134,40 @@ export async function checkLookbookLiked(lookbook_id: string) {
   }
 
   return !!data; // null, undefined => false
+}
+
+export async function getLookbookByAuthorId() {
+  const supabase = await createSupabaseServerClient();
+  const { author_id } = await getAuthorId();
+
+  const { data, error } = await supabase
+    .from('lookbook')
+    .select('*')
+    .eq('author_id', author_id)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    handleError(error);
+  }
+
+  return data;
+}
+
+export async function updateLookbookByAuthorId() {}
+export async function deleteLookbookByAuthorId() {
+  const supabase = await createSupabaseServerClient();
+  const author_id = await getAuthorId();
+
+  const { data, error } = await supabase
+    .from('lookbook')
+    .delete()
+    .eq('author_id', author_id);
+
+  if (error) {
+    handleError(error);
+  }
+
+  return data;
 }
 
 // export const createPostWithImages = async ({

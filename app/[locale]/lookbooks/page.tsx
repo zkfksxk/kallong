@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button, TextInput } from '@mantine/core';
 import { useTranslations } from 'next-intl';
-import { useLookbookStore } from '@/hooks/lookbook-provider';
+import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
 import { validateInput } from '@/shared/common/utils';
 
@@ -13,26 +13,26 @@ export default function LookbooksPage() {
   const {
     firstLookbook,
     secondLookbook,
-    setNickname,
+    setVoteName,
     setFirstLookbookName,
     setSecondLookbookName,
   } = useLookbookStore((s) => s);
 
-  const [tempNickname, setTempNickname] = useState(firstLookbook.nickname);
+  const [tempVoteName, setTempVoteName] = useState(firstLookbook.voteName);
   const [firstName, setFirstName] = useState(firstLookbook.name);
   const [secondName, setSecondName] = useState(secondLookbook.name);
 
   const handleDecorate = () => {
     const trimmedFirst = firstName.trim();
     const trimmedSecond = secondName.trim();
-    const trimmedNickname = tempNickname.trim();
+    const trimmedVotename = tempVoteName.trim();
 
-    const nicknameError = validateInput(trimmedNickname, 10);
+    const voteNameError = validateInput(trimmedVotename, 10);
     const firstError = validateInput(trimmedFirst, 10);
     const secondError = validateInput(trimmedSecond, 10);
 
-    if (nicknameError) {
-      alert(nicknameError);
+    if (voteNameError) {
+      alert(voteNameError);
       return;
     }
     if (firstError) {
@@ -46,7 +46,7 @@ export default function LookbooksPage() {
 
     setFirstLookbookName(trimmedFirst);
     setSecondLookbookName(trimmedSecond);
-    setNickname(trimmedNickname);
+    setVoteName(trimmedVotename);
     router.push('/lookbooks/create');
   };
 
@@ -54,10 +54,10 @@ export default function LookbooksPage() {
     <main className='bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center px-15 gap-15'>
       <div className='w-full flex flex-col gap-5'>
         <TextInput
-          label={t('nicknameLabel')}
-          value={tempNickname}
-          onChange={(e) => setTempNickname(e.currentTarget.value)}
-          placeholder={t('nicknamePlaceholder')}
+          label={t('voteNameLabel')}
+          value={tempVoteName}
+          onChange={(e) => setTempVoteName(e.currentTarget.value)}
+          placeholder={t('voteNamePlaceholder')}
         />
         <TextInput
           label={t('firstLookLabel')}
@@ -76,7 +76,7 @@ export default function LookbooksPage() {
       <Button
         onClick={handleDecorate}
         variant='filled'
-        color='blue.9'
+        color='red.5'
         size='lg'
         radius='md'
       >

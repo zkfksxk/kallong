@@ -8,7 +8,7 @@ export default function SettingPage() {
   const t = useTranslations('Setting');
 
   return (
-    <main className='relative bg-white max-w-[500px] w-full flex flex-1 flex-col px-10 pb-20 '>
+    <div className='bg-white w-full flex flex-1 flex-col'>
       <Text c='black' size='md'>
         <span className='font-bold'>내일 뭐 입지?</span>를 방문해주셔서
         감사합니다!
@@ -56,6 +56,6 @@ export default function SettingPage() {
           ☕ Buy me a coffee
         </a>
       </div>
-    </main>
+    </div>
   );
 }

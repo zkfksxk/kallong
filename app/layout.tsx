@@ -9,10 +9,10 @@ import { Notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
 import { Analytics } from '@vercel/analytics/next';
 import { GoogleAdSense } from '@/components/google-adsense';
-import TanstackQueryProvider from '@/hooks/tanstackquery-provider';
-import CLIENT_THEME from '@/shared/common/clientTheme';
+import TanstackQueryProvider from '@/hooks/provider/tanstackquery-provider';
 import { SITE_CONFIG } from '@/shared/common/constants';
-import { THEME } from '@/shared/common/theme';
+import CLIENT_THEME from '@/shared/theme/clientTheme';
+import { THEME } from '@/shared/theme/theme';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -65,7 +65,7 @@ export default async function RootLayout({
       <body>
         <TanstackQueryProvider>
           <MantineProvider theme={mergedTheme}>
-            <Notifications />
+            <Notifications position='bottom-center' />
             {children}
           </MantineProvider>
         </TanstackQueryProvider>

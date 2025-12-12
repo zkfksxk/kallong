@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { Footer } from '@/components/layouts/footer';
-import { Header } from '@/components/layouts/header';
-import { LookbookStoreProvider } from '@/hooks/lookbook-provider';
+import { TabMenu } from '@/components/layouts/tab-menu';
+import AuthProvider from '@/hooks/provider/auth-provider';
+import { LookbookStoreProvider } from '@/hooks/provider/lookbook-provider';
+import { ProfileStoreProvider } from '@/hooks/provider/profile-provider';
 import { routing } from '@/i18n/routing';
 
 export async function generateStaticParams() {
@@ -28,9 +29,12 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <LookbookStoreProvider>
-        <Header />
-        {children}
-        <Footer />
+        <ProfileStoreProvider>
+          <AuthProvider>
+            {children}
+            <TabMenu />
+          </AuthProvider>
+        </ProfileStoreProvider>
       </LookbookStoreProvider>
     </NextIntlClientProvider>
   );

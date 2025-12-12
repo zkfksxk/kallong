@@ -1,13 +1,15 @@
 import type { NextRequest } from 'next/server';
 import createIntlMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
+import updateSession from './shared/supabase/middleware';
 
 const nextIntlMiddleware = createIntlMiddleware(routing);
 
-export function middleware(req: NextRequest) {
-  const res = nextIntlMiddleware(req);
-  const token = crypto.randomUUID();
+export async function middleware(req: NextRequest) {
+  const intlRes = nextIntlMiddleware(req);
+  const res = await updateSession(req, intlRes);
 
+  const token = crypto.randomUUID();
   const anonId = req.cookies.get('anon_id')?.value;
 
   if (!anonId) {

@@ -43,6 +43,17 @@ export const timeCalc = (createdAt: string) => {
   return `${pad(remainingHours)}:${pad(remainingMinutes)}`;
 };
 
+export function getDaysSince(createdAt: string): number {
+  const created = new Date(createdAt);
+  const today = new Date();
+
+  // 시간 차이를 일로 변환
+  const diffTime = today.getTime() - created.getTime();
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  return diffDays;
+}
+
 export const base64ToFile = (
   base64: string,
   filename = 'rembg_image.png',
