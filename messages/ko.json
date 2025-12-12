@@ -9,12 +9,12 @@
   },
   "Lookbooks": {
     "main": {
-      "nicknameLabel": "닉네임",
-      "nicknamePlaceholder": "홍길동",
+      "voteNameLabel": "투표 이름",
+      "voteNamePlaceholder": "오늘의 출근룩",
       "firstLookLabel": "첫 번째 룩",
-      "firstLookPlaceholder": "출근룩-A",
+      "firstLookPlaceholder": "체크셔츠-A",
       "secondLookLabel": "두 번째 룩",
-      "secondLookPlaceholder": "출근룩-B",
+      "secondLookPlaceholder": "체크셔츠-B",
       "decorateButton": "꾸미기"
     },
     "create": {

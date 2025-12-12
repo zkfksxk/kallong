@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { Header } from '@/components/layouts/header';
 import { TabMenu } from '@/components/layouts/tab-menu';
 import AuthProvider from '@/hooks/provider/auth-provider';
 import { LookbookStoreProvider } from '@/hooks/provider/lookbook-provider';
@@ -32,7 +31,6 @@ export default async function LocaleLayout({
       <LookbookStoreProvider>
         <ProfileStoreProvider>
           <AuthProvider>
-            <Header />
             {children}
             <TabMenu />
           </AuthProvider>

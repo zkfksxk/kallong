@@ -16,33 +16,36 @@ export type Database = {
     Tables: {
       lookbook: {
         Row: {
+          author_id: string;
           created_at: string;
-          creator_anon_id: string;
           id: string;
           image_url: string | null;
+          is_anon: boolean;
           is_deleted: boolean;
           name: string;
-          nickname: string;
+          vote_name: string;
           votes: number;
         };
         Insert: {
+          author_id: string;
           created_at?: string;
-          creator_anon_id: string;
           id?: string;
           image_url?: string | null;
+          is_anon?: boolean;
           is_deleted?: boolean;
           name: string;
-          nickname: string;
+          vote_name: string;
           votes?: number;
         };
         Update: {
+          author_id?: string;
           created_at?: string;
-          creator_anon_id?: string;
           id?: string;
           image_url?: string | null;
+          is_anon?: boolean;
           is_deleted?: boolean;
           name?: string;
-          nickname?: string;
+          vote_name?: string;
           votes?: number;
         };
         Relationships: [];
@@ -70,6 +73,51 @@ export type Database = {
           updated_at?: string;
         };
         Relationships: [];
+      };
+      vote: {
+        Row: {
+          author_id: string;
+          created_at: string;
+          id: string;
+          is_anon: boolean;
+          lookbook_id_a: string;
+          lookbook_id_b: string;
+          vote_name: string;
+        };
+        Insert: {
+          author_id: string;
+          created_at?: string;
+          id?: string;
+          is_anon?: boolean;
+          lookbook_id_a: string;
+          lookbook_id_b: string;
+          vote_name: string;
+        };
+        Update: {
+          author_id?: string;
+          created_at?: string;
+          id?: string;
+          is_anon?: boolean;
+          lookbook_id_a?: string;
+          lookbook_id_b?: string;
+          vote_name?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'fk_lookbook_a';
+            columns: ['lookbook_id_a'];
+            isOneToOne: false;
+            referencedRelation: 'lookbook';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fk_lookbook_b';
+            columns: ['lookbook_id_b'];
+            isOneToOne: false;
+            referencedRelation: 'lookbook';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       votes_log: {
         Row: {
@@ -111,15 +159,20 @@ export type Database = {
         Returns: boolean;
       };
       update_lookbook_image: {
-        Args: { p_anon_id: string; p_image_url: string; p_lookbook_id: string };
+        Args: {
+          p_author_id: string;
+          p_image_url: string;
+          p_lookbook_id: string;
+        };
         Returns: {
+          author_id: string;
           created_at: string;
-          creator_anon_id: string;
           id: string;
           image_url: string | null;
+          is_anon: boolean;
           is_deleted: boolean;
           name: string;
-          nickname: string;
+          vote_name: string;
           votes: number;
         }[];
         SetofOptions: {

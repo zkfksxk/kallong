@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { AuthApiError } from '@supabase/supabase-js';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
@@ -24,6 +25,47 @@ const getURL = () => {
 
   return url;
 };
+
+export async function getAuthorId(): Promise<{
+  author_id: string;
+  is_anon: boolean;
+}> {
+  const supabase = await createSupabaseServerClient();
+  const cookieStore = await cookies();
+
+  //인증 사용자
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user?.id) {
+    return {
+      author_id: user.id,
+      is_anon: false, // 인증된 사용자
+    };
+  }
+
+  // 비인증 사용자
+  let anon_id = cookieStore.get('anon_id')?.value;
+
+  if (!anon_id) {
+    anon_id = crypto.randomUUID();
+    cookieStore.set({
+      name: 'anon_id',
+      value: anon_id,
+      httpOnly: true,
+      secure: true,
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7, // 1주
+    });
+  }
+
+  return {
+    author_id: anon_id,
+    is_anon: true,
+  };
+}
 
 export async function signUp({
   email,

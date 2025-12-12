@@ -1,7 +1,6 @@
 import { ActionIcon } from '@mantine/core';
-import { IoAddOutline as Add } from 'react-icons/io5';
-import { IoClose as Delete } from 'react-icons/io5';
 import { useLookbookEditor } from '@/hooks/useLookbookEditor';
+import { ICONS } from '@/shared/common/icon';
 
 type Props = { targetLookbook: 'first' | 'second' };
 
@@ -13,6 +12,8 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
     handleUpload,
     handleRemoveFileAndFinalUrl,
   } = useLookbookEditor(targetLookbook, 'finalUrl');
+
+  const { Add, Delete } = ICONS;
 
   return (
     <div className='flex flex-col items-center mt-8'>

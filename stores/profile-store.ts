@@ -9,7 +9,7 @@ export type ProfileState = {
 
 export type ProfileAction = {
   getProfile: () => Profile | null;
-  isProfileLoaded: () => boolean; // ✅ 첫 글자 소문자
+  isProfileLoaded: () => boolean;
   setProfile: (profile: Profile | null) => void;
   reset: () => void;
 };

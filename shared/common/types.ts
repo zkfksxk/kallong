@@ -27,12 +27,13 @@ export type Outfit = {
 };
 
 export type Lookbook = {
-  nickname: string; //사용자
+  voteName: string;
   name: string;
   data: Outfit;
 };
 
 export type Vote = {
+  voteName: string;
   firstLookbook: Lookbook;
   secondLookbook: Lookbook;
 };

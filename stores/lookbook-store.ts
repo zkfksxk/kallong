@@ -7,7 +7,7 @@ export type LookbookState = {
 };
 
 export type LookbookActions = {
-  setNickname: (v: string) => void;
+  setVoteName: (v: string) => void;
   setFirstLookbookName: (v: string) => void;
   setSecondLookbookName: (v: string) => void;
   updateFirstLookbook: (patch: Partial<Outfit>) => void;
@@ -18,7 +18,7 @@ export type LookbookActions = {
 export type LookbookStore = LookbookState & LookbookActions;
 
 const initialLookbook: Lookbook = {
-  nickname: '',
+  voteName: '',
   name: '',
   data: {
     background: '#FFFFFF',
@@ -35,10 +35,10 @@ export const createLookbookStore = (
 ) =>
   createStore<LookbookStore>()((set) => ({
     ...init,
-    setNickname: (v) =>
+    setVoteName: (v) =>
       set((s) => ({
-        firstLookbook: { ...s.firstLookbook, nickname: v },
-        secondLookbook: { ...s.secondLookbook, nickname: v },
+        firstLookbook: { ...s.firstLookbook, voteName: v },
+        secondLookbook: { ...s.secondLookbook, voteName: v },
       })),
     setFirstLookbookName: (v) =>
       set((s) => ({ firstLookbook: { ...s.firstLookbook, name: v } })),
