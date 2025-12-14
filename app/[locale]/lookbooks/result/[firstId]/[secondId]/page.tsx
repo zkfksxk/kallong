@@ -9,10 +9,11 @@ import { useTranslations } from 'next-intl';
 import { useCheckLookbookLiked } from '@/apis/querys/useCheckLookbookLiked';
 import { useGetLookbook } from '@/apis/querys/useGetLookbook';
 import { useToggleLookbookLike } from '@/apis/querys/useToggleLookbookLike';
+import Fallback from '@/components/fallback';
+import Loader from '@/components/loader';
 import { ResultImage } from '@/components/lookbooks/result/result-image';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useRemainingTime } from '@/hooks/useRemainingTime';
-import { Link } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icon';
 import { hanna } from '@/shared/theme/theme';
 
@@ -120,26 +121,9 @@ export default function ResultPage() {
     });
   };
 
-  if (firstLoading || secondLoading) {
-    return (
-      <main className=' bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center'>
-        <Text size='xl' c='gray'>
-          룩북을 불러오는 중...
-        </Text>
-      </main>
-    );
-  }
+  if (firstLoading || secondLoading) return <Loader />;
 
-  if (firstError || secondError) {
-    return (
-      <main className=' bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center gap-2'>
-        <Text size='xl' c='gray'>
-          데이터 조회 실패...
-        </Text>
-        <Link href='/'>홈으로</Link>
-      </main>
-    );
-  }
+  if (firstError || secondError) return <Fallback />;
 
   return (
     <main

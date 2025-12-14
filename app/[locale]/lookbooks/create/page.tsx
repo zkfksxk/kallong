@@ -120,7 +120,7 @@ export default function CreateLookbooksPage() {
         vote_name: firstLookbook.voteName,
       };
       await createVoteMutate(voteSetData);
-      //reset();
+
       router.push(`/lookbooks/result/${firstData.id}/${secondData.id}`);
     } catch (error) {
       console.log('create lookbook fail', error);
@@ -190,6 +190,7 @@ export default function CreateLookbooksPage() {
         <Button
           variant='transparent'
           size='sm'
+          disabled={submitting}
           onClick={() => router.push('/lookbooks/editor')}
           c='black'
         >

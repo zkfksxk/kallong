@@ -26,23 +26,25 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
       />
       <div className='flex gap-8'>
         <ActionIcon
-          variant='outline'
+          variant='filled'
           size='xl'
           radius='md'
           title='추가'
+          color='red.3'
           onClick={handleOpenImagePicker}
         >
-          <Add size={32} />
+          <Add size={32} color='black' />
         </ActionIcon>
         <ActionIcon
-          variant='outline'
+          variant='filled'
           size='xl'
           radius='md'
           title='삭제'
           disabled={!url}
+          color='red.3'
           onClick={handleRemoveFileAndFinalUrl}
         >
-          <Delete size={32} />
+          <Delete size={32} color='black' />
         </ActionIcon>
       </div>
     </div>

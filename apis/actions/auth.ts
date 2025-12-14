@@ -5,13 +5,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { AuthApiError } from '@supabase/supabase-js';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
-import { handleAuthErrorMessage } from '../AxiosObj';
-
-export type AuthError = {
-  success: false;
-  code: string;
-  message: string;
-};
+import { CustomAuthError, handleAuthErrorMessage } from '../Error';
 
 const getURL = () => {
   let url =
@@ -110,7 +104,7 @@ export async function signInWithPassword({
 
   if (error) {
     if (error instanceof AuthApiError) {
-      const errorData: AuthError = {
+      const errorData: CustomAuthError = {
         success: false,
         code: error.code ?? '',
         message: handleAuthErrorMessage(error),
@@ -200,7 +194,7 @@ export async function updatePassword(password: string) {
 
   if (error) {
     if (error instanceof AuthApiError) {
-      const errorData: AuthError = {
+      const errorData: CustomAuthError = {
         success: false,
         code: error.code ?? '',
         message: handleAuthErrorMessage(error),
