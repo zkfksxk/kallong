@@ -1,5 +1,11 @@
+import { FiTrash2 } from 'react-icons/fi';
 import { GoHome, GoHomeFill, GoPerson, GoPersonFill } from 'react-icons/go';
-import { IoChevronBack, IoSettingsOutline } from 'react-icons/io5';
+import { IoIosMail } from 'react-icons/io';
+import {
+  IoChevronBack,
+  IoChevronForward,
+  IoSettingsOutline,
+} from 'react-icons/io5';
 import { IoCloseCircle } from 'react-icons/io5';
 import { IoAddOutline } from 'react-icons/io5';
 import { IoClose } from 'react-icons/io5';
@@ -20,6 +26,7 @@ export const ICONS = {
     Outline: GoPerson,
   },
   Alert: {
+    Check: IoCheckmarkCircle,
     Close: IoCloseCircle,
   },
   Heart: {
@@ -30,8 +37,11 @@ export const ICONS = {
   Delete: IoClose,
   Setting: IoSettingsOutline,
   Back: IoChevronBack,
+  Forward: IoChevronForward,
   Copy: IoCopyOutline,
   Grid: IoGridOutline,
   Check: IoCheckmarkCircle,
   Capture: TbCapture,
+  Trash: FiTrash2,
+  Mail: IoIosMail,
 };

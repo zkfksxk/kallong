@@ -33,10 +33,20 @@ export type Lookbook = {
 };
 
 export type Vote = {
-  voteName: string;
-  firstLookbook: Lookbook;
-  secondLookbook: Lookbook;
+  id: string;
+  created_at: string;
+  vote_name: string;
+  author_id: string;
+  is_anon: boolean;
+  lookbook_id_a: string;
+  lookbook_id_b: string;
 };
+
+// export type Vote = {
+//   voteName: string;
+//   firstLookbook: Lookbook;
+//   secondLookbook: Lookbook;
+// };
 
 export type SignInForm = {
   email: string;

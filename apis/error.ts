@@ -16,7 +16,6 @@ export const AUTH_ERROR_MESSAGE_MAP: Record<string, string> = {
   over_email_send_rate_limit:
     '이메일 전송 한도를 초과했습니다. 잠시 후 다시 시도해주세요.',
   email_address_invalid: '유효하지 않은 이메일 주소입니다.',
-  same_password: '이전과 동일한 비밀번호는 사용할 수 없습니다.',
   validation_failed: '이메일 주소가 올바르게 입력되지 않았습니다',
 };
 

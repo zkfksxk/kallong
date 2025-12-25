@@ -1,6 +1,6 @@
 import { ActionIcon } from '@mantine/core';
 import { useLookbookEditor } from '@/hooks/useLookbookEditor';
-import { ICONS } from '@/shared/common/icon';
+import { ICONS } from '@/shared/common/icons';
 
 type Props = { targetLookbook: 'first' | 'second' };
 
@@ -26,22 +26,20 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
       />
       <div className='flex gap-8'>
         <ActionIcon
-          variant='filled'
+          variant='outline'
           size='xl'
           radius='md'
           title='추가'
-          color='red.3'
           onClick={handleOpenImagePicker}
         >
           <Add size={32} color='black' />
         </ActionIcon>
         <ActionIcon
-          variant='filled'
+          variant='outline'
           size='xl'
           radius='md'
           title='삭제'
           disabled={!url}
-          color='red.3'
           onClick={handleRemoveFileAndFinalUrl}
         >
           <Delete size={32} color='black' />

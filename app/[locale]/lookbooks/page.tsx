@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import { Button, TextInput } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
+import { ICONS } from '@/shared/common/icons';
 import { validateInput } from '@/shared/common/utils';
 
 export default function LookbooksPage() {
@@ -17,10 +19,10 @@ export default function LookbooksPage() {
     setFirstLookbookName,
     setSecondLookbookName,
   } = useLookbookStore((s) => s);
-
   const [tempVoteName, setTempVoteName] = useState(firstLookbook.voteName);
   const [firstName, setFirstName] = useState(firstLookbook.name);
   const [secondName, setSecondName] = useState(secondLookbook.name);
+  const { Alert } = ICONS;
 
   const handleDecorate = () => {
     const trimmedFirst = firstName.trim();
@@ -32,15 +34,36 @@ export default function LookbooksPage() {
     const secondError = validateInput(trimmedSecond, 10);
 
     if (voteNameError) {
-      alert(voteNameError);
+      notifications.show({
+        title: 'Lookbook Failed',
+        message: voteNameError,
+        icon: <Alert.Close color='red' size={24} />,
+        withCloseButton: false,
+        loading: false,
+        color: 'transperant',
+      });
       return;
     }
     if (firstError) {
-      alert(firstError);
+      notifications.show({
+        title: 'Lookbook Failed',
+        message: firstError,
+        icon: <Alert.Close color='red' size={24} />,
+        withCloseButton: false,
+        loading: false,
+        color: 'transperant',
+      });
       return;
     }
     if (secondError) {
-      alert(secondError);
+      notifications.show({
+        title: 'Lookbook Failed',
+        message: secondError,
+        icon: <Alert.Close color='red' size={24} />,
+        withCloseButton: false,
+        loading: false,
+        color: 'transperant',
+      });
       return;
     }
 
@@ -78,6 +101,7 @@ export default function LookbooksPage() {
         variant='filled'
         color='red.5'
         size='lg'
+        fullWidth
         radius='md'
       >
         {t('decorateButton')}

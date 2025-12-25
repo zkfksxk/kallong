@@ -10,8 +10,8 @@ export default function Home() {
 
   return (
     <main className='relative bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center px-5'>
-      <Header className='absolute top-0 left-0 right-0 px-5' />
-      <section className='flex flex-col flex-1 items-center justify-center gap-10'>
+      <Header />
+      <section className='w-full flex flex-col flex-1 items-center justify-center gap-10'>
         <Text
           style={{
             fontSize: locale === 'ko' ? '3.5rem' : '1.75rem',
@@ -22,8 +22,14 @@ export default function Home() {
         >
           {t('title')}
         </Text>
-        <Link href='/lookbooks'>
-          <Button variant='filled' color='red.5' size='xl' radius='md'>
+        <Link href='/lookbooks' className='w-full px-15'>
+          <Button
+            variant='filled'
+            color='red.5'
+            size='lg'
+            fullWidth
+            radius='md'
+          >
             {t('button')}
           </Button>
         </Link>

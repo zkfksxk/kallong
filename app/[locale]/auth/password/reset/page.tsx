@@ -1,16 +1,17 @@
 'use client';
 
-import { Button, Text, TextInput } from '@mantine/core';
+import { useState } from 'react';
+import { Box, Button, Text, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { IoCheckmarkCircle as Check } from 'react-icons/io5';
-import { IoCloseCircle as Close } from 'react-icons/io5';
 import { useResetPassword } from '@/apis/querys/auth/useResetPassword';
 import { AUTH_FORM_RULES } from '@/shared/common/constants';
+import { ICONS } from '@/shared/common/icons';
 
 export default function ResetPasswordPage() {
   const t = useTranslations('Mypage.auth');
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const {
     register,
     handleSubmit,
@@ -18,15 +19,17 @@ export default function ResetPasswordPage() {
     reset,
   } = useForm<{ email: string }>();
   const { mutate: resetPassword } = useResetPassword();
+  const { Alert, Mail } = ICONS;
 
   const onSubmit = (data: { email: string }) => {
     resetPassword(data.email, {
       onSuccess: () => {
         reset();
+        setIsSubmitted(true);
         notifications.show({
           title: t('resetPassword'),
           message: t('resetPasswordSuccess'),
-          icon: <Check color='blue' size={24} />,
+          icon: <Alert.Check color='blue' size={24} />,
           withCloseButton: false,
           loading: false,
           color: 'transperant',
@@ -36,7 +39,7 @@ export default function ResetPasswordPage() {
         notifications.show({
           title: 'Password reset Failed',
           message: t('resetPasswordError'),
-          icon: <Close color='red' size={24} />,
+          icon: <Alert.Close color='red' size={24} />,
           withCloseButton: false,
           loading: false,
           color: 'transperant',
@@ -44,6 +47,17 @@ export default function ResetPasswordPage() {
       },
     });
   };
+
+  if (isSubmitted) {
+    return (
+      <Box bg='red.1' className='w-full flex flex-col items-center gap-3 p-5'>
+        <Mail size={30} />
+        <Text ta='center' fw={700}>
+          이메일을 확인해주세요
+        </Text>
+      </Box>
+    );
+  }
 
   return (
     <div className='w-full flex flex-col'>

@@ -40,3 +40,6 @@ body {
 .mantine-TextInput-input:focus-within {
   border-color: #141414 !important;
 }
+.mantine-ActionIcon-root[data-variant='outline'] {
+  --ai-bd: 2px solid #a41613 !important;
+}

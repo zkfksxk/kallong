@@ -19,8 +19,6 @@ export const Profile = () => {
     });
   };
 
-  const handleDeleteAccount = () => {};
-
   if (!profile) return <div>Loading...</div>;
 
   const daysSince = getDaysSince(profile.created_at);
@@ -35,12 +33,21 @@ export const Profile = () => {
       <Text c='black' size='sm'>
         함께한 지 {daysSince}일째
       </Text>
-      <Button variant='transparent' onClick={handleSignOut}>
-        로그아웃
-      </Button>
-      <Button variant='transparent' onClick={handleDeleteAccount}>
-        회원탈퇴
-      </Button>
+      <div className='mt-8 flex flex-row items-center'>
+        <Button variant='outline' c='black' onClick={handleSignOut}>
+          로그아웃
+        </Button>
+        {/* <Divider
+          size='sm'
+          orientation='vertical'
+          color='black'
+          h={24}
+          className='self-center'
+        /> */}
+        {/* <Button variant='transparent' c='black' onClick={handleDeleteAccount}>
+          회원탈퇴
+        </Button> */}
+      </div>
     </Box>
   );
 };
