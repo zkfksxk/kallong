@@ -13,7 +13,7 @@ import { ResultImage } from '@/components/lookbooks/result/result-image';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useRemainingTime } from '@/hooks/useRemainingTime';
 import { Link } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icon';
+import { ICONS } from '@/shared/common/icons';
 import { hanna } from '@/shared/theme/theme';
 
 export default function ResultPage() {
@@ -99,7 +99,7 @@ export default function ResultPage() {
   const handleToggle = (lookbookId: string) => {
     if (remainingTime === '00:00') {
       notifications.show({
-        title: '투표 마감',
+        title: 'Vote Failed',
         message: '이미 투표 시간이 종료되었습니다.',
         icon: <Alert.Close color='red' size={24} />,
         loading: false,
@@ -151,7 +151,7 @@ export default function ResultPage() {
           <Text size='xxl' fw='bold'>
             {t('title')}
           </Text>
-          <Text size='xl' fw='bold' c='red'>
+          <Text size='xl' fw='bold' c='#CD1C18'>
             {remainingTime === '00:00'
               ? '투표가 종료되었습니다.'
               : remainingTime}
@@ -167,13 +167,13 @@ export default function ResultPage() {
               {isFirstLookbookLiked ? (
                 <Heart.Fill
                   size={32}
-                  color='red'
+                  color='#E3231F'
                   onClick={() => handleToggle(firstId)}
                 />
               ) : (
                 <Heart.Outline
                   size={32}
-                  color='red'
+                  color='#E3231F'
                   onClick={() => handleToggle(firstId)}
                 />
               )}
@@ -200,13 +200,13 @@ export default function ResultPage() {
               {isSecondLookbookLiked ? (
                 <Heart.Fill
                   size={32}
-                  color='red'
+                  color='#E3231F'
                   onClick={() => handleToggle(secondId)}
                 />
               ) : (
                 <Heart.Outline
                   size={32}
-                  color='red'
+                  color='#E3231F'
                   onClick={() => handleToggle(secondId)}
                 />
               )}

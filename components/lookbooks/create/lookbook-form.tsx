@@ -1,6 +1,6 @@
 import { ActionIcon } from '@mantine/core';
 import { useLookbookEditor } from '@/hooks/useLookbookEditor';
-import { ICONS } from '@/shared/common/icon';
+import { ICONS } from '@/shared/common/icons';
 
 type Props = { targetLookbook: 'first' | 'second' };
 
@@ -32,7 +32,7 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
           title='추가'
           onClick={handleOpenImagePicker}
         >
-          <Add size={32} />
+          <Add size={32} color='black' />
         </ActionIcon>
         <ActionIcon
           variant='outline'
@@ -40,9 +40,10 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
           radius='md'
           title='삭제'
           disabled={!url}
+          color='red.9'
           onClick={handleRemoveFileAndFinalUrl}
         >
-          <Delete size={32} />
+          <Delete size={32} color='black' />
         </ActionIcon>
       </div>
     </div>

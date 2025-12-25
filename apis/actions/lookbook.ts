@@ -7,6 +7,7 @@ import { handleError } from '../AxiosObj';
 import { getAuthorId } from './auth';
 
 export type LookbookRes = Database['public']['Tables']['lookbook']['Row'];
+export type VoteRes = Database['public']['Tables']['vote']['Row'];
 
 export const createLookbook = async (lookbookData: Partial<Lookbook>) => {
   const supabase = await createSupabaseServerClient();
@@ -136,15 +137,41 @@ export async function checkLookbookLiked(lookbook_id: string) {
   return !!data; // null, undefined => false
 }
 
-export async function getLookbookByAuthorId() {
+export async function getVoteById({ from, to }: { from: number; to: number }) {
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();
 
-  const { data, error } = await supabase
-    .from('lookbook')
+  const { data, error, count } = await supabase
+    .from('vote')
     .select('*')
     .eq('author_id', author_id)
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .range(from, to);
+
+  if (error) {
+    handleError(error);
+  }
+
+  return { data: data || [], count: count || 0 };
+}
+
+export async function updateLookbookById() {}
+
+export async function deleteLookbookById(lookbookId: string) {
+  const supabase = await createSupabaseServerClient();
+  const { author_id, is_anon } = await getAuthorId();
+
+  if (is_anon) throw Error('인증이 안 된 사용자입니다.');
+
+  await deleteImagesInPath(lookbookId);
+
+  const { data, error } = await supabase
+    .from('lookbook')
+    .delete()
+    .eq('id', lookbookId)
+    .eq('author_id', author_id)
+    .select()
+    .single();
 
   if (error) {
     handleError(error);
@@ -153,21 +180,24 @@ export async function getLookbookByAuthorId() {
   return data;
 }
 
-export async function updateLookbookByAuthorId() {}
-export async function deleteLookbookByAuthorId() {
+export async function deleteImagesInPath(path: string) {
   const supabase = await createSupabaseServerClient();
-  const author_id = await getAuthorId();
+  const { data: files, error: fetchFilesError } = await supabase.storage
+    .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
+    .list(path);
 
-  const { data, error } = await supabase
-    .from('lookbook')
-    .delete()
-    .eq('author_id', author_id);
+  if (fetchFilesError) throw fetchFilesError;
 
-  if (error) {
-    handleError(error);
+  if (!files || files.length === 0) {
+    return;
   }
 
-  return data;
+  //console.log('image path', files);
+  const { error: removeError } = await supabase.storage
+    .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
+    .remove(files.map((file) => `${path}/${file.name}`));
+
+  if (removeError) throw removeError;
 }
 
 // export const createPostWithImages = async ({

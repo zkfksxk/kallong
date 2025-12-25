@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { ActionIcon, Button, Tabs, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
-import { useCreateVote } from '@/apis/querys/createVote';
 import { useCreateLookbook } from '@/apis/querys/useCreateLookbook';
+import { useCreateVote } from '@/apis/querys/useCreateVote';
 import { useUpdateLookbook } from '@/apis/querys/useUpdateLookbook';
 import { CreateImage } from '@/components/lookbooks/create/create-image';
 import { LookbookForm } from '@/components/lookbooks/create/lookbook-form';
@@ -15,13 +15,13 @@ import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
 } from '@/shared/common/constants';
-import { ICONS } from '@/shared/common/icon';
+import { ICONS } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 
 export default function CreateLookbooksPage() {
   const t = useTranslations('Lookbooks.create');
   const router = useRouter();
-  const [submitting, setSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState<string | null>('first');
   const { firstLookbook, secondLookbook } = useLookbookStore((s) => s);
   const { mutateAsync: createMutate } = useCreateLookbook();
@@ -67,8 +67,8 @@ export default function CreateLookbooksPage() {
   };
 
   const handleSubmit = async () => {
-    if (submitting) return;
-    setSubmitting(true);
+    if (isSubmitting) return;
+    setIsSubmitting(true);
 
     //2개의 Lookbook생성후 id 받음. MAX_FILE_SIZE_MB: 4MB;
     const file1 = firstLookbook.data.finalFile;
@@ -133,7 +133,7 @@ export default function CreateLookbooksPage() {
         color: 'transperant',
       });
     } finally {
-      setSubmitting(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -145,7 +145,7 @@ export default function CreateLookbooksPage() {
           size='xl'
           radius='md'
           title={t('backButton')}
-          disabled={submitting}
+          disabled={isSubmitting}
           onClick={() => router.push('/lookbooks')}
         >
           <Back color='black' size={24} />
@@ -176,8 +176,8 @@ export default function CreateLookbooksPage() {
           size='lg'
           radius='md'
           onClick={handleSubmit}
-          disabled={!isReadyToSubmit || submitting}
-          loading={submitting}
+          disabled={!isReadyToSubmit || isSubmitting}
+          loading={isSubmitting}
         >
           {t('saveButton')}
         </Button>
@@ -192,6 +192,7 @@ export default function CreateLookbooksPage() {
           size='sm'
           onClick={() => router.push('/lookbooks/editor')}
           c='black'
+          disabled={isSubmitting}
         >
           {t('editorButton')}
         </Button>

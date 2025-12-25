@@ -7,7 +7,7 @@ import { CreateImage } from '@/components/lookbooks/create/create-image';
 import { LookbookEditor } from '@/components/lookbooks/editor/lookbook-editor';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icon';
+import { ICONS } from '@/shared/common/icons';
 
 export default function EditLookbookPage() {
   const t = useTranslations('Lookbooks.editor');
