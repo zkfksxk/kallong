@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { AuthApiError } from '@supabase/supabase-js';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
-import { CustomAuthError, handleAuthErrorMessage } from '../Error';
+import { CustomAuthError, handleAuthErrorMessage } from '../error';
 
 const getURL = () => {
   let url =

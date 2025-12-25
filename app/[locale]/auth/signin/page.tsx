@@ -5,7 +5,7 @@ import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { IoCloseCircle as Close } from 'react-icons/io5';
-import { AuthError } from '@/apis/actions/auth';
+import { CustomAuthError } from '@/apis/error';
 //import { FcGoogle as Google } from 'react-icons/fc';
 import { useSignInWithPassword } from '@/apis/querys/auth/useSignIn';
 //import { useSignInWithGoogle } from '@/apis/querys/auth/useSignInGoogle';
@@ -27,7 +27,7 @@ export default function SignInPage() {
         router.push(`/`);
       },
       onError: (error) => {
-        const errorObj = JSON.parse(error.message) as AuthError;
+        const errorObj = JSON.parse(error.message) as CustomAuthError;
         notifications.show({
           title: 'SignIn Failed',
           message: errorObj.message,
@@ -101,7 +101,7 @@ export default function SignInPage() {
           Continue with Google
         </Button> */}
         <div className='flex flex-col gap-1'>
-          <Link href='/auth/signup'>계정이 없다면? ➡️ 회원가입으로 이동</Link>
+          <Link href='/auth/signup'>계정이 없다면? ➡️ 회원가입</Link>
           <Link href='/auth/password/reset'>비밀번호를 잊으셨나요?</Link>
         </div>
       </div>
