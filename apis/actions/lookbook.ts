@@ -3,7 +3,7 @@
 import { type Lookbook } from '@/shared/common/types';
 import { type Database } from '@/shared/supabase/database.types';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
-import { handleError } from '../AxiosObj';
+import { handleError } from '../Error';
 import { getAuthorId } from './auth';
 
 export type LookbookRes = Database['public']['Tables']['lookbook']['Row'];

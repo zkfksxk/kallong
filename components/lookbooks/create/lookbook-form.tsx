@@ -40,7 +40,6 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
           radius='md'
           title='삭제'
           disabled={!url}
-          color='red.9'
           onClick={handleRemoveFileAndFinalUrl}
         >
           <Delete size={32} color='black' />
