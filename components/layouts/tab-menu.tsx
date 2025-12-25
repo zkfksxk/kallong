@@ -11,7 +11,7 @@ export const TabMenu = () => {
   const isMypage = pathname.includes('/mypage');
 
   return (
-    <div className='fixed bottom-0 mx-auto flex max-w-[500px] w-full py-[10px] border-t border-gray-200 bg-white'>
+    <div className='fixed bottom-0 mx-auto h-[60px] flex max-w-[500px] w-full py-[10px] border-t border-gray-200 bg-white'>
       <Link
         href='/'
         className='flex-1 flex flex-col items-center justify-center gap-1'
