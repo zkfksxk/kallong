@@ -101,7 +101,7 @@ export default function SignInPage() {
           Continue with Google
         </Button> */}
         <div className='flex flex-col gap-1'>
-          <Link href='/auth/signup'>계정이 없다면? ➡️ 회원가입</Link>
+          <Link href='/auth/signup'>계정이 없다면? ➡️ 회원가입으로 이동</Link>
           <Link href='/auth/password/reset'>비밀번호를 잊으셨나요?</Link>
         </div>
       </div>
