@@ -8,7 +8,6 @@ import '@mantine/core/styles.css';
 import { Notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
 import { Analytics } from '@vercel/analytics/next';
-import { GoogleAdSense } from '@/components/google-adsense';
 import TanstackQueryProvider from '@/hooks/provider/tanstackquery-provider';
 import { SITE_CONFIG } from '@/shared/common/constants';
 import CLIENT_THEME from '@/shared/theme/clientTheme';
@@ -60,7 +59,6 @@ export default async function RootLayout({
     <html lang='ko' {...mantineHtmlProps}>
       <head>
         <ColorSchemeScript />
-        <GoogleAdSense />
       </head>
       <body>
         <TanstackQueryProvider>
