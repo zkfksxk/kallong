@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { AuthApiError } from '@supabase/supabase-js';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
-import { CustomAuthError, handleAuthErrorMessage } from '../error';
+import { CustomAuthError, handleAuthErrorMessage, handleError } from '../error';
 
 const getURL = () => {
   let url =
@@ -210,6 +210,23 @@ export async function updatePassword(password: string) {
       })
     );
   }
+
+  return data;
+}
+
+export async function updateNickname(newNickname: string) {
+  const supabase = await createSupabaseServerClient();
+
+  const { data, error } = await supabase.auth.updateUser({
+    data: { nickname: newNickname },
+  });
+
+  if (error) {
+    handleError(error);
+  }
+
+  // 페이지 캐시 갱신
+  revalidatePath('/', 'layout');
 
   return data;
 }

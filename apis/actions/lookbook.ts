@@ -155,8 +155,6 @@ export async function getVoteById({ from, to }: { from: number; to: number }) {
   return { data: data || [], count: count || 0 };
 }
 
-export async function updateLookbookById() {}
-
 export async function deleteLookbookById(lookbookId: string) {
   const supabase = await createSupabaseServerClient();
   const { author_id, is_anon } = await getAuthorId();
@@ -192,7 +190,6 @@ export async function deleteImagesInPath(path: string) {
     return;
   }
 
-  //console.log('image path', files);
   const { error: removeError } = await supabase.storage
     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
     .remove(files.map((file) => `${path}/${file.name}`));

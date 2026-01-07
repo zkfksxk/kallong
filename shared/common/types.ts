@@ -57,6 +57,7 @@ export type SignUpForm = {
   email: string;
   password: string;
   nickname: string;
+  passwordConfirmed: string;
 };
 
 export type Profile = {

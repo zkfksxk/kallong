@@ -9,7 +9,7 @@ export default function Home() {
   const locale = useLocale();
 
   return (
-    <main className='relative bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center px-5 pb-[60px]'>
+    <main className='bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center px-5 pb-[60px]'>
       <Header />
       <section className='w-full flex flex-col flex-1 items-center justify-center gap-10'>
         <Text

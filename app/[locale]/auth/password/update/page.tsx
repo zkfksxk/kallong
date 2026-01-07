@@ -47,7 +47,7 @@ export default function UpdatePasswordPage() {
         새로운 비밀번호를 입력하세요
       </Text>
       <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
-        <div className='w-full flex flex-col gap-2 mb-8'>
+        <div className='w-full flex flex-col gap-8'>
           <TextInput
             {...register('password', AUTH_FORM_RULES.password)}
             label='비밀번호'
@@ -58,7 +58,7 @@ export default function UpdatePasswordPage() {
           <Button
             type='submit'
             variant='filled'
-            color='blue.9'
+            color='black'
             size='lg'
             radius='md'
             disabled={isSubmitting}

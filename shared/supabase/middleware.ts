@@ -45,6 +45,7 @@ export default async function updateSession(
   } = await supabase.auth.getUser();
 
   const path = request.nextUrl.pathname;
+  const isPasswordReset = path.includes('/auth/password/reset');
 
   // Redirect unauthenticated users to login, except for auth routes
   if (!user && isProtectedRoute(path) && !path.startsWith('/auth')) {
@@ -56,7 +57,7 @@ export default async function updateSession(
   }
 
   // Prevent authenticated users from accessing the login page
-  if (user && isAuthRoute(path)) {
+  if (user && isAuthRoute(path) && !isPasswordReset) {
     const url = request.nextUrl.clone();
     const locale = path.split('/')[1];
     url.pathname = `/${locale}/`;

@@ -5,7 +5,7 @@ import queryKeys from '@/apis/queryKeys';
 export function useGetProfile(userId: string) {
   return useQuery({
     queryFn: () => getProfile(userId),
-    queryKey: queryKeys.PROFILE.GET_BYID(userId),
+    queryKey: queryKeys.PROFILE.GET_BYID,
     enabled: !!userId,
   });
 }

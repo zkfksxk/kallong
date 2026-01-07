@@ -22,6 +22,7 @@ export const Profile = () => {
   if (!profile) return <div>Loading...</div>;
 
   const daysSince = getDaysSince(profile.created_at);
+  console.log(profile);
   return (
     <Box bg='red.1' className='flex flex-col p-5 rounded-md'>
       <Text c='black' size='md' fw={700}>
@@ -33,21 +34,15 @@ export const Profile = () => {
       <Text c='black' size='sm'>
         함께한 지 {daysSince}일째
       </Text>
-      <div className='mt-8 flex flex-row items-center'>
-        <Button variant='outline' c='black' onClick={handleSignOut}>
-          로그아웃
-        </Button>
-        {/* <Divider
-          size='sm'
-          orientation='vertical'
-          color='black'
-          h={24}
-          className='self-center'
-        /> */}
-        {/* <Button variant='transparent' c='black' onClick={handleDeleteAccount}>
-          회원탈퇴
-        </Button> */}
-      </div>
+
+      <Button
+        variant='outline'
+        c='black'
+        onClick={handleSignOut}
+        className='self-start mt-5'
+      >
+        로그아웃
+      </Button>
     </Box>
   );
 };
