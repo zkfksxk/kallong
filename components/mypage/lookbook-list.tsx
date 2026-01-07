@@ -18,11 +18,13 @@ export const LookbookList = () => {
 
   console.log('data', data);
   return (
-    <div className='flex flex-1 flex-col gap-10 border'>
+    <div className='flex flex-1 flex-col gap-10'>
       {!data ||
         (data?.votes.length == 0 && (
-          <div>
-            <Text ta='center'>투표가 없습니다.</Text>
+          <div className='flex flex-1 flex-col items-center justify-center'>
+            <Text size='xl' ta='center' fw='700'>
+              투표가 없습니다.
+            </Text>
           </div>
         ))}
       {data &&
