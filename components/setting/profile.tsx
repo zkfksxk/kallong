@@ -11,6 +11,8 @@ export const Profile = () => {
   const { profile } = useProfileStore((s) => s);
   const { mutate: signout } = useSignOut();
 
+  if (!profile) return null;
+
   const handleSignOut = () => {
     signout(undefined, {
       onSuccess: () => {
@@ -19,10 +21,8 @@ export const Profile = () => {
     });
   };
 
-  if (!profile) return <div>Loading...</div>;
-
   const daysSince = getDaysSince(profile.created_at);
-  console.log(profile);
+
   return (
     <Box bg='red.1' className='flex flex-col p-5 rounded-md'>
       <Text c='black' size='md' fw={700}>

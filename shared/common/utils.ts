@@ -1,4 +1,4 @@
-const ALLOWED_PATTERN = /^[a-zA-Z가-힣0-9\s\-_]*$/;
+const ALLOWED_PATTERN = /^[a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ0-9\s\-_]*$/;
 
 export const validateInput = (
   value: string,
