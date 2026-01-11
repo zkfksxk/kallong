@@ -17,7 +17,7 @@ export function useGetVoteById() {
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
       if (!lastPage.data || lastPage.data.length < PAGE_SIZE) return undefined;
-      return allPages.length;
+      return allPages.length; // from = 페이지 개수 * 페이지 사이즈
     },
     select: (data): { votes: VoteRes[]; totalCount: number } => ({
       votes: data.pages.flatMap((page) => page.data), // 모든 투표를 하나의 배열로

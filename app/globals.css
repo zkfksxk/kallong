@@ -41,5 +41,13 @@ body {
   border-color: #141414 !important;
 }
 .mantine-ActionIcon-root[data-variant='outline'] {
-  --ai-bd: 2px solid #a41613 !important;
+  --ai-bd: 1px solid #e3231f !important;
+}
+.mantine-Button-root[data-variant='outline'] {
+  --button-bd: 1px solid #e3231f !important;
+  color: #e3231f !important;
+}
+
+.mantine-Button-root[data-variant='transparent'] {
+  color: #e3231f !important;
 }

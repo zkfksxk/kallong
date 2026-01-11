@@ -80,10 +80,10 @@ export default function ResetPasswordPage() {
         <Button
           type='submit'
           variant='filled'
-          color='blue.9'
+          color='black'
           size='lg'
           radius='md'
-          disabled={isSubmitting}
+          loading={isSubmitting}
         >
           인증 메일 요청하기
         </Button>

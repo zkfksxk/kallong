@@ -13,7 +13,7 @@ export default function SettingLayout({
   const router = useRouter();
 
   return (
-    <main className='relative bg-white max-w-[500px] w-full flex flex-1 flex-col px-5 pb-20'>
+    <main className=' bg-white max-w-[500px] w-full flex flex-1 flex-col px-5 pb-20'>
       <Header
         isSettingShow={false}
         leftComponent={

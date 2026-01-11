@@ -3,9 +3,7 @@ const queryKeys = {
   GET_LOOKBOOK: (id: string) => `getLookbookById-${id}`,
   CHECK_LOOKBOOK_LIKED: (id: string) => `checkLookbookLiked-${id}`,
   PROFILE: {
-    ALL: ['profile'],
-    LIST: ['profile', 'list'],
-    GET_BYID: (userId: string) => ['profile', 'byId', userId],
+    GET_BYID: ['get_profile_byId'],
   },
   VOTE: {
     ALL: ['vote'],

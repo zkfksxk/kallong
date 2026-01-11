@@ -48,24 +48,9 @@ const createAxiosInstance = (): AxiosInstance => {
 
   axiosObj.interceptors.response.use(
     (response) => {
-      //const { status } = response;
-      // if (status >= 400 && status < 500) {
-      //   throw createCustomError({
-      //     name: 'ClientError',
-      //     message: '클라이언트 요청 오류',
-      //     code: status,
-      //   });
-      // } else if (status >= 500) {
-      //   throw createCustomError({
-      //     name: 'ServerError',
-      //     message: '서버 내부 오류',
-      //     code: status,
-      //   });
-      // }
       return response;
     },
     (error) => {
-      //const customError = createCustomError(error);
       return Promise.reject(error);
     }
   );

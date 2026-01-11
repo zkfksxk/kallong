@@ -1,3 +1,4 @@
+import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 import { FiTrash2 } from 'react-icons/fi';
 import { GoHome, GoHomeFill, GoPerson, GoPersonFill } from 'react-icons/go';
 import { IoIosMail } from 'react-icons/io';
@@ -44,4 +45,5 @@ export const ICONS = {
   Capture: TbCapture,
   Trash: FiTrash2,
   Mail: IoIosMail,
+  RightSquare: BsFillArrowRightSquareFill,
 };

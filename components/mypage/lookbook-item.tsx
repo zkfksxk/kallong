@@ -27,9 +27,7 @@ export const LookbookItem = ({
         deleteLookbookById(lookbook_id_a),
         deleteLookbookById(lookbook_id_b),
       ]);
-    } catch (error) {
-      console.log('delete lookbook fail', error);
-
+    } catch {
       notifications.show({
         title: 'Lookbook Failed',
         message: '룩북 삭제 중 에러가 발생했습니다.',
@@ -43,8 +41,8 @@ export const LookbookItem = ({
 
   return (
     <Link href={`/lookbooks/result/${lookbook_id_a}/${lookbook_id_b}`}>
-      <div className='flex flex-row justify-between'>
-        <Text>{vote_name}</Text>
+      <div className='flex flex-row border px-2 py-5 border-[#A41613] justify-between rounded-sm'>
+        <Text size='md'>{vote_name}</Text>
         <ActionIcon variant='transparent' onClick={handleDelete}>
           <Trash color='black' size={24} />
         </ActionIcon>

@@ -1,0 +1,12 @@
+import { SettingItem } from '@/components/setting/setting-item';
+
+export default function ScreenPage() {
+  //const t = useTranslations('Setting');
+
+  return (
+    <div className='bg-white w-full flex flex-col'>
+      <SettingItem url='/setting/screen/theme' title='테마' />
+      <SettingItem url='/setting/screen/language' title='언어' />
+    </div>
+  );
+}

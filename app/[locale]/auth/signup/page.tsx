@@ -8,6 +8,7 @@ import { IoCloseCircle as Close } from 'react-icons/io5';
 import { useSignUp } from '@/apis/querys/auth/useSignUp';
 import { Link, useRouter } from '@/i18n/navigation';
 import { AUTH_FORM_RULES } from '@/shared/common/constants';
+import { ICONS } from '@/shared/common/icons';
 import { SignUpForm } from '@/shared/common/types';
 
 export default function SignUpPage() {
@@ -17,23 +18,29 @@ export default function SignUpPage() {
   const { mutate: signUp, isPending } = useSignUp();
 
   const onSubmit = (data: SignUpForm) => {
-    signUp(data, {
-      onSuccess: () => {
-        router.push('/auth/signin');
-      },
-      onError: (error) => {
-        console.log(error);
-        notifications.show({
-          title: 'SignUp Failed',
-          message: t('failSignUp'),
-          icon: <Close color='red' size={24} />,
-          withCloseButton: false,
-          loading: false,
-          color: 'transperant',
-        });
-      },
-    });
+    signUp(
+      { email: data.email, password: data.password, nickname: data.nickname },
+      {
+        onSuccess: () => {
+          router.push('/auth/signin');
+        },
+        onError: (error) => {
+          console.log(error);
+          notifications.show({
+            title: 'SignUp Failed',
+            message: t('failSignUp'),
+            icon: <Close color='red' size={24} />,
+            withCloseButton: false,
+            loading: false,
+            color: 'transperant',
+          });
+        },
+      }
+    );
   };
+
+  const password = methods.watch('password');
+  const { RightSquare } = ICONS;
 
   return (
     <div className='w-full flex flex-col'>
@@ -64,6 +71,17 @@ export default function SignUpPage() {
             disabled={isPending}
           />
           <TextInput
+            label={t('passwordConfirmed')}
+            type='password'
+            placeholder={t('passwordConfirmedPlaceholder')}
+            {...methods.register('passwordConfirmed', {
+              required: '비밀번호 확인을 입력해주세요.',
+              validate: (value) => value === password || t('passwordMismatch'),
+            })}
+            error={methods.formState.errors.passwordConfirmed?.message}
+            disabled={isPending}
+          />
+          <TextInput
             label={t('nickname')}
             type='text'
             placeholder={t('nicknamePlaceholder')}
@@ -75,7 +93,7 @@ export default function SignUpPage() {
         <Button
           type='submit'
           variant='filled'
-          color='blue.9'
+          color='black'
           size='lg'
           radius='md'
           disabled={isPending}
@@ -85,7 +103,7 @@ export default function SignUpPage() {
       </form>
 
       <Link href='/mypage/signin' className='mt-5'>
-        이미 계정이 있다면? ➡️ 로그인
+        이미 계정이 있다면? <RightSquare className='inline' /> 로그인
       </Link>
     </div>
   );
