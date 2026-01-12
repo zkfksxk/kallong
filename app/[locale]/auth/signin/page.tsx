@@ -15,7 +15,7 @@ import { ICONS } from '@/shared/common/icons';
 import { SignInForm } from '@/shared/common/types';
 
 export default function SignInPage() {
-  const t = useTranslations('Mypage.auth');
+  const t = useTranslations('Setting.auth');
   const router = useRouter();
   const methods = useForm<SignInForm>();
   const { mutate: signIn, isPending: signInIsPending } =

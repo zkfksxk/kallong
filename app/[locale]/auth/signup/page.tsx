@@ -12,7 +12,7 @@ import { ICONS } from '@/shared/common/icons';
 import { SignUpForm } from '@/shared/common/types';
 
 export default function SignUpPage() {
-  const t = useTranslations('Mypage.auth');
+  const t = useTranslations('Setting.auth');
   const router = useRouter();
   const methods = useForm<SignUpForm>();
   const { mutate: signUp, isPending } = useSignUp();
