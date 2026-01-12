@@ -3,9 +3,15 @@
     "title": "내일 뭐 입지?",
     "button": "시작하기"
   },
+  "Tab": {
+    "home": "홈",
+    "my": "마이"
+  },
   "Setting": {
     "homebutton": "홈으로 이동하기",
-    "formbutton": "의견 제안하기"
+    "formbutton": "의견 제안하기",
+    "english": "영어",
+    "korean": "한국어"
   },
   "Lookbooks": {
     "main": {

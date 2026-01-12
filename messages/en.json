@@ -3,9 +3,15 @@
     "title": "What to wear tomorrow?",
     "button": "Start"
   },
+  "Tab": {
+    "home": "Home",
+    "my": "My"
+  },
   "Setting": {
     "homebutton": "홈으로 이동하기",
-    "formbutton": "의견 제안하기"
+    "formbutton": "의견 제안하기",
+    "english": "English",
+    "korean": "Korean"
   },
   "Lookbooks": {
     "main": {

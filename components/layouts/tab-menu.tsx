@@ -1,10 +1,12 @@
 'use client';
 
 import { Text } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
 
 export const TabMenu = () => {
+  const t = useTranslations('Tab');
   const { Home, Person } = ICONS;
   const pathname = usePathname();
   const isHome = pathname === '/';
@@ -22,7 +24,7 @@ export const TabMenu = () => {
           <Home.Outline size={24} color='black' />
         )}
         <Text size='xs' fw={isHome ? 600 : 400}>
-          홈
+          {t('home')}
         </Text>
       </Link>
 
@@ -37,7 +39,7 @@ export const TabMenu = () => {
         )}
 
         <Text size='xs' fw={isMypage ? 600 : 400}>
-          마이
+          {t('my')}
         </Text>
       </Link>
       {/* <div

@@ -49,3 +49,8 @@ export const AUTH_FORM_RULES = {
     },
   },
 };
+
+export const LANGUAGES = [
+  { label: 'english', value: 'en' },
+  { label: 'korean', value: 'ko' },
+];
