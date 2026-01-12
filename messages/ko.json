@@ -11,7 +11,33 @@
     "homebutton": "홈으로 이동하기",
     "formbutton": "의견 제안하기",
     "english": "영어",
-    "korean": "한국어"
+    "korean": "한국어",
+    "lang": "언어",
+    "theme": "테마",
+    "appinfo": "내일 뭐 입지 소개",
+    "userinfo": "사용자 설정",
+    "screen": "화면 설정",
+    "auth": {
+      "signUp": "회원가입",
+      "signIn": "로그인",
+      "logout": "로그아웃",
+      "deleteAccount": "탈퇴하기",
+      "email": "이메일",
+      "password": "비밀번호",
+      "nickname": "닉네임",
+      "passwordConfirmed": "비밀번호 확인",
+      "failSignUp": "회원가입에 실패했습니다. 다시 시도해주세요",
+      "emailPlaceholder": "이메일을 입력하세요",
+      "passwordPlaceholder": "비밀번호을 입력하세요",
+      "passwordConfirmedPlaceholder": "비밀번호 확인을 입력하세요",
+      "nicknamePlaceholder": "닉네임을 입력하세요",
+      "passwordMismatch": "비밀번호와 일치하지 않습니다.",
+      "passwordRequirements": "8자 이상, 문자/숫자/특수문자 중 2가지 이상",
+      "resetPassword": "비밀번호 재설정",
+      "resetPasswordSuccess": "비밀번호 재설정 링크가 이메일로 전송되었습니다.",
+      "resetPasswordError": "비밀번호 재설정에 실패했습니다. 다시 시도해주세요.",
+      "nicknameChange": "닉네임 변경"
+    }
   },
   "Lookbooks": {
     "main": {
@@ -43,26 +69,6 @@
     },
     "result": {
       "title": "결과 확인"
-    }
-  },
-  "Mypage": {
-    "auth": {
-      "signUp": "회원가입",
-      "signIn": "로그인",
-      "email": "이메일",
-      "password": "비밀번호",
-      "nickname": "닉네임",
-      "passwordConfirmed": "비밀번호 확인",
-      "failSignUp": "회원가입에 실패했습니다. 다시 시도해주세요",
-      "emailPlaceholder": "이메일을 입력하세요",
-      "passwordPlaceholder": "비밀번호을 입력하세요",
-      "passwordConfirmedPlaceholder": "비밀번호 확인을 입력하세요",
-      "nicknamePlaceholder": "닉네임을 입력하세요",
-      "passwordMismatch": "비밀번호와 일치하지 않습니다.",
-      "passwordRequirements": "8자 이상, 문자/숫자/특수문자 중 2가지 이상",
-      "resetPassword": "비밀번호 재설정",
-      "resetPasswordSuccess": "비밀번호 재설정 링크가 이메일로 전송되었습니다.",
-      "resetPasswordError": "비밀번호 재설정에 실패했습니다. 다시 시도해주세요."
     }
   }
 }

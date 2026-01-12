@@ -2,18 +2,19 @@
 
 import { Group, Radio, Text } from '@mantine/core';
 import { useLocale, useTranslations } from 'next-intl';
-import { usePathname, useRouter } from '@/i18n/navigation';
+import { useRouter } from '@/i18n/navigation';
 import { LANGUAGES } from '@/shared/common/constants';
 
 export default function LanguagePage() {
   const t = useTranslations('Setting');
   const locale = useLocale();
   const router = useRouter();
-  const pathname = usePathname();
 
   const handleLanguageChange = (nextLocale: string) => {
+    if (nextLocale === locale) return;
+
     // 예: /ko/setting -> /en/setting
-    router.replace(pathname, { locale: nextLocale });
+    router.replace('/setting', { locale: nextLocale });
   };
 
   return (

@@ -2,11 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 import { Box, Button, Text } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 import { useSignOut } from '@/apis/querys/auth/useSignOut';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
 import { getDaysSince } from '@/shared/common/utils';
 
 export const Profile = () => {
+  const t = useTranslations('Setting');
   const router = useRouter();
   const { profile } = useProfileStore((s) => s);
   const { mutate: signout } = useSignOut();
@@ -41,7 +43,7 @@ export const Profile = () => {
         onClick={handleSignOut}
         className='self-start mt-5'
       >
-        로그아웃
+        {t('auth.logout')}
       </Button>
     </Box>
   );

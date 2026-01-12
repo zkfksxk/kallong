@@ -11,7 +11,33 @@
     "homebutton": "홈으로 이동하기",
     "formbutton": "의견 제안하기",
     "english": "English",
-    "korean": "Korean"
+    "korean": "Korean",
+    "lang": "Language",
+    "theme": "Theme",
+    "appinfo": "About What to wear tomorrow?",
+    "userinfo": "UserInfo",
+    "screen": "Screen",
+    "auth": {
+      "signUp": "Sign Up",
+      "signIn": "Sign In",
+      "logout": "Logout",
+      "deleteAccount": "Delete Account",
+      "email": "Email",
+      "password": "Password",
+      "nickname": "Nickname",
+      "passwordConfirmed": "Confirm Password",
+      "failSignUp": "Sign-up failed. Please try again.",
+      "emailPlaceholder": "Enter your email",
+      "passwordPlaceholder": "Enter your password",
+      "passwordConfirmedPlaceholder": "Confirm your password",
+      "nicknamePlaceholder": "Enter your nickname",
+      "passwordMismatch": "Passwords do not match.",
+      "passwordRequirements": "8+ chars, at least 2 of letters/numbers/specials",
+      "resetPassword": "Reset Password",
+      "resetPasswordSuccess": "Password reset link has been sent to your email.",
+      "resetPasswordError": "Password reset failed. Please try again.",
+      "nicknameChange": "Change Nickname"
+    }
   },
   "Lookbooks": {
     "main": {

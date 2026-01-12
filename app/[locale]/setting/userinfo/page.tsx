@@ -2,6 +2,7 @@
 
 import { Button } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { useTranslations } from 'next-intl';
 import { useDeleteAccount } from '@/apis/querys/auth/useDeleteAccount';
 import { Profile } from '@/components/setting/profile';
 import { ProfileSkeleton } from '@/components/setting/profile-skeleton';
@@ -11,6 +12,7 @@ import { useProfileStore } from '@/hooks/provider/profile-provider';
 
 export default function UserInfoPage() {
   const [opened, { open, close }] = useDisclosure(false);
+  const t = useTranslations('Setting');
   const { profile } = useProfileStore((s) => s);
   const { mutate: deleteAccount, isPending } = useDeleteAccount();
 
@@ -27,8 +29,11 @@ export default function UserInfoPage() {
       <div className='bg-white w-full flex flex-1 flex-col'>
         {!profile ? <ProfileSkeleton /> : <Profile />}
         <div className='flex flex-col mt-8'>
-          <SettingItem url='/auth/password/reset' title='비밀번호 변경' />
-          <SettingItem url='/auth/nickname' title='닉네임 변경' />
+          <SettingItem
+            url='/auth/password/reset'
+            title={t('auth.resetPassword')}
+          />
+          <SettingItem url='/auth/nickname' title={t('auth.nicknameChange')} />
         </div>
         <Button
           variant='transparent'
@@ -37,7 +42,7 @@ export default function UserInfoPage() {
           className='self-start mt-auto'
           disabled={!profile || isPending}
         >
-          탈퇴하기
+          {t('auth.deleteAccount')}
         </Button>
       </div>
       <CustomModal
