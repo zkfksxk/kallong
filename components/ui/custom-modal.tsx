@@ -1,4 +1,5 @@
 import { Button, Modal, Text } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 
 interface CustomModalProps {
   opened: boolean;
@@ -19,10 +20,15 @@ export const CustomModal = ({
   description,
   onSubmit,
   onCancel,
-  submitLabel = '확인',
-  cancelLabel = '취소',
+  submitLabel,
+  cancelLabel,
   loading = false,
 }: CustomModalProps) => {
+  const t = useTranslations('Common');
+
+  const finalSubmitLabel = submitLabel ?? t('confirm');
+  const finalCancelLabel = cancelLabel ?? t('cancel');
+
   return (
     <Modal
       opened={opened}
@@ -55,10 +61,10 @@ export const CustomModal = ({
             if (onCancel) onCancel();
           }}
         >
-          {cancelLabel}
+          {finalCancelLabel}
         </Button>
         <Button variant='filled' fullWidth onClick={onSubmit} loading={loading}>
-          {submitLabel}
+          {finalSubmitLabel}
         </Button>
       </div>
     </Modal>

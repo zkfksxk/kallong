@@ -12,7 +12,6 @@ export const AUTH_ERROR_MESSAGE_MAP: Record<string, string> = {
   email_not_confirmed: '이메일 인증이 필요합니다.',
   weak_password: '비밀번호가 너무 약합니다.',
   signup_disabled: '현재 회원가입이 불가능한 상태입니다.',
-  user_already_exists: '이미 가입된 사용자입니다.',
   over_email_send_rate_limit:
     '이메일 전송 한도를 초과했습니다. 잠시 후 다시 시도해주세요.',
   email_address_invalid: '유효하지 않은 이메일 주소입니다.',

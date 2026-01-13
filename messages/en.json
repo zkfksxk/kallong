@@ -1,4 +1,8 @@
 {
+  "Common": {
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
   "Home": {
     "title": "What to wear tomorrow?",
     "button": "Start"
@@ -10,33 +14,52 @@
   "Setting": {
     "homebutton": "홈으로 이동하기",
     "formbutton": "의견 제안하기",
+    "screen": "Screen",
     "english": "English",
     "korean": "Korean",
     "lang": "Language",
     "theme": "Theme",
     "appinfo": "About What to wear tomorrow?",
     "userinfo": "UserInfo",
-    "screen": "Screen",
+    "daysTogether": "Together for {daysSince} days",
     "auth": {
       "signUp": "Sign Up",
       "signIn": "Sign In",
-      "logout": "Logout",
+      "logout": "Log Out",
       "deleteAccount": "Delete Account",
       "email": "Email",
       "password": "Password",
+      "newPassword": "New Password",
       "nickname": "Nickname",
       "passwordConfirmed": "Confirm Password",
-      "failSignUp": "Sign-up failed. Please try again.",
       "emailPlaceholder": "Enter your email",
       "passwordPlaceholder": "Enter your password",
       "passwordConfirmedPlaceholder": "Confirm your password",
       "nicknamePlaceholder": "Enter your nickname",
       "passwordMismatch": "Passwords do not match.",
-      "passwordRequirements": "8+ chars, at least 2 of letters/numbers/specials",
+      "passwordRequirements": "At least 8 characters with 2 or more of: letters, numbers, special characters",
+      "passwordConfirmedRequirements": "Please confirm your password.",
+      "checkEmail": "Please check your email",
+      "succeedNicknameChange": "Nickname changed successfully",
+      "failSignIn": "Sign in failed",
+      "failSignUp": "Sign up failed",
+      "failNicknameChange": "Failed to change nickname",
+      "failPasswordUpdate": "Failed to update password",
       "resetPassword": "Reset Password",
-      "resetPasswordSuccess": "Password reset link has been sent to your email.",
-      "resetPasswordError": "Password reset failed. Please try again.",
-      "nicknameChange": "Change Nickname"
+      "resetPasswordDescription": "We'll send you a password reset link via email.",
+      "resetEmailButton": "Send Verification Email",
+      "resetPasswordSucceed": "Password reset link has been sent to your email.",
+      "resetPasswordFail": "Failed to reset password. Please try again.",
+      "updatePassword": "Update Password",
+      "updatePasswordDescription": "Enter your new password",
+      "nicknameChange": "Change Nickname",
+      "saveButton": "Save",
+      "alreadyHaveAccount": "Already have an account?",
+      "noAccount": "Don't have an account?",
+      "forgotPassword": "Forgot your password?",
+      "deleteAccountTitle": "Delete Account",
+      "deleteAccountDescription": "If you delete your account, all information will be deleted. Are you sure you want to delete your account?",
+      "deleteAccountSubmit": "Delete Account"
     }
   },
   "Lookbooks": {

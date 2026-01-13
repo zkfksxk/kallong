@@ -32,7 +32,7 @@ export default function SignInPage() {
       onError: (error) => {
         const errorObj = JSON.parse(error.message) as CustomAuthError;
         notifications.show({
-          title: 'SignIn Failed',
+          title: t('failSignIn'),
           message: errorObj.message,
           icon: <Close color='red' size={24} />,
           withCloseButton: false,
@@ -54,7 +54,7 @@ export default function SignInPage() {
   return (
     <div className='w-full flex flex-col'>
       <Text ta='center' size='xl' fw='700'>
-        로그인
+        {t('signIn')}
       </Text>
       <form
         className='flex flex-col w-full'
@@ -62,7 +62,7 @@ export default function SignInPage() {
       >
         <div className='w-full flex flex-col gap-2 mb-8'>
           <TextInput
-            label='이메일'
+            label={t('email')}
             type='email'
             placeholder={t('emailPlaceholder')}
             {...methods.register('email', AUTH_FORM_RULES.email)}
@@ -70,7 +70,7 @@ export default function SignInPage() {
             disabled={signInIsPending}
           />
           <TextInput
-            label='비밀번호'
+            label={t('password')}
             type='password'
             placeholder={t('passwordPlaceholder')}
             description={t('passwordRequirements')}
@@ -87,7 +87,7 @@ export default function SignInPage() {
           radius='md'
           disabled={signInIsPending}
         >
-          로그인
+          {t('signIn')}
         </Button>
       </form>
 
@@ -105,9 +105,9 @@ export default function SignInPage() {
         </Button> */}
         <div className='flex flex-col gap-1'>
           <Link href='/auth/signup'>
-            계정이 없다면? <RightSquare className='inline' /> 회원가입
+            {t('noAccount')} <RightSquare className='inline' /> {t('signUp')}
           </Link>
-          <Link href='/auth/password/reset'>비밀번호를 잊으셨나요?</Link>
+          <Link href='/auth/password/reset'>{t('forgotPassword')}</Link>
         </div>
       </div>
     </div>

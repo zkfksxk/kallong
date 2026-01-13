@@ -2,6 +2,7 @@
 
 import { Button, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
+import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useUpdateNickname } from '@/apis/querys/auth/useUpdateNickname';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
@@ -10,6 +11,7 @@ import { AUTH_FORM_RULES } from '@/shared/common/constants';
 import { ICONS } from '@/shared/common/icons';
 
 export default function NicknameChangePage() {
+  const t = useTranslations('Setting.auth');
   const router = useRouter();
   const {
     register,
@@ -29,8 +31,8 @@ export default function NicknameChangePage() {
           setProfile({ ...profile, nickname: data.nickname });
         }
         notifications.show({
-          title: 'Nickname Change Success',
-          message: 'Nickname Change Success',
+          title: t('succeedNicknameChange'),
+          message: t('succeedNicknameChange'),
           icon: <Alert.Check color='blue' size={24} />,
           withCloseButton: false,
           loading: false,
@@ -40,8 +42,8 @@ export default function NicknameChangePage() {
       },
       onError: () => {
         notifications.show({
-          title: 'Nickname Change Failed',
-          message: 'Nickname Change Failed',
+          title: t('failNicknameChange'),
+          message: t('failNicknameChange'),
           icon: <Alert.Close color='red' size={24} />,
           withCloseButton: false,
           loading: false,
@@ -57,14 +59,13 @@ export default function NicknameChangePage() {
         <div className='w-full flex flex-col gap-2 mb-8'>
           <TextInput
             {...register('nickname', AUTH_FORM_RULES.nickname)}
-            label='닉네임 변경'
+            label={t('nicknameChange')}
             type='nickname'
-            placeholder='홍길동'
+            placeholder={t('nicknamePlaceholder')}
             error={errors.nickname?.message}
             disabled={isSubmitting}
           />
         </div>
-
         <Button
           type='submit'
           variant='filled'
@@ -73,7 +74,7 @@ export default function NicknameChangePage() {
           radius='md'
           loading={isSubmitting}
         >
-          저장하기
+          {t('saveButton')}
         </Button>
       </form>
     </div>

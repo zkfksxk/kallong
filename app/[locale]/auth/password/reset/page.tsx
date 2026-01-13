@@ -10,7 +10,7 @@ import { AUTH_FORM_RULES } from '@/shared/common/constants';
 import { ICONS } from '@/shared/common/icons';
 
 export default function ResetPasswordPage() {
-  const t = useTranslations('Mypage.auth');
+  const t = useTranslations('Setting.auth');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const {
     register,
@@ -18,7 +18,7 @@ export default function ResetPasswordPage() {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<{ email: string }>();
-  const { mutate: resetPassword } = useResetPassword();
+  const { mutate: resetPassword } = useResetPassword(); //todo: 가입한 메일과 동일한지 확인
   const { Alert, Mail } = ICONS;
 
   const onSubmit = (data: { email: string }) => {
@@ -28,7 +28,7 @@ export default function ResetPasswordPage() {
         setIsSubmitted(true);
         notifications.show({
           title: t('resetPassword'),
-          message: t('resetPasswordSuccess'),
+          message: t('resetPasswordSucceed'),
           icon: <Alert.Check color='blue' size={24} />,
           withCloseButton: false,
           loading: false,
@@ -37,8 +37,8 @@ export default function ResetPasswordPage() {
       },
       onError: () => {
         notifications.show({
-          title: 'Password reset Failed',
-          message: t('resetPasswordError'),
+          title: t('resetPassword'),
+          message: t('resetPasswordFail'),
           icon: <Alert.Close color='red' size={24} />,
           withCloseButton: false,
           loading: false,
@@ -53,7 +53,7 @@ export default function ResetPasswordPage() {
       <Box bg='red.1' className='w-full flex flex-col items-center gap-3 p-5'>
         <Mail size={30} />
         <Text ta='center' fw={700}>
-          이메일을 확인해주세요
+          {t('checkEmail')}
         </Text>
       </Box>
     );
@@ -61,15 +61,15 @@ export default function ResetPasswordPage() {
 
   return (
     <div className='w-full flex flex-col'>
-      <Text ta='center'>비밀번호를 잊으셨나요?</Text>
+      <Text ta='center'>{t('forgotPassword')}</Text>
       <Text ta='center' size='sm'>
-        이메일로 비밀번호를 재설정 할 수 있는 인증 링크를 보내드립니다.
+        {t('resetPasswordDescription')}
       </Text>
       <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
         <div className='w-full flex flex-col gap-2 mb-8'>
           <TextInput
             {...register('email', AUTH_FORM_RULES.email)}
-            label='이메일'
+            label={t('email')}
             type='email'
             placeholder='example@abc.com'
             error={errors.email?.message}
@@ -85,7 +85,7 @@ export default function ResetPasswordPage() {
           radius='md'
           loading={isSubmitting}
         >
-          인증 메일 요청하기
+          {t('resetEmailButton')}
         </Button>
       </form>
     </div>

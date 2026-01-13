@@ -34,7 +34,7 @@ export const Profile = () => {
         {profile?.email}
       </Text>
       <Text c='black' size='sm'>
-        함께한 지 {daysSince}일째
+        {t('daysTogether', { daysSince })}
       </Text>
 
       <Button

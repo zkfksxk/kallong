@@ -48,9 +48,9 @@ export default function UserInfoPage() {
       <CustomModal
         opened={opened}
         onClose={close}
-        title='회원 탈퇴'
-        description='회원 탈퇴를 하시면 모든 정보는 삭제됩니다. 탈퇴하시겠습니까?'
-        submitLabel='탈퇴하기'
+        title={t('auth.deleteAccountTitle')}
+        description={t('auth.deleteAccountDescription')}
+        submitLabel={t('auth.deleteAccountSubmit')}
         onSubmit={handleDeleteAccount}
       />
     </>
