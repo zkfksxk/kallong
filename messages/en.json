@@ -1,7 +1,9 @@
 {
   "Common": {
     "cancel": "Cancel",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "errorOccurred": "An error occurred. Please try again later.",
+    "goHome": "Go Home"
   },
   "Home": {
     "title": "What to wear tomorrow?",
@@ -9,7 +11,9 @@
   },
   "Tab": {
     "home": "Home",
-    "my": "My"
+    "my": "My",
+    "notFound": "찾을 수 없는 페이지입니다.",
+    "goHome": "goHome"
   },
   "Setting": {
     "homebutton": "홈으로 이동하기",

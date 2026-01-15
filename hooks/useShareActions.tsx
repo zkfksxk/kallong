@@ -2,10 +2,12 @@ import { useRef, useState } from 'react';
 import { notifications } from '@mantine/notifications';
 import { domToPng } from 'modern-screenshot';
 import { ICONS } from '@/shared/common/icons';
+import { useDetectWebView } from './useDetectWebView';
 
 const { Check, Alert } = ICONS;
 
 export function useShareActions() {
+  const { isWebView } = useDetectWebView();
   const [visible, setVisible] = useState(false);
   const captureRef = useRef<HTMLDivElement>(null);
 
@@ -20,11 +22,24 @@ export function useShareActions() {
         scale: 2,
       });
 
-      const link = document.createElement('a');
-      link.download = `${new Date().getFullYear()}.png`;
-      link.href = dataUrl;
-      link.click();
+      if (isWebView) {
+        window.ReactNativeWebView?.postMessage(
+          JSON.stringify({
+            type: 'DOWNLOAD_IMAGE',
+            data: dataUrl,
+            filename: `lookbook_${new Date().getFullYear()}.png`,
+          })
+        );
 
+        console.log('webview');
+      } else {
+        const link = document.createElement('a');
+        link.download = `lookbook_${Date.now()}.png`;
+        link.href = dataUrl;
+        link.click();
+
+        console.log('web');
+      }
       notifications.show({
         title: 'Successfully Captured',
         message: '이미지 캡처가 완료되었습니다!',

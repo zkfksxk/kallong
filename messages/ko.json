@@ -1,7 +1,9 @@
 {
   "Common": {
     "cancel": "취소",
-    "confirm": "확인"
+    "confirm": "확인",
+    "errorOccurred": "오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
+    "goHome": "홈으로"
   },
   "Home": {
     "title": "내일 뭐 입지?",
