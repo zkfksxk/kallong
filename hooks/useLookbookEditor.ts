@@ -4,17 +4,12 @@ import { useRef, useState } from 'react';
 import imageCompression from 'browser-image-compression';
 import { useRemoveBackground } from '@/apis/querys/useRemoveBackground';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
+import { COMPRESSION_OPTIONS } from '@/shared/common/constants';
 import { AccessoryCategory, Outfit } from '@/shared/common/types';
 import { base64ToFile } from '@/shared/common/utils';
 
 export type TargetLookbook = 'first' | 'second';
 export type TargetOutfit = keyof Outfit;
-
-const options = {
-  maxSizeMB: 1,
-  maxWidthOrHeight: 1920,
-  useWebWorker: true,
-};
 
 export function useLookbookEditor(
   targetLookbook: TargetLookbook,
@@ -101,7 +96,7 @@ export function useLookbookEditor(
 
     try {
       // 이미지 압축
-      const compressedFile = await imageCompression(file, options);
+      const compressedFile = await imageCompression(file, COMPRESSION_OPTIONS);
       const compressedUrl = URL.createObjectURL(compressedFile);
 
       if (targetOutfit === 'finalUrl') {
@@ -123,9 +118,6 @@ export function useLookbookEditor(
     setIsLoading(true);
 
     try {
-      // const blob = await fetch(url).then((res) => res.blob());
-      // const file = new File([blob], 'image.png', { type: blob.type });
-
       const file = lookbook.data.finalFile!;
       const formData = new FormData();
       formData.append('image', file);

@@ -4,6 +4,7 @@ import { getMessages } from 'next-intl/server';
 import { TabMenu } from '@/components/layouts/tab-menu';
 import AuthProvider from '@/hooks/provider/auth-provider';
 import { LookbookStoreProvider } from '@/hooks/provider/lookbook-provider';
+import { OutfitStoreProvider } from '@/hooks/provider/outfit-provider';
 import { ProfileStoreProvider } from '@/hooks/provider/profile-provider';
 import { routing } from '@/i18n/routing';
 
@@ -29,12 +30,14 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <LookbookStoreProvider>
-        <ProfileStoreProvider>
-          <AuthProvider>
-            {children}
-            <TabMenu />
-          </AuthProvider>
-        </ProfileStoreProvider>
+        <OutfitStoreProvider>
+          <ProfileStoreProvider>
+            <AuthProvider>
+              {children}
+              <TabMenu />
+            </AuthProvider>
+          </ProfileStoreProvider>
+        </OutfitStoreProvider>
       </LookbookStoreProvider>
     </NextIntlClientProvider>
   );

@@ -4,10 +4,9 @@ import {
   MantineProvider,
   mantineHtmlProps,
 } from '@mantine/core';
-import '@mantine/core/styles.css';
 import { Notifications } from '@mantine/notifications';
-import '@mantine/notifications/styles.css';
 import { Analytics } from '@vercel/analytics/next';
+import { ThemeProvider } from 'next-themes';
 import TanstackQueryProvider from '@/hooks/provider/tanstackquery-provider';
 import { SITE_CONFIG } from '@/shared/common/constants';
 import CLIENT_THEME from '@/shared/theme/clientTheme';
@@ -56,16 +55,18 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang='ko' {...mantineHtmlProps}>
+    <html lang='ko' {...mantineHtmlProps} suppressHydrationWarning>
       <head>
         <ColorSchemeScript />
       </head>
       <body>
         <TanstackQueryProvider>
-          <MantineProvider theme={mergedTheme}>
-            <Notifications position='bottom-center' />
-            {children}
-          </MantineProvider>
+          <ThemeProvider defaultTheme='system'>
+            <MantineProvider theme={mergedTheme}>
+              <Notifications position='bottom-center' />
+              {children}
+            </MantineProvider>
+          </ThemeProvider>
         </TanstackQueryProvider>
         <Analytics />
       </body>

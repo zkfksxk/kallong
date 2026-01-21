@@ -8,9 +8,8 @@ export default function NotFound() {
   return (
     <main className='relative bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center'>
       <Stack align='center' justify='center' gap='md'>
-        <Text>Not Found</Text>
-        <Text>{t('notFound')}</Text>
-        <Button component={Link} href='/' size='md' px='xl'>
+        <Text fw={700}>{t('notFound')}</Text>
+        <Button component={Link} href='/' size='md' px='xl' color='red.5'>
           {t('goHome')}
         </Button>
       </Stack>

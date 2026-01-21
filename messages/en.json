@@ -3,28 +3,36 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "errorOccurred": "An error occurred. Please try again later.",
-    "goHome": "Go Home"
-  },
-  "Home": {
-    "title": "What to wear tomorrow?",
-    "button": "Start"
+    "goHome": "Go Home",
+    "fail": "{type} Failed",
+    "succeed": "Success"
   },
   "Tab": {
     "home": "Home",
     "my": "My",
-    "notFound": "찾을 수 없는 페이지입니다.",
+    "notFound": "Page not found",
     "goHome": "goHome"
   },
+  "Home": {
+    "title1": "Closet",
+    "description1": "Record today's style.",
+    "title2": "Vote",
+    "description2": "Start a 12-hour vote.",
+    "button": "시작하기"
+  },
   "Setting": {
-    "homebutton": "홈으로 이동하기",
-    "formbutton": "의견 제안하기",
+    "homebutton": "Go to Home",
+    "formbutton": "Submit Feedback",
     "screen": "Screen",
     "english": "English",
     "korean": "Korean",
     "lang": "Language",
     "theme": "Theme",
+    "light": "Light mode",
+    "dark": "Dark mode",
+    "system": "System",
     "appinfo": "About What to wear tomorrow?",
-    "userinfo": "UserInfo",
+    "userinfo": "User Settings",
     "daysTogether": "Together for {daysSince} days",
     "auth": {
       "signUp": "Sign Up",
@@ -51,7 +59,7 @@
       "failPasswordUpdate": "Failed to update password",
       "resetPassword": "Reset Password",
       "resetPasswordDescription": "We'll send you a password reset link via email.",
-      "resetEmailButton": "Send Verification Email",
+      "resetEmailButton": "Send Email",
       "resetPasswordSucceed": "Password reset link has been sent to your email.",
       "resetPasswordFail": "Failed to reset password. Please try again.",
       "updatePassword": "Update Password",
@@ -64,38 +72,53 @@
       "deleteAccountTitle": "Delete Account",
       "deleteAccountDescription": "If you delete your account, all information will be deleted. Are you sure you want to delete your account?",
       "deleteAccountSubmit": "Delete Account"
+    },
+    "validation": {
+      "emailRequired": "Please enter your email.",
+      "emailInvalidPattern": "Invalid email format.",
+      "passwordRequired": "Please enter your password.",
+      "passwordInvaildPattern": "Include at least two of: English letters, numbers, special characters.",
+      "passwordMin": "Please enter at least 8 characters.",
+      "passwordMax": "Please enter 20 characters or fewer.",
+      "nicknameRequired": "Please enter your nickname.",
+      "nicknameMin": "Please enter at least 1 character.",
+      "nicknameMax": "Please enter 10 characters or fewer.",
+      "nicknamePattern": "Only English letters, Korean characters, and numbers are allowed."
     }
   },
   "Lookbooks": {
     "main": {
-      "nicknameLabel": "닉네임",
-      "nicknamePlaceholder": "홍길동",
-      "firstLookLabel": "첫 번째 룩",
-      "firstLookPlaceholder": "출근룩-A",
-      "secondLookLabel": "두 번째 룩",
-      "secondLookPlaceholder": "출근룩-B",
-      "decorateButton": "꾸미기"
+      "voteNameLabel": "Vote Name",
+      "voteNamePlaceholder": "Today's Outfit",
+      "firstLookLabel": "First Style",
+      "firstLookPlaceholder": "Check Shirt-A",
+      "secondLookLabel": "Second Style",
+      "secondLookPlaceholder": "Check Shirt-B",
+      "decorateButton": "Decorate",
+      "empty": "Please enter a value.",
+      "maxLength": "Please enter {maxLength} characters or less.",
+      "invalidCharacters": "Only English, Korean, numbers, spaces, hyphens(-), and underscores(_) are allowed."
     },
     "create": {
-      "tabFirst": "첫 번째 룩",
-      "tabSecond": "두 번째 룩",
-      "saveButton": "저장하기",
-      "backButton": "뒤로가기",
-      "bgRemoveQuestion": "혹시 누끼(배경 제거) 사진이 없으신가요?",
-      "editorButton": "에디터로 이동하기"
+      "tabFirst": "First Look",
+      "tabSecond": "Second Look",
+      "saveButton": "Save",
+      "backButton": "Back",
+      "bgRemoveQuestion": "Don't have a background-removed photo?",
+      "editorButton": "Go to Editor"
     },
     "editor": {
-      "tabFirst": "첫 번째 룩",
-      "tabSecond": "두 번째 룩",
-      "backButton": "뒤로가기",
-      "addButton": "추가",
-      "removeButton": "제거",
-      "removeBgButton": "배경 제거",
-      "tabFinalUrl": "이미지",
-      "finalUrlTitle": "이미지를 추가해보세요!"
+      "tabFirst": "First Look",
+      "tabSecond": "Second Look",
+      "backButton": "Back",
+      "addButton": "Add",
+      "removeButton": "Remove",
+      "removeBgButton": "Remove Background",
+      "tabFinalUrl": "Image",
+      "finalUrlTitle": "Add an image!"
     },
     "result": {
-      "title": "Result"
+      "title": "View Results"
     }
   }
 }

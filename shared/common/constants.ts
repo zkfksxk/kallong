@@ -1,6 +1,12 @@
 export const MAX_FILE_SIZE_MB = 4;
 export const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024; // 4MB
 
+export const COMPRESSION_OPTIONS = {
+  maxSizeMB: 4,
+  maxWidthOrHeight: 1920,
+  useWebWorker: true,
+};
+
 export const SITE_CONFIG = {
   domain: 'https://what-to-wear-tomorrow.vercel.app/',
   thumbnail: 'images/thumbnail.png',
@@ -30,7 +36,7 @@ export const AUTH_FORM_RULES = {
     },
     maxLength: {
       value: 30,
-      message: '30자 이하로 입력해주세요.',
+      message: '20자 이하로 입력해주세요.',
     },
   },
   nickname: {
@@ -54,3 +60,5 @@ export const LANGUAGES = [
   { label: 'english', value: 'en' },
   { label: 'korean', value: 'ko' },
 ];
+
+export const THEME = ['light', 'dark', 'system'];

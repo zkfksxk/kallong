@@ -1,4 +1,3 @@
-// stores/profile-store.ts
 import { createStore } from 'zustand';
 import type { Profile } from '@/shared/common/types';
 

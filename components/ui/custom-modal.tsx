@@ -56,6 +56,7 @@ export const CustomModal = ({
         <Button
           variant='filled'
           fullWidth
+          color='black'
           onClick={() => {
             onClose();
             if (onCancel) onCancel();
@@ -63,7 +64,13 @@ export const CustomModal = ({
         >
           {finalCancelLabel}
         </Button>
-        <Button variant='filled' fullWidth onClick={onSubmit} loading={loading}>
+        <Button
+          variant='filled'
+          color='black'
+          fullWidth
+          onClick={onSubmit}
+          loading={loading}
+        >
           {finalSubmitLabel}
         </Button>
       </div>

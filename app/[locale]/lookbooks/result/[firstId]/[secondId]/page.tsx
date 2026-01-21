@@ -32,6 +32,7 @@ export default function ResultPage() {
     isLoading: secondLoading,
     error: secondError,
   } = useGetLookbook(secondId);
+
   const remainingTime = useRemainingTime(firstLookbook?.created_at);
   const {
     visible,

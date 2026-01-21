@@ -5,6 +5,7 @@ import { type Database } from '@/shared/supabase/database.types';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
 import { handleError } from '../error';
 import { getAuthorId } from './auth';
+import { deleteImagesInPath } from './storage';
 
 export type LookbookRes = Database['public']['Tables']['lookbook']['Row'];
 export type VoteRes = Database['public']['Tables']['vote']['Row'];
@@ -16,7 +17,6 @@ export const createLookbook = async (lookbookData: Partial<Lookbook>) => {
   const { data, error } = await supabase
     .from('lookbook')
     .insert({
-      vote_name: lookbookData.voteName,
       name: lookbookData.name,
       author_id: author_id,
       is_anon: is_anon,
@@ -178,76 +178,21 @@ export async function deleteLookbookById(lookbookId: string) {
   return data;
 }
 
-export async function deleteImagesInPath(path: string) {
-  const supabase = await createSupabaseServerClient();
-  const { data: files, error: fetchFilesError } = await supabase.storage
-    .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
-    .list(path);
-
-  if (fetchFilesError) throw fetchFilesError;
-
-  if (!files || files.length === 0) {
-    return;
-  }
-
-  const { error: removeError } = await supabase.storage
-    .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
-    .remove(files.map((file) => `${path}/${file.name}`));
-
-  if (removeError) throw removeError;
-}
-
-// export const createPostWithImages = async ({
-//   lookbookData,
-//   file,
-// }: {
-//   lookbookData: Lookbook;
-//   file: File;
-// }) => {
-//   const lookbook = await createLookbook(lookbookData);
-
-//   try {
-//     const fileExtension = file.name.split('.').pop() || 'webp';
-//     const fileName = `${Date.now()}-${crypto.randomUUID()}.${fileExtension}`;
-//     const filePath = `${lookbook.id}/${fileName}`;
-//     const publicUrl = await uploadFile({
-//       file: file,
-//       filePath: filePath,
-//     });
-
-//     const updatedLookbook = await upadateLookbook({
-//       id: lookbook.id,
-//       image_url: publicUrl,
-//     });
-
-//     return updatedLookbook;
-//   } catch (error) {
-//     handleError(error as Error);
-//   }
-// };
-
-// export async function uploadFile({
-//   file,
-//   filePath,
-// }: {
-//   file: File;
-//   filePath: string;
-// }) {
+// export async function deleteImagesInPath(path: string) {
 //   const supabase = await createSupabaseServerClient();
-
-//   const { data, error } = await supabase.storage
+//   const { data: files, error: fetchFilesError } = await supabase.storage
 //     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
-//     .upload(filePath, file, { upsert: true });
+//     .list(path);
 
-//   if (error) {
-//     handleError(error);
+//   if (fetchFilesError) throw fetchFilesError;
+
+//   if (!files || files.length === 0) {
+//     return;
 //   }
 
-//   const {
-//     data: { publicUrl },
-//   } = supabase.storage
+//   const { error: removeError } = await supabase.storage
 //     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
-//     .getPublicUrl(data!.path);
+//     .remove(files.map((file) => `${path}/${file.name}`));
 
-//   return publicUrl;
+//   if (removeError) throw removeError;
 // }

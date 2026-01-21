@@ -23,7 +23,6 @@ export type Database = {
           is_anon: boolean;
           is_deleted: boolean;
           name: string;
-          vote_name: string;
           votes: number;
         };
         Insert: {
@@ -34,7 +33,6 @@ export type Database = {
           is_anon?: boolean;
           is_deleted?: boolean;
           name: string;
-          vote_name: string;
           votes?: number;
         };
         Update: {
@@ -45,8 +43,40 @@ export type Database = {
           is_anon?: boolean;
           is_deleted?: boolean;
           name?: string;
-          vote_name?: string;
           votes?: number;
+        };
+        Relationships: [];
+      };
+      outfit: {
+        Row: {
+          author_id: string;
+          created_at: string;
+          description: string | null;
+          id: string;
+          image_url: string | null;
+          name: string | null;
+          selected_day: string;
+          updated_at: string;
+        };
+        Insert: {
+          author_id: string;
+          created_at?: string;
+          description?: string | null;
+          id?: string;
+          image_url?: string | null;
+          name?: string | null;
+          selected_day: string;
+          updated_at?: string;
+        };
+        Update: {
+          author_id?: string;
+          created_at?: string;
+          description?: string | null;
+          id?: string;
+          image_url?: string | null;
+          name?: string | null;
+          selected_day?: string;
+          updated_at?: string;
         };
         Relationships: [];
       };
@@ -172,7 +202,6 @@ export type Database = {
           is_anon: boolean;
           is_deleted: boolean;
           name: string;
-          vote_name: string;
           votes: number;
         }[];
         SetofOptions: {

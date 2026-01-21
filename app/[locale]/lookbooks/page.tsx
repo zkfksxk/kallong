@@ -7,10 +7,12 @@ import { useTranslations } from 'next-intl';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
+import { ValidationError } from '@/shared/common/types';
 import { validateInput } from '@/shared/common/utils';
 
 export default function LookbooksPage() {
   const t = useTranslations('Lookbooks.main');
+  const tNotification = useTranslations('Common');
   const router = useRouter();
   const {
     firstLookbook,
@@ -33,10 +35,24 @@ export default function LookbooksPage() {
     const firstError = validateInput(trimmedFirst, 10);
     const secondError = validateInput(trimmedSecond, 10);
 
+    const getErrorMessage = (error: ValidationError | null): string | null => {
+      if (!error) return null;
+
+      console.log(error);
+      switch (error.type) {
+        case 'empty':
+          return t('empty');
+        case 'maxLength':
+          return t('maxLength', { maxLength: error.maxLength });
+        case 'invalidCharacters':
+          return t('invalidCharacters');
+      }
+    };
+
     if (voteNameError) {
       notifications.show({
-        title: 'Lookbook Failed',
-        message: voteNameError,
+        title: tNotification('fail', { type: 'Lookbook ' }),
+        message: getErrorMessage(voteNameError)!,
         icon: <Alert.Close color='red' size={24} />,
         withCloseButton: false,
         loading: false,
@@ -46,8 +62,8 @@ export default function LookbooksPage() {
     }
     if (firstError) {
       notifications.show({
-        title: 'Lookbook Failed',
-        message: firstError,
+        title: tNotification('fail', { type: 'Lookbook ' }),
+        message: getErrorMessage(firstError)!,
         icon: <Alert.Close color='red' size={24} />,
         withCloseButton: false,
         loading: false,
@@ -57,8 +73,8 @@ export default function LookbooksPage() {
     }
     if (secondError) {
       notifications.show({
-        title: 'Lookbook Failed',
-        message: secondError,
+        title: tNotification('fail', { type: 'Lookbook ' }),
+        message: getErrorMessage(secondError)!,
         icon: <Alert.Close color='red' size={24} />,
         withCloseButton: false,
         loading: false,

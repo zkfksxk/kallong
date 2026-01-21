@@ -44,7 +44,9 @@ export default function UpdatePasswordPage() {
 
   return (
     <div className='w-full flex flex-col'>
-      <Text ta='center'>{t('updatePassword')}</Text>
+      <Text ta='center' size='lg' fw={700}>
+        {t('updatePassword')}
+      </Text>
       <Text ta='center' size='sm'>
         {t('updatePasswordDescription')}
       </Text>

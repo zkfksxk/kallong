@@ -9,5 +9,10 @@ const queryKeys = {
     ALL: ['vote'],
     LIST: ['vote', 'list'],
   },
+  OUTFIT: {
+    ALL: ['outfit'],
+    MONTH: ['outfit', 'MONTH'],
+    GET_BYID: (id: string) => ['outfit', id],
+  },
 };
 export default queryKeys;

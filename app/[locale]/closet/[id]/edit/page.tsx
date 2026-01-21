@@ -1,0 +1,195 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { useParams } from 'next/navigation';
+import { ActionIcon, Button, TextInput, Textarea } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
+import { useGetDailyOutfit } from '@/apis/querys/outfit/useGetDailyOutfit';
+import { useUpdateDailyOutfit } from '@/apis/querys/outfit/useUpdateDailyOutfit';
+import { useOutfitStore } from '@/hooks/provider/outfit-provider';
+import { useProfileStore } from '@/hooks/provider/profile-provider';
+import { useOutfitEditor } from '@/hooks/useOutfitEditor';
+import { useRouter } from '@/i18n/navigation';
+import {
+  MAX_FILE_SIZE_BYTES,
+  MAX_FILE_SIZE_MB,
+} from '@/shared/common/constants';
+import { ICONS } from '@/shared/common/icons';
+import { createSupabaseBrowserClient } from '@/shared/supabase/client';
+
+export default function EditPage() {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { id } = useParams<{ id: string }>();
+  const router = useRouter();
+  const {
+    fileInputRef,
+    url,
+    setUrl,
+    handleOpenImagePicker,
+    handleUpload,
+    handleRemove,
+  } = useOutfitEditor();
+  const { dailyOutfit, reset } = useOutfitStore((s) => s);
+  const { profile } = useProfileStore((s) => s);
+  const { data } = useGetDailyOutfit(id);
+  const { mutateAsync: updateMutate } = useUpdateDailyOutfit();
+
+  const { Add, Delete, Alert } = ICONS;
+
+  useEffect(() => {
+    if (data) {
+      setName(data.name || '');
+      setDescription(data.description || '');
+      if (data.image_url) setUrl(undefined, data.image_url);
+    }
+  }, [data]);
+
+  const uploadFile = async (outfitId: string, file: File) => {
+    if (!profile) return;
+
+    const supabase = createSupabaseBrowserClient();
+
+    const fileExtension = file.name.split('.').pop() || 'webp';
+    const fileName = `${Date.now()}-${crypto.randomUUID()}.${fileExtension}`;
+    const filePath = `${profile.id}/${outfitId}/${fileName}`;
+
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from(process.env.NEXT_PUBLIC_OUTFIT_STORAGE_BUCKET!)
+      .upload(filePath, file, { upsert: true }); // upset: true 존재x -> insert, 존재o -> update
+
+    if (uploadError) {
+      console.log('storage image upload fail', uploadError);
+      notifications.show({
+        title: 'Image upload Failed',
+        message: '이미지 업로드에 실패했습니다.',
+        icon: <Alert.Close color='red' size={24} />,
+        withCloseButton: false,
+        loading: false,
+        color: 'transperant',
+      });
+      return;
+    }
+
+    const {
+      data: { publicUrl },
+    } = supabase.storage
+      .from(process.env.NEXT_PUBLIC_OUTFIT_STORAGE_BUCKET!)
+      .getPublicUrl(uploadData.path);
+
+    return publicUrl;
+  };
+
+  const handleSubmit = async () => {
+    if (isSubmitting || !data) return;
+    setIsSubmitting(true);
+
+    try {
+      let finalImageUrl = data.image_url;
+      const file = dailyOutfit?.file;
+
+      if (file) {
+        if (file.size > MAX_FILE_SIZE_BYTES) {
+          notifications.show({
+            title: 'Image size error',
+            message: `파일 크기가 ${MAX_FILE_SIZE_MB}MB를 초과합니다.`,
+            color: 'red',
+          });
+          setIsSubmitting(false);
+          return;
+        }
+
+        const uploadedUrl = await uploadFile(id, file);
+        if (uploadedUrl) {
+          finalImageUrl = uploadedUrl;
+        } else {
+          throw new Error('이미지 업로드에 실패했습니다.');
+        }
+      }
+
+      await updateMutate({
+        id: id,
+        image_url: finalImageUrl!,
+        name,
+        description,
+      });
+
+      router.push('/closet');
+    } catch (error) {
+      console.log('create fail', error);
+      notifications.show({
+        title: 'Closet Failed',
+        message: 'Closet 생성 중 에러가 발생했습니다.',
+        icon: <Alert.Close color='red' size={24} />,
+        withCloseButton: false,
+        loading: false,
+        color: 'transperant',
+      });
+    } finally {
+      setIsSubmitting(false);
+      reset();
+    }
+  };
+
+  return (
+    <div className='relative bg-white flex flex-1 flex-col gap-10'>
+      <div className='relative w-full max-w-125 aspect-square flex items-center justify-center border border-gray-300 rounded-md overflow-hidden'>
+        {url && <Image src={url} alt='daily-outfit' fill />}
+      </div>
+      <div className='flex flex-col items-center mt-8'>
+        <input
+          type='file'
+          ref={fileInputRef}
+          onChange={handleUpload}
+          accept='image/*'
+          className='hidden'
+        />
+        <div className='flex gap-8'>
+          <ActionIcon
+            variant='outline'
+            size='xl'
+            radius='md'
+            title='추가'
+            onClick={handleOpenImagePicker}
+          >
+            <Add size={32} color='black' />
+          </ActionIcon>
+          <ActionIcon
+            variant='outline'
+            size='xl'
+            radius='md'
+            title='삭제'
+            disabled={!url}
+            onClick={handleRemove}
+          >
+            <Delete size={32} color='black' />
+          </ActionIcon>
+        </div>
+      </div>
+      <TextInput
+        maxLength={20}
+        value={name}
+        onChange={(event) => setName(event.currentTarget.value)}
+        placeholder='20자 미만으로 입력해주세요.'
+      />
+      <Textarea
+        maxLength={500}
+        value={description}
+        onChange={(event) => setDescription(event.currentTarget.value)}
+        placeholder='500자 미만으로 입력해주세요.'
+      />
+      <Button
+        onClick={handleSubmit}
+        variant='filled'
+        color='red.5'
+        size='lg'
+        fullWidth
+        radius='md'
+      >
+        저장하기
+      </Button>
+    </div>
+  );
+}

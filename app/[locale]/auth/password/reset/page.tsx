@@ -61,7 +61,9 @@ export default function ResetPasswordPage() {
 
   return (
     <div className='w-full flex flex-col'>
-      <Text ta='center'>{t('forgotPassword')}</Text>
+      <Text ta='center' size='lg' fw={700}>
+        {t('forgotPassword')}
+      </Text>
       <Text ta='center' size='sm'>
         {t('resetPasswordDescription')}
       </Text>

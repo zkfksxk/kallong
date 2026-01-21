@@ -5,6 +5,9 @@ import {
   colorsTuple,
   createTheme,
 } from '@mantine/core';
+import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
+import '@mantine/notifications/styles.css';
 
 export const pretendard = localFont({
   src: '../../public/fonts/PretendardVariable.woff2',

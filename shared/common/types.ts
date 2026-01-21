@@ -42,6 +42,14 @@ export type Vote = {
   lookbook_id_b: string;
 };
 
+export type DailyOutfitForm = {
+  name: string;
+  description: string;
+  image_url?: string;
+  file?: File;
+  selected_day: string;
+};
+
 // export type Vote = {
 //   voteName: string;
 //   firstLookbook: Lookbook;
@@ -58,6 +66,8 @@ export type SignUpForm = {
   password: string;
   nickname: string;
   passwordConfirmed: string;
+  termsOfService: boolean;
+  privacyPolicy: boolean;
 };
 
 export type Profile = {
@@ -67,3 +77,8 @@ export type Profile = {
   created_at: string;
   updated_at: string;
 };
+
+export type ValidationError =
+  | { type: 'empty' }
+  | { type: 'maxLength'; maxLength: number }
+  | { type: 'invalidCharacters' };

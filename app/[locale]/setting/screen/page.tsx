@@ -6,7 +6,7 @@ export default function ScreenPage() {
 
   return (
     <div className='bg-white w-full flex flex-col'>
-      {/* <SettingItem url='/setting/screen/theme' title='테마' /> */}
+      <SettingItem url='/setting/screen/theme' title={t('theme')} />
       <SettingItem url='/setting/screen/language' title={t('lang')} />
     </div>
   );
