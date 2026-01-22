@@ -11,7 +11,7 @@ import { useRouter } from '@/i18n/navigation';
 import { AUTH_FORM_RULES } from '@/shared/common/constants';
 
 export default function UpdatePasswordPage() {
-  const t = useTranslations('Setting.auth');
+  const t = useTranslations('Setting');
   const router = useRouter();
   const {
     register,
@@ -30,7 +30,7 @@ export default function UpdatePasswordPage() {
       onError: (error) => {
         const errorObj = JSON.parse(error.message) as CustomAuthError;
         notifications.show({
-          title: t('failPasswordUpdate'),
+          title: t('auth.failPasswordUpdate'),
           message: errorObj.message,
           icon: <Close color='red' size={24} />,
           withCloseButton: false,
@@ -44,19 +44,33 @@ export default function UpdatePasswordPage() {
 
   return (
     <div className='w-full flex flex-col'>
-      <Text ta='center' size='lg' fw={700}>
-        {t('updatePassword')}
+      <Text ta='center' size='xl' fw={700}>
+        {t('auth.updatePassword')}
       </Text>
       <Text ta='center' size='sm'>
-        {t('updatePasswordDescription')}
+        {t('auth.updatePasswordDescription')}
       </Text>
       <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
         <div className='w-full flex flex-col gap-8'>
           <TextInput
-            {...register('password', AUTH_FORM_RULES.password)}
-            label={t('newPassword')}
+            {...register('password', {
+              required: t('validation.passwordRequired'),
+              pattern: {
+                value: AUTH_FORM_RULES.password.pattern.value,
+                message: t('validation.passwordInvaildPattern'),
+              },
+              minLength: {
+                value: AUTH_FORM_RULES.password.minLength.value,
+                message: t('validation.passwordMin'),
+              },
+              maxLength: {
+                value: AUTH_FORM_RULES.password.maxLength.value,
+                message: t('validation.passwordMax'),
+              },
+            })}
+            label={t('auth.newPassword')}
             type='password'
-            description={t('passwordRequirements')}
+            description={t('auth.passwordRequirements')}
             error={errors.password?.message}
             disabled={isSubmitting}
           />
@@ -68,7 +82,7 @@ export default function UpdatePasswordPage() {
             radius='md'
             disabled={isSubmitting}
           >
-            {t('saveButton')}
+            {t('auth.saveButton')}
           </Button>
         </div>
       </form>

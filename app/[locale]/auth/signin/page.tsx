@@ -15,7 +15,7 @@ import { ICONS } from '@/shared/common/icons';
 import { SignInForm } from '@/shared/common/types';
 
 export default function SignInPage() {
-  const t = useTranslations('Setting.auth');
+  const t = useTranslations('Setting');
   const router = useRouter();
   const methods = useForm<SignInForm>();
   const { mutate: signIn, isPending: signInIsPending } =
@@ -32,7 +32,7 @@ export default function SignInPage() {
       onError: (error) => {
         const errorObj = JSON.parse(error.message) as CustomAuthError;
         notifications.show({
-          title: t('failSignIn'),
+          title: t('auth.failSignIn'),
           message: errorObj.message,
           icon: <Close color='red' size={24} />,
           withCloseButton: false,
@@ -53,8 +53,8 @@ export default function SignInPage() {
 
   return (
     <div className='w-full flex flex-col'>
-      <Text ta='center' size='xl' fw='700'>
-        {t('signIn')}
+      <Text ta='center' size='xl' fw={700}>
+        {t('auth.signIn')}
       </Text>
       <form
         className='flex flex-col w-full'
@@ -62,19 +62,39 @@ export default function SignInPage() {
       >
         <div className='w-full flex flex-col gap-2 mb-8'>
           <TextInput
-            label={t('email')}
+            label={t('auth.email')}
             type='email'
-            placeholder={t('emailPlaceholder')}
-            {...methods.register('email', AUTH_FORM_RULES.email)}
+            placeholder={t('auth.emailPlaceholder')}
+            {...methods.register('email', {
+              required: t('validation.emailRequired'),
+              pattern: {
+                value: AUTH_FORM_RULES.email.pattern.value,
+                message: t('validation.emailInvalidPattern'),
+              },
+            })}
             error={methods.formState.errors.email?.message}
             disabled={signInIsPending}
           />
           <TextInput
-            label={t('password')}
+            label={t('auth.password')}
             type='password'
-            placeholder={t('passwordPlaceholder')}
-            description={t('passwordRequirements')}
-            {...methods.register('password', AUTH_FORM_RULES.password)}
+            placeholder={t('auth.passwordPlaceholder')}
+            description={t('auth.passwordRequirements')}
+            {...methods.register('password', {
+              required: t('validation.passwordRequired'),
+              pattern: {
+                value: AUTH_FORM_RULES.password.pattern.value,
+                message: t('validation.passwordInvaildPattern'),
+              },
+              minLength: {
+                value: AUTH_FORM_RULES.password.minLength.value,
+                message: t('validation.passwordMin'),
+              },
+              maxLength: {
+                value: AUTH_FORM_RULES.password.maxLength.value,
+                message: t('validation.passwordMax'),
+              },
+            })}
             error={methods.formState.errors.password?.message}
             disabled={signInIsPending}
           />
@@ -87,7 +107,7 @@ export default function SignInPage() {
           radius='md'
           disabled={signInIsPending}
         >
-          {t('signIn')}
+          {t('auth.signIn')}
         </Button>
       </form>
 
@@ -105,9 +125,10 @@ export default function SignInPage() {
         </Button> */}
         <div className='flex flex-col gap-1'>
           <Link href='/auth/signup'>
-            {t('noAccount')} <RightSquare className='inline' /> {t('signUp')}
+            {t('auth.noAccount')} <RightSquare className='inline mx-1' />
+            {t('auth.signUp')}
           </Link>
-          <Link href='/auth/password/reset'>{t('forgotPassword')}</Link>
+          <Link href='/auth/password/reset'>{t('auth.forgotPassword')}</Link>
         </div>
       </div>
     </div>

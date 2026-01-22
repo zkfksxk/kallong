@@ -11,7 +11,7 @@ import { AUTH_FORM_RULES } from '@/shared/common/constants';
 import { ICONS } from '@/shared/common/icons';
 
 export default function NicknameChangePage() {
-  const t = useTranslations('Setting.auth');
+  const t = useTranslations('Setting');
   const router = useRouter();
   const {
     register,
@@ -31,8 +31,8 @@ export default function NicknameChangePage() {
           setProfile({ ...profile, nickname: data.nickname });
         }
         notifications.show({
-          title: t('succeedNicknameChange'),
-          message: t('succeedNicknameChange'),
+          title: t('auth.nicknameChange'),
+          message: t('auth.nicknameChangeSucceed'),
           icon: <Alert.Check color='blue' size={24} />,
           withCloseButton: false,
           loading: false,
@@ -42,8 +42,8 @@ export default function NicknameChangePage() {
       },
       onError: () => {
         notifications.show({
-          title: t('failNicknameChange'),
-          message: t('failNicknameChange'),
+          title: t('auth.nicknameChange'),
+          message: t('auth.failNicknameChange'),
           icon: <Alert.Close color='red' size={24} />,
           withCloseButton: false,
           loading: false,
@@ -58,10 +58,24 @@ export default function NicknameChangePage() {
       <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
         <div className='w-full flex flex-col gap-2 mb-8'>
           <TextInput
-            {...register('nickname', AUTH_FORM_RULES.nickname)}
-            label={t('nicknameChange')}
+            label={t('auth.nicknameChange')}
             type='nickname'
-            placeholder={t('nicknamePlaceholder')}
+            placeholder={t('auth.nicknamePlaceholder')}
+            {...register('nickname', {
+              required: t('validation.nicknameRequired'),
+              minLength: {
+                value: AUTH_FORM_RULES.nickname.minLength.value,
+                message: t('validation.nicknameMin'),
+              },
+              maxLength: {
+                value: AUTH_FORM_RULES.nickname.maxLength.value,
+                message: t('validation.nicknameMax'),
+              },
+              pattern: {
+                value: AUTH_FORM_RULES.nickname.pattern.value,
+                message: t('validation.nicknamInvalidPattern'),
+              },
+            })}
             error={errors.nickname?.message}
             disabled={isSubmitting}
           />
@@ -74,7 +88,7 @@ export default function NicknameChangePage() {
           radius='md'
           loading={isSubmitting}
         >
-          {t('saveButton')}
+          {t('auth.saveButton')}
         </Button>
       </form>
     </div>

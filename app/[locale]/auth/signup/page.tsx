@@ -13,7 +13,7 @@ import { ICONS } from '@/shared/common/icons';
 import { SignUpForm } from '@/shared/common/types';
 
 export default function SignUpPage() {
-  const t = useTranslations('Setting.auth');
+  const t = useTranslations('Setting');
   const router = useRouter();
   const methods = useForm<SignUpForm>({
     defaultValues: {
@@ -24,10 +24,9 @@ export default function SignUpPage() {
   const { mutate: signUp, isPending } = useSignUp();
 
   const onSubmit = (data: SignUpForm) => {
-    console.log('signup');
     if (!data.termsOfService || !data.privacyPolicy) {
       notifications.show({
-        title: t('failSignUp'),
+        title: t('auth.failSignUp'),
         message: '이용 약관에 동의해주세요.',
         icon: <Close color='red' size={24} />,
         withCloseButton: false,
@@ -46,7 +45,7 @@ export default function SignUpPage() {
         onError: (error) => {
           const errorObj = JSON.parse(error.message) as CustomAuthError;
           notifications.show({
-            title: t('failSignUp'),
+            title: t('auth.failSignUp'),
             message: errorObj.message,
             icon: <Close color='red' size={24} />,
             withCloseButton: false,
@@ -63,8 +62,8 @@ export default function SignUpPage() {
 
   return (
     <div className='w-full flex flex-col'>
-      <Text ta='center' size='xl' fw='700'>
-        {t('signUp')}
+      <Text ta='center' size='xl' fw={700}>
+        {t('auth.signUp')}
       </Text>
 
       <form
@@ -73,64 +72,99 @@ export default function SignUpPage() {
       >
         <div className='w-full flex flex-col gap-4 mb-8'>
           <TextInput
-            label={t('email')}
+            label={t('auth.email')}
             type='email'
-            placeholder={t('emailPlaceholder')}
-            {...methods.register('email', AUTH_FORM_RULES.email)}
+            placeholder={t('auth.emailPlaceholder')}
+            {...methods.register('email', {
+              required: t('validation.emailRequired'),
+              pattern: {
+                value: AUTH_FORM_RULES.email.pattern.value,
+                message: t('validation.emailInvalidPattern'),
+              },
+            })}
             error={methods.formState.errors.email?.message}
             disabled={isPending}
           />
           <TextInput
-            label={t('password')}
+            label={t('auth.password')}
             type='password'
-            placeholder={t('passwordPlaceholder')}
-            description={t('passwordRequirements')}
-            {...methods.register('password', AUTH_FORM_RULES.password)}
+            placeholder={t('auth.passwordPlaceholder')}
+            description={t('auth.passwordRequirements')}
+            {...methods.register('password', {
+              required: t('validation.passwordRequired'),
+              pattern: {
+                value: AUTH_FORM_RULES.password.pattern.value,
+                message: t('validation.passwordInvaildPattern'),
+              },
+              minLength: {
+                value: AUTH_FORM_RULES.password.minLength.value,
+                message: t('validation.passwordMin'),
+              },
+              maxLength: {
+                value: AUTH_FORM_RULES.password.maxLength.value,
+                message: t('validation.passwordMax'),
+              },
+            })}
             error={methods.formState.errors.password?.message}
             disabled={isPending}
           />
           <TextInput
-            label={t('passwordConfirmed')}
+            label={t('auth.passwordConfirmed')}
             type='password'
-            placeholder={t('passwordConfirmedPlaceholder')}
+            placeholder={t('auth.passwordConfirmedPlaceholder')}
             {...methods.register('passwordConfirmed', {
-              required: t('passwordConfirmedRequirements'),
-              validate: (value) => value === password || t('passwordMismatch'),
+              required: t('validation.passwordConfirmedRequired'),
+              validate: (value) =>
+                value === password || t('validation.passwordMismatch'),
             })}
             error={methods.formState.errors.passwordConfirmed?.message}
             disabled={isPending}
           />
           <TextInput
-            label={t('nickname')}
+            label={t('auth.nickname')}
             type='text'
-            placeholder={t('nicknamePlaceholder')}
-            {...methods.register('nickname', AUTH_FORM_RULES.nickname)}
+            placeholder={t('auth.nicknamePlaceholder')}
+            {...methods.register('nickname', {
+              required: t('validation.nicknameRequired'),
+              minLength: {
+                value: AUTH_FORM_RULES.nickname.minLength.value,
+                message: t('validation.nicknameMin'),
+              },
+              maxLength: {
+                value: AUTH_FORM_RULES.nickname.maxLength.value,
+                message: t('validation.nicknameMax'),
+              },
+              pattern: {
+                value: AUTH_FORM_RULES.nickname.pattern.value,
+                message: t('validation.nicknamInvalidPattern'),
+              },
+            })}
             error={methods.formState.errors.nickname?.message}
             disabled={isPending}
           />
           <div className='flex flex-row flex-1 justify-between'>
             <Checkbox
-              label='서비스 이용약관'
+              label={t('auth.termsOfService')}
               {...methods.register('termsOfService')}
             />
             <Link
               href='https://busy-screw-956.notion.site/Kallong-2ced82040c488001b27bdce25e66fae7?source=copy_link'
               className='inline-flex items-center gap-1'
             >
-              <Text span>보기</Text>
+              <Text span>{t('auth.view')}</Text>
               <Forward color='black' size={24} />
             </Link>
           </div>
           <div className='flex flex-row flex-1 justify-between'>
             <Checkbox
-              label='개인정보 수집 및 이용 동의'
+              label={t('auth.privacyPolicy')}
               {...methods.register('privacyPolicy')}
             />
             <Link
               href='https://busy-screw-956.notion.site/Kallong-2ced82040c488099a766fb47ab9ae793?source=copy_link'
               className='inline-flex items-center gap-1'
             >
-              <Text span>보기</Text>
+              <Text span>{t('auth.view')}</Text>
               <Forward color='black' size={24} />
             </Link>
           </div>
@@ -144,13 +178,13 @@ export default function SignUpPage() {
           radius='md'
           disabled={isPending}
         >
-          {t('signUp')}
+          {t('auth.signUp')}
         </Button>
       </form>
 
       <Link href='/mypage/signin' className='mt-5'>
-        {t('alreadyHaveAccount')} <RightSquare className='inline' />
-        {t('signIn')}
+        {t('auth.alreadyHaveAccount')} <RightSquare className='inline mx-1' />
+        {t('auth.signIn')}
       </Link>
     </div>
   );

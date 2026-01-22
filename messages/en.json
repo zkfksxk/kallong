@@ -48,11 +48,8 @@
       "passwordPlaceholder": "Enter your password",
       "passwordConfirmedPlaceholder": "Confirm your password",
       "nicknamePlaceholder": "Enter your nickname",
-      "passwordMismatch": "Passwords do not match.",
       "passwordRequirements": "At least 8 characters with 2 or more of: letters, numbers, special characters",
-      "passwordConfirmedRequirements": "Please confirm your password.",
-      "checkEmail": "Please check your email",
-      "succeedNicknameChange": "Nickname changed successfully",
+      "nicknameChangeSucceed": "Nickname changed successfully",
       "failSignIn": "Sign in failed",
       "failSignUp": "Sign up failed",
       "failNicknameChange": "Failed to change nickname",
@@ -62,6 +59,7 @@
       "resetEmailButton": "Send Email",
       "resetPasswordSucceed": "Password reset link has been sent to your email.",
       "resetPasswordFail": "Failed to reset password. Please try again.",
+      "checkEmail": "Please check your email.",
       "updatePassword": "Update Password",
       "updatePasswordDescription": "Enter your new password",
       "nicknameChange": "Change Nickname",
@@ -71,7 +69,10 @@
       "forgotPassword": "Forgot your password?",
       "deleteAccountTitle": "Delete Account",
       "deleteAccountDescription": "If you delete your account, all information will be deleted. Are you sure you want to delete your account?",
-      "deleteAccountSubmit": "Delete Account"
+      "deleteAccountSubmit": "Delete Account",
+      "termsOfService": "Terms of Service",
+      "privacyPolicy": "Privacy Policy",
+      "view": "View"
     },
     "validation": {
       "emailRequired": "Please enter your email.",
@@ -80,10 +81,13 @@
       "passwordInvaildPattern": "Include at least two of: English letters, numbers, special characters.",
       "passwordMin": "Please enter at least 8 characters.",
       "passwordMax": "Please enter 20 characters or fewer.",
+      "passwordConfirmedRequired": "Please enter your password confirmed",
       "nicknameRequired": "Please enter your nickname.",
       "nicknameMin": "Please enter at least 1 character.",
       "nicknameMax": "Please enter 10 characters or fewer.",
-      "nicknamePattern": "Only English letters, Korean characters, and numbers are allowed."
+      "nicknamInvalidPattern": "Only English letters, Korean characters, and numbers are allowed.",
+      "passwordMismatch": "Passwords do not match.",
+      "checkEmail": "Please check your email."
     }
   },
   "Lookbooks": {
