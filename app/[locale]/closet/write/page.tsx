@@ -6,6 +6,7 @@ import { ActionIcon, Button, TextInput, Textarea } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useCreatDailyOutfit } from '@/apis/querys/outfit/useCreateDailyOutfit';
 import { useUpdateDailyOutfitImage } from '@/apis/querys/outfit/useUpdateDailyOutfitImage';
+import { ClosetHeader } from '@/components/layouts/closet-header';
 import { useOutfitStore } from '@/hooks/provider/outfit-provider';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
 import { useOutfitEditor } from '@/hooks/useOutfitEditor';
@@ -33,7 +34,7 @@ export default function WritePage() {
   const { profile } = useProfileStore((s) => s);
   const { mutateAsync: createMutate } = useCreatDailyOutfit();
   const { mutateAsync: updateMutate } = useUpdateDailyOutfitImage();
-  const { Add, Delete, Alert } = ICONS;
+  const { Add, Delete, Alert, Back } = ICONS;
 
   const uploadFile = async (outfitId: string, file: File) => {
     if (!profile) return;
@@ -121,8 +122,30 @@ export default function WritePage() {
     }
   };
 
+  const handleBack = () => {
+    router.back();
+  };
+
   return (
-    <div className='relative bg-white flex flex-1 flex-col gap-10'>
+    <div className='relative bg-white flex flex-1 flex-col'>
+      <ClosetHeader
+        leftComponent={
+          <button onClick={handleBack}>
+            <Back color='black' size={24} />
+          </button>
+        }
+        rightComponent={
+          <Button
+            onClick={handleSubmit}
+            variant='transparent'
+            color='red.5'
+            size='md'
+            radius='md'
+          >
+            저장
+          </Button>
+        }
+      />
       <div className='relative w-full max-w-125 aspect-square flex items-center justify-center border border-gray-300 rounded-md overflow-hidden'>
         {url && <Image src={url} alt='daily-outfit' fill />}
       </div>
@@ -156,28 +179,20 @@ export default function WritePage() {
           </ActionIcon>
         </div>
       </div>
-      <TextInput
-        maxLength={20}
-        value={name}
-        onChange={(event) => setName(event.currentTarget.value)}
-        placeholder='20자 미만으로 입력해주세요.'
-      />
-      <Textarea
-        maxLength={500}
-        value={description}
-        onChange={(event) => setDescription(event.currentTarget.value)}
-        placeholder='500자 미만으로 입력해주세요.'
-      />
-      <Button
-        onClick={handleSubmit}
-        variant='filled'
-        color='red.5'
-        size='lg'
-        fullWidth
-        radius='md'
-      >
-        저장하기
-      </Button>
+      <div className='flex flex-col gap-10 mt-10'>
+        <TextInput
+          maxLength={20}
+          value={name}
+          onChange={(event) => setName(event.currentTarget.value)}
+          placeholder='20자 미만으로 입력해주세요.'
+        />
+        <Textarea
+          maxLength={500}
+          value={description}
+          onChange={(event) => setDescription(event.currentTarget.value)}
+          placeholder='500자 미만으로 입력해주세요.'
+        />
+      </div>
     </div>
   );
 }

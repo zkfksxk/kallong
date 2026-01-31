@@ -1,6 +1,6 @@
 'use client';
 
-import { Header } from '@/components/layouts/header';
+import { SettingHeader } from '@/components/layouts/setting-header';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
 
@@ -22,8 +22,8 @@ export default function SettingLayout({
   };
 
   return (
-    <main className=' bg-white max-w-[500px] w-full flex flex-1 flex-col px-5 pb-20'>
-      <Header
+    <main className=' bg-white max-w-125 w-full flex flex-1 flex-col px-5 pb-20'>
+      <SettingHeader
         isSettingShow={false}
         leftComponent={
           <button onClick={handleBack}>

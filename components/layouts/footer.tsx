@@ -5,7 +5,7 @@ export const Footer = () => {
     <footer
       className='
         w-full 
-        max-w-[500px] 
+        max-w-125
         h-20
         bg-[#e1e5eb]
         flex 

@@ -1,4 +1,4 @@
-import { Header } from '@/components/layouts/header';
+import { SettingHeader } from '@/components/layouts/setting-header';
 
 export default function MyPageLayout({
   children,
@@ -7,7 +7,7 @@ export default function MyPageLayout({
 }) {
   return (
     <main className='relative bg-white max-w-[500px] w-full flex flex-1 flex-col px-5 pb-20'>
-      <Header />
+      <SettingHeader />
       {children}
     </main>
   );

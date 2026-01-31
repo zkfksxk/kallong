@@ -7,6 +7,7 @@ import { notifications } from '@mantine/notifications';
 import dayjs from 'dayjs';
 import { useDeleteDailyOutfit } from '@/apis/querys/outfit/useDeleteDailyOutfit';
 import { useGetDailyOutfitInMonth } from '@/apis/querys/outfit/useGetDailyOutfitInMonth';
+import { ClosetHeader } from '@/components/layouts/closet-header';
 import { useOutfitStore } from '@/hooks/provider/outfit-provider';
 import { Link, useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
@@ -20,7 +21,12 @@ export default function ClosetPage() {
   );
   const { data: outfits } = useGetDailyOutfitInMonth(currentDay);
   const { mutateAsync: deleteMutate } = useDeleteDailyOutfit();
-  const { Trash, Alert } = ICONS;
+
+  const handleBack = () => {
+    router.back();
+  };
+
+  const { Trash, Alert, Back } = ICONS;
 
   const selectedOutfit = outfits?.find(
     (item) => item.selected_day === selectedDay
@@ -58,9 +64,15 @@ export default function ClosetPage() {
     }
   };
 
-  console.log('closet', outfits);
   return (
-    <div className='relative bg-white flex flex-1 flex-col gap-8'>
+    <div className='relative bg-white flex flex-1 flex-col'>
+      <ClosetHeader
+        leftComponent={
+          <button onClick={handleBack}>
+            <Back color='black' size={24} />
+          </button>
+        }
+      />
       <Calendar
         hideOutsideDates
         onPreviousMonth={() =>
@@ -71,11 +83,20 @@ export default function ClosetPage() {
         }
         getDayProps={(date) => {
           const isFuture = dayjs(date).isAfter(dayjs(), 'day');
-
+          const isCurrent = dayjs(date).isSame(dayjs(currentDay), 'day');
           return {
             onClick: () => !isFuture && handleSelect(date),
             disabled: isFuture,
-            style: isFuture ? { color: '#ccc', cursor: 'not-allowed' } : {}, // 스타일 피드백
+            style: {
+              ...(isFuture ? { color: '#ccc', cursor: 'not-allowed' } : {}),
+              ...(isCurrent
+                ? {
+                    backgroundColor: '#FFC9C8',
+                    color: 'white',
+                    borderRadius: '50%', // 원형
+                  }
+                : {}),
+            },
           };
         }}
         styles={{
@@ -84,7 +105,7 @@ export default function ClosetPage() {
             display: 'flex',
             alignItems: 'center',
             placeItems: 'center',
-            margin: '0 auto 20px auto',
+            margin: '0 auto 0px auto',
           },
           calendarHeaderLevel: { width: '100%', flex: 1, textAlign: 'center' },
           monthsList: { width: '100%' },
@@ -102,7 +123,7 @@ export default function ClosetPage() {
           },
         }}
       />
-      <div className='flex flex-col w-full min-h-[150px] items-center justify-center bg-[#ffe2e1] rounded-md gap-3'>
+      <div className='flex flex-col w-full min-h-37.5 items-center justify-center mt-8 bg-[#ffe2e1] rounded-md gap-3'>
         {selectedOutfit ? (
           <Link href={`/closet/${selectedOutfit.id}`}>
             <div className='flex flex-row gap-2'>

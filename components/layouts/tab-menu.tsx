@@ -42,29 +42,6 @@ export const TabMenu = () => {
           {t('my')}
         </Text>
       </Link>
-      {/* <div
-        onClick={() => {
-          notifications.show({
-            title: '업데이트 중...',
-            message: '준비 중 입니다.',
-            icon: <Alert.Close color='red' size={24} />,
-            withCloseButton: false,
-            loading: false,
-            color: 'transperant',
-          });
-        }}
-        className='flex-1 flex flex-col items-center justify-center gap-1 cursor-pointer'
-      >
-        {isMypage ? (
-          <Person.Fill size={24} color='black' />
-        ) : (
-          <Person.Outline size={24} color='black' />
-        )}
-
-        <Text size='xs' fw={isMypage ? 600 : 400}>
-          마이
-        </Text>
-      </div> */}
     </div>
   );
 };

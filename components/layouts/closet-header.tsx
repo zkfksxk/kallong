@@ -1,27 +1,23 @@
 import { Text } from '@mantine/core';
-import { Link } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icons';
 
-interface HeaderProps {
+interface Props {
   leftComponent?: React.ReactNode;
+  rightComponent?: React.ReactNode;
   className?: string;
-  isSettingShow?: boolean;
   title?: string;
 }
 
-export const Header = ({
+export const ClosetHeader = ({
   leftComponent,
+  rightComponent,
   className,
-  isSettingShow = true,
   title,
-}: HeaderProps) => {
-  const { Setting } = ICONS;
-
+}: Props) => {
   return (
     <header
       className={`
         w-full 
-        max-w-[500px] 
+        max-w-125 
         h-18
         flex 
         items-center 
@@ -35,11 +31,7 @@ export const Header = ({
     >
       {leftComponent}
       {title && <Text>{title}</Text>}
-      {isSettingShow && (
-        <Link href='/setting'>
-          <Setting color='black' size={24} />
-        </Link>
-      )}
+      {rightComponent}
     </header>
   );
 };

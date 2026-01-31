@@ -59,6 +59,7 @@
       "resetEmailButton": "인증 메일 요청하기",
       "resetPasswordSucceed": "비밀번호 재설정 링크가 이메일로 전송되었습니다.",
       "resetPasswordFail": "비밀번호 재설정에 실패했습니다. 다시 시도해주세요.",
+      "checkEmail": "이메일을 확인해주세요.",
       "updatePassword": "비밀번호 변경하기",
       "updatePasswordDescription": "새로운 비밀번호를 입력하세요",
       "nicknameChange": "닉네임 변경",

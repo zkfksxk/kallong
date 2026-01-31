@@ -1,21 +1,18 @@
 'use client';
 
 import { Button, Text } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
 import { useLocale, useTranslations } from 'next-intl';
-import { Header } from '@/components/layouts/header';
-import { CustomModal } from '@/components/ui/custom-modal';
+import { SettingHeader } from '@/components/layouts/setting-header';
 import { Link } from '@/i18n/navigation';
 import { hanna } from '@/shared/theme/theme';
 
 export default function Home() {
-  const [opened, { open, close }] = useDisclosure(false);
   const t = useTranslations('Home');
   const locale = useLocale();
 
   return (
     <main className='bg-white max-w-125 w-full mx-auto flex flex-1 flex-col items-center px-5 pb-15'>
-      <Header />
+      <SettingHeader />
       <section className='w-full flex flex-col pt-5 bg-[#ffc9c8] rounded-md mb-10'>
         <div className='flex flex-col gap-2 mx-5 mb-5'>
           <Text
@@ -31,16 +28,17 @@ export default function Home() {
           <Text size='md'> {t('description1')}</Text>
         </div>
 
-        <Button
-          onClick={open}
-          variant='filled'
-          fullWidth
-          color='red.5'
-          size='md'
-          radius='md'
-        >
-          {t('button')}
-        </Button>
+        <Link href='/closet' className='w-full'>
+          <Button
+            variant='filled'
+            fullWidth
+            color='red.5'
+            size='md'
+            radius='md'
+          >
+            {t('button')}
+          </Button>
+        </Link>
       </section>
       <section className='w-full flex flex-col pt-5 bg-[#ffc9c8] rounded-md'>
         <div className='flex flex-col gap-2 mx-5 mb-5'>
@@ -68,12 +66,12 @@ export default function Home() {
           </Button>
         </Link>
       </section>
-      <CustomModal
+      {/* <CustomModal
         opened={opened}
         onClose={close}
         title={'개발 중...'}
         onSubmit={close}
-      />
+      /> */}
     </main>
   );
 }
