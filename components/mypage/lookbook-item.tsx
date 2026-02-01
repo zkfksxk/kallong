@@ -41,10 +41,10 @@ export const LookbookItem = ({
 
   return (
     <Link href={`/lookbooks/result/${lookbook_id_a}/${lookbook_id_b}`}>
-      <div className='flex flex-row border px-2 py-5 border-[#A41613] justify-between rounded-sm'>
+      <div className='flex flex-row border px-5 py-8 border-[#A41613] justify-between rounded-sm'>
         <Text size='md'>{vote_name}</Text>
         <ActionIcon variant='transparent' onClick={handleDelete}>
-          <Trash color='black' size={24} />
+          <Trash className='text-black dark:text-white' size={24} />
         </ActionIcon>
       </div>
     </Link>

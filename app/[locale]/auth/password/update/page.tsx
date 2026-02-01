@@ -77,7 +77,6 @@ export default function UpdatePasswordPage() {
           <Button
             type='submit'
             variant='filled'
-            color='black'
             size='lg'
             radius='md'
             disabled={isSubmitting}

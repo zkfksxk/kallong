@@ -24,6 +24,7 @@ export const ClosetHeader = ({
         ${leftComponent ? 'justify-between' : 'justify-end'}
         mx-auto
         bg-white
+        dark:bg-black
         gap-3
         z-50
         ${className}

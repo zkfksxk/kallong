@@ -74,12 +74,14 @@ export const THEME = createTheme({
     '2xl': '1.75rem', //28px
   },
   colors: {
-    black: colorsTuple('#141414'),
-    white: colorsTuple('#FAFAFA'),
+    black: colorsTuple('#020617'),
+    white: colorsTuple('#F8FAFC'),
     blue,
     gray,
     red,
   },
+  white: '#F8FAFC',
+  black: '#020617',
   components: {
     Notification: {
       defaultProps: {
@@ -87,11 +89,29 @@ export const THEME = createTheme({
         color: 'transparent',
       },
     },
+    Checkbox: {
+      styles: {
+        label: {
+          color:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+        },
+      },
+    },
+    Text: {
+      styles: {
+        root: {
+          color:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+        },
+      },
+    },
     TextInput: {
       styles: {
         label: {
           fontSize: '20px', //xl
           fontWeight: 700,
+          color:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
         },
         wrapper: {
           width: '100%',
@@ -101,6 +121,63 @@ export const THEME = createTheme({
           height: '100%',
           fontSize: '16px', //md
           padding: '0 12px',
+
+          color: 'var(--mantine-color-black)',
+          backgroundColor: 'var(--mantine-color-white)',
+          borderColor: 'var(--mantine-color-gray-3)',
+
+          '&::placeholder': {
+            backgroundColor: 'var(--mantine-color-white)',
+            color: 'var(--mantine-color-gray-3)',
+          },
+
+          '&:focus': {
+            borderColor:
+              'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+          },
+
+          '&:focusWithin': {
+            borderColor:
+              'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+          },
+        },
+      },
+    },
+    Textarea: {
+      styles: {
+        label: {
+          fontSize: '20px', //xl
+          fontWeight: 700,
+          color:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+        },
+        wrapper: {
+          width: '100%',
+          height: '80px',
+        },
+        input: {
+          height: '100%',
+          fontSize: '16px', //md
+          padding: '12px',
+
+          color: 'var(--mantine-color-black)',
+          backgroundColor: 'var(--mantine-color-white)',
+          borderColor: 'var(--mantine-color-gray-3)',
+
+          '&::placeholder': {
+            backgroundColor: 'var(--mantine-color-white)',
+            color: 'var(--mantine-color-gray-3)',
+          },
+
+          '&:focus': {
+            borderColor:
+              'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+          },
+
+          '&:focusWithin': {
+            borderColor:
+              'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+          },
         },
       },
     },
@@ -120,6 +197,8 @@ export const THEME = createTheme({
         tabLabel: {
           fontSize: '20px', //xl
           fontWeight: 700,
+          color:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
         },
         panel: {
           marginTop: '20px',

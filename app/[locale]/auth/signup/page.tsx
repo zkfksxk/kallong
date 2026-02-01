@@ -152,7 +152,7 @@ export default function SignUpPage() {
               className='inline-flex items-center gap-1'
             >
               <Text span>{t('auth.view')}</Text>
-              <Forward color='black' size={24} />
+              <Forward className='text-black dark:text-white' size={24} />
             </Link>
           </div>
           <div className='flex flex-row flex-1 justify-between'>
@@ -165,7 +165,7 @@ export default function SignUpPage() {
               className='inline-flex items-center gap-1'
             >
               <Text span>{t('auth.view')}</Text>
-              <Forward color='black' size={24} />
+              <Forward className='text-black dark:text-white' size={24} />
             </Link>
           </div>
         </div>
@@ -182,7 +182,7 @@ export default function SignUpPage() {
         </Button>
       </form>
 
-      <Link href='/mypage/signin' className='mt-5'>
+      <Link href='/mypage/signin' className='mt-5 text-black dark:text-white'>
         {t('auth.alreadyHaveAccount')} <RightSquare className='inline mx-1' />
         {t('auth.signIn')}
       </Link>

@@ -35,7 +35,7 @@ export default function ThemePage() {
   };
 
   return (
-    <div className='bg-white w-full flex flex-col'>
+    <div className='bg-white dark:bg-black w-full flex flex-col'>
       <Radio.Group value={theme || 'system'} onChange={handleThemeChange}>
         <div>
           {THEME.map((themeOption) => (
@@ -45,10 +45,10 @@ export default function ThemePage() {
               withBorder={false}
             >
               <Group className='pb-8' justify='space-between' wrap='nowrap'>
-                <Text size='lg' fw={700} c='black'>
+                <Text size='lg' fw={700}>
                   {t(themeOption)}
                 </Text>
-                <Radio.Indicator color='black' />
+                <Radio.Indicator />
               </Group>
             </Radio.Card>
           ))}

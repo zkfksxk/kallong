@@ -138,7 +138,7 @@ export default function CreateLookbooksPage() {
   };
 
   return (
-    <main className='relative bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center pb-20'>
+    <main className='relative bg-white dark:bg-black max-w-125 w-full mx-auto flex flex-1 flex-col items-center pb-20'>
       <div className='w-full h-15 flex items-center '>
         <ActionIcon
           variant='subtle'
@@ -148,7 +148,7 @@ export default function CreateLookbooksPage() {
           disabled={isSubmitting}
           onClick={() => router.push('/lookbooks')}
         >
-          <Back color='black' size={24} />
+          <Back className='text-black dark:text-white' size={24} />
         </ActionIcon>
       </div>
       <div className='flex flex-col w-full px-5 gap-8'>
@@ -184,15 +184,12 @@ export default function CreateLookbooksPage() {
       </div>
 
       <div className='flex flex-col itme-center mt-15 gap-0.5'>
-        <Text size='sm' c='gray'>
-          {t('bgRemoveQuestion')}
-        </Text>
+        <Text size='sm'>{t('bgRemoveQuestion')}</Text>
         <Button
           variant='transparent'
           size='sm'
           disabled={isSubmitting}
           onClick={() => router.push('/lookbooks/editor')}
-          c='black'
         >
           {t('editorButton')}
         </Button>

@@ -52,7 +52,7 @@ export default function SignInPage() {
   // };
 
   return (
-    <div className='w-full flex flex-col'>
+    <div className='bg-white dark:bg-black w-full flex flex-col'>
       <Text ta='center' size='xl' fw={700}>
         {t('auth.signIn')}
       </Text>
@@ -102,7 +102,6 @@ export default function SignInPage() {
         <Button
           type='submit'
           variant='filled'
-          color='black'
           size='lg'
           radius='md'
           disabled={signInIsPending}
@@ -123,7 +122,7 @@ export default function SignInPage() {
         >
           Continue with Google
         </Button> */}
-        <div className='flex flex-col gap-1'>
+        <div className='flex flex-col gap-1 text-black dark:text-white'>
           <Link href='/auth/signup'>
             {t('auth.noAccount')} <RightSquare className='inline mx-1' />
             {t('auth.signUp')}

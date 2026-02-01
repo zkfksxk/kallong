@@ -16,7 +16,6 @@ export const LookbookList = () => {
     }
   }, [inView, fetchNextPage]);
 
-  console.log('data', data);
   return (
     <div className='flex flex-1 flex-col gap-10'>
       {!data ||

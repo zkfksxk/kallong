@@ -34,7 +34,7 @@ export function ShareActionButtons({
           color='black'
           onClick={onToggleVisible}
         >
-          <Grid color='white' size={32} />
+          <Grid className='text-black dark:text-white' size={32} />
         </ActionIcon>
         {visible && (
           <>

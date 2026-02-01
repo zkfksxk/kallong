@@ -139,11 +139,11 @@ export default function EditPage() {
   };
 
   return (
-    <div className='relative bg-white flex flex-1 flex-col'>
+    <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
       <ClosetHeader
         leftComponent={
           <button onClick={handleBack}>
-            <Back color='black' size={24} />
+            <Back className='text-black dark:text-white' size={24} />
           </button>
         }
         rightComponent={

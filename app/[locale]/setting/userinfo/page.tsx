@@ -26,7 +26,7 @@ export default function UserInfoPage() {
 
   return (
     <>
-      <div className='bg-white w-full flex flex-1 flex-col'>
+      <div className='bg-white dark:bg-black w-full flex flex-1 flex-col'>
         {!profile ? <ProfileSkeleton /> : <Profile />}
         <div className='flex flex-col mt-8'>
           <SettingItem
@@ -37,7 +37,8 @@ export default function UserInfoPage() {
         </div>
         <Button
           variant='transparent'
-          size='sm'
+          size='lg'
+          fw={700}
           onClick={open}
           className='self-start mt-auto'
           disabled={!profile || isPending}

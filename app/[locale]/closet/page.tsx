@@ -65,11 +65,11 @@ export default function ClosetPage() {
   };
 
   return (
-    <div className='relative bg-white flex flex-1 flex-col'>
+    <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
       <ClosetHeader
         leftComponent={
           <button onClick={handleBack}>
-            <Back color='black' size={24} />
+            <Back className='text-black dark:text-white' size={24} />
           </button>
         }
       />
@@ -105,7 +105,9 @@ export default function ClosetPage() {
             display: 'flex',
             alignItems: 'center',
             placeItems: 'center',
-            margin: '0 auto 0px auto',
+            margin: '0 auto 10px auto',
+            color:
+              'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
           },
           calendarHeaderLevel: { width: '100%', flex: 1, textAlign: 'center' },
           monthsList: { width: '100%' },
@@ -127,7 +129,9 @@ export default function ClosetPage() {
         {selectedOutfit ? (
           <Link href={`/closet/${selectedOutfit.id}`}>
             <div className='flex flex-row gap-2'>
-              <Text fw={700}>{selectedOutfit.selected_day}</Text>
+              <Text c='black' fw={700}>
+                {selectedOutfit.selected_day}
+              </Text>
               <ActionIcon
                 variant='transparent'
                 onClick={(e) => {
@@ -142,7 +146,7 @@ export default function ClosetPage() {
           </Link>
         ) : (
           <div>
-            <Text>아직 작성한 기록이 없어요</Text>
+            <Text c='black'>아직 작성한 기록이 없어요</Text>
             <Button
               onClick={handleRecord}
               variant='transparent'

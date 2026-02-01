@@ -17,7 +17,7 @@ export default function EditLookbookPage() {
   const { Back } = ICONS;
 
   return (
-    <main className='relative bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center pb-20'>
+    <main className='relative bg-white dark:bg-black max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center pb-20'>
       <div className='w-full h-15 flex items-center '>
         <ActionIcon
           variant='subtle'
@@ -26,7 +26,7 @@ export default function EditLookbookPage() {
           title={t('backButton')}
           onClick={() => router.push('/lookbooks/create')}
         >
-          <Back color='black' size={24} />
+          <Back className='text-black dark:text-white' size={24} />
         </ActionIcon>
       </div>
       <div className='flex flex-col w-full px-5'>

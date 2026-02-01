@@ -10,6 +10,7 @@ import { ThemeProvider } from 'next-themes';
 import TanstackQueryProvider from '@/hooks/provider/tanstackquery-provider';
 import { SITE_CONFIG } from '@/shared/common/constants';
 import CLIENT_THEME from '@/shared/theme/clientTheme';
+import { MatineThemeSync } from '@/shared/theme/matineThemeSync';
 import { THEME } from '@/shared/theme/theme';
 import './globals.css';
 
@@ -67,6 +68,7 @@ export default async function RootLayout({
             defaultTheme='system'
           >
             <MantineProvider theme={mergedTheme}>
+              <MatineThemeSync />
               <Notifications position='bottom-center' />
               {children}
             </MantineProvider>

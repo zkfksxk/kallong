@@ -5,7 +5,7 @@ export default function SettingPage() {
   const t = useTranslations('Setting');
 
   return (
-    <div className='bg-white w-full flex flex-col'>
+    <div className='bg-white dark:bg-black w-full flex flex-col'>
       <SettingItem url='/setting/appinfo' title={t('appinfo')} />
       <SettingItem url='/setting/userinfo' title={t('userinfo')} />
       <SettingItem url='/setting/screen' title={t('screen')} />

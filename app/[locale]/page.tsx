@@ -1,12 +1,13 @@
 'use client';
 
-import { Button, Text } from '@mantine/core';
+import { Button, Text, useMantineTheme } from '@mantine/core';
 import { useLocale, useTranslations } from 'next-intl';
 import { SettingHeader } from '@/components/layouts/setting-header';
 import { Link } from '@/i18n/navigation';
 import { hanna } from '@/shared/theme/theme';
 
 export default function Home() {
+  const theme = useMantineTheme();
   const t = useTranslations('Home');
   const locale = useLocale();
 
@@ -21,11 +22,14 @@ export default function Home() {
               wordBreak: 'break-word',
               fontFamily: hanna.style.fontFamily,
               justifySelf: 'center',
+              color: theme.black,
             }}
           >
             {t('title1')}
           </Text>
-          <Text size='md'> {t('description1')}</Text>
+          <Text size='md' c={theme.black}>
+            {t('description1')}
+          </Text>
         </div>
 
         <Link href='/closet' className='w-full'>
@@ -48,11 +52,14 @@ export default function Home() {
               wordBreak: 'break-word',
               fontFamily: hanna.style.fontFamily,
               justifySelf: 'center',
+              color: theme.black,
             }}
           >
             {t('title2')}
           </Text>
-          <Text size='md'> {t('description2')}</Text>
+          <Text size='md' c={theme.black}>
+            {t('description2')}
+          </Text>
         </div>
         <Link href='/lookbooks' className='w-full'>
           <Button

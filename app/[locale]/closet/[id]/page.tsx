@@ -23,11 +23,11 @@ export default function DetailPage() {
   };
 
   return (
-    <div className='relative bg-white flex flex-1 flex-col'>
+    <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
       <ClosetHeader
         leftComponent={
           <button onClick={handleBack}>
-            <Back color='black' size={24} />
+            <Back className='text-black dark:text-white' size={24} />
           </button>
         }
         rightComponent={
@@ -48,8 +48,12 @@ export default function DetailPage() {
           <Image src={data?.image_url} alt='daily-outfit' fill />
         )}
       </div>
-      <Text>{data.name}</Text>
-      <Text>{data.description}</Text>
+      <div className='bg-gray-700 mt-10 p-4 rounded-md'>
+        <Text>{data.name}</Text>
+      </div>
+      <div className='bg-gray-700 mt-10 p-4 rounded-md'>
+        <Text>{data.description}</Text>
+      </div>
     </div>
   );
 }

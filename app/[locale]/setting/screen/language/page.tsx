@@ -30,16 +30,16 @@ export default function LanguagePage() {
   };
 
   return (
-    <div className='bg-white w-full flex flex-col'>
+    <div className='bg-white dark:bg-black w-full flex flex-col'>
       <Radio.Group value={locale} onChange={handleLanguageChange}>
         <div>
           {LANGUAGES.map((lang) => (
             <Radio.Card key={lang.value} value={lang.value} withBorder={false}>
               <Group className='pb-8' justify='space-between' wrap='nowrap'>
-                <Text size='lg' fw={700} c='black'>
+                <Text size='lg' fw={700}>
                   {t(lang.label)}
                 </Text>
-                <Radio.Indicator color='black' />
+                <Radio.Indicator />
               </Group>
             </Radio.Card>
           ))}

@@ -22,12 +22,12 @@ export default function SettingLayout({
   };
 
   return (
-    <main className=' bg-white max-w-125 w-full flex flex-1 flex-col px-5 pb-20'>
+    <main className=' bg-white dark:bg-black max-w-125 w-full flex flex-1 flex-col px-5 pb-20'>
       <SettingHeader
         isSettingShow={false}
         leftComponent={
           <button onClick={handleBack}>
-            <Back color='black' size={24} />
+            <Back className='text-black dark:text-white' size={24} />
           </button>
         }
       />

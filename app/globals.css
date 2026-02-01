@@ -18,6 +18,11 @@
   }
 } */
 
+@theme {
+  --color-white: #f8fafc;
+  --color-black: #020617;
+}
+
 html {
   height: 100%;
   scroll-behavior: smooth;
@@ -34,10 +39,11 @@ body {
   align-items: center;
 }
 
-.mantine-TextInput-input:focus,
+/* .mantine-TextInput-input:focus,
 .mantine-TextInput-input:focus-within {
   border-color: #141414 !important;
-}
+} */
+
 .mantine-ActionIcon-root[data-variant='outline'] {
   --ai-bd: 1px solid #e3231f !important;
 }

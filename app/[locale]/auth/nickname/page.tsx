@@ -83,7 +83,6 @@ export default function NicknameChangePage() {
         <Button
           type='submit'
           variant='filled'
-          color='black'
           size='lg'
           radius='md'
           loading={isSubmitting}
