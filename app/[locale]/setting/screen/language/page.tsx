@@ -15,6 +15,7 @@ export default function LanguagePage() {
 
   const handleLanguageChange = (nextLocale: string) => {
     if (nextLocale === locale) return;
+    document.cookie = `lang=${nextLocale}; path=/; max-age=31536000; SameSite=Lax`;
 
     if (isWebView) {
       window.ReactNativeWebView?.postMessage(
