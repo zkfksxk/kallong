@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { notifications } from '@mantine/notifications';
 import { domToPng } from 'modern-screenshot';
 import { ICONS } from '@/shared/common/icons';
+import { MESSAGE_TYPE } from '@/shared/webview/constants';
 import { useDetectWebView } from './useDetectWebView';
 
 const { Check, Alert } = ICONS;
@@ -25,20 +26,16 @@ export function useShareActions() {
       if (isWebView) {
         window.ReactNativeWebView?.postMessage(
           JSON.stringify({
-            type: 'DOWNLOAD_IMAGE',
+            type: MESSAGE_TYPE.download_image,
             data: dataUrl,
             filename: `lookbook_${new Date().getFullYear()}.png`,
           })
         );
-
-        console.log('webview');
       } else {
         const link = document.createElement('a');
         link.download = `lookbook_${Date.now()}.png`;
         link.href = dataUrl;
         link.click();
-
-        console.log('web');
       }
       notifications.show({
         title: 'Successfully Captured',

@@ -11,7 +11,7 @@ export default function Home() {
   const locale = useLocale();
 
   return (
-    <main className='bg-white max-w-125 w-full mx-auto flex flex-1 flex-col items-center px-5 pb-15'>
+    <main className='bg-white dark:bg-black max-w-125 w-full mx-auto flex flex-1 flex-col items-center px-5 pb-15'>
       <SettingHeader />
       <section className='w-full flex flex-col pt-5 bg-[#ffc9c8] rounded-md mb-10'>
         <div className='flex flex-col gap-2 mx-5 mb-5'>

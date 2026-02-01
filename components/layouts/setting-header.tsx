@@ -28,6 +28,7 @@ export const SettingHeader = ({
         ${leftComponent ? 'justify-between' : 'justify-end'}
         mx-auto
         bg-white
+        dark:bg-black
         gap-3
         z-50
         ${className}
@@ -37,7 +38,7 @@ export const SettingHeader = ({
       {title && <Text>{title}</Text>}
       {isSettingShow && (
         <Link href='/setting'>
-          <Setting color='black' size={24} />
+          <Setting className='text-black dark:text-white' size={24} />
         </Link>
       )}
     </header>

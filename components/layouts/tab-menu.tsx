@@ -13,15 +13,15 @@ export const TabMenu = () => {
   const isMypage = pathname.includes('/mypage');
 
   return (
-    <div className='fixed bottom-0 mx-auto h-15 flex max-w-[500px] w-full  border-t border-gray-200 bg-white'>
+    <div className='fixed bottom-0 mx-auto h-15 flex max-w-125 w-full  border-t border-gray-200 bg-white dark:bg-black'>
       <Link
         href='/'
         className='flex-1 flex flex-col items-center justify-center gap-1'
       >
         {isHome ? (
-          <Home.Fill size={24} color='black' />
+          <Home.Fill size={24} className='text-black dark:text-white' />
         ) : (
-          <Home.Outline size={24} color='black' />
+          <Home.Outline size={24} className='text-black dark:text-white' />
         )}
         <Text size='xs' fw={isHome ? 600 : 400}>
           {t('home')}
@@ -33,11 +33,10 @@ export const TabMenu = () => {
         className='flex-1 flex flex-col items-center justify-center gap-1'
       >
         {isMypage ? (
-          <Person.Fill size={24} color='black' />
+          <Person.Fill size={24} className='text-black dark:text-white' />
         ) : (
-          <Person.Outline size={24} color='black' />
+          <Person.Outline size={24} className='text-black dark:text-white' />
         )}
-
         <Text size='xs' fw={isMypage ? 600 : 400}>
           {t('my')}
         </Text>
