@@ -1,7 +1,6 @@
 import { Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { useDetectWebView } from '@/hooks/useDetectWebView';
-import { Link } from '@/i18n/navigation';
 
 export default function AppInfoPage() {
   const t = useTranslations('Setting');
@@ -31,14 +30,22 @@ export default function AppInfoPage() {
       </div>
       {!isWebView && (
         <div className='flex flex-col mt-10 gap-5'>
-          <Link href='https://naver.me/xE6S9jbW'>
+          {/* <Link href='https://naver.me/xE6S9jbW'>
             <Text size='sm'>{t('formbutton')} ➡️</Text>
-          </Link>
+          </Link> */}
+          <Text
+            size='md'
+            component='a'
+            href='mailto:karanta.d2v@gmail.com'
+            className='cursor-pointer hover:underline'
+          >
+            {t('formbutton')} ➡️
+          </Text>
           <a
             href='https://buymeacoffee.com/karanta'
             target='_blank'
             rel='noopener noreferrer'
-            className='bg-[#e62d2d] text-white w-[180px] text-center px-4 py-2 rounded-md'
+            className='bg-[#e62d2d] text-white w-45 text-center px-4 py-2 rounded-md'
           >
             ☕ Buy me a coffee
           </a>
