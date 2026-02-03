@@ -18,11 +18,10 @@
     "description1": "Record today's style.",
     "title2": "Vote",
     "description2": "Start a 12-hour vote.",
-    "button": "시작하기"
+    "startButton": "Start"
   },
   "Setting": {
     "homebutton": "Go to Home",
-    "formbutton": "Submit Feedback",
     "screen": "Screen",
     "english": "English",
     "korean": "Korean",
@@ -31,9 +30,20 @@
     "light": "Light mode",
     "dark": "Dark mode",
     "system": "System",
-    "appinfo": "About What to wear tomorrow?",
     "userinfo": "User Settings",
     "daysTogether": "Together for {daysSince} days",
+    "appinfo": {
+      "introduce": "About Kallong",
+      "title": "Thank you for visiting <bold>kallong</bold>!",
+      "share": "If you enjoyed the project, please share it with others.",
+      "notice": {
+        "title": "Notice",
+        "anonymousEdit": "• Lookbooks saved by non-logged-in users cannot be edited or searched. <bold>Please make sure to save the URL!</bold>",
+        "anonymousDelete": "• Data from non-logged-in users is periodically deleted, so please save the voting results in advance.",
+        "feedback": "• We welcome feedback and will reflect it as much as possible."
+      },
+      "formbutton": "Submit Feedback"
+    },
     "auth": {
       "signUp": "Sign Up",
       "signIn": "Sign In",
@@ -90,6 +100,10 @@
       "checkEmail": "Please check your email."
     }
   },
+  "Closet": {
+    "emptyMessage": "You haven’t written any records yet.",
+    "goToRecord": "Go to record"
+  },
   "Lookbooks": {
     "main": {
       "voteNameLabel": "Vote Name",
@@ -122,7 +136,8 @@
       "finalUrlTitle": "Add an image!"
     },
     "result": {
-      "title": "View Results"
+      "title": "View Results",
+      "ended": "Voting has ended."
     }
   }
 }

@@ -3,29 +3,31 @@ import { useTranslations } from 'next-intl';
 import { useDetectWebView } from '@/hooks/useDetectWebView';
 
 export default function AppInfoPage() {
-  const t = useTranslations('Setting');
+  const t = useTranslations('Setting.appinfo');
   const { isWebView } = useDetectWebView();
 
   return (
     <div className='bg-white dark:bg-black w-full flex flex-1 flex-col'>
       <Text size='md'>
-        <span className='font-bold'>칼롱</span>을 방문해주셔서 감사합니다!
+        {t.rich('introduce', {
+          bold: (chunks) => <span className='font-bold'>{chunks}</span>,
+        })}
       </Text>
-      <Text size='md'>프로젝트가 재미있었다면 주변에 많이 홍보해주세요.☺</Text>
+      <Text size='md'>{t('share')}</Text>
       <div className='mt-4 p-4 bg-gray-50 dark:bg-gray-300 rounded-lg'>
         <Text size='sm' c='gray.7' className='font-bold mb-2'>
-          주의사항
+          {t('notice.title')}
         </Text>
         <Text c='gray.7' size='sm'>
-          • 로그인하지 않은 사용자가 저장한 룩북은 수정이나 검색이 불가능해요.
-          <span className='font-semibold'> 꼭 URL을 메모해주세요!</span>
+          {t.rich('notice.anonymousEdit', {
+            bold: (chunks) => <span className='font-semibold'>{chunks}</span>,
+          })}
         </Text>
         <Text c='gray.7' size='sm'>
-          • 로그인하지 않은 사용자의 데이터는 주기적으로 삭제되니 투표 결과는
-          미리 저장하세요.
+          {t('notice.anonymousDelete')}
         </Text>
         <Text c='gray.7' size='sm'>
-          • 피드백을 적극 환영해요. 최대한 반영하겠습니다.
+          {t('notice.feedback')}
         </Text>
       </div>
       {!isWebView && (

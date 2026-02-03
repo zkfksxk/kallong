@@ -40,7 +40,7 @@ export default function Home() {
             size='md'
             radius='md'
           >
-            {t('button')}
+            {t('startButton')}
           </Button>
         </Link>
       </section>
@@ -69,7 +69,7 @@ export default function Home() {
             size='md'
             radius='md'
           >
-            {t('button')}
+            {t('startButton')}
           </Button>
         </Link>
       </section>

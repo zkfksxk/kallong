@@ -6,7 +6,7 @@ export default function SettingPage() {
 
   return (
     <div className='bg-white dark:bg-black w-full flex flex-col'>
-      <SettingItem url='/setting/appinfo' title={t('appinfo')} />
+      <SettingItem url='/setting/appinfo' title={t('appinfo.introduce')} />
       <SettingItem url='/setting/userinfo' title={t('userinfo')} />
       <SettingItem url='/setting/screen' title={t('screen')} />
     </div>

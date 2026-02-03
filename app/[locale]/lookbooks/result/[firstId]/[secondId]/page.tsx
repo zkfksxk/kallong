@@ -60,9 +60,7 @@ export default function ResultPage() {
             {t('title')}
           </Text>
           <Text size='xl' fw='bold' c='#CD1C18'>
-            {remainingTime === '00:00'
-              ? '투표가 종료되었습니다.'
-              : remainingTime}
+            {remainingTime === '00:00' ? t('ended') : remainingTime}
           </Text>
         </div>
         <div className='w-full flex flex-col'>

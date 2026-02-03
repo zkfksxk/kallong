@@ -5,6 +5,7 @@ import { ActionIcon, Button, Text } from '@mantine/core';
 import { Calendar } from '@mantine/dates';
 import { notifications } from '@mantine/notifications';
 import dayjs from 'dayjs';
+import { useTranslations } from 'next-intl';
 import { useDeleteDailyOutfit } from '@/apis/querys/outfit/useDeleteDailyOutfit';
 import { useGetDailyOutfitInMonth } from '@/apis/querys/outfit/useGetDailyOutfitInMonth';
 import { ClosetHeader } from '@/components/layouts/closet-header';
@@ -19,6 +20,7 @@ export default function ClosetPage() {
   const [selectedDay, setSelectedDay] = useState<string>(
     dayjs().format('YYYY-MM-DD')
   );
+  const t = useTranslations('Closet');
   const { data: outfits } = useGetDailyOutfitInMonth(currentDay);
   const { mutateAsync: deleteMutate } = useDeleteDailyOutfit();
 
@@ -145,15 +147,15 @@ export default function ClosetPage() {
             </div>
           </Link>
         ) : (
-          <div>
-            <Text c='black'>아직 작성한 기록이 없어요</Text>
+          <div className='flex flex-col justify-center align-center'>
+            <Text c='black'>{t('emptyMessage')}</Text>
             <Button
               onClick={handleRecord}
               variant='transparent'
               size='lg'
               radius='md'
             >
-              기록하러 가기
+              {t('goToRecord')}
             </Button>
           </div>
         )}

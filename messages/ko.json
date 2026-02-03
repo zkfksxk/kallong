@@ -18,11 +18,10 @@
     "description1": "오늘의 스타일을 기록해 보세요.",
     "title2": "투표",
     "description2": "12시간 투표를 진행해 보세요.",
-    "button": "시작하기"
+    "startButton": "시작하기"
   },
   "Setting": {
     "homebutton": "홈으로 이동하기",
-    "formbutton": "의견 제안하기",
     "screen": "화면 설정",
     "english": "영어",
     "korean": "한국어",
@@ -31,9 +30,20 @@
     "light": "라이트 모드",
     "dark": "다크 모드",
     "system": "시스템 설정",
-    "appinfo": "내일 뭐 입지 소개",
     "userinfo": "사용자 설정",
     "daysTogether": "함께한 지 {daysSince}일째",
+    "appinfo": {
+      "introduce": "칼롱 소개",
+      "title": "<bold>칼롱</bold>을 방문해주셔서 감사합니다!",
+      "share": "프로젝트가 재미있었다면 주변에 많이 홍보해주세요.",
+      "notice": {
+        "title": "주의사항",
+        "anonymousEdit": "• 로그인하지 않은 사용자가 저장한 룩북은 수정이나 검색이 불가능해요. <bold>꼭 URL을 메모해주세요!</bold>",
+        "anonymousDelete": "• 로그인하지 않은 사용자의 데이터는 주기적으로 삭제되니 투표 결과는 미리 저장하세요.",
+        "feedback": "• 피드백을 적극 환영해요. 최대한 반영하겠습니다."
+      },
+      "formbutton": "의견 제안하기"
+    },
     "auth": {
       "signUp": "회원가입",
       "signIn": "로그인",
@@ -89,6 +99,10 @@
       "passwordConfirmedRequired": "비밀번호 확인을 입력해주세요."
     }
   },
+  "Closet": {
+    "emptyMessage": "아직 작성한 기록이 없어요",
+    "goToRecord": "기록하러 가기"
+  },
   "Lookbooks": {
     "main": {
       "voteNameLabel": "투표 이름",
@@ -121,7 +135,8 @@
       "finalUrlTitle": "이미지를 추가해보세요!"
     },
     "result": {
-      "title": "결과 확인"
+      "title": "결과 확인",
+      "ended": "투표가 종료되었습니다."
     }
   }
 }
