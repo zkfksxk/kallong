@@ -101,6 +101,10 @@ export const THEME = createTheme({
           color:
             'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
         },
+        label: {
+          color:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+        },
       },
     },
     Text: {

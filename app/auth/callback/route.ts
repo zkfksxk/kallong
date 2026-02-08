@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.redirect(`${origin}/${locale}/auth/deeplink?to=/`);
     case 'recovery':
       return NextResponse.redirect(
-        `${origin}/${locale}/auth/deeplink?to=/${locale}/auth/password/update`
+        `${origin}/${locale}/auth/deeplink?to=/auth/password/update`
       );
     default:
       return NextResponse.redirect(`${origin}/${locale}/error`);
