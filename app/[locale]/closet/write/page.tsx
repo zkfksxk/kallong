@@ -133,6 +133,7 @@ export default function WritePage() {
             color='red.5'
             size='md'
             radius='md'
+            p={0}
           >
             저장
           </Button>
@@ -157,7 +158,7 @@ export default function WritePage() {
             title='추가'
             onClick={handleOpenImagePicker}
           >
-            <Add size={32} color='black' />
+            <Add size={32} className='text-black dark:text-white' />
           </ActionIcon>
           <ActionIcon
             variant='outline'
@@ -167,7 +168,7 @@ export default function WritePage() {
             disabled={!url}
             onClick={handleRemove}
           >
-            <Delete size={32} color='black' />
+            <Delete size={32} className='text-black dark:text-white' />
           </ActionIcon>
         </div>
       </div>

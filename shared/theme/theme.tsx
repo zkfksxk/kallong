@@ -110,6 +110,7 @@ export const THEME = createTheme({
     Text: {
       styles: {
         root: {
+          whiteSpace: 'pre-wrap',
           color:
             'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
         },
@@ -154,39 +155,38 @@ export const THEME = createTheme({
       },
     },
     Textarea: {
+      defaultProps: {
+        autosize: true,
+        minRows: 6,
+      },
       styles: {
         label: {
-          fontSize: '20px', //xl
+          fontSize: '20px',
           fontWeight: 700,
           color:
             'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
         },
         wrapper: {
           width: '100%',
-          height: '80px',
         },
         input: {
-          height: '100%',
-          fontSize: '16px', //md
+          fontSize: '16px',
           padding: '12px',
-
           color: 'var(--mantine-color-black)',
           backgroundColor: 'var(--mantine-color-white)',
           borderColor: 'var(--mantine-color-gray-3)',
 
+          overflow: 'hidden',
+          resize: 'none',
+
           '&::placeholder': {
-            backgroundColor: 'var(--mantine-color-white)',
-            color: 'var(--mantine-color-gray-3)',
+            color: 'var(--mantine-color-gray-5)',
           },
 
-          '&:focus': {
+          '&:focus, &:focus-within': {
             borderColor:
               'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
-          },
-
-          '&:focusWithin': {
-            borderColor:
-              'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+            outline: 'none',
           },
         },
       },

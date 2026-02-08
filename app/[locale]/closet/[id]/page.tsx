@@ -27,6 +27,7 @@ export default function DetailPage() {
             color='red.5'
             size='md'
             radius='md'
+            p={0}
           >
             수정
           </Button>
@@ -38,10 +39,10 @@ export default function DetailPage() {
           <Image src={data?.image_url} alt='daily-outfit' fill />
         )}
       </div>
-      <div className='bg-gray-700 mt-10 p-4 rounded-md'>
+      <div className='bg-gray-200 dark:bg-gray-700 mt-10 p-4 rounded-md'>
         <Text>{data.name}</Text>
       </div>
-      <div className='bg-gray-700 mt-10 p-4 rounded-md'>
+      <div className='bg-gray-200 dark:bg-gray-700 min-h-50 mt-10 p-4 rounded-md'>
         <Text>{data.description}</Text>
       </div>
     </div>

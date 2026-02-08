@@ -2,7 +2,7 @@
 @variant dark (&:is(.dark *));
 
 :root {
-  --background: #f8fafc;
+  --background: #c5cbd5;
   --foreground: #020617;
 }
 
