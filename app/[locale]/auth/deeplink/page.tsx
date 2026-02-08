@@ -16,11 +16,12 @@ export default function DeeplinkPage() {
 
   useEffect(() => {
     if (!isWebView) {
-      router.replace('/', { locale });
+      router.replace(to, { locale });
       return;
     }
 
-    const deeplink = `kallong://${to}`;
+    const toPath = to.replace(/^\/+/, '');
+    const deeplink = `kallong://${toPath || ''}`;
     window.location.href = deeplink;
 
     const timer = setTimeout(() => {
