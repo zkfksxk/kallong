@@ -6,7 +6,7 @@ import { ActionIcon, Button, TextInput, Textarea } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useCreatDailyOutfit } from '@/apis/querys/outfit/useCreateDailyOutfit';
 import { useUpdateDailyOutfitImage } from '@/apis/querys/outfit/useUpdateDailyOutfitImage';
-import { ClosetHeader } from '@/components/layouts/closet-header';
+import { Header } from '@/components/layouts/header';
 import { useOutfitStore } from '@/hooks/provider/outfit-provider';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
 import { useOutfitEditor } from '@/hooks/useOutfitEditor';
@@ -34,7 +34,7 @@ export default function WritePage() {
   const { profile } = useProfileStore((s) => s);
   const { mutateAsync: createMutate } = useCreatDailyOutfit();
   const { mutateAsync: updateMutate } = useUpdateDailyOutfitImage();
-  const { Add, Delete, Alert, Back } = ICONS;
+  const { Add, Delete, Alert } = ICONS;
 
   const uploadFile = async (outfitId: string, file: File) => {
     if (!profile) return;
@@ -122,18 +122,10 @@ export default function WritePage() {
     }
   };
 
-  const handleBack = () => {
-    router.back();
-  };
-
   return (
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
-      <ClosetHeader
-        leftComponent={
-          <button onClick={handleBack}>
-            <Back className='text-black dark:text-white' size={24} />
-          </button>
-        }
+      <Header
+        isBackbutton
         rightComponent={
           <Button
             onClick={handleSubmit}

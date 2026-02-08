@@ -52,7 +52,7 @@ export default function ResultPage() {
   return (
     <main
       ref={notificationsRef}
-      className='relative bg-white dark:bg-black max-w-[500px] w-full mx-auto flex flex-1 pt-10 pb-40 flex-col items-center '
+      className='relative bg-white dark:bg-black w-full flex flex-1 pt-10 pb-30 flex-col items-center '
     >
       <div ref={captureRef} className='w-full flex flex-col flex-1 px-10'>
         <div className='flex flex-col text-center'>

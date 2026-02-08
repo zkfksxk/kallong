@@ -7,7 +7,7 @@ import { ActionIcon, Button, TextInput, Textarea } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useGetDailyOutfit } from '@/apis/querys/outfit/useGetDailyOutfit';
 import { useUpdateDailyOutfit } from '@/apis/querys/outfit/useUpdateDailyOutfit';
-import { ClosetHeader } from '@/components/layouts/closet-header';
+import { Header } from '@/components/layouts/header';
 import { useOutfitStore } from '@/hooks/provider/outfit-provider';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
 import { useOutfitEditor } from '@/hooks/useOutfitEditor';
@@ -38,7 +38,7 @@ export default function EditPage() {
   const { data } = useGetDailyOutfit(id);
   const { mutateAsync: updateMutate } = useUpdateDailyOutfit();
 
-  const { Add, Delete, Alert, Back } = ICONS;
+  const { Add, Delete, Alert } = ICONS;
 
   useEffect(() => {
     if (data) {
@@ -134,18 +134,10 @@ export default function EditPage() {
     }
   };
 
-  const handleBack = () => {
-    router.back();
-  };
-
   return (
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
-      <ClosetHeader
-        leftComponent={
-          <button onClick={handleBack}>
-            <Back className='text-black dark:text-white' size={24} />
-          </button>
-        }
+      <Header
+        isBackbutton
         rightComponent={
           <Button
             onClick={handleSubmit}

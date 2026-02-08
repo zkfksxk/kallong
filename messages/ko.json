@@ -71,7 +71,7 @@
       "resetPasswordFail": "비밀번호 재설정에 실패했습니다. 다시 시도해주세요.",
       "checkEmail": "이메일을 확인해주세요.",
       "updatePassword": "비밀번호 변경하기",
-      "updatePasswordDescription": "새로운 비밀번호를 입력하세요",
+      "updatePasswordDescription": "이전과 다른 새로운 비밀번호를 입력하세요",
       "nicknameChange": "닉네임 변경",
       "saveButton": "저장하기",
       "alreadyHaveAccount": "이미 계정이 있다면?",

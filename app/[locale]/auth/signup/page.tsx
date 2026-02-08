@@ -2,7 +2,7 @@
 
 import { Button, Checkbox, Text, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { IoCloseCircle as Close } from 'react-icons/io5';
 import { CustomAuthError } from '@/apis/error';
@@ -15,6 +15,7 @@ import { SignUpForm } from '@/shared/common/types';
 export default function SignUpPage() {
   const t = useTranslations('Setting');
   const router = useRouter();
+  const locale = useLocale();
   const methods = useForm<SignUpForm>({
     defaultValues: {
       termsOfService: false,
@@ -37,7 +38,12 @@ export default function SignUpPage() {
     }
 
     signUp(
-      { email: data.email, password: data.password, nickname: data.nickname },
+      {
+        email: data.email,
+        password: data.password,
+        nickname: data.nickname,
+        locale,
+      },
       {
         onSuccess: () => {
           router.push('/auth/signin');
@@ -173,7 +179,6 @@ export default function SignUpPage() {
         <Button
           type='submit'
           variant='filled'
-          color='black'
           size='lg'
           radius='md'
           disabled={isPending}

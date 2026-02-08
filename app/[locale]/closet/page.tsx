@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { useDeleteDailyOutfit } from '@/apis/querys/outfit/useDeleteDailyOutfit';
 import { useGetDailyOutfitInMonth } from '@/apis/querys/outfit/useGetDailyOutfitInMonth';
-import { ClosetHeader } from '@/components/layouts/closet-header';
+import { Header } from '@/components/layouts/header';
 import { useOutfitStore } from '@/hooks/provider/outfit-provider';
 import { Link, useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
@@ -24,11 +24,7 @@ export default function ClosetPage() {
   const { data: outfits } = useGetDailyOutfitInMonth(currentDay);
   const { mutateAsync: deleteMutate } = useDeleteDailyOutfit();
 
-  const handleBack = () => {
-    router.back();
-  };
-
-  const { Trash, Alert, Back } = ICONS;
+  const { Trash, Alert } = ICONS;
 
   const selectedOutfit = outfits?.find(
     (item) => item.selected_day === selectedDay
@@ -68,13 +64,7 @@ export default function ClosetPage() {
 
   return (
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
-      <ClosetHeader
-        leftComponent={
-          <button onClick={handleBack}>
-            <Back className='text-black dark:text-white' size={24} />
-          </button>
-        }
-      />
+      <Header isBackbutton />
       <Calendar
         hideOutsideDates
         onPreviousMonth={() =>

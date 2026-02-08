@@ -91,7 +91,13 @@ export const THEME = createTheme({
     },
     Checkbox: {
       styles: {
-        label: {
+        input: {
+          backgroundColor:
+            'light-dark(var(--mantine-color-white), var(--mantine-color-black))',
+          borderColor:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+        },
+        icon: {
           color:
             'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
         },

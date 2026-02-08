@@ -50,9 +50,12 @@ export default function ResetPasswordPage() {
 
   if (isSubmitted) {
     return (
-      <Box bg='red.1' className='w-full flex flex-col items-center gap-3 p-5'>
+      <Box
+        bg='red.1'
+        className='w-full flex flex-col items-center gap-3 p-5 rounded-sm'
+      >
         <Mail size={30} />
-        <Text ta='center' fw={700}>
+        <Text ta='center' c='black' fw={700}>
           {t('auth.checkEmail')}
         </Text>
       </Box>

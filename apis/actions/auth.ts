@@ -65,10 +65,12 @@ export async function signUp({
   email,
   password,
   nickname,
+  locale = 'ko',
 }: {
   email: string;
   password: string;
   nickname: string;
+  locale: string;
 }) {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.auth.signUp({
@@ -78,6 +80,7 @@ export async function signUp({
       emailRedirectTo: `${getURL()}/auth/callback`,
       data: {
         nickname,
+        locale,
       },
     },
   });
@@ -138,7 +141,6 @@ export async function signInWithGoogle() {
     throw error;
   }
 
-  //console.log('google login', data);
   if (data?.url) {
     redirect(data.url);
   }
@@ -179,7 +181,8 @@ export async function resetPasswordForEmail(
 ) {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${getURL()}/${locale}/auth/password/update`,
+    redirectTo: `${getURL()}/${locale}/auth/password/update`, //fallback용
+    //이메일 템플릿에선 저장된 user_metadata의 locale 정보 이용
   });
 
   if (error) throw error;

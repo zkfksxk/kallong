@@ -24,17 +24,22 @@ export function ShareActionButtons({
   const buttonRef = useOutsideClick<HTMLButtonElement>(onClose);
 
   return (
-    <div className='absolute bottom-22 right-4'>
+    <div className='absolute bottom-10 right-4'>
       <div className='group relative flex flex-col-reverse items-end gap-2'>
         <ActionIcon
           variant='filled'
           size='52px'
           radius='xl'
           ref={buttonRef}
-          color='black'
           onClick={onToggleVisible}
+          style={{
+            color:
+              'light-dark(var(--mantine-color-white), var(--mantine-color-black))',
+            background:
+              'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+          }}
         >
-          <Grid className='text-black dark:text-white' size={32} />
+          <Grid size={32} />
         </ActionIcon>
         {visible && (
           <>
@@ -42,19 +47,29 @@ export function ShareActionButtons({
               variant='filled'
               size='52px'
               radius='xl'
-              color='black'
               onClick={onCopy}
+              style={{
+                color:
+                  'light-dark(var(--mantine-color-white), var(--mantine-color-black))',
+                background:
+                  'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+              }}
             >
-              <Copy color='white' size={32} />
+              <Copy size={32} />
             </ActionIcon>
             <ActionIcon
               variant='filled'
               size='52px'
               radius='xl'
-              color='black'
               onClick={onCapture}
+              style={{
+                color:
+                  'light-dark(var(--mantine-color-white), var(--mantine-color-black))',
+                background:
+                  'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+              }}
             >
-              <Capture color='white' size={32} />
+              <Capture size={32} />
             </ActionIcon>
           </>
         )}

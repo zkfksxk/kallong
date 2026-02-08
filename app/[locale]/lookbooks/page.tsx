@@ -90,7 +90,7 @@ export default function LookbooksPage() {
   };
 
   return (
-    <main className='bg-white dark:bg-black max-w-125 w-full mx-auto flex flex-1 flex-col items-center justify-center px-15 gap-15'>
+    <main className='bg-white dark:bg-black w-full flex flex-1 flex-col items-center justify-center gap-15'>
       <div className='w-full flex flex-col gap-5'>
         <TextInput
           label={t('voteNameLabel')}

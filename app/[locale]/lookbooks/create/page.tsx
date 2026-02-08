@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { ActionIcon, Button, Tabs, Text } from '@mantine/core';
+import { Button, Tabs, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useCreateLookbook } from '@/apis/querys/useCreateLookbook';
 import { useCreateVote } from '@/apis/querys/useCreateVote';
 import { useUpdateLookbook } from '@/apis/querys/useUpdateLookbook';
+import { Header } from '@/components/layouts/header';
 import { CreateImage } from '@/components/lookbooks/create/create-image';
 import { LookbookForm } from '@/components/lookbooks/create/lookbook-form';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
@@ -28,7 +29,7 @@ export default function CreateLookbooksPage() {
   const { mutateAsync: updateMutate } = useUpdateLookbook();
   const { mutateAsync: createVoteMutate } = useCreateVote();
 
-  const { Back, Alert } = ICONS;
+  const { Alert } = ICONS;
 
   const isReadyToSubmit =
     firstLookbook.data.finalUrl && secondLookbook.data.finalUrl;
@@ -68,6 +69,8 @@ export default function CreateLookbooksPage() {
 
   const handleSubmit = async () => {
     if (isSubmitting) return;
+    if (!isReadyToSubmit) return;
+
     setIsSubmitting(true);
 
     //2개의 Lookbook생성후 id 받음. MAX_FILE_SIZE_MB: 4MB;
@@ -138,20 +141,23 @@ export default function CreateLookbooksPage() {
   };
 
   return (
-    <main className='relative bg-white dark:bg-black max-w-125 w-full mx-auto flex flex-1 flex-col items-center pb-20'>
-      <div className='w-full h-15 flex items-center '>
-        <ActionIcon
-          variant='subtle'
-          size='xl'
-          radius='md'
-          title={t('backButton')}
-          disabled={isSubmitting}
-          onClick={() => router.push('/lookbooks')}
-        >
-          <Back className='text-black dark:text-white' size={24} />
-        </ActionIcon>
-      </div>
-      <div className='flex flex-col w-full px-5 gap-8'>
+    <main className='relative bg-white dark:bg-black max-w-125 w-full mx-auto flex flex-1 flex-col items-center'>
+      <Header
+        isBackbutton
+        rightComponent={
+          <Button
+            onClick={handleSubmit}
+            variant='transparent'
+            color='red.5'
+            size='md'
+            radius='md'
+            p={0}
+          >
+            저장
+          </Button>
+        }
+      />
+      <div className='flex flex-col w-full gap-8'>
         <Tabs color='black' value={activeTab} onChange={setActiveTab}>
           <Tabs.List>
             <Tabs.Tab value='first'>
@@ -170,17 +176,6 @@ export default function CreateLookbooksPage() {
             <LookbookForm targetLookbook='second' />
           </Tabs.Panel>
         </Tabs>
-        <Button
-          variant='filled'
-          color='red.5'
-          size='lg'
-          radius='md'
-          onClick={handleSubmit}
-          disabled={!isReadyToSubmit || isSubmitting}
-          loading={isSubmitting}
-        >
-          {t('saveButton')}
-        </Button>
       </div>
 
       <div className='flex flex-col itme-center mt-15 gap-0.5'>

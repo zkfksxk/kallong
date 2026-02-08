@@ -71,7 +71,7 @@
       "resetPasswordFail": "Failed to reset password. Please try again.",
       "checkEmail": "Please check your email.",
       "updatePassword": "Update Password",
-      "updatePasswordDescription": "Enter your new password",
+      "updatePasswordDescription": "Please enter a new password different from your previous one.",
       "nicknameChange": "Change Nickname",
       "saveButton": "Save",
       "alreadyHaveAccount": "Already have an account?",
