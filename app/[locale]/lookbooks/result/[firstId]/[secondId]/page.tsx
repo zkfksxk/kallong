@@ -54,7 +54,7 @@ export default function ResultPage() {
       ref={notificationsRef}
       className='relative bg-white dark:bg-black w-full flex flex-1 pt-10 pb-30 flex-col items-center '
     >
-      <div ref={captureRef} className='w-full flex flex-col flex-1 px-10'>
+      <div ref={captureRef} className='w-full flex flex-col flex-1'>
         <div className='flex flex-col text-center'>
           <Text size='xxl' fw='bold'>
             {t('title')}

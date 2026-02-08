@@ -24,7 +24,7 @@ export function ShareActionButtons({
   const buttonRef = useOutsideClick<HTMLButtonElement>(onClose);
 
   return (
-    <div className='absolute bottom-10 right-4'>
+    <div className='absolute bottom-10 right-0'>
       <div className='group relative flex flex-col-reverse items-end gap-2'>
         <ActionIcon
           variant='filled'
