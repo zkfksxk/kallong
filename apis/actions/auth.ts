@@ -3,9 +3,8 @@
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { AuthApiError } from '@supabase/supabase-js';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
-import { CustomAuthError, handleAuthErrorMessage, handleError } from '../error';
+import { CustomAuthError, handleAuthErrorCode, handleError } from '../error';
 
 const getURL = () => {
   let url =
@@ -17,6 +16,7 @@ const getURL = () => {
   // Make sure to include a trailing `/`.
   url = url.endsWith('/') ? url : `${url}/`;
 
+  console.log('url', url);
   return url;
 };
 
@@ -106,22 +106,12 @@ export async function signInWithPassword({
   });
 
   if (error) {
-    if (error instanceof AuthApiError) {
-      const errorData: CustomAuthError = {
-        success: false,
-        code: error.code ?? '',
-        message: handleAuthErrorMessage(error),
-      };
-      throw new Error(JSON.stringify(errorData));
-    }
-
-    throw new Error(
-      JSON.stringify({
-        success: false,
-        code: 'unknown_error',
-        message: error.message,
-      })
-    );
+    const errorData: CustomAuthError = {
+      success: false,
+      code: handleAuthErrorCode(error),
+      message: error.message,
+    };
+    throw new Error(JSON.stringify(errorData));
   }
   revalidatePath('/', 'layout');
   return data;
@@ -137,6 +127,7 @@ export async function signInWithGoogle() {
     },
   });
 
+  console.log('google login', data, error);
   if (error) {
     throw error;
   }
@@ -196,22 +187,12 @@ export async function updatePassword(password: string) {
   });
 
   if (error) {
-    if (error instanceof AuthApiError) {
-      const errorData: CustomAuthError = {
-        success: false,
-        code: error.code ?? '',
-        message: handleAuthErrorMessage(error),
-      };
-      throw new Error(JSON.stringify(errorData));
-    }
-
-    throw new Error(
-      JSON.stringify({
-        success: false,
-        code: 'unknown_error',
-        message: error.message,
-      })
-    );
+    const errorData: CustomAuthError = {
+      success: false,
+      code: handleAuthErrorCode(error),
+      message: error.message,
+    };
+    throw new Error(JSON.stringify(errorData));
   }
 
   return data;

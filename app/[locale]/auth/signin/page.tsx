@@ -6,9 +6,9 @@ import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { IoCloseCircle as Close } from 'react-icons/io5';
 import { CustomAuthError } from '@/apis/error';
-//import { FcGoogle as Google } from 'react-icons/fc';
 import { useSignInWithPassword } from '@/apis/querys/auth/useSignIn';
-//import { useSignInWithGoogle } from '@/apis/querys/auth/useSignInGoogle';
+import { useSignInWithGoogle } from '@/apis/querys/auth/useSignInGoogle';
+import { useDetectWebView } from '@/hooks/useDetectWebView';
 import { Link, useRouter } from '@/i18n/navigation';
 import { AUTH_FORM_RULES } from '@/shared/common/constants';
 import { ICONS } from '@/shared/common/icons';
@@ -17,12 +17,14 @@ import { SignInForm } from '@/shared/common/types';
 export default function SignInPage() {
   const t = useTranslations('Setting');
   const router = useRouter();
+  const { isWebView } = useDetectWebView();
   const methods = useForm<SignInForm>();
   const { mutate: signIn, isPending: signInIsPending } =
     useSignInWithPassword();
-  //const { mutate: signInWithGoogle, isPending: signInWithGoogleIsPending } = useSignInWithGoogle();
+  const { mutate: signInWithGoogle, isPending: signInWithGoogleIsPending } =
+    useSignInWithGoogle();
 
-  const { RightSquare } = ICONS;
+  const { Google } = ICONS;
 
   const onSubmit = (data: SignInForm) => {
     signIn(data, {
@@ -31,10 +33,12 @@ export default function SignInPage() {
       },
       onError: (error) => {
         const errorObj = JSON.parse(error.message) as CustomAuthError;
+        const message = t(`auth.errors.${errorObj.code}`);
+
         notifications.show({
           title: t('auth.failSignIn'),
-          message: errorObj.message,
-          icon: <Close color='red' size={24} />,
+          message,
+          icon: <Close color='red' size={28} />,
           withCloseButton: false,
           loading: false,
           color: 'transperant',
@@ -43,24 +47,31 @@ export default function SignInPage() {
     });
   };
 
-  // const handleGoogleLogin = async () => {
-  //   try {
-  //     signInWithGoogle();
-  //   } catch (error) {
-  //     console.error('Error logging in with Google:', error);
-  //   }
-  // };
+  const handleGoogleLogin = async () => {
+    try {
+      signInWithGoogle();
+    } catch {
+      notifications.show({
+        title: t('auth.failSignIn'),
+        message: t('auth.errors.googleSignInFailed'),
+        icon: <Close color='red' size={28} />,
+        withCloseButton: false,
+        loading: false,
+        color: 'transperant',
+      });
+    }
+  };
 
   return (
     <div className='bg-white dark:bg-black w-full flex flex-col'>
-      <Text ta='center' size='xl' fw={700}>
+      <Text ta='center' size='2xl' fw={700}>
         {t('auth.signIn')}
       </Text>
       <form
         className='flex flex-col w-full'
         onSubmit={methods.handleSubmit(onSubmit)}
       >
-        <div className='w-full flex flex-col gap-2 mb-8'>
+        <div className='w-full flex flex-col gap-4 mb-8'>
           <TextInput
             label={t('auth.email')}
             type='email'
@@ -110,26 +121,25 @@ export default function SignInPage() {
         </Button>
       </form>
 
-      <div className='flex flex-col mt-8 gap-5'>
-        {/* <Button
-          leftSection={<Google size={14} />}
-          variant='outline'
-          size='lg'
-          radius='md'
-          color='black'
-          onClick={handleGoogleLogin}
-          disabled={signInIsPending || signInWithGoogleIsPending}
-        >
-          Continue with Google
-        </Button> */}
-        <div className='flex flex-col gap-1 text-black dark:text-white'>
-          <Link href='/auth/signup'>
-            {t('auth.noAccount')} <RightSquare className='inline mx-1' />
-            {t('auth.signUp')}
-          </Link>
-          <Link href='/auth/password/reset'>{t('auth.forgotPassword')}</Link>
-        </div>
+      <div className='flex flex-row justify-end items-center mt-4 gap-2 text-black dark:text-white'>
+        <Link href='/auth/signup'>{t('auth.noAccount')}</Link>
+        <div className='w-px h-4 bg-gray-300 dark:bg-gray-600' />
+        <Link href='/auth/password/reset'>{t('auth.forgotPassword')}</Link>
       </div>
+      {!isWebView && (
+        <div className='flex flex-col w-full mt-20'>
+          <Button
+            leftSection={<Google size={14} />}
+            variant='filled'
+            size='lg'
+            radius='md'
+            onClick={handleGoogleLogin}
+            disabled={signInIsPending || signInWithGoogleIsPending}
+          >
+            Continue with Google
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

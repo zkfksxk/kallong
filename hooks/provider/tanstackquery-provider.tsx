@@ -18,7 +18,7 @@ export default function TanstackQueryProvider({
             staleTime: 60 * 1000,
           },
           mutations: {
-            retry: 3,
+            retry: false,
           },
         },
       })

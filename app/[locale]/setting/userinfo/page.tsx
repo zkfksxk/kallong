@@ -41,6 +41,7 @@ export default function UserInfoPage() {
           fw={700}
           onClick={open}
           className='self-start mt-auto'
+          style={{ padding: 0 }}
           disabled={!profile || isPending}
         >
           {t('auth.deleteAccount')}

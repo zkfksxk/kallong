@@ -82,7 +82,16 @@
       "deleteAccountSubmit": "Delete Account",
       "termsOfService": "Terms of Service",
       "privacyPolicy": "Privacy Policy",
-      "view": "View"
+      "view": "View",
+      "errors": {
+        "invalid_credentials": "Invalid email or password.",
+        "session_expired": "Your session has expired. Please sign in again.",
+        "email_not_confirmed": "Please verify your email address.",
+        "signup_disabled": "Sign-up is currently unavailable.",
+        "over_email_send_rate_limit": "Email send limit exceeded. Please try again later.",
+        "unknown_error": "An unexpected error occurred. Please try again later.",
+        "googleSignInFailed": "Google sign-in failed."
+      }
     },
     "validation": {
       "emailRequired": "Please enter your email.",

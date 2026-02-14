@@ -1,4 +1,5 @@
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
+import { FcGoogle } from 'react-icons/fc';
 import { FiTrash2 } from 'react-icons/fi';
 import { GoHome, GoHomeFill, GoPerson, GoPersonFill } from 'react-icons/go';
 import { IoIosMail } from 'react-icons/io';
@@ -46,4 +47,5 @@ export const ICONS = {
   Trash: FiTrash2,
   Mail: IoIosMail,
   RightSquare: BsFillArrowRightSquareFill,
+  Google: FcGoogle,
 };

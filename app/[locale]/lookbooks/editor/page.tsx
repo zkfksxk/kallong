@@ -14,9 +14,9 @@ export default function EditLookbookPage() {
   const [activeTab, setActiveTab] = useState<string | null>('first');
 
   return (
-    <main className='relative bg-white dark:bg-black max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center pb-20'>
+    <main className='relative bg-white dark:bg-black max-w-125 w-full mx-auto flex flex-1 flex-col items-center pb-20'>
       <Header isBackbutton />
-      <div className='flex flex-col w-full px-5'>
+      <div className='flex flex-col w-full'>
         <Tabs color='black' value={activeTab} onChange={setActiveTab}>
           <Tabs.List>
             <Tabs.Tab value='first'>

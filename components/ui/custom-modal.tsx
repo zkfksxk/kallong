@@ -44,18 +44,15 @@ export const CustomModal = ({
         },
       }}
     >
-      <Text fw={700} size='lg' ta='center'>
+      <Text fw={700} size='xl' ta='center'>
         {title}
       </Text>
-      {description && (
-        <Text size='sm' ta='center'>
-          {description}
-        </Text>
-      )}
+      {description && <Text size='md'>{description}</Text>}
       <div className='w-full flex flex-row flex-1 gap-5 mt-5'>
         <Button
           variant='filled'
           fullWidth
+          size='md'
           color='black'
           onClick={() => {
             onClose();
@@ -68,6 +65,7 @@ export const CustomModal = ({
           variant='filled'
           color='black'
           fullWidth
+          size='md'
           onClick={onSubmit}
           loading={loading}
         >
