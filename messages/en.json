@@ -111,7 +111,20 @@
   },
   "Closet": {
     "emptyMessage": "You haven’t written any records yet.",
-    "goToRecord": "Go to record"
+    "goToRecord": "Go to record",
+    "validation": {
+      "nameRequired": "Please enter a title.",
+      "nameMax": "Please enter no more than 20 characters.",
+      "descriptionMax": "Please enter no more than 500 characters."
+    },
+    "error": {
+      "selectDate": "Please select a date.",
+      "deleteFailed": "An error occurred while deleting.",
+      "imageUploadFailed": "Failed to upload the image.",
+      "imageRequired": "Please select an image.",
+      "fileTooLarge": "The file exceeds the {maxMb}MB limit and cannot be uploaded.",
+      "createFailed": "An error occurred while creating the record."
+    }
   },
   "Lookbooks": {
     "main": {

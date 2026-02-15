@@ -1,3 +1,5 @@
+import z from 'zod';
+
 export const MAX_FILE_SIZE_MB = 4;
 export const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024; // 4MB
 
@@ -15,6 +17,17 @@ export const SITE_CONFIG = {
     '내일 뭐 입지? - 룩북 사진을 올리고 12시간 동안 투표를 진행해보세요',
   image_alt: '내일 뭐 입지?',
 };
+
+export const dailOutfitSchema = z.object({
+  name: z
+    .string()
+    .min(1, 'validation.nameRequired')
+    .max(20, 'validation.nameMax'),
+  description: z.string().max(500, 'validation.descriptionMax').optional(),
+  selected_day: z.string().min(1, 'error.selectDate'),
+});
+
+export type DailyOutfitFormData = z.infer<typeof dailOutfitSchema>;
 
 export const AUTH_FORM_RULES = {
   email: {

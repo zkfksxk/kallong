@@ -183,7 +183,7 @@ export const THEME = createTheme({
             color: 'var(--mantine-color-gray-5)',
           },
 
-          '&:focus, &:focus-within': {
+          '&:focus, &:focusWithin': {
             borderColor:
               'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
             outline: 'none',

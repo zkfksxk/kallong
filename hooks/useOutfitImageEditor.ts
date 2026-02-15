@@ -3,27 +3,19 @@
 import { useRef, useState } from 'react';
 import imageCompression from 'browser-image-compression';
 import { COMPRESSION_OPTIONS } from '@/shared/common/constants';
-import { DailyOutfitForm } from '@/shared/common/types';
-import { useOutfitStore } from './provider/outfit-provider';
 
-export function useOutfitEditor() {
+export function useOutfitImageEditor() {
+  const [file, setFile] = useState<File | undefined>(undefined);
+  const [url, setUrl] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { dailyOutfit, setDailyOutfit } = useOutfitStore((s) => s);
 
-  const setUrl = (newFile?: File, newUrl?: string) => {
-    const prevUrl = dailyOutfit?.image_url;
-
-    const patch: Partial<DailyOutfitForm> = {
-      image_url: newUrl,
-      file: newFile,
-    };
-
-    setDailyOutfit(patch);
-
-    if (prevUrl && prevUrl.startsWith('blob:')) {
-      URL.revokeObjectURL(prevUrl);
+  const setImage = (newFile?: File, newUrl?: string) => {
+    if (url?.startsWith('blob:')) {
+      URL.revokeObjectURL(url);
     }
+    setFile(newFile);
+    setUrl(newUrl);
   };
 
   const handleOpenImagePicker = () => fileInputRef.current?.click();
@@ -33,11 +25,12 @@ export function useOutfitEditor() {
     const file = input.files?.[0];
     if (!file) return;
 
+    setIsLoading(true);
     try {
       const compressedFile = await imageCompression(file, COMPRESSION_OPTIONS);
       const compressedUrl = URL.createObjectURL(compressedFile);
 
-      setUrl(file, compressedUrl);
+      setImage(compressedFile, compressedUrl);
     } catch (error) {
       console.error('Image compression failed:', error);
       alert('이미지 업로드 중 오류가 발생했습니다.');
@@ -48,14 +41,16 @@ export function useOutfitEditor() {
   };
 
   const handleRemove = () => {
-    setUrl(undefined, undefined);
+    if (url?.startsWith('blob:')) URL.revokeObjectURL(url);
+    setImage(undefined, undefined);
   };
 
   return {
     fileInputRef,
-    url: dailyOutfit?.image_url,
-    setUrl,
+    file,
+    url,
     isLoading,
+    setImage,
     handleOpenImagePicker,
     handleUpload,
     handleRemove,

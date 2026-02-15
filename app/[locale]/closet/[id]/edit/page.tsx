@@ -3,50 +3,71 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { ActionIcon, Button, TextInput, Textarea } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
+import { useTranslations } from 'next-intl';
+import { useForm } from 'react-hook-form';
 import { useGetDailyOutfit } from '@/apis/querys/outfit/useGetDailyOutfit';
 import { useUpdateDailyOutfit } from '@/apis/querys/outfit/useUpdateDailyOutfit';
 import { Header } from '@/components/layouts/header';
-import { useOutfitStore } from '@/hooks/provider/outfit-provider';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
-import { useOutfitEditor } from '@/hooks/useOutfitEditor';
+import { useOutfitImageEditor } from '@/hooks/useOutfitImageEditor';
 import { useRouter } from '@/i18n/navigation';
 import {
+  DailyOutfitFormData,
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
+  dailOutfitSchema,
 } from '@/shared/common/constants';
 import { ICONS } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 
 export default function EditPage() {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const t = useTranslations('Closet');
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
+  const methods = useForm<DailyOutfitFormData>({
+    resolver: zodResolver(dailOutfitSchema),
+    defaultValues: {
+      name: '',
+      description: '',
+      selected_day: '',
+    },
+    mode: 'onChange',
+  });
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = methods;
   const {
     fileInputRef,
+    file,
     url,
-    setUrl,
+    setImage,
     handleOpenImagePicker,
     handleUpload,
     handleRemove,
-  } = useOutfitEditor();
-  const { dailyOutfit, reset } = useOutfitStore((s) => s);
+  } = useOutfitImageEditor();
   const { profile } = useProfileStore((s) => s);
-  const { data } = useGetDailyOutfit(id);
+  const { data: dailyoutfit } = useGetDailyOutfit(id);
   const { mutateAsync: updateMutate } = useUpdateDailyOutfit();
 
   const { Add, Delete, Alert } = ICONS;
 
   useEffect(() => {
-    if (data) {
-      setName(data.name || '');
-      setDescription(data.description || '');
-      if (data.image_url) setUrl(undefined, data.image_url);
+    if (dailyoutfit) {
+      reset({
+        name: dailyoutfit.name ?? '',
+        description: dailyoutfit.description ?? '',
+        selected_day: dailyoutfit.selected_day,
+      });
+      setImage(undefined, dailyoutfit.image_url ?? undefined);
     }
-  }, [data]);
+  }, [dailyoutfit]);
 
   const uploadFile = async (outfitId: string, file: File) => {
     if (!profile) return;
@@ -62,10 +83,9 @@ export default function EditPage() {
       .upload(filePath, file, { upsert: true }); // upset: true 존재x -> insert, 존재o -> update
 
     if (uploadError) {
-      console.log('storage image upload fail', uploadError);
       notifications.show({
         title: 'Image upload Failed',
-        message: '이미지 업로드에 실패했습니다.',
+        message: t('error.imageUploadFailed'),
         icon: <Alert.Close color='red' size={24} />,
         withCloseButton: false,
         loading: false,
@@ -83,20 +103,22 @@ export default function EditPage() {
     return publicUrl;
   };
 
-  const handleSubmit = async () => {
-    if (isSubmitting || !data) return;
+  const onSubmit = async (data: DailyOutfitFormData) => {
+    if (isSubmitting) return;
     setIsSubmitting(true);
 
     try {
-      let finalImageUrl = data.image_url;
-      const file = dailyOutfit?.file;
+      let finalImageUrl = dailyoutfit?.image_url ?? '';
 
       if (file) {
         if (file.size > MAX_FILE_SIZE_BYTES) {
           notifications.show({
-            title: 'Image size error',
-            message: `파일 크기가 ${MAX_FILE_SIZE_MB}MB를 초과합니다.`,
-            color: 'red',
+            title: 'Image upload Failed',
+            message: t('error.fileTooLarge', { maxMb: MAX_FILE_SIZE_MB }),
+            icon: <Alert.Close color='red' size={24} />,
+            withCloseButton: false,
+            loading: false,
+            color: 'transperant',
           });
           setIsSubmitting(false);
           return;
@@ -113,16 +135,15 @@ export default function EditPage() {
       await updateMutate({
         id: id,
         image_url: finalImageUrl!,
-        name,
-        description,
+        name: data.name,
+        description: data.description,
       });
 
       router.push('/closet');
-    } catch (error) {
-      console.log('create fail', error);
+    } catch {
       notifications.show({
         title: 'Closet Failed',
-        message: 'Closet 생성 중 에러가 발생했습니다.',
+        message: t('error.createFailed'),
         icon: <Alert.Close color='red' size={24} />,
         withCloseButton: false,
         loading: false,
@@ -130,7 +151,6 @@ export default function EditPage() {
       });
     } finally {
       setIsSubmitting(false);
-      reset();
     }
   };
 
@@ -140,12 +160,13 @@ export default function EditPage() {
         isBackbutton
         rightComponent={
           <Button
-            onClick={handleSubmit}
+            onClick={handleSubmit(onSubmit)}
             variant='transparent'
             color='red.5'
             size='md'
             radius='md'
             p={0}
+            disabled={!isValid || isSubmitting}
           >
             저장
           </Button>
@@ -187,15 +208,17 @@ export default function EditPage() {
       <div className='flex flex-col gap-10 mt-10'>
         <TextInput
           maxLength={20}
-          value={name}
-          onChange={(event) => setName(event.currentTarget.value)}
-          placeholder='20자 미만으로 입력해주세요.'
+          {...register('name')}
+          error={errors.name?.message ? t(errors.name.message) : undefined}
         />
         <Textarea
           maxLength={500}
-          value={description}
-          onChange={(event) => setDescription(event.currentTarget.value)}
-          placeholder='500자 미만으로 입력해주세요.'
+          {...register('description')}
+          error={
+            errors.description?.message
+              ? t(errors.description.message)
+              : undefined
+          }
         />
       </div>
     </div>

@@ -10,6 +10,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@mantine/core": "^8.3.7",
     "@mantine/dates": "^8.3.12",
     "@mantine/hooks": "^8.3.7",

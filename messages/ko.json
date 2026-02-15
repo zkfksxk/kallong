@@ -83,7 +83,21 @@
       "termsOfService": "서비스 이용약관",
       "privacyPolicy": "개인정보 수집 및 이용 동의",
       "view": "보기",
-      "errors": {
+      "validation": {
+        "emailRequired": "이메일을 입력해주세요.",
+        "emailInvalidPattern": "이메일 형식이 아닙니다.",
+        "passwordRequired": "비밀번호를 입력해주세요.",
+        "passwordInvaildPattern": "대소문자+숫자+특수문자 중 2가지 이상 포함해주세요.",
+        "passwordMismatch": "비밀번호와 일치하지 않습니다.",
+        "passwordMin": "8자 이상 입력해주세요.",
+        "passwordMax": "20자 이하로 입력해주세요.",
+        "nicknameRequired": "닉네임을 입력해주세요.",
+        "nicknameMin": "1자 이상 입력해주세요.",
+        "nicknameMax": "10자 이하로 입력해주세요.",
+        "nicknamInvalidPattern": "대소문자, 한글, 숫자만 사용 가능합니다.",
+        "passwordConfirmedRequired": "비밀번호 확인을 입력해주세요."
+      },
+      "error": {
         "invalid_credentials": "이메일 또는 비밀번호가 올바르지 않습니다.",
         "session_expired": "세션이 만료되었습니다. 다시 로그인해주세요.",
         "email_not_confirmed": "이메일 인증이 필요합니다.",
@@ -92,25 +106,24 @@
         "unknown_error": "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
         "googleSignInFailed": "구글 로그인에 실패했습니다."
       }
-    },
-    "validation": {
-      "emailRequired": "이메일을 입력해주세요.",
-      "emailInvalidPattern": "이메일 형식이 아닙니다.",
-      "passwordRequired": "비밀번호를 입력해주세요.",
-      "passwordInvaildPattern": "대소문자+숫자+특수문자 중 2가지 이상 포함해주세요.",
-      "passwordMismatch": "비밀번호와 일치하지 않습니다.",
-      "passwordMin": "8자 이상 입력해주세요.",
-      "passwordMax": "20자 이하로 입력해주세요.",
-      "nicknameRequired": "닉네임을 입력해주세요.",
-      "nicknameMin": "1자 이상 입력해주세요.",
-      "nicknameMax": "10자 이하로 입력해주세요.",
-      "nicknamInvalidPattern": "대소문자, 한글, 숫자만 사용 가능합니다.",
-      "passwordConfirmedRequired": "비밀번호 확인을 입력해주세요."
     }
   },
   "Closet": {
     "emptyMessage": "아직 작성한 기록이 없어요",
-    "goToRecord": "기록하러 가기"
+    "goToRecord": "기록하러 가기",
+    "validation": {
+      "nameRequired": "제목을 입력해주세요.",
+      "nameMax": "20자 이하로 입력해주세요.",
+      "descriptionMax": "500자 이하로 입력해주세요."
+    },
+    "error": {
+      "selectDate": "날짜를 선택해주세요.",
+      "deleteFailed": "삭제 중 오류가 발생했습니다.",
+      "imageUploadFailed": "이미지 업로드에 실패했습니다.",
+      "imageRequired": "이미지를 선택해주세요.",
+      "fileTooLarge": "파일 크기가 {maxMb}MB를 초과해 업로드할 수 없습니다.",
+      "createFailed": "생성 중 오류가 발생했습니다."
+    }
   },
   "Lookbooks": {
     "main": {

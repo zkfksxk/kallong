@@ -62,9 +62,9 @@ export const upadateDailyOutfit = async ({
   description,
 }: {
   id: string;
-  image_url: string;
+  image_url?: string;
   name: string;
-  description: string;
+  description?: string;
 }) => {
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();

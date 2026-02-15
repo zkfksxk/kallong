@@ -9,13 +9,11 @@ import { useTranslations } from 'next-intl';
 import { useDeleteDailyOutfit } from '@/apis/querys/outfit/useDeleteDailyOutfit';
 import { useGetDailyOutfitInMonth } from '@/apis/querys/outfit/useGetDailyOutfitInMonth';
 import { Header } from '@/components/layouts/header';
-import { useOutfitStore } from '@/hooks/provider/outfit-provider';
 import { Link, useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
 
 export default function ClosetPage() {
   const router = useRouter();
-  const { setDailyOutfit } = useOutfitStore((s) => s);
   const [currentDay, setCurrentDay] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState<string>(
     dayjs().format('YYYY-MM-DD')
@@ -36,12 +34,17 @@ export default function ClosetPage() {
 
   const handleRecord = () => {
     if (!selectedDay) {
-      alert('날짜를 선택해주세요');
+      notifications.show({
+        title: 'Outfit Failed',
+        message: t('error.selectDate'),
+        icon: <Alert.Close color='red' size={24} />,
+        withCloseButton: false,
+        loading: false,
+        color: 'transperant',
+      });
       return;
     }
-    setDailyOutfit({ selected_day: selectedDay });
-
-    router.push('/closet/write');
+    router.push(`/closet/write?day=${selectedDay}`);
   };
 
   const handleDelete = async (e: React.MouseEvent) => {
@@ -52,8 +55,8 @@ export default function ClosetPage() {
       deleteMutate(selectedOutfit.id);
     } catch {
       notifications.show({
-        title: 'outfit Failed',
-        message: '삭제 중 에러가 발생했습니다.',
+        title: 'Outfit Failed',
+        message: t('error.deleteFailed'),
         icon: <Alert.Close color='red' size={24} />,
         withCloseButton: false,
         loading: false,
@@ -138,7 +141,9 @@ export default function ClosetPage() {
           </Link>
         ) : (
           <div className='flex flex-col justify-center align-center'>
-            <Text c='black'>{t('emptyMessage')}</Text>
+            <Text c='black' fw={500}>
+              {t('emptyMessage')}
+            </Text>
             <Button
               onClick={handleRecord}
               variant='transparent'

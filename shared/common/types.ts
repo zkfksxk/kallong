@@ -44,7 +44,7 @@ export type Vote = {
 
 export type DailyOutfitForm = {
   name: string;
-  description: string;
+  description?: string;
   image_url?: string;
   file?: File;
   selected_day: string;
