@@ -28,7 +28,7 @@ export default function SignUpPage() {
     if (!data.termsOfService || !data.privacyPolicy) {
       notifications.show({
         title: t('auth.failSignUp'),
-        message: '이용 약관에 동의해주세요.',
+        message: t('auth.error.termsRequired'),
         icon: <Close color='red' size={24} />,
         withCloseButton: false,
         loading: false,
@@ -50,9 +50,11 @@ export default function SignUpPage() {
         },
         onError: (error) => {
           const errorObj = JSON.parse(error.message) as CustomAuthError;
+          const message = t(`auth.error.${errorObj.code}`);
+
           notifications.show({
             title: t('auth.failSignUp'),
-            message: errorObj.message,
+            message,
             icon: <Close color='red' size={24} />,
             withCloseButton: false,
             loading: false,
@@ -64,11 +66,11 @@ export default function SignUpPage() {
   };
 
   const password = methods.watch('password');
-  const { RightSquare, Forward } = ICONS;
+  const { Forward } = ICONS;
 
   return (
     <div className='w-full flex flex-col'>
-      <Text ta='center' size='xl' fw={700}>
+      <Text ta='center' size='2xl' fw={700}>
         {t('auth.signUp')}
       </Text>
 
@@ -82,10 +84,10 @@ export default function SignUpPage() {
             type='email'
             placeholder={t('auth.emailPlaceholder')}
             {...methods.register('email', {
-              required: t('validation.emailRequired'),
+              required: t('auth.validation.emailRequired'),
               pattern: {
                 value: AUTH_FORM_RULES.email.pattern.value,
-                message: t('validation.emailInvalidPattern'),
+                message: t('auth.validation.emailInvalidPattern'),
               },
             })}
             error={methods.formState.errors.email?.message}
@@ -97,18 +99,18 @@ export default function SignUpPage() {
             placeholder={t('auth.passwordPlaceholder')}
             description={t('auth.passwordRequirements')}
             {...methods.register('password', {
-              required: t('validation.passwordRequired'),
+              required: t('auth.validation.passwordRequired'),
               pattern: {
                 value: AUTH_FORM_RULES.password.pattern.value,
-                message: t('validation.passwordInvaildPattern'),
+                message: t('auth.validation.passwordInvaildPattern'),
               },
               minLength: {
                 value: AUTH_FORM_RULES.password.minLength.value,
-                message: t('validation.passwordMin'),
+                message: t('auth.validation.passwordMin'),
               },
               maxLength: {
                 value: AUTH_FORM_RULES.password.maxLength.value,
-                message: t('validation.passwordMax'),
+                message: t('auth.validation.passwordMax'),
               },
             })}
             error={methods.formState.errors.password?.message}
@@ -119,9 +121,9 @@ export default function SignUpPage() {
             type='password'
             placeholder={t('auth.passwordConfirmedPlaceholder')}
             {...methods.register('passwordConfirmed', {
-              required: t('validation.passwordConfirmedRequired'),
+              required: t('auth.validation.passwordConfirmedRequired'),
               validate: (value) =>
-                value === password || t('validation.passwordMismatch'),
+                value === password || t('auth.validation.passwordMismatch'),
             })}
             error={methods.formState.errors.passwordConfirmed?.message}
             disabled={isPending}
@@ -131,18 +133,18 @@ export default function SignUpPage() {
             type='text'
             placeholder={t('auth.nicknamePlaceholder')}
             {...methods.register('nickname', {
-              required: t('validation.nicknameRequired'),
+              required: t('auth.validation.nicknameRequired'),
               minLength: {
                 value: AUTH_FORM_RULES.nickname.minLength.value,
-                message: t('validation.nicknameMin'),
+                message: t('auth.validation.nicknameMin'),
               },
               maxLength: {
                 value: AUTH_FORM_RULES.nickname.maxLength.value,
-                message: t('validation.nicknameMax'),
+                message: t('auth.validation.nicknameMax'),
               },
               pattern: {
                 value: AUTH_FORM_RULES.nickname.pattern.value,
-                message: t('validation.nicknamInvalidPattern'),
+                message: t('auth.validation.nicknamInvalidPattern'),
               },
             })}
             error={methods.formState.errors.nickname?.message}
@@ -157,7 +159,9 @@ export default function SignUpPage() {
               href='https://busy-screw-956.notion.site/Kallong-2ced82040c488001b27bdce25e66fae7?source=copy_link'
               className='inline-flex items-center gap-1'
             >
-              <Text span>{t('auth.view')}</Text>
+              <Text span size='sm'>
+                {t('auth.view')}
+              </Text>
               <Forward className='text-black dark:text-white' size={24} />
             </Link>
           </div>
@@ -170,7 +174,9 @@ export default function SignUpPage() {
               href='https://busy-screw-956.notion.site/Kallong-2ced82040c488099a766fb47ab9ae793?source=copy_link'
               className='inline-flex items-center gap-1'
             >
-              <Text span>{t('auth.view')}</Text>
+              <Text span size='sm'>
+                {t('auth.view')}
+              </Text>
               <Forward className='text-black dark:text-white' size={24} />
             </Link>
           </div>
@@ -187,9 +193,8 @@ export default function SignUpPage() {
         </Button>
       </form>
 
-      <Link href='/mypage/signin' className='mt-5 text-black dark:text-white'>
-        {t('auth.alreadyHaveAccount')} <RightSquare className='inline mx-1' />
-        {t('auth.signIn')}
+      <Link href='/mypage/signin' className='mt-4 text-black dark:text-white'>
+        {t('auth.alreadyHaveAccount')}
       </Link>
     </div>
   );

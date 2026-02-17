@@ -83,30 +83,31 @@
       "termsOfService": "Terms of Service",
       "privacyPolicy": "Privacy Policy",
       "view": "View",
-      "errors": {
+      "validation": {
+        "emailRequired": "Please enter your email.",
+        "emailInvalidPattern": "Invalid email format.",
+        "passwordRequired": "Please enter your password.",
+        "passwordInvaildPattern": "Include at least two of: English letters, numbers, special characters.",
+        "passwordMin": "Please enter at least 8 characters.",
+        "passwordMax": "Please enter 20 characters or fewer.",
+        "passwordConfirmedRequired": "Please enter your password confirmed",
+        "nicknameRequired": "Please enter your nickname.",
+        "nicknameMin": "Please enter at least 1 character.",
+        "nicknameMax": "Please enter 10 characters or fewer.",
+        "nicknamInvalidPattern": "Only English letters, Korean characters, and numbers are allowed.",
+        "passwordMismatch": "Passwords do not match.",
+        "checkEmail": "Please check your email."
+      },
+      "error": {
         "invalid_credentials": "Invalid email or password.",
         "session_expired": "Your session has expired. Please sign in again.",
         "email_not_confirmed": "Please verify your email address.",
         "signup_disabled": "Sign-up is currently unavailable.",
         "over_email_send_rate_limit": "Email send limit exceeded. Please try again later.",
         "unknown_error": "An unexpected error occurred. Please try again later.",
-        "googleSignInFailed": "Google sign-in failed."
+        "googleSignInFailed": "Google sign-in failed.",
+        "termsRequired": "Please agree to the terms and privacy policy."
       }
-    },
-    "validation": {
-      "emailRequired": "Please enter your email.",
-      "emailInvalidPattern": "Invalid email format.",
-      "passwordRequired": "Please enter your password.",
-      "passwordInvaildPattern": "Include at least two of: English letters, numbers, special characters.",
-      "passwordMin": "Please enter at least 8 characters.",
-      "passwordMax": "Please enter 20 characters or fewer.",
-      "passwordConfirmedRequired": "Please enter your password confirmed",
-      "nicknameRequired": "Please enter your nickname.",
-      "nicknameMin": "Please enter at least 1 character.",
-      "nicknameMax": "Please enter 10 characters or fewer.",
-      "nicknamInvalidPattern": "Only English letters, Korean characters, and numbers are allowed.",
-      "passwordMismatch": "Passwords do not match.",
-      "checkEmail": "Please check your email."
     }
   },
   "Closet": {

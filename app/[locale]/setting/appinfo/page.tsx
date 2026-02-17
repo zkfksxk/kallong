@@ -41,7 +41,7 @@ export default function AppInfoPage() {
             href='mailto:karanta.d2v@gmail.com'
             className='cursor-pointer hover:underline'
           >
-            {t('formbutton')} ➡️
+            {t('formbutton')}
           </Text>
           <a
             href='https://buymeacoffee.com/karanta'

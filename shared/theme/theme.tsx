@@ -102,6 +102,7 @@ export const THEME = createTheme({
             'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
         },
         label: {
+          fontSize: '14px',
           color:
             'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
         },

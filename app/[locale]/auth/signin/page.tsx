@@ -77,10 +77,10 @@ export default function SignInPage() {
             type='email'
             placeholder={t('auth.emailPlaceholder')}
             {...methods.register('email', {
-              required: t('validation.emailRequired'),
+              required: t('auth.validation.emailRequired'),
               pattern: {
                 value: AUTH_FORM_RULES.email.pattern.value,
-                message: t('validation.emailInvalidPattern'),
+                message: t('auth.validation.emailInvalidPattern'),
               },
             })}
             error={methods.formState.errors.email?.message}
@@ -92,18 +92,18 @@ export default function SignInPage() {
             placeholder={t('auth.passwordPlaceholder')}
             description={t('auth.passwordRequirements')}
             {...methods.register('password', {
-              required: t('validation.passwordRequired'),
+              required: t('auth.validation.passwordRequired'),
               pattern: {
                 value: AUTH_FORM_RULES.password.pattern.value,
-                message: t('validation.passwordInvaildPattern'),
+                message: t('auth.validation.passwordInvaildPattern'),
               },
               minLength: {
                 value: AUTH_FORM_RULES.password.minLength.value,
-                message: t('validation.passwordMin'),
+                message: t('auth.validation.passwordMin'),
               },
               maxLength: {
                 value: AUTH_FORM_RULES.password.maxLength.value,
-                message: t('validation.passwordMax'),
+                message: t('auth.validation.passwordMax'),
               },
             })}
             error={methods.formState.errors.password?.message}
