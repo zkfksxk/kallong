@@ -1,5 +1,6 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
@@ -7,19 +8,28 @@ import { useForm } from 'react-hook-form';
 import { useUpdateNickname } from '@/apis/querys/auth/useUpdateNickname';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
 import { useRouter } from '@/i18n/navigation';
-import { AUTH_FORM_RULES } from '@/shared/common/constants';
+import {
+  NicknameFormData,
+  nicknameSchema,
+} from '@/shared/common/constants/form';
 import { ICONS } from '@/shared/common/icons';
 
 export default function NicknameChangePage() {
   const t = useTranslations('Setting');
   const router = useRouter();
+  const { setProfile, profile } = useProfileStore((s) => s);
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
     reset,
-  } = useForm<{ nickname: string }>();
-  const { setProfile, profile } = useProfileStore((s) => s);
+  } = useForm<NicknameFormData>({
+    resolver: zodResolver(nicknameSchema),
+    defaultValues: {
+      nickname: profile?.nickname ?? '',
+    },
+    mode: 'onChange',
+  });
   const { mutate: changeNickname } = useUpdateNickname();
   const { Alert } = ICONS;
 
@@ -43,7 +53,7 @@ export default function NicknameChangePage() {
       onError: () => {
         notifications.show({
           title: t('auth.nicknameChange'),
-          message: t('auth.failNicknameChange'),
+          message: t('auth.nicknameChangeFail'),
           icon: <Alert.Close color='red' size={24} />,
           withCloseButton: false,
           loading: false,
@@ -59,24 +69,14 @@ export default function NicknameChangePage() {
         <div className='w-full flex flex-col gap-2 mb-8'>
           <TextInput
             label={t('auth.nicknameChange')}
-            type='nickname'
+            type='text'
             placeholder={t('auth.nicknamePlaceholder')}
-            {...register('nickname', {
-              required: t('validation.nicknameRequired'),
-              minLength: {
-                value: AUTH_FORM_RULES.nickname.minLength.value,
-                message: t('validation.nicknameMin'),
-              },
-              maxLength: {
-                value: AUTH_FORM_RULES.nickname.maxLength.value,
-                message: t('validation.nicknameMax'),
-              },
-              pattern: {
-                value: AUTH_FORM_RULES.nickname.pattern.value,
-                message: t('validation.nicknamInvalidPattern'),
-              },
-            })}
-            error={errors.nickname?.message}
+            {...register('nickname')}
+            error={
+              errors.nickname?.message
+                ? t(errors.nickname.message as string)
+                : undefined
+            }
             disabled={isSubmitting}
           />
         </div>
@@ -86,6 +86,7 @@ export default function NicknameChangePage() {
           size='lg'
           radius='md'
           loading={isSubmitting}
+          disabled={!isValid || isSubmitting}
         >
           {t('auth.saveButton')}
         </Button>

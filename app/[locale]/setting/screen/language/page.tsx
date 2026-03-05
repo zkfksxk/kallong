@@ -4,7 +4,7 @@ import { Group, Radio, Text } from '@mantine/core';
 import { useLocale, useTranslations } from 'next-intl';
 import { useDetectWebView } from '@/hooks/useDetectWebView';
 import { useRouter } from '@/i18n/navigation';
-import { LANGUAGES } from '@/shared/common/constants';
+import { LANGUAGES } from '@/shared/common/constants/common';
 import { MESSAGE_TYPE } from '@/shared/webview/constants';
 
 export default function LanguagePage() {

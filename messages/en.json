@@ -5,13 +5,14 @@
     "errorOccurred": "An error occurred. Please try again later.",
     "goHome": "Go Home",
     "fail": "{type} Failed",
-    "succeed": "Success"
+    "succeed": "Success",
+    "loadingData": "Loading data..."
   },
   "Tab": {
     "home": "Home",
     "my": "My",
     "notFound": "Page not found",
-    "goHome": "goHome"
+    "goHome": "Go Home"
   },
   "Home": {
     "title1": "Closet",
@@ -58,12 +59,12 @@
       "passwordPlaceholder": "Enter your password",
       "passwordConfirmedPlaceholder": "Confirm your password",
       "nicknamePlaceholder": "Enter your nickname",
-      "passwordRequirements": "At least 8 characters with 2 or more of: letters, numbers, special characters",
+      "passwordDescription": "At least 8 characters with 2 or more of: letters, numbers, special characters",
+      "signInFail": "Sign in failed",
+      "signUpFail": "Sign up failed",
       "nicknameChangeSucceed": "Nickname changed successfully",
-      "failSignIn": "Sign in failed",
-      "failSignUp": "Sign up failed",
-      "failNicknameChange": "Failed to change nickname",
-      "failPasswordUpdate": "Failed to update password",
+      "nicknameChangeFail": "Failed to change nickname",
+      "passwordUpdateFail": "Failed to update password",
       "resetPassword": "Reset Password",
       "resetPasswordDescription": "We'll send you a password reset link via email.",
       "resetEmailButton": "Send Email",
@@ -88,6 +89,7 @@
         "emailInvalidPattern": "Invalid email format.",
         "passwordRequired": "Please enter your password.",
         "passwordInvaildPattern": "Include at least two of: English letters, numbers, special characters.",
+        "passwordMismatch": "Passwords do not match.",
         "passwordMin": "Please enter at least 8 characters.",
         "passwordMax": "Please enter 20 characters or fewer.",
         "passwordConfirmedRequired": "Please enter your password confirmed",
@@ -95,8 +97,7 @@
         "nicknameMin": "Please enter at least 1 character.",
         "nicknameMax": "Please enter 10 characters or fewer.",
         "nicknamInvalidPattern": "Only English letters, Korean characters, and numbers are allowed.",
-        "passwordMismatch": "Passwords do not match.",
-        "checkEmail": "Please check your email."
+        "termsRequired": "Please agree to the terms and privacy policy."
       },
       "error": {
         "invalid_credentials": "Invalid email or password.",
@@ -105,8 +106,7 @@
         "signup_disabled": "Sign-up is currently unavailable.",
         "over_email_send_rate_limit": "Email send limit exceeded. Please try again later.",
         "unknown_error": "An unexpected error occurred. Please try again later.",
-        "googleSignInFailed": "Google sign-in failed.",
-        "termsRequired": "Please agree to the terms and privacy policy."
+        "googleSignInFailed": "Google sign-in failed."
       }
     }
   },

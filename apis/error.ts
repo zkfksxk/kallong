@@ -6,15 +6,6 @@ export type CustomAuthError = {
   message: string;
 };
 
-// export const AUTH_ERROR_MESSAGE_MAP: Record<string, string> = {
-//   invalid_credentials: '이메일 또는 비밀번호가 올바르지 않습니다.',
-//   session_expired: '세션이 만료되었습니다. 다시 로그인해주세요.',
-//   email_not_confirmed: '이메일 인증이 필요합니다.',
-//   signup_disabled: '현재 회원가입이 불가능한 상태입니다.',
-//   over_email_send_rate_limit:
-//     '이메일 전송 한도를 초과했습니다. 잠시 후 다시 시도해주세요.',
-// };
-
 export const AUTH_ERROR_KEYS = [
   'invalid_credentials',
   'session_expired',

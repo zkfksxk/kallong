@@ -15,11 +15,13 @@ import { useProfileStore } from '@/hooks/provider/profile-provider';
 import { useOutfitImageEditor } from '@/hooks/useOutfitImageEditor';
 import { useRouter } from '@/i18n/navigation';
 import {
-  DailyOutfitFormData,
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
+} from '@/shared/common/constants/common';
+import {
+  DailyOutfitFormData,
   dailOutfitSchema,
-} from '@/shared/common/constants';
+} from '@/shared/common/constants/form';
 import { ICONS } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 

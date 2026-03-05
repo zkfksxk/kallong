@@ -42,32 +42,19 @@ export type Vote = {
   lookbook_id_b: string;
 };
 
+export type LookbookForm = {
+  voteName: string;
+  name: string;
+  image_url?: string;
+  file?: File;
+};
+
 export type DailyOutfitForm = {
   name: string;
   description?: string;
   image_url?: string;
   file?: File;
   selected_day: string;
-};
-
-// export type Vote = {
-//   voteName: string;
-//   firstLookbook: Lookbook;
-//   secondLookbook: Lookbook;
-// };
-
-export type SignInForm = {
-  email: string;
-  password: string;
-};
-
-export type SignUpForm = {
-  email: string;
-  password: string;
-  nickname: string;
-  passwordConfirmed: string;
-  termsOfService: boolean;
-  privacyPolicy: boolean;
 };
 
 export type Profile = {

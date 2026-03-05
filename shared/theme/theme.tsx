@@ -125,6 +125,12 @@ export const THEME = createTheme({
           color:
             'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
         },
+        description: {
+          fontSize: '14px', //sm
+        },
+        error: {
+          fontSize: '14px', //sm
+        },
         wrapper: {
           width: '100%',
           height: '48px',

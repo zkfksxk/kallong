@@ -1,14 +1,17 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Text, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { IoCloseCircle as Close } from 'react-icons/io5';
-import { CustomAuthError } from '@/apis/error';
 import { useUpdatePassword } from '@/apis/querys/auth/useUpdatePassword';
 import { useRouter } from '@/i18n/navigation';
-import { AUTH_FORM_RULES } from '@/shared/common/constants';
+import {
+  UpdatePasswordFormData,
+  updatePasswordSchema,
+} from '@/shared/common/constants/form';
 
 export default function UpdatePasswordPage() {
   const t = useTranslations('Setting');
@@ -16,9 +19,13 @@ export default function UpdatePasswordPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
     reset,
-  } = useForm<{ password: string }>();
+  } = useForm<UpdatePasswordFormData>({
+    resolver: zodResolver(updatePasswordSchema),
+    defaultValues: { password: '' },
+    mode: 'onChange',
+  });
   const { mutate: updatePassword } = useUpdatePassword();
 
   const onSubmit = (data: { password: string }) => {
@@ -27,11 +34,10 @@ export default function UpdatePasswordPage() {
         reset();
         router.push('/');
       },
-      onError: (error) => {
-        const errorObj = JSON.parse(error.message) as CustomAuthError;
+      onError: () => {
         notifications.show({
-          title: t('auth.failPasswordUpdate'),
-          message: errorObj.message,
+          title: t('auth.passwordUpdate'),
+          message: t('auth.passwordUpdateFail'),
           icon: <Close color='red' size={24} />,
           withCloseButton: false,
           loading: false,
@@ -44,46 +50,37 @@ export default function UpdatePasswordPage() {
 
   return (
     <div className='w-full flex flex-col'>
-      <Text ta='center' size='xl' fw={700}>
+      <Text ta='center' size='2xl' fw={700}>
         {t('auth.updatePassword')}
       </Text>
       <Text ta='center' size='sm'>
         {t('auth.updatePasswordDescription')}
       </Text>
       <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
-        <div className='w-full flex flex-col gap-8'>
+        <div className='w-full flex flex-col mb-8'>
           <TextInput
-            {...register('password', {
-              required: t('validation.passwordRequired'),
-              pattern: {
-                value: AUTH_FORM_RULES.password.pattern.value,
-                message: t('validation.passwordInvaildPattern'),
-              },
-              minLength: {
-                value: AUTH_FORM_RULES.password.minLength.value,
-                message: t('validation.passwordMin'),
-              },
-              maxLength: {
-                value: AUTH_FORM_RULES.password.maxLength.value,
-                message: t('validation.passwordMax'),
-              },
-            })}
             label={t('auth.newPassword')}
             type='password'
-            description={t('auth.passwordRequirements')}
-            error={errors.password?.message}
+            placeholder={t('auth.passwordPlaceholder')}
+            description={t('auth.passwordDescription')}
+            {...register('password')}
+            error={
+              errors.password?.message
+                ? t(errors.password.message as string)
+                : undefined
+            }
             disabled={isSubmitting}
           />
-          <Button
-            type='submit'
-            variant='filled'
-            size='lg'
-            radius='md'
-            disabled={isSubmitting}
-          >
-            {t('auth.saveButton')}
-          </Button>
         </div>
+        <Button
+          type='submit'
+          variant='filled'
+          size='lg'
+          radius='md'
+          disabled={!isValid || isSubmitting}
+        >
+          {t('auth.saveButton')}
+        </Button>
       </form>
     </div>
   );

@@ -5,7 +5,7 @@ import { Group, Radio, Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { useDetectWebView } from '@/hooks/useDetectWebView';
-import { THEME } from '@/shared/common/constants';
+import { THEME } from '@/shared/common/constants/common';
 import { MESSAGE_TYPE } from '@/shared/webview/constants';
 
 export default function ThemePage() {

@@ -8,7 +8,7 @@ import { Notifications } from '@mantine/notifications';
 import { Analytics } from '@vercel/analytics/next';
 import { ThemeProvider } from 'next-themes';
 import TanstackQueryProvider from '@/hooks/provider/tanstackquery-provider';
-import { SITE_CONFIG } from '@/shared/common/constants';
+import { SITE_CONFIG } from '@/shared/common/constants/common';
 import CLIENT_THEME from '@/shared/theme/clientTheme';
 import { MatineThemeSync } from '@/shared/theme/matineThemeSync';
 import { THEME } from '@/shared/theme/theme';
