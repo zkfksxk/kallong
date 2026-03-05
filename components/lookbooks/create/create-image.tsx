@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Lookbook } from '@/shared/common/types';
+import { Lookbook } from '@/shared/common/types/types';
 
 type Props = {
   lookbook: Lookbook;

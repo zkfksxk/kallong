@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Tabs, Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
-import { OUTFIT_CATEGORY, OutfitCategory } from '@/shared/common/types';
+import { OUTFIT_CATEGORY, OutfitCategory } from '@/shared/common/types/types';
 import { OutfitSection } from './outfit-section';
 
 type Props = { target: 'first' | 'second' };

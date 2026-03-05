@@ -1,5 +1,5 @@
 import { createStore } from 'zustand/vanilla';
-import { Lookbook, Outfit } from '@/shared/common/types';
+import { Lookbook, Outfit } from '@/shared/common/types/types';
 
 export type LookbookState = {
   firstLookbook: Lookbook;

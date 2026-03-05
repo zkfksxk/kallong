@@ -1,7 +1,7 @@
 'use server';
 
 import dayjs from 'dayjs';
-import { DailyOutfitForm } from '@/shared/common/types';
+import { DailyOutfitForm } from '@/shared/common/types/types';
 import { Database } from '@/shared/supabase/database.types';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
 import { handleError } from '../error';

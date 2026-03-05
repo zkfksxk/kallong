@@ -1,5 +1,5 @@
 import { createStore } from 'zustand';
-import type { Profile } from '@/shared/common/types';
+import { Profile } from '@/shared/common/types/types';
 
 export type ProfileState = {
   isLoaded: boolean;

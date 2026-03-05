@@ -1,6 +1,6 @@
 'use server';
 
-import { type Lookbook } from '@/shared/common/types';
+import { Lookbook } from '@/shared/common/types/types';
 import { type Database } from '@/shared/supabase/database.types';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
 import { handleError } from '../error';

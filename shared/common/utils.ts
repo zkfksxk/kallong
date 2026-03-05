@@ -1,4 +1,4 @@
-import { ValidationError } from './types';
+import { ValidationError } from './types/types';
 
 const ALLOWED_PATTERN = /^[a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ0-9\s\-_]*$/;
 

@@ -15,7 +15,7 @@ import { useRouter } from '@/i18n/navigation';
 import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
-} from '@/shared/common/constants';
+} from '@/shared/common/constants/common';
 import { ICONS } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 

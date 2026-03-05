@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
-import { ValidationError } from '@/shared/common/types';
+import { ValidationError } from '@/shared/common/types/types';
 import { validateInput } from '@/shared/common/utils';
 
 export default function LookbooksPage() {
