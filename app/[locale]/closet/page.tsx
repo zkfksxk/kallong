@@ -69,6 +69,7 @@ export default function ClosetPage() {
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
       <Header isBackbutton />
       <Calendar
+        className='w-full'
         hideOutsideDates
         onPreviousMonth={() =>
           setCurrentDay(dayjs(currentDay).subtract(1, 'month').toDate())
@@ -78,7 +79,7 @@ export default function ClosetPage() {
         }
         getDayProps={(date) => {
           const isFuture = dayjs(date).isAfter(dayjs(), 'day');
-          const isCurrent = dayjs(date).isSame(dayjs(currentDay), 'day');
+          const isCurrent = dayjs(date).format('YYYY-MM-DD') === selectedDay;
           return {
             onClick: () => !isFuture && handleSelect(date),
             disabled: isFuture,
@@ -105,7 +106,28 @@ export default function ClosetPage() {
               'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
           },
           calendarHeaderLevel: { width: '100%', flex: 1, textAlign: 'center' },
-          monthsList: { width: '100%' },
+          levelsGroup: { width: '100%' },
+          yearsList: { width: '100%', tableLayout: 'fixed' as const },
+          yearsListCell: {
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            width: '100%',
+          },
+          yearsListControl: {
+            width: '100%',
+          },
+          monthsList: {
+            width: '100%',
+            tableLayout: 'fixed' as const,
+          },
+          monthsListCell: {
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            width: '100%',
+          },
+          monthsListControl: {
+            width: '100%',
+          },
           monthCell: {
             width: '100%',
             textAlign: 'center',
