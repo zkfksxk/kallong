@@ -1,16 +1,17 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Checkbox, Text, TextInput } from '@mantine/core';
+import { Checkbox, Text, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useLocale, useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { IoCloseCircle as Close } from 'react-icons/io5';
 import { CustomAuthError } from '@/apis/error';
 import { useSignUp } from '@/apis/querys/auth/useSignUp';
+import Button from '@/components/ui/button';
 import { Link, useRouter } from '@/i18n/navigation';
-import { SignUpFormData, signUpSchema } from '@/shared/common/constants/form';
 import { ICONS } from '@/shared/common/icons';
+import { SignUpFormData, signUpSchema } from '../_constants/form';
 
 export default function SignUpPage() {
   const t = useTranslations('Setting');
@@ -181,9 +182,8 @@ export default function SignUpPage() {
 
         <Button
           type='submit'
-          variant='filled'
-          size='lg'
-          radius='md'
+          variant='secondary'
+          fullWidth
           disabled={isPending}
         >
           {t('auth.signUp')}

@@ -12,7 +12,7 @@ import '@mantine/notifications/styles.css';
 export const pretendard = localFont({
   src: '../../public/fonts/PretendardVariable.woff2',
   display: 'swap',
-  variable: '--font-pretandard',
+  variable: '--font-pretendard',
   weight: '45 920',
 });
 
@@ -36,16 +36,16 @@ const blue: MantineColorsTuple = [
 ];
 
 const gray: MantineColorsTuple = [
-  '#f0f5fc',
-  '#e1e5eb',
-  '#c5cbd5',
-  '#a5aebd',
-  '#8996a9',
-  '#78879e',
-  '#6e7f99',
-  '#5d6d86',
-  '#516179',
-  '#42536d',
+  '#f1f5f9',
+  '#f1f5f9',
+  '#cbd5e1',
+  '#cbd5e1',
+  '#64748b',
+  '#64748b',
+  '#334155',
+  '#334155',
+  '#0f172a',
+  '#0f172a',
 ];
 
 const red: MantineColorsTuple = [

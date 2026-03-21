@@ -18,12 +18,9 @@ import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
 } from '@/shared/common/constants/common';
-import {
-  DailyOutfitFormData,
-  dailOutfitSchema,
-} from '@/shared/common/constants/form';
 import { ICONS } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
+import { DailyOutfitFormData, dailOutfitSchema } from '../../_constants/form';
 
 export default function EditPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);

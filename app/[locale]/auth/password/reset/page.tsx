@@ -2,16 +2,17 @@
 
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, Button, Text, TextInput } from '@mantine/core';
+import { Box, Text, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useResetPassword } from '@/apis/querys/auth/useResetPassword';
+import Button from '@/components/ui/button';
+import { ICONS } from '@/shared/common/icons';
 import {
   ResetPasswordFormData,
   resetPasswordSchema,
-} from '@/shared/common/constants/form';
-import { ICONS } from '@/shared/common/icons';
+} from '../../_constants/form';
 
 export default function ResetPasswordPage() {
   const t = useTranslations('Setting');
@@ -96,9 +97,8 @@ export default function ResetPasswordPage() {
 
         <Button
           type='submit'
-          variant='filled'
-          size='lg'
-          radius='md'
+          variant='secondary'
+          fullWidth
           loading={isSubmitting}
           disabled={!isValid || isSubmitting}
         >

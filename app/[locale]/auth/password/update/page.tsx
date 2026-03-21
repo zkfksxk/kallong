@@ -1,17 +1,18 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Text, TextInput } from '@mantine/core';
+import { Text, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { IoCloseCircle as Close } from 'react-icons/io5';
 import { useUpdatePassword } from '@/apis/querys/auth/useUpdatePassword';
+import Button from '@/components/ui/button';
 import { useRouter } from '@/i18n/navigation';
 import {
   UpdatePasswordFormData,
   updatePasswordSchema,
-} from '@/shared/common/constants/form';
+} from '../../_constants/form';
 
 export default function UpdatePasswordPage() {
   const t = useTranslations('Setting');
@@ -74,9 +75,8 @@ export default function UpdatePasswordPage() {
         </div>
         <Button
           type='submit'
-          variant='filled'
-          size='lg'
-          radius='md'
+          variant='secondary'
+          fullWidth
           disabled={!isValid || isSubmitting}
         >
           {t('auth.saveButton')}

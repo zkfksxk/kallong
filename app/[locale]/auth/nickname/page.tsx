@@ -1,18 +1,16 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, TextInput } from '@mantine/core';
+import { TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useUpdateNickname } from '@/apis/querys/auth/useUpdateNickname';
+import Button from '@/components/ui/button';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
 import { useRouter } from '@/i18n/navigation';
-import {
-  NicknameFormData,
-  nicknameSchema,
-} from '@/shared/common/constants/form';
 import { ICONS } from '@/shared/common/icons';
+import { NicknameFormData, nicknameSchema } from '../_constants/form';
 
 export default function NicknameChangePage() {
   const t = useTranslations('Setting');
@@ -82,9 +80,8 @@ export default function NicknameChangePage() {
         </div>
         <Button
           type='submit'
-          variant='filled'
-          size='lg'
-          radius='md'
+          variant='secondary'
+          fullWidth
           loading={isSubmitting}
           disabled={!isValid || isSubmitting}
         >

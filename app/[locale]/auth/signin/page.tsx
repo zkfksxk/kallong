@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Text, TextInput } from '@mantine/core';
+import { Text, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
@@ -9,10 +9,11 @@ import { IoCloseCircle as Close } from 'react-icons/io5';
 import { CustomAuthError } from '@/apis/error';
 import { useSignInWithPassword } from '@/apis/querys/auth/useSignIn';
 import { useSignInWithGoogle } from '@/apis/querys/auth/useSignInGoogle';
+import Button from '@/components/ui/button';
 import { useDetectWebView } from '@/hooks/useDetectWebView';
 import { Link, useRouter } from '@/i18n/navigation';
-import { SignInFormData, signInSchema } from '@/shared/common/constants/form';
 import { ICONS } from '@/shared/common/icons';
+import { SignInFormData, signInSchema } from '../_constants/form';
 
 export default function SignInPage() {
   const t = useTranslations('Setting');
@@ -76,7 +77,11 @@ export default function SignInPage() {
       <Text ta='center' size='2xl' fw={700}>
         {t('auth.signIn')}
       </Text>
-      <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
+      <form
+        autoComplete='off'
+        className='flex flex-col w-full'
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className='w-full flex flex-col gap-4 mb-8'>
           <TextInput
             label={t('auth.email')}
@@ -106,9 +111,8 @@ export default function SignInPage() {
         </div>
         <Button
           type='submit'
-          variant='filled'
-          size='lg'
-          radius='md'
+          variant='secondary'
+          fullWidth
           disabled={!isValid || signInIsPending}
         >
           {t('auth.signIn')}
@@ -123,10 +127,9 @@ export default function SignInPage() {
       {!isWebView && (
         <div className='flex flex-col w-full mt-20'>
           <Button
-            leftSection={<Google size={18} />}
-            variant='filled'
-            size='lg'
-            radius='md'
+            icon={<Google size={18} />}
+            variant='secondary'
+            fullWidth
             onClick={handleGoogleLogin}
             disabled={signInIsPending || signInWithGoogleIsPending}
           >

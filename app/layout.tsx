@@ -9,9 +9,8 @@ import { Analytics } from '@vercel/analytics/next';
 import { ThemeProvider } from 'next-themes';
 import TanstackQueryProvider from '@/hooks/provider/tanstackquery-provider';
 import { SITE_CONFIG } from '@/shared/common/constants/common';
-import CLIENT_THEME from '@/shared/theme/clientTheme';
 import { MatineThemeSync } from '@/shared/theme/matineThemeSync';
-import { THEME } from '@/shared/theme/theme';
+import { THEME, hanna, pretendard } from '@/shared/theme/theme';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -47,27 +46,19 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const mergedTheme = {
-    ...THEME,
-    components: {
-      ...THEME.components,
-      ...CLIENT_THEME.components,
-    },
-  };
-
   return (
     <html lang='ko' {...mantineHtmlProps} suppressHydrationWarning>
       <head>
         <ColorSchemeScript />
       </head>
-      <body>
+      <body className={`${pretendard.variable} ${hanna.variable}`}>
         <TanstackQueryProvider>
           <ThemeProvider
             attribute='class'
             enableSystem={true}
             defaultTheme='system'
           >
-            <MantineProvider theme={mergedTheme}>
+            <MantineProvider theme={THEME}>
               <MatineThemeSync />
               <Notifications position='bottom-center' />
               {children}

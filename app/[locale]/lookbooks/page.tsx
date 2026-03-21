@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, TextInput } from '@mantine/core';
+import { TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
+import Button from '@/components/ui/button';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
@@ -112,14 +113,7 @@ export default function LookbooksPage() {
         />
       </div>
 
-      <Button
-        onClick={handleDecorate}
-        variant='filled'
-        color='red.5'
-        size='lg'
-        fullWidth
-        radius='md'
-      >
+      <Button onClick={handleDecorate} fullWidth>
         {t('decorateButton')}
       </Button>
     </main>
