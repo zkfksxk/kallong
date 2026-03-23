@@ -18,13 +18,13 @@ const variantStyles = {
     text-white font-bold
     bg-red-500 hover:bg-red-700 active:bg-red-900
     rounded-lg px-[10px] py-[10px]
-    disabled:cursor-not-allowed
+    disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed
   `,
   secondary: `
     text-white font-bold
     bg-blue-700 hover:bg-blue-900 active:bg-blue-900
     rounded-lg px-[10px] py-[10px]
-    disabled:cursor-not-allowed disabled:bg-gray-300 dark:disabled:bg-transparent
+    disabled:bg-gray-300 disabled:text-gray-500 dark:disabled:bg-transparent disabled:cursor-not-allowed 
   `,
   outline: `
     border border-blue-300
@@ -32,8 +32,7 @@ const variantStyles = {
     hover:bg-blue-50
   `,
   ghost: `
-    text-blue-400
-    hover:bg-blue-50
+    text-red-500 
   `,
 };
 
@@ -53,7 +52,7 @@ const Button = ({
         ${fullWidth ? 'w-full' : 'w-fit'}
         flex items-center justify-center gap-2 font-bold!
         cursor-pointer transition-colors duration-300 font-pretendard text-[16px]
-		disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed
+		    disabled:cursor-not-allowed
 		${variantStyles[variant]}
         ${className}
 	`}

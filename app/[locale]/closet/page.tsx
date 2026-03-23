@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ActionIcon, Button, Text } from '@mantine/core';
+import { ActionIcon, Text } from '@mantine/core';
 import { Calendar } from '@mantine/dates';
 import { notifications } from '@mantine/notifications';
 import dayjs from 'dayjs';
@@ -9,6 +9,7 @@ import { useTranslations } from 'next-intl';
 import { useDeleteDailyOutfit } from '@/apis/querys/outfit/useDeleteDailyOutfit';
 import { useGetDailyOutfitInMonth } from '@/apis/querys/outfit/useGetDailyOutfitInMonth';
 import { Header } from '@/components/layouts/header';
+import Button from '@/components/ui/button';
 import { Link, useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
 
@@ -65,6 +66,8 @@ export default function ClosetPage() {
     }
   };
 
+  const outfitDays = new Set(outfits?.map((item) => item.selected_day) ?? []);
+
   return (
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
       <Header isBackbutton />
@@ -80,16 +83,23 @@ export default function ClosetPage() {
         getDayProps={(date) => {
           const isFuture = dayjs(date).isAfter(dayjs(), 'day');
           const isCurrent = dayjs(date).format('YYYY-MM-DD') === selectedDay;
+          const hasOutfit = outfitDays.has(dayjs(date).format('YYYY-MM-DD'));
+
           return {
             onClick: () => !isFuture && handleSelect(date),
             disabled: isFuture,
             style: {
               ...(isFuture ? { color: '#ccc', cursor: 'not-allowed' } : {}),
-              ...(isCurrent
+              ...(hasOutfit // ← isCurrent 대신 hasOutfit
                 ? {
                     backgroundColor: '#FFC9C8',
                     color: 'white',
-                    borderRadius: '50%', // 원형
+                    borderRadius: '50%',
+                  }
+                : {}),
+              ...(isCurrent
+                ? {
+                    outline: '2px solid #e3231f',
                   }
                 : {}),
             },
@@ -142,10 +152,10 @@ export default function ClosetPage() {
           },
         }}
       />
-      <div className='flex flex-col w-full min-h-37.5 items-center justify-center mt-8 bg-[#ffe2e1] rounded-md gap-3'>
+      <div className='flex flex-col w-full min-h-37.5 items-center justify-center mt-8 bg-red-100 rounded-md gap-3'>
         {selectedOutfit ? (
           <Link href={`/closet/${selectedOutfit.id}`}>
-            <div className='flex flex-row gap-2'>
+            <div className='flex flex-row items-center gap-8'>
               <Text c='black' fw={700}>
                 {selectedOutfit.selected_day}
               </Text>
@@ -162,16 +172,11 @@ export default function ClosetPage() {
             </div>
           </Link>
         ) : (
-          <div className='flex flex-col justify-center align-center'>
+          <div className='flex flex-col justify-center items-center gap-[10px]'>
             <Text c='black' fw={500}>
               {t('emptyMessage')}
             </Text>
-            <Button
-              onClick={handleRecord}
-              variant='transparent'
-              size='lg'
-              radius='md'
-            >
+            <Button onClick={handleRecord} variant='ghost'>
               {t('goToRecord')}
             </Button>
           </div>

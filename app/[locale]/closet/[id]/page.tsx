@@ -33,16 +33,15 @@ export default function DetailPage() {
           </Button>
         }
       />
-
       <div className='relative w-full max-w-125 aspect-square flex items-center justify-center border border-gray-300 rounded-md overflow-hidden'>
         {data?.image_url && (
           <Image src={data?.image_url} alt='daily-outfit' fill />
         )}
       </div>
-      <div className='bg-gray-200 dark:bg-gray-700 mt-10 p-4 rounded-md'>
+      <div className='bg-gray-100 dark:bg-gray-700 mt-10 p-4 rounded-md'>
         <Text>{data.name}</Text>
       </div>
-      <div className='bg-gray-200 dark:bg-gray-700 min-h-50 mt-10 p-4 rounded-md'>
+      <div className='bg-gray-100 dark:bg-gray-700 min-h-50 mt-10 p-4 rounded-md'>
         <Text>{data.description}</Text>
       </div>
     </div>

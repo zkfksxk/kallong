@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ActionIcon, Button, TextInput, Textarea } from '@mantine/core';
+import { ActionIcon, TextInput, Textarea } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { useCreatDailyOutfit } from '@/apis/querys/outfit/useCreateDailyOutfit';
 import { useUpdateDailyOutfitImage } from '@/apis/querys/outfit/useUpdateDailyOutfitImage';
 import { Header } from '@/components/layouts/header';
+import Button from '@/components/ui/button';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
 import { useOutfitImageEditor } from '@/hooks/useOutfitImageEditor';
 import { useRouter } from '@/i18n/navigation';
@@ -156,11 +157,7 @@ export default function WritePage() {
         rightComponent={
           <Button
             onClick={handleSubmit(onSubmit)}
-            variant='transparent'
-            color='red.5'
-            size='md'
-            radius='md'
-            p={0}
+            variant='ghost'
             disabled={!isValid || isSubmitting}
           >
             저장
@@ -203,11 +200,15 @@ export default function WritePage() {
       <div className='flex flex-col gap-10 mt-10'>
         <TextInput
           maxLength={20}
+          label={t('title')}
+          placeholder={t('validation.nameMax')}
           {...register('name')}
           error={errors.name?.message ? t(errors.name.message) : undefined}
         />
         <Textarea
           maxLength={500}
+          label={t('description')}
+          placeholder={t('validation.descriptionMax')}
           {...register('description')}
           error={
             errors.description?.message

@@ -114,6 +114,7 @@ export async function getDailyOutfitInMonth({
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();
 
+  //해당 년도와 월에 1일-말일
   const startDate = dayjs(`${year}-${month}-01`)
     .startOf('month')
     .format('YYYY-MM-DD');

@@ -69,7 +69,7 @@ body {
   border-color: #141414 !important;
 } */
 
-.mantine-ActionIcon-root[data-variant='outline'] {
+/* .mantine-ActionIcon-root[data-variant='outline'] {
   --ai-bd: 1px solid #e3231f !important;
 }
 .mantine-Button-root[data-variant='outline'] {
@@ -79,4 +79,4 @@ body {
 
 .mantine-Button-root[data-variant='transparent'] {
   color: #e3231f !important;
-}
+} */

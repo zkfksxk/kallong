@@ -113,6 +113,8 @@
   "Closet": {
     "emptyMessage": "You haven’t written any records yet.",
     "goToRecord": "Go to record",
+    "title": "title",
+    "description": "memo",
     "validation": {
       "nameRequired": "Please enter a title.",
       "nameMax": "Please enter no more than 20 characters.",

@@ -1,6 +1,7 @@
 import { Text } from '@mantine/core';
 import { useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
+import Button from '../ui/button';
 
 interface Props {
   leftComponent?: React.ReactNode;
@@ -42,9 +43,9 @@ export const Header = ({
         `}
     >
       {isBackbutton && (
-        <button onClick={handleBack}>
+        <Button variant='ghost' onClick={handleBack}>
           <Back className='text-black dark:text-white' size={24} />
-        </button>
+        </Button>
       )}
       {leftComponent}
       {title && <Text>{title}</Text>}
