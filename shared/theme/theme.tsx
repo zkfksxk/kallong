@@ -108,6 +108,14 @@ export const THEME = createTheme({
         },
       },
     },
+    Divider: {
+      styles: {
+        root: {
+          borderColor:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+        },
+      },
+    },
     Text: {
       styles: {
         root: {

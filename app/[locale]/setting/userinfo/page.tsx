@@ -1,12 +1,12 @@
 'use client';
 
-import { Button } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useTranslations } from 'next-intl';
 import { useDeleteAccount } from '@/apis/querys/auth/useDeleteAccount';
 import { Profile } from '@/components/setting/profile';
 import { ProfileSkeleton } from '@/components/setting/profile-skeleton';
 import { SettingItem } from '@/components/setting/setting-item';
+import Button from '@/components/ui/button';
 import { CustomModal } from '@/components/ui/custom-modal';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
 
@@ -36,12 +36,9 @@ export default function UserInfoPage() {
           <SettingItem url='/auth/nickname' title={t('auth.nicknameChange')} />
         </div>
         <Button
-          variant='transparent'
-          size='lg'
-          fw={700}
+          variant='ghost'
           onClick={open}
-          className='self-start mt-auto'
-          style={{ padding: 0 }}
+          className='self-start mt-auto text-red-500'
           disabled={!profile || isPending}
         >
           {t('auth.deleteAccount')}

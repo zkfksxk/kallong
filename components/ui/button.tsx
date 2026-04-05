@@ -15,24 +15,25 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles = {
   filled: `
-    text-white font-bold
+    text-white 
     bg-red-500 hover:bg-red-700 active:bg-red-900
-    rounded-lg px-[10px] py-[10px]
+    rounded-lg py-[16px]
     disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed
   `,
   secondary: `
-    text-white font-bold
+    text-white 
     bg-blue-700 hover:bg-blue-900 active:bg-blue-900
-    rounded-lg px-[10px] py-[10px]
-    disabled:bg-gray-300 disabled:text-gray-500 dark:disabled:bg-transparent disabled:cursor-not-allowed 
+    rounded-lg py-[16px]
+    disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed 
   `,
   outline: `
-    border border-blue-300
-    text-blue-400
-    hover:bg-blue-50
+    text-black
+    bg-white border border-black 
+    rounded-lg py-[16px]
+    disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed
   `,
   ghost: `
-    text-red-500 
+    text-black p-0 
   `,
 };
 

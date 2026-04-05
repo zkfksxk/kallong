@@ -100,6 +100,7 @@ export default function ClosetPage() {
               ...(isCurrent
                 ? {
                     outline: '2px solid #e3231f',
+                    borderRadius: '50%',
                   }
                 : {}),
             },
@@ -114,6 +115,10 @@ export default function ClosetPage() {
             margin: '0 auto 10px auto',
             color:
               'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+          },
+          calendarHeaderControl: {
+            width: '40px',
+            height: '40px',
           },
           calendarHeaderLevel: { width: '100%', flex: 1, textAlign: 'center' },
           levelsGroup: { width: '100%' },
@@ -141,7 +146,6 @@ export default function ClosetPage() {
           monthCell: {
             width: '100%',
             textAlign: 'center',
-            verticalAlign: 'middle',
           },
           month: { width: '100%' },
           weekday: {
@@ -149,6 +153,7 @@ export default function ClosetPage() {
           },
           day: {
             fontSize: '14px',
+            margin: '1px',
           },
         }}
       />

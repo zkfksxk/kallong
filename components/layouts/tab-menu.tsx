@@ -16,7 +16,7 @@ export const TabMenu = () => {
     <div className='fixed bottom-0 mx-auto h-15 flex max-w-125 w-full  border-t border-gray-200 bg-white dark:bg-black'>
       <Link
         href='/'
-        className='flex-1 flex flex-col items-center justify-center gap-1'
+        className='flex-1 flex flex-col items-center justify-center gap-1 cursor-pointer'
       >
         {isHome ? (
           <Home.Fill size={24} className='text-black dark:text-white' />
@@ -30,7 +30,7 @@ export const TabMenu = () => {
 
       <Link
         href='/mypage'
-        className='flex-1 flex flex-col items-center justify-center gap-1'
+        className='flex-1 flex flex-col items-center justify-center gap-1 cursor-pointer'
       >
         {isMypage ? (
           <Person.Fill size={24} className='text-black dark:text-white' />
