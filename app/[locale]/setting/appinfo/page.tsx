@@ -1,11 +1,9 @@
 import { Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
-import { useDetectWebView } from '@/hooks/useDetectWebView';
 import { Link } from '@/i18n/navigation';
 
 export default function AppInfoPage() {
   const t = useTranslations('Setting.appinfo');
-  const { isWebView } = useDetectWebView();
 
   return (
     <div className='bg-white dark:bg-black w-full flex flex-1 flex-col'>
@@ -30,14 +28,24 @@ export default function AppInfoPage() {
           {t('notice.feedback')}
         </Text>
       </div>
-      {!isWebView && (
-        <div className='flex flex-col mt-8 gap-8'>
-          <Link href='https://naver.me/xE6S9jbW'>
-            <Text size='lg' fw={700}>
-              {t('formbutton')}
-            </Text>
-          </Link>
-          {/* <Text
+
+      <div className='flex flex-col flex-1 mt-8 gap-8'>
+        <Link href='https://naver.me/xE6S9jbW'>
+          <Text size='lg' fw={700}>
+            {t('formbutton')}
+          </Text>
+        </Link>
+        <Link href='https://busy-screw-956.notion.site/Kallong-2ced82040c488001b27bdce25e66fae7'>
+          <Text size='lg' fw={700}>
+            이용약관
+          </Text>
+        </Link>
+        <Link href='https://busy-screw-956.notion.site/Kallong-2ced82040c488099a766fb47ab9ae793?pvs=74'>
+          <Text size='lg' fw={700}>
+            개인정보 처리방침
+          </Text>
+        </Link>
+        {/* <Text
             size='md'
             component='a'
             href='mailto:karanta.d2v@gmail.com'
@@ -45,16 +53,15 @@ export default function AppInfoPage() {
           >
             {t('formbutton')}
           </Text> */}
-          <a
-            href='https://buymeacoffee.com/karanta'
-            target='_blank'
-            rel='noopener noreferrer'
-            className='bg-[#e62d2d] text-white w-45 text-center px-4 py-2 rounded-md'
-          >
-            ☕ Buy me a coffee
-          </a>
-        </div>
-      )}
+        <a
+          href='https://buymeacoffee.com/karanta'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='mt-auto bg-[#e62d2d] text-white w-45 text-center px-4 py-2 rounded-md'
+        >
+          ☕ Buy me a coffee
+        </a>
+      </div>
     </div>
   );
 }
