@@ -143,7 +143,7 @@ export default function CreateLookbooksPage() {
   return (
     <main className='relative bg-white dark:bg-black max-w-125 w-full mx-auto flex flex-1 flex-col items-center'>
       <Header
-        isBackbutton
+        isBackShow
         rightComponent={
           <Button
             onClick={handleSubmit}

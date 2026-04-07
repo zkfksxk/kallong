@@ -19,7 +19,7 @@ export default function DetailPage() {
   return (
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
       <Header
-        isBackbutton
+        isBackShow
         rightComponent={
           <Button
             onClick={() => router.push(`/closet/${id}/edit`)}
