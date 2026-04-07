@@ -15,7 +15,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles = {
   filled: `
-    text-white 
+    text-white
     bg-red-500 hover:bg-red-700 active:bg-red-900
     rounded-lg py-[16px]
     disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed
@@ -33,7 +33,7 @@ const variantStyles = {
     disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed
   `,
   ghost: `
-    text-black p-0 
+    text-black dark:text-white p-0 
   `,
 };
 
@@ -51,8 +51,8 @@ const Button = ({
     <button
       className={`
         ${fullWidth ? 'w-full' : 'w-fit'}
-        flex items-center justify-center gap-2 font-bold!
-        cursor-pointer transition-colors duration-300 font-pretendard text-[16px]
+        flex items-center justify-center gap-2 font-bold! 
+        cursor-pointer transition-colors duration-300 font-pretendard
 		    disabled:cursor-not-allowed
 		${variantStyles[variant]}
         ${className}

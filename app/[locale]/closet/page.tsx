@@ -70,7 +70,7 @@ export default function ClosetPage() {
 
   return (
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
-      <Header isBackbutton />
+      <Header isBackShow />
       <Calendar
         className='w-full'
         hideOutsideDates
@@ -181,7 +181,11 @@ export default function ClosetPage() {
             <Text c='black' fw={500}>
               {t('emptyMessage')}
             </Text>
-            <Button onClick={handleRecord} variant='ghost'>
+            <Button
+              onClick={handleRecord}
+              variant='ghost'
+              className='text-black!'
+            >
               {t('goToRecord')}
             </Button>
           </div>

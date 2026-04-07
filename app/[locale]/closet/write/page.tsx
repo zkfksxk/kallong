@@ -153,7 +153,7 @@ export default function WritePage() {
   return (
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
       <Header
-        isBackbutton
+        isBackShow
         rightComponent={
           <Button
             onClick={handleSubmit(onSubmit)}
