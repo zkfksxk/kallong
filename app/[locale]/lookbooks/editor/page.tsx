@@ -17,7 +17,7 @@ export default function EditLookbookPage() {
     <main className='relative bg-white dark:bg-black max-w-125 w-full mx-auto flex flex-1 flex-col items-center pb-20'>
       <Header isBackShow />
       <div className='flex flex-col w-full'>
-        <Tabs color='black' value={activeTab} onChange={setActiveTab}>
+        <Tabs color='red.5' value={activeTab} onChange={setActiveTab}>
           <Tabs.List>
             <Tabs.Tab value='first'>
               {firstLookbook.name || t('tabFirst')}

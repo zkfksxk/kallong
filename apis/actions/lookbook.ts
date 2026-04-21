@@ -177,22 +177,3 @@ export async function deleteLookbookById(lookbookId: string) {
 
   return data;
 }
-
-// export async function deleteImagesInPath(path: string) {
-//   const supabase = await createSupabaseServerClient();
-//   const { data: files, error: fetchFilesError } = await supabase.storage
-//     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
-//     .list(path);
-
-//   if (fetchFilesError) throw fetchFilesError;
-
-//   if (!files || files.length === 0) {
-//     return;
-//   }
-
-//   const { error: removeError } = await supabase.storage
-//     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
-//     .remove(files.map((file) => `${path}/${file.name}`));
-
-//   if (removeError) throw removeError;
-// }

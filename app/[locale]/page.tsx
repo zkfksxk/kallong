@@ -28,7 +28,7 @@ export default function Home() {
           >
             {t('title1')}
           </Text>
-          <Text size='md' c={theme.black}>
+          <Text size='md' fw={500} c={theme.black}>
             {t('description1')}
           </Text>
         </div>
@@ -52,7 +52,7 @@ export default function Home() {
           >
             {t('title2')}
           </Text>
-          <Text size='md' c={theme.black}>
+          <Text size='md' fw={500} c={theme.black}>
             {t('description2')}
           </Text>
         </div>

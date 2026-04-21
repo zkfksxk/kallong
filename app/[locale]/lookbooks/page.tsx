@@ -39,7 +39,6 @@ export default function LookbooksPage() {
     const getErrorMessage = (error: ValidationError | null): string | null => {
       if (!error) return null;
 
-      console.log(error);
       switch (error.type) {
         case 'empty':
           return t('empty');

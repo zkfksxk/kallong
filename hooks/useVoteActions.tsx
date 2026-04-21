@@ -1,4 +1,3 @@
-// hooks/useVoteActions.ts
 import { notifications } from '@mantine/notifications';
 import { useCheckLookbookLiked } from '@/apis/querys/useCheckLookbookLiked';
 import { useToggleLookbookLike } from '@/apis/querys/useToggleLookbookLike';
@@ -19,7 +18,7 @@ export function useVoteActions(
     if (remainingTime === '00:00') {
       notifications.show({
         title: 'Vote Failed',
-        message: '이미 투표 시간이 종료되었습니다.',
+        message: '투표 시간이 종료되었습니다.',
         icon: <Alert.Close color='red' size={24} />,
         loading: false,
       });

@@ -44,7 +44,7 @@ export const LookbookEditor = ({ target }: Props) => {
   };
 
   return (
-    <Tabs color='black' value={activeTab} onChange={handleTabChange} mt='sm'>
+    <Tabs color='red.5' value={activeTab} onChange={handleTabChange} mt='sm'>
       <Tabs.List>
         {/* <Tabs.Tab value='top'>
           <Text>상의</Text>

@@ -125,8 +125,7 @@ export default function CreateLookbooksPage() {
       await createVoteMutate(voteSetData);
 
       router.push(`/lookbooks/result/${firstData.id}/${secondData.id}`);
-    } catch (error) {
-      console.log('create lookbook fail', error);
+    } catch {
       notifications.show({
         title: 'Lookbook Failed',
         message: '룩북 생성 중 에러가 발생했습니다.',
@@ -158,7 +157,7 @@ export default function CreateLookbooksPage() {
         }
       />
       <div className='flex flex-col w-full gap-8'>
-        <Tabs color='black' value={activeTab} onChange={setActiveTab}>
+        <Tabs color='red.5' value={activeTab} onChange={setActiveTab}>
           <Tabs.List>
             <Tabs.Tab value='first'>
               {firstLookbook.name || t('tabFirst')}

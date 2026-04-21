@@ -39,7 +39,7 @@ export function useShareActions() {
       }
       notifications.show({
         title: 'Successfully Captured',
-        message: '이미지 캡처가 완료되었습니다!',
+        message: '이미지 캡처가 완료되었습니다',
         icon: <Check color='blue' size={24} />,
         loading: false,
       });
@@ -59,7 +59,7 @@ export function useShareActions() {
       await navigator.clipboard.writeText(copyUrl);
       notifications.show({
         title: 'Successfully Copied',
-        message: '링크가 복사되었습니다!',
+        message: '링크가 복사되었습니다',
         icon: <Check color='blue' size={24} />,
         loading: false,
       });

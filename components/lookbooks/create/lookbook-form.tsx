@@ -4,6 +4,8 @@ import { ICONS } from '@/shared/common/icons';
 
 type Props = { targetLookbook: 'first' | 'second' };
 
+const { Add, Delete } = ICONS;
+
 export const LookbookForm = ({ targetLookbook }: Props) => {
   const {
     fileInputRef,
@@ -12,8 +14,6 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
     handleUpload,
     handleRemoveFileAndFinalUrl,
   } = useLookbookEditor(targetLookbook, 'finalUrl');
-
-  const { Add, Delete } = ICONS;
 
   return (
     <div className='flex flex-col items-center mt-8'>

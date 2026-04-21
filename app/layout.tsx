@@ -11,7 +11,7 @@ import TanstackQueryProvider from '@/hooks/provider/tanstackquery-provider';
 import { SITE_CONFIG } from '@/shared/common/constants/common';
 import { MatineThemeSync } from '@/shared/theme/matineThemeSync';
 import { THEME, hanna, pretendard } from '@/shared/theme/theme';
-import './globals.css';
+import './global.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.domain),

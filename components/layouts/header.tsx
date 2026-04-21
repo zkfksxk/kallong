@@ -34,7 +34,7 @@ export const Header = ({
       className={`
         w-full 
         max-w-125 
-        h-18
+        h-16
         flex 
         items-center 
         ${isBackShow ? 'justify-between' : 'justify-end'}

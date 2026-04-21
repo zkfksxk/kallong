@@ -41,7 +41,7 @@ export const Profile = () => {
       <Button
         variant='ghost'
         onClick={handleSignOut}
-        className='self-start mt-5'
+        className='text-black! self-start mt-5'
       >
         {t('auth.logout')}
       </Button>
