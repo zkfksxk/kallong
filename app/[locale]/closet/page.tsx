@@ -13,6 +13,8 @@ import Button from '@/components/ui/button';
 import { Link, useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
 
+const { Trash, Alert } = ICONS;
+
 export default function ClosetPage() {
   const router = useRouter();
   const [currentDay, setCurrentDay] = useState(new Date());
@@ -22,8 +24,6 @@ export default function ClosetPage() {
   const t = useTranslations('Closet');
   const { data: outfits } = useGetDailyOutfitInMonth(currentDay);
   const { mutateAsync: deleteMutate } = useDeleteDailyOutfit();
-
-  const { Trash, Alert } = ICONS;
 
   const selectedOutfit = outfits?.find(
     (item) => item.selected_day === selectedDay
@@ -90,17 +90,16 @@ export default function ClosetPage() {
             disabled: isFuture,
             style: {
               ...(isFuture ? { color: '#ccc', cursor: 'not-allowed' } : {}),
-              ...(hasOutfit // ← isCurrent 대신 hasOutfit
+              ...(hasOutfit
                 ? {
                     backgroundColor: '#FFC9C8',
-                    color: 'white',
-                    borderRadius: '50%',
+                    color: 'black',
                   }
                 : {}),
               ...(isCurrent
                 ? {
-                    outline: '2px solid #e3231f',
-                    borderRadius: '50%',
+                    backgroundColor: '#e3231f',
+                    color: 'white',
                   }
                 : {}),
             },
@@ -153,7 +152,7 @@ export default function ClosetPage() {
           },
           day: {
             fontSize: '14px',
-            margin: '1px',
+            margin: '4px',
           },
         }}
       />
@@ -177,7 +176,7 @@ export default function ClosetPage() {
             </div>
           </Link>
         ) : (
-          <div className='flex flex-col justify-center items-center gap-[10px]'>
+          <div className='flex flex-col justify-center items-center gap-2.5'>
             <Text c='black' fw={500}>
               {t('emptyMessage')}
             </Text>

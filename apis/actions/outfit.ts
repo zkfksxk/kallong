@@ -104,24 +104,15 @@ export const getDailyOutfit = async (id: string) => {
   return data;
 };
 
-export async function getDailyOutfitInMonth({
-  year,
-  month,
-}: {
-  year: number;
-  month: number;
-}) {
+export async function getDailyOutfitInMonth(yearMonth: string) {
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();
 
   //해당 년도와 월에 1일-말일
-  const startDate = dayjs(`${year}-${month}-01`)
-    .startOf('month')
-    .format('YYYY-MM-DD');
-  const endDate = dayjs(`${year}-${month}-01`)
-    .endOf('month')
-    .format('YYYY-MM-DD');
+  const startDate = dayjs(yearMonth).startOf('month').format('YYYY-MM-DD');
+  const endDate = dayjs(yearMonth).endOf('month').format('YYYY-MM-DD');
 
+  console.log(startDate, endDate);
   const { data, error } = await supabase
     .from('outfit')
     .select('*')

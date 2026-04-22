@@ -12,6 +12,7 @@ const queryKeys = {
   OUTFIT: {
     ALL: ['outfit'],
     MONTH: ['outfit', 'MONTH'],
+    IN_MONTH: (day: string) => ['outfit', 'IN_MONTH', day],
     GET_BYID: (id: string) => ['outfit', id],
   },
 };
