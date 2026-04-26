@@ -9,25 +9,25 @@ export function useToggleLookbookLike() {
     mutationFn: toggleLookbookLike,
     onMutate: async (lookbook_id) => {
       await queryClient.cancelQueries({
-        queryKey: [queryKeys.GET_LOOKBOOK(lookbook_id)],
+        queryKey: queryKeys.lookbook.detail(lookbook_id),
       });
       await queryClient.cancelQueries({
-        queryKey: [queryKeys.CHECK_LOOKBOOK_LIKED(lookbook_id)],
+        queryKey: queryKeys.lookbook.liked(lookbook_id),
       });
 
       const prevLookbook = queryClient.getQueryData<LookbookRes>([
-        queryKeys.GET_LOOKBOOK(lookbook_id),
+        queryKeys.lookbook.detail(lookbook_id),
       ]);
       const prevLiked = queryClient.getQueryData<boolean>([
-        queryKeys.CHECK_LOOKBOOK_LIKED(lookbook_id),
+        queryKeys.lookbook.liked(lookbook_id),
       ]);
 
       queryClient.setQueryData(
-        [queryKeys.CHECK_LOOKBOOK_LIKED(lookbook_id)],
+        queryKeys.lookbook.liked(lookbook_id),
         !prevLiked
       );
       queryClient.setQueryData(
-        [queryKeys.GET_LOOKBOOK(lookbook_id)],
+        queryKeys.lookbook.detail(lookbook_id),
         (old: LookbookRes | undefined) => {
           if (!old) return old;
 
@@ -45,10 +45,10 @@ export function useToggleLookbookLike() {
     },
     onSuccess: (_, lookbook_id) => {
       queryClient.invalidateQueries({
-        queryKey: [queryKeys.GET_LOOKBOOK(lookbook_id)],
+        queryKey: queryKeys.lookbook.detail(lookbook_id),
       });
       queryClient.invalidateQueries({
-        queryKey: [queryKeys.CHECK_LOOKBOOK_LIKED(lookbook_id)],
+        queryKey: queryKeys.lookbook.liked(lookbook_id),
       });
     },
     onError: (_, lookbook_id, context) => {
@@ -56,13 +56,13 @@ export function useToggleLookbookLike() {
 
       if (context.prevLookbook) {
         queryClient.setQueryData(
-          [queryKeys.GET_LOOKBOOK(lookbook_id)],
+          queryKeys.lookbook.detail(lookbook_id),
           context.prevLookbook
         );
       }
       if (context.prevLiked !== undefined) {
         queryClient.setQueryData(
-          [queryKeys.CHECK_LOOKBOOK_LIKED(lookbook_id)],
+          queryKeys.lookbook.liked(lookbook_id),
           context.prevLiked
         );
       }

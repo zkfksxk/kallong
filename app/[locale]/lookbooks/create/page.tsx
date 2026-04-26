@@ -8,8 +8,6 @@ import { useCreateLookbook } from '@/apis/querys/useCreateLookbook';
 import { useCreateVote } from '@/apis/querys/useCreateVote';
 import { useUpdateLookbook } from '@/apis/querys/useUpdateLookbook';
 import { Header } from '@/components/layouts/header';
-import { CreateImage } from '@/components/lookbooks/create/create-image';
-import { LookbookForm } from '@/components/lookbooks/create/lookbook-form';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
 import {
@@ -18,6 +16,8 @@ import {
 } from '@/shared/common/constants/common';
 import { ICONS } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
+import { CreateImage } from '../_components/create/create-image';
+import { LookbookForm } from '../_components/create/lookbook-form';
 
 export default function CreateLookbooksPage() {
   const t = useTranslations('Lookbooks.create');

@@ -8,8 +8,6 @@ export function useGetDailyOutfitInMonth(currentDay: Date) {
 
   return useQuery({
     queryFn: () => getDailyOutfitInMonth(yearMonth),
-    queryKey: [
-      queryKeys.OUTFIT.IN_MONTH(dayjs(currentDay).format('YYYY-MM-DD')),
-    ],
+    queryKey: queryKeys.outfit.inMonth(yearMonth),
   });
 }

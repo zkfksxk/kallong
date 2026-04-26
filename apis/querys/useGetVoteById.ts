@@ -6,9 +6,9 @@ const PAGE_SIZE = 5;
 
 export function useGetVoteById() {
   return useInfiniteQuery({
-    queryKey: [queryKeys.VOTE.LIST],
+    queryKey: queryKeys.vote.lists(),
     queryFn: async ({ pageParam }) => {
-      const from = pageParam * PAGE_SIZE;
+      const from = pageParam;
       const to = from + PAGE_SIZE - 1;
 
       return await getVoteById({ from, to });
@@ -17,7 +17,8 @@ export function useGetVoteById() {
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
       if (!lastPage.data || lastPage.data.length < PAGE_SIZE) return undefined;
-      return allPages.length; // from = 페이지 개수 * 페이지 사이즈
+      const nextOffset = allPages.flatMap((p) => p.data).length;
+      return nextOffset;
     },
     select: (data): { votes: VoteRes[]; totalCount: number } => ({
       votes: data.pages.flatMap((page) => page.data), // 모든 투표를 하나의 배열로

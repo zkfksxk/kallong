@@ -5,6 +5,6 @@ import queryKeys from '@/apis/queryKeys';
 export function useGetDailyOutfit(id: string) {
   return useQuery<OutfitRes>({
     queryFn: () => getDailyOutfit(id),
-    queryKey: [queryKeys.OUTFIT.GET_BYID(id)],
+    queryKey: queryKeys.outfit.detail(id),
   });
 }

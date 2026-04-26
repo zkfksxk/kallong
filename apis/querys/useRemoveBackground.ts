@@ -17,7 +17,7 @@ export const removeBackground = async (imageFile: File) => {
 
 export const useRemoveBackground = () => {
   return useMutation({
-    mutationKey: [queryKeys.REMOVE_BACKGROUND],
+    mutationKey: queryKeys.removeBackground.all,
     mutationFn: removeBackground,
     onError: (error) => {
       console.error('배경 제거 실패:', error);

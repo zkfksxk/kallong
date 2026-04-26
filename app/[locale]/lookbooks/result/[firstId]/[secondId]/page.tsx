@@ -7,13 +7,13 @@ import { useTranslations } from 'next-intl';
 import { useGetLookbook } from '@/apis/querys/useGetLookbook';
 import Fallback from '@/components/fallback';
 import Loader from '@/components/loader';
-import { ResultImage } from '@/components/lookbooks/result/result-image';
-import { VoteButton } from '@/components/lookbooks/result/vote-button';
 import { ShareActionButtons } from '@/components/ui/share-button';
 import { useRemainingTime } from '@/hooks/useRemainingTime';
 import { useShareActions } from '@/hooks/useShareActions';
 import { useVoteActions } from '@/hooks/useVoteActions';
 import { hanna } from '@/shared/theme/theme';
+import { ResultImage } from '../../../_components/result/result-image';
+import { VoteButton } from '../../../_components/result/vote-button';
 
 export default function ResultPage() {
   const t = useTranslations('Lookbooks.result');
@@ -68,7 +68,6 @@ export default function ResultPage() {
             {firstLookbook.name}
           </Text>
           <ResultImage image_url={firstLookbook.image_url} />
-
           <VoteButton
             isLiked={isFirstLookbookLiked}
             votes={firstLookbook.votes}

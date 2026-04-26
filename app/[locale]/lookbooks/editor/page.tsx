@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import { Tabs } from '@mantine/core';
 import { useTranslations } from 'next-intl';
+import { LookbookEditor } from '@/app/[locale]/lookbooks/_components/editor/lookbook-editor';
 import { Header } from '@/components/layouts/header';
-import { CreateImage } from '@/components/lookbooks/create/create-image';
-import { LookbookEditor } from '@/components/lookbooks/editor/lookbook-editor';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
+import { CreateImage } from '../_components/create/create-image';
 
 export default function EditLookbookPage() {
   const t = useTranslations('Lookbooks.editor');

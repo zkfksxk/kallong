@@ -19,7 +19,7 @@ export const useDeleteAccount = () => {
     },
     onError: (error) => {
       console.error('회원탈퇴', error);
-      alert('회원탈퇴 중 오류가 발생했습니다.');
+      //alert('회원탈퇴 중 오류가 발생했습니다.');
     },
   });
 };
