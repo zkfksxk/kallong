@@ -1,4 +1,4 @@
-import { LookbookList } from '@/components/mypage/lookbook-list';
+import { LookbookList } from './_components/lookbook-list';
 
 export default function MyPage() {
   return (

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { checkLookbookLiked } from '../actions/lookbook';
-import queryKeys from '../queryKeys';
+import { checkLookbookLiked } from '@/apis/actions/lookbook';
+import queryKeys from '@/apis/queryKeys';
 
 export function useCheckLookbookLiked(lookbook_id: string) {
   return useQuery({

@@ -1,6 +1,6 @@
 import { ActionIcon, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { useDeleteLookbookById } from '@/apis/querys/useDeleteLookbookById';
+import { useDeleteLookbookById } from '@/apis/querys';
 import { Link } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
 

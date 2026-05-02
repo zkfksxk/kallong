@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { axiosObj } from '../AxiosObj';
-import queryKeys from '../queryKeys';
+import { axiosObj } from '@/apis/AxiosObj';
+import queryKeys from '@/apis/queryKeys';
 
 export const removeBackground = async (imageFile: File) => {
   const formData = new FormData();

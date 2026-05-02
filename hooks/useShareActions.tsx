@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import { notifications } from '@mantine/notifications';
 import { domToPng } from 'modern-screenshot';
+import { MESSAGE_TYPE } from '@/shared/common/constants';
 import { ICONS } from '@/shared/common/icons';
-import { MESSAGE_TYPE } from '@/shared/webview/constants';
 import { useDetectWebView } from './useDetectWebView';
 
 const { Check, Alert } = ICONS;

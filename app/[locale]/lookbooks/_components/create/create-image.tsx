@@ -14,7 +14,7 @@ export function CreateImage({ lookbook }: Props) {
 
   if (finalUrl) {
     return (
-      <div className='relative w-full max-w-[500px] aspect-square flex items-center justify-center border border-gray-300 rounded-md overflow-hidden'>
+      <div className='relative w-full max-w-125 aspect-square flex items-center justify-center border border-gray-300 rounded-md overflow-hidden'>
         <Image src={finalUrl} alt='final-lookbook' fill />
       </div>
     );
@@ -38,7 +38,7 @@ export function CreateImage({ lookbook }: Props) {
     >
       <div
         id='poster'
-        className={`relative aspect-square w-full max-w-[500px] mx-auto flex ${
+        className={`relative aspect-square w-full max-w-125 mx-auto flex ${
           isSimpleLayout
             ? 'flex-row items-center justify-center'
             : 'flex-row items-center px-8'
@@ -51,21 +51,21 @@ export function CreateImage({ lookbook }: Props) {
                 <img
                   src={topUrl}
                   alt='상의'
-                  className='max-h-[120px] object-contain mb-4'
+                  className='max-h-30 object-contain mb-4'
                 />
               )}
               {bottomUrl && (
                 <img
                   src={bottomUrl}
                   alt='하의'
-                  className='max-h-[120px] object-contain'
+                  className='max-h-30 object-contain'
                 />
               )}
               {shoesUrl && (
                 <img
                   src={shoesUrl}
                   alt='신발'
-                  className='max-h-[80px] object-contain'
+                  className='max-h-20 object-contain'
                 />
               )}
             </div>
@@ -74,21 +74,21 @@ export function CreateImage({ lookbook }: Props) {
                 <img
                   src={accessoryUrls.hat}
                   alt='모자'
-                  className='max-h-[80px] object-contain'
+                  className='max-h-20 object-contain'
                 />
               )}
               {accessoryUrls?.bag && (
                 <img
                   src={accessoryUrls.bag}
                   alt='가방'
-                  className='max-h-[80px] object-contain'
+                  className='max-h-20 object-contain'
                 />
               )}
               {accessoryUrls?.etc && (
                 <img
                   src={accessoryUrls.etc}
                   alt='기타'
-                  className='max-h-[80px] object-contain'
+                  className='max-h-20 object-contain'
                 />
               )}
             </div>
@@ -100,14 +100,14 @@ export function CreateImage({ lookbook }: Props) {
                 <img
                   src={topUrl}
                   alt='상의'
-                  className='max-h-[120px] object-contain'
+                  className='max-h-30 object-contain'
                 />
               )}
               {bottomUrl && (
                 <img
                   src={bottomUrl}
                   alt='하의'
-                  className='max-h-[140px] object-contain'
+                  className='max-h-35 object-contain'
                 />
               )}
             </div>
@@ -117,28 +117,28 @@ export function CreateImage({ lookbook }: Props) {
                 <img
                   src={accessoryUrls.hat}
                   alt='모자'
-                  className='max-h-[60px] object-contain'
+                  className='max-h-15 object-contain'
                 />
               )}
               {accessoryUrls?.bag && (
                 <img
                   src={accessoryUrls.bag}
                   alt='가방'
-                  className='max-h-[60px] object-contain'
+                  className='max-h-15 object-contain'
                 />
               )}
               {accessoryUrls?.etc && (
                 <img
                   src={accessoryUrls.etc}
                   alt='기타'
-                  className='max-h-[60px] object-contain'
+                  className='max-h-15 object-contain'
                 />
               )}
               {shoesUrl && (
                 <img
                   src={shoesUrl}
                   alt='신발'
-                  className='max-h-[80px] object-contain'
+                  className='max-h-20 object-contain'
                 />
               )}
             </div>

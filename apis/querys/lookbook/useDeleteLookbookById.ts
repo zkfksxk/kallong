@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { deleteLookbookById } from '../actions/lookbook';
+import { deleteLookbookById } from '@/apis/actions/lookbook';
 
 export function useDeleteLookbookById() {
   return useMutation({

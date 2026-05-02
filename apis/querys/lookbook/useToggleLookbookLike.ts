@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { type LookbookRes, toggleLookbookLike } from '../actions/lookbook';
-import queryKeys from '../queryKeys';
+import { type LookbookRes, toggleLookbookLike } from '@/apis/actions/lookbook';
+import queryKeys from '@/apis/queryKeys';
 
 export function useToggleLookbookLike() {
   const queryClient = useQueryClient();

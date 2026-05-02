@@ -2,8 +2,8 @@
 
 import { useRef, useState } from 'react';
 import imageCompression from 'browser-image-compression';
-import { useRemoveBackground } from '@/apis/querys/useRemoveBackground';
-import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
+import { useRemoveBackground } from '@/apis/querys';
+import { useLookbookStore } from '@/hooks/provider';
 import { COMPRESSION_OPTIONS } from '@/shared/common/constants/common';
 import { AccessoryCategory, Outfit } from '@/shared/common/types/types';
 import { base64ToFile } from '@/shared/common/utils';

@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
-import { useGetLookbook } from '@/apis/querys/useGetLookbook';
+import { useGetLookbook } from '@/apis/querys';
 import Fallback from '@/components/fallback';
 import Loader from '@/components/loader';
 import { ShareActionButtons } from '@/components/ui/share-button';

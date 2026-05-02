@@ -1,6 +1,5 @@
 import { notifications } from '@mantine/notifications';
-import { useCheckLookbookLiked } from '@/apis/querys/useCheckLookbookLiked';
-import { useToggleLookbookLike } from '@/apis/querys/useToggleLookbookLike';
+import { useCheckLookbookLiked, useToggleLookbookLike } from '@/apis/querys';
 import { ICONS } from '@/shared/common/icons';
 
 const { Alert } = ICONS;

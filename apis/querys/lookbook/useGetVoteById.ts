@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { VoteRes, getVoteById } from '../actions/lookbook';
-import queryKeys from '../queryKeys';
+import { VoteRes, getVoteById } from '@/apis/actions/lookbook';
+import queryKeys from '@/apis/queryKeys';
 
 const PAGE_SIZE = 5;
 

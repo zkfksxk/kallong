@@ -3,8 +3,8 @@
 import { useEffect } from 'react';
 import { Text } from '@mantine/core';
 import { useInView } from 'react-intersection-observer';
-import { useGetVoteById } from '@/apis/querys/useGetVoteById';
-import Loader from '../loader';
+import { useGetVoteById } from '@/apis/querys';
+import Loader from '@/components/loader';
 import { LookbookItem } from './lookbook-item';
 
 export const LookbookList = () => {

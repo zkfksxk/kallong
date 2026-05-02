@@ -1,7 +1,10 @@
 import { Button, Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
-import { TargetLookbook, useLookbookEditor } from '@/hooks/useLookbookEditor';
 import { Outfit } from '@/shared/common/types/types';
+import {
+  TargetLookbook,
+  useLookbookEditor,
+} from '../../_hooks/useLookbookEditor';
 
 type Props = {
   targetLookbook: TargetLookbook;

@@ -1,7 +1,7 @@
 'use server';
 
 import dayjs from 'dayjs';
-import { DailyOutfitForm } from '@/shared/common/types/types';
+import { DailyOutfitFormData } from '@/app/[locale]/closet/_constants/form';
 import { Database } from '@/shared/supabase/database.types';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
 import { handleError } from '../error';
@@ -10,7 +10,9 @@ import { deleteOutfitImagesInPath } from './storage';
 
 export type OutfitRes = Database['public']['Tables']['outfit']['Row'];
 
-export const createDailyOutfit = async (outfit: Partial<DailyOutfitForm>) => {
+export const createDailyOutfit = async (
+  outfit: Partial<DailyOutfitFormData>
+) => {
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();
 

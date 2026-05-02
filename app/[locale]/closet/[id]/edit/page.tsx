@@ -8,12 +8,10 @@ import { ActionIcon, TextInput, Textarea } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { useGetDailyOutfit } from '@/apis/querys/outfit/useGetDailyOutfit';
-import { useUpdateDailyOutfit } from '@/apis/querys/outfit/useUpdateDailyOutfit';
+import { useGetDailyOutfit, useUpdateDailyOutfit } from '@/apis/querys';
 import { Header } from '@/components/layouts/header';
 import Button from '@/components/ui/button';
-import { useProfileStore } from '@/hooks/provider/profile-provider';
-import { useOutfitImageEditor } from '@/hooks/useOutfitImageEditor';
+import { useProfileStore } from '@/hooks/provider';
 import { useRouter } from '@/i18n/navigation';
 import {
   MAX_FILE_SIZE_BYTES,
@@ -22,6 +20,7 @@ import {
 import { ICONS } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 import { DailyOutfitFormData, dailOutfitSchema } from '../../_constants/form';
+import { useOutfitImageEditor } from '../../_hooks/useOutfitImageEditor';
 
 export default function EditPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);

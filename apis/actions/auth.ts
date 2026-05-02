@@ -126,7 +126,6 @@ export async function signInWithGoogle() {
     },
   });
 
-  console.log('google login', data, error);
   if (error) {
     throw error;
   }

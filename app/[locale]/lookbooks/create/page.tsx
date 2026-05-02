@@ -4,9 +4,11 @@ import { useState } from 'react';
 import { Button, Tabs, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
-import { useCreateLookbook } from '@/apis/querys/useCreateLookbook';
-import { useCreateVote } from '@/apis/querys/useCreateVote';
-import { useUpdateLookbook } from '@/apis/querys/useUpdateLookbook';
+import {
+  useCreateLookbook,
+  useCreateVote,
+  useUpdateLookbook,
+} from '@/apis/querys';
 import { Header } from '@/components/layouts/header';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
@@ -16,8 +18,7 @@ import {
 } from '@/shared/common/constants/common';
 import { ICONS } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
-import { CreateImage } from '../_components/create/create-image';
-import { LookbookForm } from '../_components/create/lookbook-form';
+import { CreateImage, LookbookForm } from '../_components';
 
 export default function CreateLookbooksPage() {
   const t = useTranslations('Lookbooks.create');
@@ -46,7 +47,6 @@ export default function CreateLookbooksPage() {
       .upload(filePath, file, { upsert: true }); // upset: true 존재x -> insert, 존재o -> update
 
     if (uploadError) {
-      console.log('storage image upload fail', uploadError);
       notifications.show({
         title: 'Image upload Failed',
         message: '이미지 업로드에 실패했습니다.',
