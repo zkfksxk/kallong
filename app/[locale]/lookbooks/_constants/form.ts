@@ -1,12 +1,23 @@
 import z from 'zod';
 
+const ALLOWED_PATTERN = /^[a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ0-9\s\-_]*$/;
+
 export const lookbookSchema = z.object({
-  // name: z
-  //   .string()
-  //   .min(1, 'validation.nameRequired')
-  //   .max(20, 'validation.nameMax'),
-  // description: z.string().max(500, 'validation.descriptionMax').optional(),
-  // selected_day: z.string().min(1, 'error.selectDate'),
+  voteName: z
+    .string()
+    .min(1, 'empty')
+    .max(10, 'maxLength')
+    .regex(ALLOWED_PATTERN, 'invalidCharacters'),
+  firstName: z
+    .string()
+    .min(1, 'empty')
+    .max(10, 'maxLength')
+    .regex(ALLOWED_PATTERN, 'invalidCharacters'),
+  secondName: z
+    .string()
+    .min(1, 'empty')
+    .max(10, 'maxLength')
+    .regex(ALLOWED_PATTERN, 'invalidCharacters'),
 });
 
 export type LookbookFormData = z.infer<typeof lookbookSchema>;

@@ -109,7 +109,7 @@ export function useLookbookEditor(
       alert('이미지 업로드 중 오류가 발생했습니다.');
     } finally {
       setIsLoading(false);
-      input.value = ''; // 입력 초기화
+      input.value = '';
     }
   };
 
@@ -126,8 +126,8 @@ export function useLookbookEditor(
       const newUrl = `data:image/png;base64,${data.image}`;
       const newFile = base64ToFile(data.image);
       setFileAndFinalUrl(newFile, newUrl);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error('Remove background faild:', error);
       alert('배경 제거 중 오류가 발생했습니다.');
     } finally {
       setIsLoading(false);

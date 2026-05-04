@@ -23,7 +23,7 @@ export type Outfit = {
   bottomUrl?: string;
   shoesUrl?: string;
   accessoryUrls?: AccessoryUrls;
-  background: string;
+  background?: string;
 };
 
 export type Lookbook = {
@@ -47,14 +47,6 @@ export type LookbookForm = {
   name: string;
   image_url?: string;
   file?: File;
-};
-
-export type DailyOutfitForm = {
-  name: string;
-  description?: string;
-  image_url?: string;
-  file?: File;
-  selected_day: string;
 };
 
 export type Profile = {

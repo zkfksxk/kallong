@@ -120,7 +120,7 @@ export default function SignInPage() {
       </form>
 
       <div className='flex flex-row justify-end items-center mt-4 gap-2 text-md text-black dark:text-white'>
-        <Link href='/auth/signup'>{t('auth.noAccount')}</Link>
+        <Link href='/auth/signup'>{t('auth.signUp')}</Link>
         <div className='w-px h-4 bg-gray-300 dark:bg-gray-600' />
         <Link href='/auth/password/reset'>{t('auth.forgotPassword')}</Link>
       </div>

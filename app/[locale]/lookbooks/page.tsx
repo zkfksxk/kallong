@@ -1,19 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { TextInput } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
+import { useForm } from 'react-hook-form';
 import Button from '@/components/ui/button';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icons';
-import { ValidationError } from '@/shared/common/types/types';
-import { validateInput } from '@/shared/common/utils';
+import { LookbookFormData, lookbookSchema } from './_constants/form';
 
 export default function LookbooksPage() {
   const t = useTranslations('Lookbooks.main');
-  const tNotification = useTranslations('Common');
   const router = useRouter();
   const {
     firstLookbook,
@@ -22,71 +19,30 @@ export default function LookbooksPage() {
     setFirstLookbookName,
     setSecondLookbookName,
   } = useLookbookStore((s) => s);
-  const [tempVoteName, setTempVoteName] = useState(firstLookbook.voteName);
-  const [firstName, setFirstName] = useState(firstLookbook.name);
-  const [secondName, setSecondName] = useState(secondLookbook.name);
-  const { Alert } = ICONS;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LookbookFormData>({
+    resolver: zodResolver(lookbookSchema),
+    defaultValues: {
+      voteName: firstLookbook.voteName, // store 값으로 초기화
+      firstName: firstLookbook.name,
+      secondName: secondLookbook.name,
+    },
+  });
 
-  const handleDecorate = () => {
-    const trimmedFirst = firstName.trim();
-    const trimmedSecond = secondName.trim();
-    const trimmedVotename = tempVoteName.trim();
-
-    const voteNameError = validateInput(trimmedVotename, 10);
-    const firstError = validateInput(trimmedFirst, 10);
-    const secondError = validateInput(trimmedSecond, 10);
-
-    const getErrorMessage = (error: ValidationError | null): string | null => {
-      if (!error) return null;
-
-      switch (error.type) {
-        case 'empty':
-          return t('empty');
-        case 'maxLength':
-          return t('maxLength', { maxLength: error.maxLength });
-        case 'invalidCharacters':
-          return t('invalidCharacters');
-      }
-    };
-
-    if (voteNameError) {
-      notifications.show({
-        title: tNotification('fail', { type: 'Lookbook ' }),
-        message: getErrorMessage(voteNameError)!,
-        icon: <Alert.Close color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
-      });
-      return;
-    }
-    if (firstError) {
-      notifications.show({
-        title: tNotification('fail', { type: 'Lookbook ' }),
-        message: getErrorMessage(firstError)!,
-        icon: <Alert.Close color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
-      });
-      return;
-    }
-    if (secondError) {
-      notifications.show({
-        title: tNotification('fail', { type: 'Lookbook ' }),
-        message: getErrorMessage(secondError)!,
-        icon: <Alert.Close color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
-      });
-      return;
-    }
-
-    setFirstLookbookName(trimmedFirst);
-    setSecondLookbookName(trimmedSecond);
-    setVoteName(trimmedVotename);
+  const onSubmit = (data: LookbookFormData) => {
+    setVoteName(data.voteName.trim());
+    setFirstLookbookName(data.firstName.trim());
+    setSecondLookbookName(data.secondName.trim());
     router.push('/lookbooks/create');
+  };
+
+  const getError = (message?: string) => {
+    if (!message) return undefined;
+    if (message === 'maxLength') return t('maxLength', { maxLength: 10 });
+    return t(message as 'empty' | 'invalidCharacters');
   };
 
   return (
@@ -94,25 +50,25 @@ export default function LookbooksPage() {
       <div className='w-full flex flex-col gap-5'>
         <TextInput
           label={t('voteNameLabel')}
-          value={tempVoteName}
-          onChange={(e) => setTempVoteName(e.currentTarget.value)}
           placeholder={t('voteNamePlaceholder')}
+          {...register('voteName')}
+          error={getError(errors.voteName?.message)}
         />
         <TextInput
           label={t('firstLookLabel')}
-          value={firstName}
-          onChange={(e) => setFirstName(e.currentTarget.value)}
           placeholder={t('firstLookPlaceholder')}
+          {...register('firstName')}
+          error={getError(errors.firstName?.message)}
         />
         <TextInput
           label={t('secondLookLabel')}
-          value={secondName}
-          onChange={(e) => setSecondName(e.currentTarget.value)}
           placeholder={t('secondLookPlaceholder')}
+          {...register('secondName')}
+          error={getError(errors.secondName?.message)}
         />
       </div>
 
-      <Button onClick={handleDecorate} fullWidth>
+      <Button onClick={handleSubmit(onSubmit)} fullWidth>
         {t('decorateButton')}
       </Button>
     </main>
