@@ -38,11 +38,21 @@ export default function DetailPage() {
           <Image src={data?.image_url} alt='daily-outfit' fill />
         )}
       </div>
-      <div className='bg-gray-100 dark:bg-gray-700 mt-10 p-4 rounded-md'>
-        <Text>{data.name}</Text>
+      <div className='flex flex-col mt-10'>
+        <Text size='xl' fw={700}>
+          제목
+        </Text>
+        <div className='bg-gray-100 dark:bg-gray-700 p-4 rounded-md'>
+          <Text>{data.name}</Text>
+        </div>
       </div>
-      <div className='bg-gray-100 dark:bg-gray-700 min-h-50 mt-10 p-4 rounded-md'>
-        <Text>{data.description}</Text>
+      <div className='flex flex-col mt-10'>
+        <Text size='xl' fw={700}>
+          메모
+        </Text>
+        <div className='bg-gray-100 dark:bg-gray-700 p-4 min-h-[150px] rounded-md'>
+          <Text>{data.description}</Text>
+        </div>
       </div>
     </div>
   );

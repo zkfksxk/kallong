@@ -8,17 +8,13 @@ import { useForm } from 'react-hook-form';
 import { IoCloseCircle as Close } from 'react-icons/io5';
 import { CustomAuthError } from '@/apis/error';
 import { useSignInWithPassword } from '@/apis/querys/auth/useSignIn';
-import { useSignInWithGoogle } from '@/apis/querys/auth/useSignInGoogle';
 import Button from '@/components/ui/button';
-import { useDetectWebView } from '@/hooks/useDetectWebView';
 import { Link, useRouter } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icons';
 import { SignInFormData, signInSchema } from '../_constants/form';
 
 export default function SignInPage() {
   const t = useTranslations('Setting');
   const router = useRouter();
-  const { isWebView } = useDetectWebView();
   const form = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
     defaultValues: { email: '', password: '' },
@@ -31,10 +27,10 @@ export default function SignInPage() {
   } = form;
   const { mutate: signIn, isPending: signInIsPending } =
     useSignInWithPassword();
-  const { mutate: signInWithGoogle, isPending: signInWithGoogleIsPending } =
-    useSignInWithGoogle();
+  // const { mutate: signInWithGoogle, isPending: signInWithGoogleIsPending } =
+  //   useSignInWithGoogle();
 
-  const { Google } = ICONS;
+  // const { Google } = ICONS;
 
   const onSubmit = (data: SignInFormData) => {
     signIn(data, {
@@ -57,20 +53,20 @@ export default function SignInPage() {
     });
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      signInWithGoogle();
-    } catch {
-      notifications.show({
-        title: t('auth.signInFail'),
-        message: t('auth.errors.googleSignInFailed'),
-        icon: <Close color='red' size={28} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
-      });
-    }
-  };
+  // const handleGoogleLogin = async () => {
+  //   try {
+  //     signInWithGoogle();
+  //   } catch {
+  //     notifications.show({
+  //       title: t('auth.signInFail'),
+  //       message: t('auth.errors.googleSignInFailed'),
+  //       icon: <Close color='red' size={28} />,
+  //       withCloseButton: false,
+  //       loading: false,
+  //       color: 'transperant',
+  //     });
+  //   }
+  // };
 
   return (
     <div className='bg-white dark:bg-black w-full flex flex-col'>
@@ -124,7 +120,7 @@ export default function SignInPage() {
         <div className='w-px h-4 bg-gray-300 dark:bg-gray-600' />
         <Link href='/auth/password/reset'>{t('auth.forgotPassword')}</Link>
       </div>
-      {!isWebView && (
+      {/* {!isWebView && (
         <div className='flex flex-col w-full mt-20'>
           <Button
             icon={<Google size={18} />}
@@ -136,7 +132,7 @@ export default function SignInPage() {
             Continue with Google
           </Button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

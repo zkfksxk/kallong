@@ -33,7 +33,7 @@ const variantStyles = {
     disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed
   `,
   ghost: `
-    text-black dark:text-white p-0 
+    text-black dark:text-white p-0 disabled:cursor-not-allowed
   `,
 };
 
@@ -51,7 +51,7 @@ const Button = ({
     <button
       className={`
         ${fullWidth ? 'w-full' : 'w-fit'}
-        flex items-center justify-center gap-2 font-bold! 
+        flex items-center justify-center gap-2 font-bold! text-[16px]
         cursor-pointer transition-colors duration-300 font-pretendard
 		    disabled:cursor-not-allowed
 		${variantStyles[variant]}
