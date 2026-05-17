@@ -19,9 +19,5 @@ export const useRemoveBackground = () => {
   return useMutation({
     mutationKey: queryKeys.removeBackground.all,
     mutationFn: removeBackground,
-    onError: (error) => {
-      console.error('배경 제거 실패:', error);
-      alert('배경 제거 중 오류가 발생했습니다.');
-    },
   });
 };

@@ -14,7 +14,7 @@ export default function SettingPage() {
       <Divider size='xs' className='mb-8' />
       <div className='flex flex-row justify-between'>
         <Text size='md' fw={700}>
-          앱 버전
+          {t('version')}
         </Text>
         <Text size='md' fw={700}>
           1.0.4

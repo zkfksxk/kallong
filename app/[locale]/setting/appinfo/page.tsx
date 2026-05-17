@@ -37,12 +37,12 @@ export default function AppInfoPage() {
         </Link>
         <Link href='https://busy-screw-956.notion.site/Kallong-2ced82040c488001b27bdce25e66fae7'>
           <Text size='lg' fw={700}>
-            이용약관
+            {t('terms')}
           </Text>
         </Link>
         <Link href='https://busy-screw-956.notion.site/Kallong-2ced82040c488099a766fb47ab9ae793?pvs=74'>
           <Text size='lg' fw={700}>
-            개인정보 처리방침
+            {t('privacy')}
           </Text>
         </Link>
         {/* <Text

@@ -66,7 +66,7 @@ export default function EditPage() {
       });
       setImage(undefined, dailyoutfit.image_url ?? undefined);
     }
-  }, [dailyoutfit]);
+  }, [dailyoutfit, reset, setImage]);
 
   const uploadFile = async (outfitId: string, file: File) => {
     if (!profile) return;

@@ -33,6 +33,7 @@
     "system": "System",
     "userinfo": "User Settings",
     "daysTogether": "Together for {daysSince} days",
+    "version": "App version",
     "appinfo": {
       "introduce": "About Kallong",
       "title": "Thank you for visiting <bold>kallong</bold>!",
@@ -43,6 +44,8 @@
         "anonymousDelete": "• Data from non-logged-in users is periodically deleted, so please save the voting results in advance.",
         "feedback": "• We welcome feedback and will reflect it as much as possible."
       },
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
       "formbutton": "Submit Feedback"
     },
     "auth": {

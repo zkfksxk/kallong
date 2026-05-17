@@ -6,12 +6,12 @@
     "goHome": "홈으로",
     "fail": "{type} 실패",
     "succeed": "성공",
-    "loadingData": "데이터를 불러오는 중입니다."
+    "loadingData": "데이터를 불러오는 중입니다"
   },
   "Tab": {
     "home": "홈",
     "my": "마이",
-    "notFound": "찾을 수 없는 페이지입니다.",
+    "notFound": "찾을 수 없는 페이지입니다",
     "goHome": "홈으로"
   },
   "Home": {
@@ -33,6 +33,7 @@
     "system": "시스템 설정",
     "userinfo": "사용자 설정",
     "daysTogether": "함께한 지 {daysSince}일째",
+    "version": "앱 버전",
     "appinfo": {
       "introduce": "칼롱 소개",
       "title": " <bold>칼롱</bold>을 방문해주셔서 진심으로 감사합니다!",
@@ -43,7 +44,9 @@
         "anonymousDelete": "• 로그인하지 않은 사용자의 데이터는 주기적으로 삭제되니 투표 결과는 미리 저장하세요.",
         "feedback": "• 피드백을 적극 환영해요. 최대한 반영하겠습니다."
       },
-      "formbutton": "의견 제안하기"
+      "formbutton": "의견 제안하기",
+      "terms": "이용약관",
+      "privacy": "개인정보 처리방침"
     },
     "auth": {
       "signUp": "회원가입",

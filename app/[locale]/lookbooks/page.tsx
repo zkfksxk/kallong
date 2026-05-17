@@ -26,7 +26,7 @@ export default function LookbooksPage() {
   } = useForm<LookbookFormData>({
     resolver: zodResolver(lookbookSchema),
     defaultValues: {
-      voteName: firstLookbook.voteName, // store 값으로 초기화
+      voteName: firstLookbook.voteName,
       firstName: firstLookbook.name,
       secondName: secondLookbook.name,
     },
