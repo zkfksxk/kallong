@@ -2,10 +2,8 @@ import { useRef, useState } from 'react';
 import { notifications } from '@mantine/notifications';
 import { domToPng } from 'modern-screenshot';
 import { MESSAGE_TYPE } from '@/shared/common/constants';
-import { ICONS } from '@/shared/common/icons';
+import { CheckIcon, CloseIcon } from '@/shared/common/icons';
 import { useDetectWebView } from './useDetectWebView';
-
-const { Check, Alert } = ICONS;
 
 export function useShareActions() {
   const { isWebView } = useDetectWebView();
@@ -40,14 +38,14 @@ export function useShareActions() {
       notifications.show({
         title: 'Successfully Captured',
         message: '이미지 캡처가 완료되었습니다',
-        icon: <Check color='blue' size={24} />,
+        icon: <CheckIcon color='blue' size={24} />,
         loading: false,
       });
     } catch {
       notifications.show({
         title: 'Capture Failed',
         message: '캡쳐 중 오류가 발생했습니다.',
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         loading: false,
       });
     }
@@ -60,14 +58,14 @@ export function useShareActions() {
       notifications.show({
         title: 'Successfully Copied',
         message: '링크가 복사되었습니다',
-        icon: <Check color='blue' size={24} />,
+        icon: <CheckIcon color='blue' size={24} />,
         loading: false,
       });
     } catch {
       notifications.show({
         title: 'Copy Failed',
         message: '복사 중 오류가 발생했습니다.',
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         loading: false,
       });
     }

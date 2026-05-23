@@ -2,8 +2,7 @@
 
 import { Text, useMantineTheme } from '@mantine/core';
 import { useLocale, useTranslations } from 'next-intl';
-import { Header } from '@/components/layouts/header';
-import Button from '@/components/ui/button';
+import { Button, Header } from '@/components';
 import { Link } from '@/i18n/navigation';
 import { hanna } from '@/shared/theme/theme';
 

@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { Text } from '@mantine/core';
 import { useInView } from 'react-intersection-observer';
 import { useGetVoteById } from '@/apis/querys';
-import Loader from '@/components/loader';
+import { Loader } from '@/components';
 import { LookbookItem } from './lookbook-item';
 
 export const LookbookList = () => {

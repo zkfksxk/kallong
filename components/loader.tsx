@@ -2,7 +2,7 @@ import { Text } from '@mantine/core';
 import { LoaderCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-export default function Loader() {
+export function Loader() {
   const t = useTranslations('Common');
 
   return (

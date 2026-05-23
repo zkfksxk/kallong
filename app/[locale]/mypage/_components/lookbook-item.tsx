@@ -2,7 +2,7 @@ import { ActionIcon, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useDeleteLookbookById } from '@/apis/querys';
 import { Link } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icons';
+import { CloseIcon, TrashIcon } from '@/shared/common/icons';
 
 type Props = {
   vote_name: string;
@@ -15,7 +15,6 @@ export const LookbookItem = ({
   lookbook_id_a,
   lookbook_id_b,
 }: Props) => {
-  const { Trash, Alert } = ICONS;
   const { mutateAsync: deleteLookbookById } = useDeleteLookbookById();
 
   const handleDelete = async (e: React.MouseEvent) => {
@@ -31,7 +30,7 @@ export const LookbookItem = ({
       notifications.show({
         title: 'Lookbook Failed',
         message: '룩북 삭제 중 에러가 발생했습니다.',
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         withCloseButton: false,
         loading: false,
         color: 'transperant',
@@ -44,7 +43,7 @@ export const LookbookItem = ({
       <div className='flex flex-row border px-5 py-8 border-[#A41613] justify-between rounded-sm'>
         <Text size='md'>{vote_name}</Text>
         <ActionIcon variant='transparent' onClick={handleDelete}>
-          <Trash className='text-black dark:text-white' size={24} />
+          <TrashIcon className='text-black dark:text-white' size={24} />
         </ActionIcon>
       </div>
     </Link>

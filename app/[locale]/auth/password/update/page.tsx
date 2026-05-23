@@ -5,10 +5,10 @@ import { Text, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { IoCloseCircle as Close } from 'react-icons/io5';
 import { useUpdatePassword } from '@/apis/querys/auth/useUpdatePassword';
-import Button from '@/components/ui/button';
+import { Button } from '@/components';
 import { useRouter } from '@/i18n/navigation';
+import { CloseIcon } from '@/shared/common/icons';
 import {
   UpdatePasswordFormData,
   updatePasswordSchema,
@@ -39,7 +39,7 @@ export default function UpdatePasswordPage() {
         notifications.show({
           title: t('auth.passwordUpdate'),
           message: t('auth.passwordUpdateFail'),
-          icon: <Close color='red' size={24} />,
+          icon: <CloseIcon color='red' size={24} />,
           withCloseButton: false,
           loading: false,
           color: 'transperant',

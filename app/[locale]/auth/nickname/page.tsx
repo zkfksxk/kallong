@@ -6,10 +6,10 @@ import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useUpdateNickname } from '@/apis/querys/auth/useUpdateNickname';
-import Button from '@/components/ui/button';
+import { Button } from '@/components';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
 import { useRouter } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icons';
+import { CheckIcon, CloseIcon } from '@/shared/common/icons';
 import { NicknameFormData, nicknameSchema } from '../_constants/form';
 
 export default function NicknameChangePage() {
@@ -29,7 +29,6 @@ export default function NicknameChangePage() {
     mode: 'onChange',
   });
   const { mutate: changeNickname } = useUpdateNickname();
-  const { Alert } = ICONS;
 
   const onSubmit = (data: { nickname: string }) => {
     changeNickname(data.nickname, {
@@ -41,7 +40,7 @@ export default function NicknameChangePage() {
         notifications.show({
           title: t('auth.nicknameChange'),
           message: t('auth.nicknameChangeSucceed'),
-          icon: <Alert.Check color='blue' size={24} />,
+          icon: <CheckIcon color='blue' size={24} />,
           withCloseButton: false,
           loading: false,
           color: 'transperant',
@@ -52,7 +51,7 @@ export default function NicknameChangePage() {
         notifications.show({
           title: t('auth.nicknameChange'),
           message: t('auth.nicknameChangeFail'),
-          icon: <Alert.Close color='red' size={24} />,
+          icon: <CloseIcon color='red' size={24} />,
           withCloseButton: false,
           loading: false,
           color: 'transperant',

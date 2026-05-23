@@ -8,12 +8,9 @@ import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { useDeleteDailyOutfit } from '@/apis/querys/outfit/useDeleteDailyOutfit';
 import { useGetDailyOutfitInMonth } from '@/apis/querys/outfit/useGetDailyOutfitInMonth';
-import { Header } from '@/components/layouts/header';
-import Button from '@/components/ui/button';
+import { Button, Header } from '@/components';
 import { Link, useRouter } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icons';
-
-const { Trash, Alert } = ICONS;
+import { CloseIcon, TrashIcon } from '@/shared/common/icons';
 
 export default function ClosetPage() {
   const router = useRouter();
@@ -38,7 +35,7 @@ export default function ClosetPage() {
       notifications.show({
         title: 'Outfit Failed',
         message: t('error.selectDate'),
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         withCloseButton: false,
         loading: false,
         color: 'transperant',
@@ -58,7 +55,7 @@ export default function ClosetPage() {
       notifications.show({
         title: 'Outfit Failed',
         message: t('error.deleteFailed'),
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         withCloseButton: false,
         loading: false,
         color: 'transperant',
@@ -171,7 +168,7 @@ export default function ClosetPage() {
                   handleDelete(e);
                 }}
               >
-                <Trash color='black' size={24} />
+                <TrashIcon color='black' size={24} />
               </ActionIcon>
             </div>
           </Link>

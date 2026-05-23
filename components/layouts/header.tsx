@@ -2,10 +2,9 @@
 
 import { ReactNode } from 'react';
 import { Text } from '@mantine/core';
-import { useRouter } from '@/i18n/navigation';
-import { Link } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icons';
-import Button from '../ui/button';
+import { Link, useRouter } from '@/i18n/navigation';
+import { BackIcon, SettingIcon } from '@/shared/common/icons';
+import { Button } from '../ui';
 
 interface Props {
   isSettingShow?: boolean;
@@ -23,7 +22,6 @@ export const Header = ({
   title,
 }: Props) => {
   const router = useRouter();
-  const { Back, Setting } = ICONS;
 
   const handleBack = () => {
     router.back();
@@ -48,7 +46,7 @@ export const Header = ({
     >
       {isBackShow && (
         <Button variant='ghost' onClick={handleBack}>
-          <Back className='text-black dark:text-white' size={24} />
+          <BackIcon className='text-black dark:text-white' size={24} />
         </Button>
       )}
 
@@ -57,7 +55,7 @@ export const Header = ({
 
       {isSettingShow && (
         <Link href='/setting'>
-          <Setting className='text-black dark:text-white' size={24} />
+          <SettingIcon className='text-black dark:text-white' size={24} />
         </Link>
       )}
     </header>

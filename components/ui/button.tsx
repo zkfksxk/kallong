@@ -33,11 +33,11 @@ const variantStyles = {
     disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed
   `,
   ghost: `
-    text-black dark:text-white p-0 disabled:cursor-not-allowed
+    text-black dark:text-white p-0 
   `,
 };
 
-const Button = ({
+export const Button = ({
   children,
   icon,
   variant = 'filled',
@@ -51,7 +51,7 @@ const Button = ({
     <button
       className={`
         ${fullWidth ? 'w-full' : 'w-fit'}
-        flex items-center justify-center gap-2 font-bold! text-[16px]
+        flex items-center justify-center gap-2 font-bold! 
         cursor-pointer transition-colors duration-300 font-pretendard
 		    disabled:cursor-not-allowed
 		${variantStyles[variant]}
@@ -71,5 +71,3 @@ const Button = ({
     </button>
   );
 };
-
-export default Button;

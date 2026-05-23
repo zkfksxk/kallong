@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Tabs, Text } from '@mantine/core';
+import { Button, Tabs, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import {
@@ -10,14 +10,13 @@ import {
   useUpdateLookbook,
 } from '@/apis/querys';
 import { Header } from '@/components/layouts/header';
-import Button from '@/components/ui/button';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
 import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
 } from '@/shared/common/constants/common';
-import { ICONS } from '@/shared/common/icons';
+import { CloseIcon } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 import { CreateImage, LookbookForm } from '../_components';
 
@@ -30,8 +29,6 @@ export default function CreateLookbooksPage() {
   const { mutateAsync: createMutate } = useCreateLookbook();
   const { mutateAsync: updateMutate } = useUpdateLookbook();
   const { mutateAsync: createVoteMutate } = useCreateVote();
-
-  const { Alert } = ICONS;
 
   const isReadyToSubmit =
     firstLookbook.data.finalUrl && secondLookbook.data.finalUrl;
@@ -51,7 +48,7 @@ export default function CreateLookbooksPage() {
       notifications.show({
         title: 'Image upload Failed',
         message: '이미지 업로드에 실패했습니다.',
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         withCloseButton: false,
         loading: false,
         color: 'transperant',
@@ -85,7 +82,7 @@ export default function CreateLookbooksPage() {
       notifications.show({
         title: 'Image upload Failed',
         message: `파일 크기가 ${MAX_FILE_SIZE_MB}MB를 초과해 업로드할 수 없습니다.`,
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         withCloseButton: false,
         loading: false,
         color: 'transperant',
@@ -130,7 +127,7 @@ export default function CreateLookbooksPage() {
       notifications.show({
         title: 'Lookbook Failed',
         message: '룩북 생성 중 에러가 발생했습니다.',
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         withCloseButton: false,
         loading: false,
         color: 'transperant',
@@ -146,9 +143,12 @@ export default function CreateLookbooksPage() {
         isBackShow
         rightComponent={
           <Button
-            variant='ghost'
-            disabled={!isReadyToSubmit}
             onClick={handleSubmit}
+            variant='transparent'
+            color='red.5'
+            size='md'
+            radius='md'
+            p={0}
           >
             저장
           </Button>
@@ -175,10 +175,11 @@ export default function CreateLookbooksPage() {
         </Tabs>
       </div>
 
-      <div className='flex flex-col justify-center items-center mt-15 gap-1'>
+      <div className='flex flex-col itme-center mt-15 gap-0.5'>
         <Text size='sm'>{t('bgRemoveQuestion')}</Text>
         <Button
-          variant='ghost'
+          variant='transparent'
+          size='sm'
           disabled={isSubmitting}
           onClick={() => router.push('/lookbooks/editor')}
         >

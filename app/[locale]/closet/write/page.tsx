@@ -10,15 +10,14 @@ import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useCreatDailyOutfit, useUpdateDailyOutfitImage } from '@/apis/querys';
-import { Header } from '@/components/layouts/header';
-import Button from '@/components/ui/button';
+import { Button, Header } from '@/components';
 import { useProfileStore } from '@/hooks/provider';
 import { useRouter } from '@/i18n/navigation';
 import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
 } from '@/shared/common/constants/common';
-import { ICONS } from '@/shared/common/icons';
+import { AddIcon, CloseIcon, DeleteIcon } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 import { DailyOutfitFormData, dailOutfitSchema } from '../_constants/form';
 import { useOutfitImageEditor } from '../_hooks/useOutfitImageEditor';
@@ -54,7 +53,6 @@ export default function WritePage() {
   const { profile } = useProfileStore((s) => s);
   const { mutateAsync: createMutate } = useCreatDailyOutfit();
   const { mutateAsync: updateMutate } = useUpdateDailyOutfitImage();
-  const { Add, Delete, Alert } = ICONS;
 
   const uploadFile = async (outfitId: string, file: File) => {
     if (!profile) return;
@@ -73,7 +71,7 @@ export default function WritePage() {
       notifications.show({
         title: 'Image upload Failed',
         message: t('error.imageUploadFailed'),
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         withCloseButton: false,
         loading: false,
         color: 'transperant',
@@ -97,7 +95,7 @@ export default function WritePage() {
       notifications.show({
         title: 'Closet Failed',
         message: t('error.imageRequired'),
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         withCloseButton: false,
         loading: false,
         color: 'transparent',
@@ -109,7 +107,7 @@ export default function WritePage() {
       notifications.show({
         title: 'Image upload Failed',
         message: t('error.fileTooLarge', { maxMb: MAX_FILE_SIZE_MB }),
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         withCloseButton: false,
         loading: false,
         color: 'transperant',
@@ -138,7 +136,7 @@ export default function WritePage() {
       notifications.show({
         title: 'Closet Failed',
         message: t('error.createFailed'),
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         withCloseButton: false,
         loading: false,
         color: 'transperant',
@@ -182,7 +180,7 @@ export default function WritePage() {
             title='추가'
             onClick={handleOpenImagePicker}
           >
-            <Add size={32} className='text-black dark:text-white' />
+            <AddIcon size={32} className='text-black dark:text-white' />
           </ActionIcon>
           <ActionIcon
             variant='outline'
@@ -192,7 +190,7 @@ export default function WritePage() {
             disabled={!url}
             onClick={handleRemove}
           >
-            <Delete size={32} className='text-black dark:text-white' />
+            <DeleteIcon size={32} className='text-black dark:text-white' />
           </ActionIcon>
         </div>
       </div>

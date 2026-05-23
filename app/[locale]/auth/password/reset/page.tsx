@@ -7,8 +7,8 @@ import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useResetPassword } from '@/apis/querys/auth/useResetPassword';
-import Button from '@/components/ui/button';
-import { ICONS } from '@/shared/common/icons';
+import { Button } from '@/components';
+import { CheckIcon, CloseIcon, MailIcon } from '@/shared/common/icons';
 import {
   ResetPasswordFormData,
   resetPasswordSchema,
@@ -28,7 +28,6 @@ export default function ResetPasswordPage() {
     mode: 'onChange',
   });
   const { mutate: resetPassword } = useResetPassword(); //todo: 로그인 이후면 가입한 메일과 동일한지 확인
-  const { Alert, Mail } = ICONS;
 
   const onSubmit = (data: { email: string }) => {
     resetPassword(data.email, {
@@ -38,7 +37,7 @@ export default function ResetPasswordPage() {
         notifications.show({
           title: t('auth.resetPassword'),
           message: t('auth.resetPasswordSucceed'),
-          icon: <Alert.Check color='blue' size={24} />,
+          icon: <CheckIcon color='blue' size={24} />,
           withCloseButton: false,
           loading: false,
           color: 'transperant',
@@ -48,7 +47,7 @@ export default function ResetPasswordPage() {
         notifications.show({
           title: t('auth.resetPassword'),
           message: t('auth.resetPasswordFail'),
-          icon: <Alert.Close color='red' size={24} />,
+          icon: <CloseIcon color='red' size={24} />,
           withCloseButton: false,
           loading: false,
           color: 'transperant',
@@ -63,7 +62,7 @@ export default function ResetPasswordPage() {
         bg='red.1'
         className='w-full flex flex-col items-center gap-3 p-5 rounded-sm'
       >
-        <Mail size={30} />
+        <MailIcon size={30} />
         <Text ta='center' c='black' fw={700}>
           {t('auth.checkEmail')}
         </Text>

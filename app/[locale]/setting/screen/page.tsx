@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { SettingItem } from '@/components/setting/setting-item';
+import { SettingItem } from '../_components';
 
 export default function ScreenPage() {
   const t = useTranslations('Setting');

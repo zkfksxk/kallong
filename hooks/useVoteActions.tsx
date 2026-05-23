@@ -1,8 +1,6 @@
 import { notifications } from '@mantine/notifications';
 import { useCheckLookbookLiked, useToggleLookbookLike } from '@/apis/querys';
-import { ICONS } from '@/shared/common/icons';
-
-const { Alert } = ICONS;
+import { CloseIcon } from '@/shared/common/icons';
 
 export function useVoteActions(
   firstId: string,
@@ -18,7 +16,7 @@ export function useVoteActions(
       notifications.show({
         title: 'Vote Failed',
         message: '투표 시간이 종료되었습니다.',
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         loading: false,
       });
       return;
@@ -29,7 +27,7 @@ export function useVoteActions(
         notifications.show({
           title: 'Like Failed',
           message: '좋아요 처리에 실패했습니다. 다시 시도해 주세요.',
-          icon: <Alert.Close color='red' size={24} />,
+          icon: <CloseIcon color='red' size={24} />,
           loading: false,
         });
       },

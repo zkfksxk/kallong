@@ -2,9 +2,7 @@
 
 import { ActionIcon } from '@mantine/core';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
-import { ICONS } from '@/shared/common/icons';
-
-const { Grid, Copy, Capture } = ICONS;
+import { CaptureIcon, CopyIcon, GridIcon } from '@/shared/common/icons';
 
 interface ShareActionButtonsProps {
   visible: boolean;
@@ -39,7 +37,7 @@ export function ShareActionButtons({
               'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
           }}
         >
-          <Grid size={32} />
+          <GridIcon size={32} />
         </ActionIcon>
         {visible && (
           <>
@@ -55,7 +53,7 @@ export function ShareActionButtons({
                   'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
               }}
             >
-              <Copy size={32} />
+              <CopyIcon size={32} />
             </ActionIcon>
             <ActionIcon
               variant='filled'
@@ -69,7 +67,7 @@ export function ShareActionButtons({
                   'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
               }}
             >
-              <Capture size={32} />
+              <CaptureIcon size={32} />
             </ActionIcon>
           </>
         )}

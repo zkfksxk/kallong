@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { TextInput } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import Button from '@/components/ui/button';
+import { Button } from '@/components';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
 import { LookbookFormData, lookbookSchema } from './_constants/form';

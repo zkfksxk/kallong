@@ -8,9 +8,9 @@ import { useForm } from 'react-hook-form';
 import { IoCloseCircle as Close } from 'react-icons/io5';
 import { CustomAuthError } from '@/apis/error';
 import { useSignUp } from '@/apis/querys/auth/useSignUp';
-import Button from '@/components/ui/button';
+import { Button } from '@/components';
 import { Link, useRouter } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icons';
+import { ForwardIcon } from '@/shared/common/icons';
 import { SignUpFormData, signUpSchema } from '../_constants/form';
 
 export default function SignUpPage() {
@@ -35,8 +35,6 @@ export default function SignUpPage() {
     formState: { errors },
   } = methods;
   const { mutate: signUp, isPending } = useSignUp();
-
-  const { Forward } = ICONS;
 
   const onSubmit = (data: SignUpFormData) => {
     if (!data.termsOfService || !data.privacyPolicy) {
@@ -154,7 +152,7 @@ export default function SignUpPage() {
               <Text span size='sm'>
                 {t('auth.view')}
               </Text>
-              <Forward className='text-black dark:text-white' size={24} />
+              <ForwardIcon className='text-black dark:text-white' size={24} />
             </Link>
           </div>
           <div className='flex flex-row flex-1 justify-between'>
@@ -175,7 +173,7 @@ export default function SignUpPage() {
               <Text span size='sm'>
                 {t('auth.view')}
               </Text>
-              <Forward className='text-black dark:text-white' size={24} />
+              <ForwardIcon className='text-black dark:text-white' size={24} />
             </Link>
           </div>
         </div>

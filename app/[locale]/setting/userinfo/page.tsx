@@ -3,12 +3,9 @@
 import { useDisclosure } from '@mantine/hooks';
 import { useTranslations } from 'next-intl';
 import { useDeleteAccount } from '@/apis/querys/auth/useDeleteAccount';
-import { Profile } from '@/components/setting/profile';
-import { ProfileSkeleton } from '@/components/setting/profile-skeleton';
-import { SettingItem } from '@/components/setting/setting-item';
-import Button from '@/components/ui/button';
-import { CustomModal } from '@/components/ui/custom-modal';
+import { Button, CustomModal } from '@/components';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
+import { Profile, ProfileSkeleton, SettingItem } from '../_components';
 
 export default function UserInfoPage() {
   const [opened, { open, close }] = useDisclosure(false);
