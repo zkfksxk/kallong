@@ -28,3 +28,5 @@ export { IoIosMail as MailIcon } from 'react-icons/io';
 export { BsFillArrowRightSquareFill as RightSquareIcon } from 'react-icons/bs';
 
 export { FcGoogle as GoogleIcon } from 'react-icons/fc';
+
+export { LuImagePlus as ImageAddIcon } from 'react-icons/lu';

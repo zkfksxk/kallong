@@ -10,7 +10,7 @@ import { useRouter } from '@/i18n/navigation';
 import { LookbookFormData, lookbookSchema } from './_constants/form';
 
 export default function LookbooksPage() {
-  const t = useTranslations('Lookbooks.main');
+  const t = useTranslations('Lookbook.main');
   const router = useRouter();
   const {
     firstLookbook,

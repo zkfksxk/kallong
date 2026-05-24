@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, Tabs, Text } from '@mantine/core';
+import { Tabs, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import {
@@ -9,6 +9,7 @@ import {
   useCreateVote,
   useUpdateLookbook,
 } from '@/apis/querys';
+import { Button } from '@/components';
 import { Header } from '@/components/layouts/header';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
@@ -21,7 +22,7 @@ import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 import { CreateImage, LookbookForm } from '../_components';
 
 export default function CreateLookbooksPage() {
-  const t = useTranslations('Lookbooks.create');
+  const t = useTranslations('Lookbook.create');
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState<string | null>('first');
@@ -143,12 +144,9 @@ export default function CreateLookbooksPage() {
         isBackShow
         rightComponent={
           <Button
+            variant='ghost'
             onClick={handleSubmit}
-            variant='transparent'
-            color='red.5'
-            size='md'
-            radius='md'
-            p={0}
+            disabled={isSubmitting}
           >
             저장
           </Button>
@@ -175,11 +173,10 @@ export default function CreateLookbooksPage() {
         </Tabs>
       </div>
 
-      <div className='flex flex-col itme-center mt-15 gap-0.5'>
+      <div className='flex flex-col items-center mt-15 gap-0.5'>
         <Text size='sm'>{t('bgRemoveQuestion')}</Text>
         <Button
-          variant='transparent'
-          size='sm'
+          variant='ghost'
           disabled={isSubmitting}
           onClick={() => router.push('/lookbooks/editor')}
         >

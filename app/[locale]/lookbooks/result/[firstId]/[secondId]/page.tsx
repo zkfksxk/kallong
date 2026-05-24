@@ -12,7 +12,7 @@ import { ResultImage } from '../../../_components/result/result-image';
 import { VoteButton } from '../../../_components/result/vote-button';
 
 export default function ResultPage() {
-  const t = useTranslations('Lookbooks.result');
+  const t = useTranslations('Lookbook.result');
   const { firstId, secondId } = useParams<{
     firstId: string;
     secondId: string;

@@ -18,7 +18,7 @@ import {
 } from '@/shared/common/constants/common';
 import { AddIcon, CloseIcon, DeleteIcon } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
-import { DailyOutfitFormData, dailOutfitSchema } from '../../_constants/form';
+import { DailyOutfitFormData, dailyOutfitSchema } from '../../_constants/form';
 import { useOutfitImageEditor } from '../../_hooks/useOutfitImageEditor';
 
 export default function EditPage() {
@@ -27,7 +27,7 @@ export default function EditPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const methods = useForm<DailyOutfitFormData>({
-    resolver: zodResolver(dailOutfitSchema),
+    resolver: zodResolver(dailyOutfitSchema),
     defaultValues: {
       name: '',
       description: '',

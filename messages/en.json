@@ -131,7 +131,7 @@
       "createFailed": "An error occurred while creating the record."
     }
   },
-  "Lookbooks": {
+  "Lookbook": {
     "main": {
       "voteNameLabel": "Vote Name",
       "voteNamePlaceholder": "Today's Outfit",

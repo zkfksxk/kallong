@@ -131,7 +131,7 @@
       "createFailed": "생성 중 오류가 발생했습니다."
     }
   },
-  "Lookbooks": {
+  "Lookbook": {
     "main": {
       "voteNameLabel": "투표 이름",
       "voteNamePlaceholder": "오늘의 출근룩",

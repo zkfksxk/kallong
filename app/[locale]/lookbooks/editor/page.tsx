@@ -9,7 +9,7 @@ import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { CreateImage } from '../_components/create/create-image';
 
 export default function EditLookbookPage() {
-  const t = useTranslations('Lookbooks.editor');
+  const t = useTranslations('Lookbook.editor');
   const { firstLookbook, secondLookbook } = useLookbookStore((s) => s);
   const [activeTab, setActiveTab] = useState<string | null>('first');
 

@@ -1,6 +1,6 @@
 import z from 'zod';
 
-export const dailOutfitSchema = z.object({
+export const dailyOutfitSchema = z.object({
   name: z
     .string()
     .min(1, 'validation.nameRequired')
@@ -9,4 +9,4 @@ export const dailOutfitSchema = z.object({
   selected_day: z.string().min(1, 'error.selectDate'),
 });
 
-export type DailyOutfitFormData = z.infer<typeof dailOutfitSchema>;
+export type DailyOutfitFormData = z.infer<typeof dailyOutfitSchema>;

@@ -17,7 +17,7 @@ const variantStyles = {
   filled: `
     text-white
     bg-red-500 hover:bg-red-700 active:bg-red-900
-    rounded-lg py-[16px]
+    rounded-lg py-[16px] px-[12px]
     disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed
   `,
   secondary: `
