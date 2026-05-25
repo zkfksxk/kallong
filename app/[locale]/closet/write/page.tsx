@@ -5,19 +5,21 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TextInput, Textarea } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { useCreateDailyOutfit, useUpdateDailyOutfitImage } from '@/apis/querys';
-import { Button, Header } from '@/components';
+import {
+  useCreateDailyOutfit,
+  useUpdateDailyOutfitImage,
+} from '@/apis/querys/outfit';
+import { Button, Header, showNotification } from '@/components';
 import { useProfileStore } from '@/hooks/provider';
 import { useRouter } from '@/i18n/navigation';
 import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
 } from '@/shared/common/constants/common';
-import { CloseIcon, DeleteIcon, ImageAddIcon } from '@/shared/common/icons';
+import { DeleteIcon, ImageAddIcon } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 import { DailyOutfitFormData, dailyOutfitSchema } from '../_constants/form';
 import { useOutfitImageEditor } from '../_hooks/useOutfitImageEditor';
@@ -68,13 +70,10 @@ export default function WritePage() {
       .upload(filePath, file, { upsert: true }); // upset: true 존재x -> insert, 존재o -> update
 
     if (uploadError) {
-      notifications.show({
+      showNotification({
         title: 'Image upload Failed',
         message: t('error.imageUploadFailed'),
-        icon: <CloseIcon color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+        type: 'fail',
       });
       return;
     }
@@ -84,7 +83,6 @@ export default function WritePage() {
     } = supabase.storage
       .from(process.env.NEXT_PUBLIC_OUTFIT_STORAGE_BUCKET!)
       .getPublicUrl(uploadData.path);
-
     return publicUrl;
   };
 
@@ -92,25 +90,19 @@ export default function WritePage() {
     if (isSubmitting) return;
 
     if (!file) {
-      notifications.show({
+      showNotification({
         title: 'Closet Failed',
         message: t('error.imageRequired'),
-        icon: <CloseIcon color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transparent',
+        type: 'fail',
       });
       return;
     }
 
     if (file.size > MAX_FILE_SIZE_BYTES) {
-      notifications.show({
+      showNotification({
         title: 'Image upload Failed',
         message: t('error.fileTooLarge', { maxMb: MAX_FILE_SIZE_MB }),
-        icon: <CloseIcon color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+        type: 'fail',
       });
       return;
     }
@@ -133,13 +125,10 @@ export default function WritePage() {
 
       router.push('/closet');
     } catch {
-      notifications.show({
+      showNotification({
         title: 'Closet Failed',
         message: t('error.createFailed'),
-        icon: <CloseIcon color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+        type: 'fail',
       });
     } finally {
       setIsSubmitting(false);
@@ -189,9 +178,7 @@ export default function WritePage() {
             variant='filled'
             onClick={handleOpenImagePicker}
             className='py-1'
-            icon={
-              <ImageAddIcon size={24} className='text-black dark:text-white' />
-            }
+            icon={<ImageAddIcon size={24} color='white' />}
           >
             이미지 추가하기
           </Button>

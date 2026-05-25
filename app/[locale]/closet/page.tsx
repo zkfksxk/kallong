@@ -1,16 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { ActionIcon, Text } from '@mantine/core';
+import { Text } from '@mantine/core';
 import { Calendar } from '@mantine/dates';
-import { notifications } from '@mantine/notifications';
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
-import { useDeleteDailyOutfit } from '@/apis/querys/outfit/useDeleteDailyOutfit';
-import { useGetDailyOutfitInMonth } from '@/apis/querys/outfit/useGetDailyOutfitInMonth';
-import { Button, Header } from '@/components';
+import {
+  useDeleteDailyOutfit,
+  useGetDailyOutfitInMonth,
+} from '@/apis/querys/outfit';
+import { Button, Header, showNotification } from '@/components';
 import { Link, useRouter } from '@/i18n/navigation';
-import { CloseIcon, TrashIcon } from '@/shared/common/icons';
+import { TrashIcon } from '@/shared/common/icons';
 
 export default function ClosetPage() {
   const router = useRouter();
@@ -32,14 +33,6 @@ export default function ClosetPage() {
 
   const handleRecord = () => {
     if (!selectedDay) {
-      notifications.show({
-        title: 'Outfit Failed',
-        message: t('error.selectDate'),
-        icon: <CloseIcon color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
-      });
       return;
     }
     router.push(`/closet/write?day=${selectedDay}`);
@@ -52,13 +45,10 @@ export default function ClosetPage() {
     try {
       deleteMutate(selectedOutfit.id);
     } catch {
-      notifications.show({
-        title: 'Outfit Failed',
+      showNotification({
+        title: 'Outfit failed',
         message: t('error.deleteFailed'),
-        icon: <CloseIcon color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+        type: 'fail',
       });
     }
   };
@@ -160,8 +150,8 @@ export default function ClosetPage() {
               <Text c='black' fw={700}>
                 {selectedOutfit.selected_day}
               </Text>
-              <ActionIcon
-                variant='transparent'
+              <Button
+                variant='ghost'
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
@@ -169,7 +159,7 @@ export default function ClosetPage() {
                 }}
               >
                 <TrashIcon color='black' size={24} />
-              </ActionIcon>
+              </Button>
             </div>
           </Link>
         ) : (
@@ -178,8 +168,8 @@ export default function ClosetPage() {
               {t('emptyMessage')}
             </Text>
             <Button
-              onClick={handleRecord}
               variant='ghost'
+              onClick={handleRecord}
               className='text-black!'
             >
               {t('goToRecord')}

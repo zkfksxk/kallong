@@ -2,13 +2,11 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, Text, TextInput } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
 import { useLocale, useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { IoCloseCircle as Close } from 'react-icons/io5';
 import { CustomAuthError } from '@/apis/error';
 import { useSignUp } from '@/apis/querys/auth/useSignUp';
-import { Button } from '@/components';
+import { Button, showNotification } from '@/components';
 import { Link, useRouter } from '@/i18n/navigation';
 import { ForwardIcon } from '@/shared/common/icons';
 import { SignUpFormData, signUpSchema } from '../_constants/form';
@@ -38,13 +36,10 @@ export default function SignUpPage() {
 
   const onSubmit = (data: SignUpFormData) => {
     if (!data.termsOfService || !data.privacyPolicy) {
-      notifications.show({
+      showNotification({
         title: t('auth.signUp'),
         message: t('auth.error.termsRequired'),
-        icon: <Close color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+        type: 'fail',
       });
       return;
     }
@@ -64,13 +59,10 @@ export default function SignUpPage() {
           const errorObj = JSON.parse(error.message) as CustomAuthError;
           const message = t(`auth.error.${errorObj.code}`);
 
-          notifications.show({
+          showNotification({
             title: t('auth.signUpFail'),
             message,
-            icon: <Close color='red' size={24} />,
-            withCloseButton: false,
-            loading: false,
-            color: 'transperant',
+            type: 'fail',
           });
         },
       }

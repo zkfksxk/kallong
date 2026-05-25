@@ -11,6 +11,7 @@ export {
   IoSettingsOutline as SettingIcon,
   IoCloseCircle as CloseIcon,
   IoCheckmarkCircle as CheckIcon,
+  IoInformationCircleOutline as InfoIcon,
   IoAddOutline as AddIcon,
   IoClose as DeleteIcon,
   IoCopyOutline as CopyIcon,

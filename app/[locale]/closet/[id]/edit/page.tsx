@@ -4,19 +4,18 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ActionIcon, TextInput, Textarea } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
+import { TextInput, Textarea } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useGetDailyOutfit, useUpdateDailyOutfit } from '@/apis/querys';
-import { Button, Header } from '@/components';
+import { Button, Header, showNotification } from '@/components';
 import { useProfileStore } from '@/hooks/provider';
 import { useRouter } from '@/i18n/navigation';
 import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
 } from '@/shared/common/constants/common';
-import { AddIcon, CloseIcon, DeleteIcon } from '@/shared/common/icons';
+import { DeleteIcon, ImageAddIcon } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 import { DailyOutfitFormData, dailyOutfitSchema } from '../../_constants/form';
 import { useOutfitImageEditor } from '../../_hooks/useOutfitImageEditor';
@@ -80,13 +79,10 @@ export default function EditPage() {
       .upload(filePath, file, { upsert: true }); // upset: true 존재x -> insert, 존재o -> update
 
     if (uploadError) {
-      notifications.show({
+      showNotification({
         title: 'Image upload Failed',
         message: t('error.imageUploadFailed'),
-        icon: <CloseIcon color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+        type: 'fail',
       });
       return;
     }
@@ -96,7 +92,6 @@ export default function EditPage() {
     } = supabase.storage
       .from(process.env.NEXT_PUBLIC_OUTFIT_STORAGE_BUCKET!)
       .getPublicUrl(uploadData.path);
-
     return publicUrl;
   };
 
@@ -109,15 +104,11 @@ export default function EditPage() {
 
       if (file) {
         if (file.size > MAX_FILE_SIZE_BYTES) {
-          notifications.show({
+          showNotification({
             title: 'Image upload Failed',
             message: t('error.fileTooLarge', { maxMb: MAX_FILE_SIZE_MB }),
-            icon: <CloseIcon color='red' size={24} />,
-            withCloseButton: false,
-            loading: false,
-            color: 'transperant',
+            type: 'fail',
           });
-          setIsSubmitting(false);
           return;
         }
 
@@ -138,13 +129,10 @@ export default function EditPage() {
 
       router.push('/closet');
     } catch {
-      notifications.show({
+      showNotification({
         title: 'Closet Failed',
         message: t('error.createFailed'),
-        icon: <CloseIcon color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+        type: 'fail',
       });
     } finally {
       setIsSubmitting(false);
@@ -166,7 +154,19 @@ export default function EditPage() {
         }
       />
       <div className='relative w-full max-w-125 aspect-square flex items-center justify-center border border-gray-300 rounded-md overflow-hidden'>
-        {url && <Image src={url} alt='daily-outfit' fill />}
+        {url && (
+          <>
+            <Image src={url} alt='daily-outfit' fill />
+            <Button
+              variant='ghost'
+              disabled={!url}
+              onClick={handleRemove}
+              className='absolute top-3 right-3 z-10 flex items-center justify-center !w-10 !h-10 rounded-full bg-white shadow-md'
+            >
+              <DeleteIcon size={24} className='text-black' />
+            </Button>
+          </>
+        )}
       </div>
       <div className='flex flex-col items-center mt-8'>
         <input
@@ -176,26 +176,15 @@ export default function EditPage() {
           accept='image/*'
           className='hidden'
         />
-        <div className='flex gap-8'>
-          <ActionIcon
-            variant='outline'
-            size='xl'
-            radius='md'
-            title='추가'
+        <div className='flex justify-center'>
+          <Button
+            variant='filled'
             onClick={handleOpenImagePicker}
+            className='py-1'
+            icon={<ImageAddIcon size={24} color='white' />}
           >
-            <AddIcon size={32} className='text-black dark:text-white' />
-          </ActionIcon>
-          <ActionIcon
-            variant='outline'
-            size='xl'
-            radius='md'
-            title='삭제'
-            disabled={!url}
-            onClick={handleRemove}
-          >
-            <DeleteIcon size={32} className='text-black dark:text-white' />
-          </ActionIcon>
+            이미지 추가하기
+          </Button>
         </div>
       </div>
       <div className='flex flex-col gap-10 mt-10'>

@@ -2,16 +2,14 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Text, TextInput } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { CustomAuthError } from '@/apis/error';
-import { useSignInWithPassword } from '@/apis/querys/auth/useSignIn';
-import { useSignInWithGoogle } from '@/apis/querys/auth/useSignInGoogle';
-import { Button } from '@/components';
+import { useSignInWithGoogle, useSignInWithPassword } from '@/apis/querys/auth';
+import { Button, showNotification } from '@/components';
 import { useDetectWebView } from '@/hooks/useDetectWebView';
 import { Link, useRouter } from '@/i18n/navigation';
-import { CloseIcon, GoogleIcon } from '@/shared/common/icons';
+import { GoogleIcon } from '@/shared/common/icons';
 import { SignInFormData, signInSchema } from '../_constants/form';
 
 export default function SignInPage() {
@@ -42,13 +40,10 @@ export default function SignInPage() {
         const errorObj = JSON.parse(error.message) as CustomAuthError;
         const message = t(`auth.error.${errorObj.code}`);
 
-        notifications.show({
+        showNotification({
           title: t('auth.signInFail'),
           message,
-          icon: <CloseIcon color='red' size={28} />,
-          withCloseButton: false,
-          loading: false,
-          color: 'transperant',
+          type: 'fail',
         });
       },
     });
@@ -58,13 +53,10 @@ export default function SignInPage() {
     try {
       signInWithGoogle();
     } catch {
-      notifications.show({
+      showNotification({
         title: t('auth.signInFail'),
         message: t('auth.errors.googleSignInFailed'),
-        icon: <CloseIcon color='red' size={28} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+        type: 'fail',
       });
     }
   };

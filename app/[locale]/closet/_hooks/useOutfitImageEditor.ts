@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import imageCompression from 'browser-image-compression';
+import { showNotification } from '@/components';
 import { COMPRESSION_OPTIONS } from '@/shared/common/constants/common';
 
 export function useOutfitImageEditor() {
@@ -31,9 +32,12 @@ export function useOutfitImageEditor() {
       const compressedUrl = URL.createObjectURL(compressedFile);
 
       setImage(compressedFile, compressedUrl);
-    } catch (error) {
-      console.error('Image compression failed:', error);
-      alert('이미지 업로드 중 오류가 발생했습니다.');
+    } catch {
+      showNotification({
+        title: 'Image compress Failed',
+        message: '이미지 압축 중 오류가 발생했습니다.',
+        type: 'fail',
+      });
     } finally {
       setIsLoading(false);
       input.value = '';

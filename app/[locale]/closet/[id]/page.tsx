@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { Button, Text } from '@mantine/core';
-import { useGetDailyOutfit } from '@/apis/querys';
+import { useGetDailyOutfit } from '@/apis/querys/outfit';
 import { Header } from '@/components/layouts/header';
 import { useRouter } from '@/i18n/navigation';
 

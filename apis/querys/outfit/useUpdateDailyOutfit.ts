@@ -9,7 +9,7 @@ export function useUpdateDailyOutfit() {
     mutationFn: upadateDailyOutfit,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.outfit.month(),
+        queryKey: queryKeys.outfit.details(),
       });
     },
   });
