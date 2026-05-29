@@ -76,6 +76,7 @@ export default function SignInPage() {
             label={t('auth.email')}
             type='email'
             placeholder={t('auth.emailPlaceholder')}
+            autoComplete='off'
             {...register('email')}
             error={
               errors.email?.message
@@ -89,6 +90,7 @@ export default function SignInPage() {
             type='password'
             placeholder={t('auth.passwordPlaceholder')}
             description={t('auth.passwordDescription')}
+            autoComplete='new-password'
             {...register('password')}
             error={
               errors.password?.message

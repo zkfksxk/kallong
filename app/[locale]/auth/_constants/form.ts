@@ -13,7 +13,7 @@ export const signInSchema = z.object({
     .min(1, 'auth.validation.passwordRequired')
     .min(8, 'auth.validation.passwordMin')
     .max(20, 'auth.validation.passwordMax')
-    .regex(PASSWORD_REGEX, 'auth.validation.passwordInvaildPattern'),
+    .regex(PASSWORD_REGEX, 'auth.validation.passwordInvalidPattern'),
 });
 
 export type SignInFormData = z.infer<typeof signInSchema>;
@@ -27,7 +27,7 @@ export const signUpSchema = z
       .min(1, 'auth.validation.passwordRequired')
       .min(8, 'auth.validation.passwordMin')
       .max(20, 'auth.validation.passwordMax')
-      .regex(PASSWORD_REGEX, 'auth.validation.passwordInvaildPattern'),
+      .regex(PASSWORD_REGEX, 'auth.validation.passwordInvalidPattern'),
     passwordConfirmed: z
       .string()
       .min(1, 'auth.validation.passwordConfirmedRequired'),
@@ -36,7 +36,7 @@ export const signUpSchema = z
       .min(1, 'auth.validation.nicknameRequired')
       .min(1, 'auth.validation.nicknameMin')
       .max(10, 'auth.validation.nicknameMax')
-      .regex(NICKNAME_REGEX, 'auth.validation.nicknamInvalidPattern'),
+      .regex(NICKNAME_REGEX, 'auth.validation.nicknameInvalidPattern'),
     termsOfService: z.boolean().refine((v) => v === true, {
       message: 'auth.validation.termsRequired',
     }),
@@ -57,7 +57,7 @@ export const nicknameSchema = z.object({
     .min(1, 'auth.validation.nicknameRequired')
     .min(1, 'auth.validation.nicknameMin')
     .max(10, 'auth.validation.nicknameMax')
-    .regex(NICKNAME_REGEX, 'auth.validation.nicknamInvalidPattern'),
+    .regex(NICKNAME_REGEX, 'auth.validation.nicknameInvalidPattern'),
 });
 
 export type NicknameFormData = z.infer<typeof nicknameSchema>;
@@ -75,7 +75,7 @@ export const updatePasswordSchema = z.object({
     .min(1, 'auth.validation.passwordRequired')
     .min(8, 'auth.validation.passwordMin')
     .max(20, 'auth.validation.passwordMax')
-    .regex(PASSWORD_REGEX, 'auth.validation.passwordInvaildPattern'),
+    .regex(PASSWORD_REGEX, 'auth.validation.passwordInvalidPattern'),
 });
 
 export type UpdatePasswordFormData = z.infer<typeof updatePasswordSchema>;

@@ -94,6 +94,7 @@ export default function SignUpPage() {
             type='password'
             placeholder={t('auth.passwordPlaceholder')}
             description={t('auth.passwordDescription')}
+            autoComplete='new-password'
             {...register('password')}
             error={
               errors.password?.message
@@ -106,6 +107,7 @@ export default function SignUpPage() {
             label={t('auth.passwordConfirmed')}
             type='password'
             placeholder={t('auth.passwordConfirmedPlaceholder')}
+            autoComplete='new-password'
             {...register('passwordConfirmed')}
             error={
               errors.passwordConfirmed?.message

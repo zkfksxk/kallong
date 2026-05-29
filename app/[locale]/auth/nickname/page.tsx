@@ -2,14 +2,12 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TextInput } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useUpdateNickname } from '@/apis/querys/auth/useUpdateNickname';
-import { Button } from '@/components';
+import { Button, showNotification } from '@/components';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
 import { useRouter } from '@/i18n/navigation';
-import { CheckIcon, CloseIcon } from '@/shared/common/icons';
 import { NicknameFormData, nicknameSchema } from '../_constants/form';
 
 export default function NicknameChangePage() {
@@ -34,27 +32,23 @@ export default function NicknameChangePage() {
     changeNickname(data.nickname, {
       onSuccess: () => {
         reset();
+
         if (profile) {
           setProfile({ ...profile, nickname: data.nickname });
         }
-        notifications.show({
+
+        showNotification({
           title: t('auth.nicknameChange'),
           message: t('auth.nicknameChangeSucceed'),
-          icon: <CheckIcon color='blue' size={24} />,
-          withCloseButton: false,
-          loading: false,
-          color: 'transperant',
+          type: 'success',
         });
         router.replace('/setting/userinfo');
       },
       onError: () => {
-        notifications.show({
+        showNotification({
           title: t('auth.nicknameChange'),
           message: t('auth.nicknameChangeFail'),
-          icon: <CloseIcon color='red' size={24} />,
-          withCloseButton: false,
-          loading: false,
-          color: 'transperant',
+          type: 'fail',
         });
       },
     });

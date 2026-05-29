@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 
 export default function AppInfoPage() {
-  const t = useTranslations('Setting.appinfo');
+  const t = useTranslations('Setting.appInfo');
 
   return (
     <div className='bg-white dark:bg-black w-full flex flex-1 flex-col'>
@@ -32,7 +32,7 @@ export default function AppInfoPage() {
       <div className='flex flex-col flex-1 mt-8 gap-8'>
         <Link href='https://naver.me/xE6S9jbW'>
           <Text size='lg' fw={700}>
-            {t('formbutton')}
+            {t('formButton')}
           </Text>
         </Link>
         <Link href='https://busy-screw-956.notion.site/Kallong-2ced82040c488001b27bdce25e66fae7'>

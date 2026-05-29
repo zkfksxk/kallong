@@ -3,12 +3,11 @@
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Text, TextInput } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useResetPassword } from '@/apis/querys/auth/useResetPassword';
-import { Button } from '@/components';
-import { CheckIcon, CloseIcon, MailIcon } from '@/shared/common/icons';
+import { Button, showNotification } from '@/components';
+import { MailIcon } from '@/shared/common/icons';
 import {
   ResetPasswordFormData,
   resetPasswordSchema,
@@ -34,23 +33,17 @@ export default function ResetPasswordPage() {
       onSuccess: () => {
         reset();
         setIsSubmitted(true);
-        notifications.show({
+        showNotification({
           title: t('auth.resetPassword'),
           message: t('auth.resetPasswordSucceed'),
-          icon: <CheckIcon color='blue' size={24} />,
-          withCloseButton: false,
-          loading: false,
-          color: 'transperant',
+          type: 'success',
         });
       },
       onError: () => {
-        notifications.show({
+        showNotification({
           title: t('auth.resetPassword'),
           message: t('auth.resetPasswordFail'),
-          icon: <CloseIcon color='red' size={24} />,
-          withCloseButton: false,
-          loading: false,
-          color: 'transperant',
+          type: 'fail',
         });
       },
     });

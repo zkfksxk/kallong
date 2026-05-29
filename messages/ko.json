@@ -22,7 +22,6 @@
     "startButton": "시작하기"
   },
   "Setting": {
-    "homebutton": "홈으로 이동하기",
     "screen": "화면 설정",
     "english": "영어",
     "korean": "한국어",
@@ -34,7 +33,7 @@
     "userinfo": "사용자 설정",
     "daysTogether": "함께한 지 {daysSince}일째",
     "version": "앱 버전",
-    "appinfo": {
+    "appInfo": {
       "introduce": "칼롱 소개",
       "title": " <bold>칼롱</bold>을 방문해주셔서 진심으로 감사합니다!",
       "share": "프로젝트가 재미있었다면 주변에 많이 홍보해주세요.",
@@ -44,7 +43,7 @@
         "anonymousDelete": "• 로그인하지 않은 사용자의 데이터는 주기적으로 삭제되니 투표 결과는 미리 저장하세요.",
         "feedback": "• 피드백을 적극 환영해요. 최대한 반영하겠습니다."
       },
-      "formbutton": "의견 제안하기",
+      "formButton": "의견 제안하기",
       "terms": "이용약관",
       "privacy": "개인정보 처리방침"
     },
@@ -65,6 +64,7 @@
       "passwordDescription": "8자에서 20자 이하, 문자/숫자/특수문자 중 2가지 포함",
       "signInFail": "로그인 실패",
       "signUpFail": "회원가입 실패",
+      "signUpSucceed": "회원가입에 성공했습니다. 페이지 이동 중...",
       "nicknameChangeSucceed": "닉네임 변경 성공",
       "nicknameChangeFail": "닉네임 변경 실패",
       "passwordUpdateFail": "비밀번호 변경 실패",
@@ -90,7 +90,7 @@
         "emailRequired": "이메일을 입력해주세요.",
         "emailInvalidPattern": "이메일 형식이 아닙니다.",
         "passwordRequired": "비밀번호를 입력해주세요.",
-        "passwordInvaildPattern": "대소문자+숫자+특수문자 중 2가지 이상 포함해주세요.",
+        "passwordInvalidPattern": "대소문자+숫자+특수문자 중 2가지 이상 포함해주세요.",
         "passwordMismatch": "비밀번호와 일치하지 않습니다.",
         "passwordMin": "8자 이상 입력해주세요.",
         "passwordMax": "20자 이하로 입력해주세요.",
@@ -98,7 +98,7 @@
         "nicknameRequired": "닉네임을 입력해주세요.",
         "nicknameMin": "1자 이상 입력해주세요.",
         "nicknameMax": "10자 이하로 입력해주세요.",
-        "nicknamInvalidPattern": "대소문자, 한글, 숫자만 사용 가능합니다.",
+        "nicknameInvalidPattern": "대소문자, 한글, 숫자만 사용 가능합니다.",
         "termsRequired": "이용 약관에 동의해주세요."
       },
       "error": {

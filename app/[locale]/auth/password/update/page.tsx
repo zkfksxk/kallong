@@ -2,13 +2,11 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Text, TextInput } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useUpdatePassword } from '@/apis/querys/auth/useUpdatePassword';
-import { Button } from '@/components';
+import { Button, showNotification } from '@/components';
 import { useRouter } from '@/i18n/navigation';
-import { CloseIcon } from '@/shared/common/icons';
 import {
   UpdatePasswordFormData,
   updatePasswordSchema,
@@ -36,13 +34,10 @@ export default function UpdatePasswordPage() {
         router.push('/');
       },
       onError: () => {
-        notifications.show({
+        showNotification({
           title: t('auth.passwordUpdate'),
           message: t('auth.passwordUpdateFail'),
-          icon: <CloseIcon color='red' size={24} />,
-          withCloseButton: false,
-          loading: false,
-          color: 'transperant',
+          type: 'fail',
         });
         reset();
       },
@@ -64,6 +59,7 @@ export default function UpdatePasswordPage() {
             type='password'
             placeholder={t('auth.passwordPlaceholder')}
             description={t('auth.passwordDescription')}
+            autoComplete='new-password'
             {...register('password')}
             error={
               errors.password?.message
