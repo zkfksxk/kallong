@@ -2,14 +2,13 @@
 
 import { useState } from 'react';
 import { Tabs, Text } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import {
   useCreateLookbook,
   useCreateVote,
   useUpdateLookbook,
 } from '@/apis/querys';
-import { Button } from '@/components';
+import { Button, showNotification } from '@/components';
 import { Header } from '@/components/layouts/header';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
@@ -17,7 +16,6 @@ import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
 } from '@/shared/common/constants/common';
-import { CloseIcon } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 import { CreateImage, LookbookForm } from '../_components';
 
@@ -46,13 +44,10 @@ export default function CreateLookbooksPage() {
       .upload(filePath, file, { upsert: true }); // upset: true 존재x -> insert, 존재o -> update
 
     if (uploadError) {
-      notifications.show({
+      showNotification({
         title: 'Image upload Failed',
         message: '이미지 업로드에 실패했습니다.',
-        icon: <CloseIcon color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+        type: 'fail',
       });
       return;
     }
@@ -80,13 +75,10 @@ export default function CreateLookbooksPage() {
       file1!.size > MAX_FILE_SIZE_BYTES ||
       file2!.size > MAX_FILE_SIZE_BYTES
     ) {
-      notifications.show({
+      showNotification({
         title: 'Image upload Failed',
         message: `파일 크기가 ${MAX_FILE_SIZE_MB}MB를 초과해 업로드할 수 없습니다.`,
-        icon: <CloseIcon color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+        type: 'fail',
       });
       return;
     }
@@ -125,13 +117,10 @@ export default function CreateLookbooksPage() {
 
       router.push(`/lookbooks/result/${firstData.id}/${secondData.id}`);
     } catch {
-      notifications.show({
+      showNotification({
         title: 'Lookbook Failed',
         message: '룩북 생성 중 에러가 발생했습니다.',
-        icon: <CloseIcon color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+        type: 'fail',
       });
     } finally {
       setIsSubmitting(false);
