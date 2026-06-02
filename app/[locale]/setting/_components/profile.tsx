@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { Box, Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
-import { useSignOut } from '@/apis/querys/auth/useSignOut';
+import { useSignOut } from '@/apis/querys/auth';
 import { Button } from '@/components';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
 import { getDaysSince } from '@/shared/common/utils';

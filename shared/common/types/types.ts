@@ -56,8 +56,3 @@ export type Profile = {
   created_at: string;
   updated_at: string;
 };
-
-export type ValidationError =
-  | { type: 'empty' }
-  | { type: 'maxLength'; maxLength: number }
-  | { type: 'invalidCharacters' };

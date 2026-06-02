@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import imageCompression from 'browser-image-compression';
 import { useRemoveBackground } from '@/apis/querys';
 import { useLookbookStore } from '@/hooks/provider';
-import { COMPRESSION_OPTIONS } from '@/shared/common/constants/common';
+import { COMPRESSION_OPTIONS } from '@/shared/common/constants';
 import { AccessoryCategory, Outfit } from '@/shared/common/types/types';
 import { base64ToFile } from '@/shared/common/utils';
 
