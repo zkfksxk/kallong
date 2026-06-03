@@ -2,29 +2,25 @@
 
 import { Group, Radio, Text } from '@mantine/core';
 import { useLocale, useTranslations } from 'next-intl';
-import { useDetectWebView } from '@/hooks/useDetectWebView';
+import { useBridge } from '@/hooks/useBridge';
 import { useRouter } from '@/i18n/navigation';
-import { MESSAGE_TYPE } from '@/shared/common/constants';
 import { LANGUAGES } from '@/shared/common/constants/common';
 
 export default function LanguagePage() {
   const t = useTranslations('Setting');
   const locale = useLocale();
   const router = useRouter();
-  const { isWebView } = useDetectWebView();
+  const { updateNativeSettings } = useBridge();
 
   const handleLanguageChange = (nextLocale: string) => {
     if (nextLocale === locale) return;
+
+    localStorage.setItem('lang', nextLocale);
     document.cookie = `lang=${nextLocale}; path=/; max-age=31536000; SameSite=Lax`;
 
-    if (isWebView) {
-      window.ReactNativeWebView?.postMessage(
-        JSON.stringify({
-          type: MESSAGE_TYPE.lang,
-          data: nextLocale,
-        })
-      );
-    }
+    updateNativeSettings({
+      lang: nextLocale as 'ko' | 'en',
+    });
 
     // 예: /ko/setting -> /en/setting
     router.replace('/setting', { locale: nextLocale });

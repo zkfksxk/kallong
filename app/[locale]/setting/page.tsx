@@ -8,8 +8,8 @@ export default function SettingPage() {
 
   return (
     <div className='bg-white dark:bg-black w-full flex flex-col'>
-      <SettingItem url='/setting/appInfo' title={t('appInfo.introduce')} />
-      <SettingItem url='/setting/userinfo' title={t('userinfo')} />
+      <SettingItem url='/setting/appinfo' title={t('appInfo.introduce')} />
+      <SettingItem url='/setting/userinfo' title={t('userInfo')} />
       <SettingItem url='/setting/screen' title={t('screen')} />
       <Divider size='xs' className='mb-8' />
       <div className='flex flex-row justify-between'>

@@ -30,7 +30,7 @@
     "light": "Light mode",
     "dark": "Dark mode",
     "system": "System",
-    "userinfo": "User Settings",
+    "userInfo": "User Settings",
     "daysTogether": "Together for {daysSince} days",
     "version": "App version",
     "appInfo": {

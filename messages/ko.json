@@ -30,7 +30,7 @@
     "light": "라이트 모드",
     "dark": "다크 모드",
     "system": "시스템 설정",
-    "userinfo": "사용자 설정",
+    "userInfo": "사용자 설정",
     "daysTogether": "함께한 지 {daysSince}일째",
     "version": "앱 버전",
     "appInfo": {

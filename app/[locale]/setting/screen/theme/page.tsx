@@ -4,15 +4,14 @@ import { useEffect, useState } from 'react';
 import { Group, Radio, Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
-import { useDetectWebView } from '@/hooks/useDetectWebView';
-import { MESSAGE_TYPE } from '@/shared/common/constants';
+import { useBridge } from '@/hooks/useBridge';
 import { THEME } from '@/shared/common/constants/common';
 
 export default function ThemePage() {
   const [mounted, setMounted] = useState(false);
   const t = useTranslations('Setting');
   const { theme, setTheme } = useTheme();
-  const { isWebView } = useDetectWebView();
+  const { updateNativeSettings } = useBridge();
 
   useEffect(() => {
     setMounted(true);
@@ -23,15 +22,10 @@ export default function ThemePage() {
   }
 
   const handleThemeChange = (theme: string) => {
-    if (isWebView) {
-      window.ReactNativeWebView?.postMessage(
-        JSON.stringify({
-          type: MESSAGE_TYPE.theme,
-          data: theme,
-        })
-      );
-    }
     setTheme(theme);
+    updateNativeSettings({
+      theme: theme as 'light' | 'dark' | 'system',
+    });
   };
 
   return (

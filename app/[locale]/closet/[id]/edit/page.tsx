@@ -50,20 +50,20 @@ export default function EditPage() {
     handleRemove,
   } = useOutfitImageEditor();
   const { profile } = useProfileStore((s) => s);
-  const { data: dailyoutfit } = useGetDailyOutfit(id);
+  const { data: dailyOutfit } = useGetDailyOutfit(id);
   const { mutateAsync: updateMutate } = useUpdateDailyOutfit();
 
   useEffect(() => {
-    if (!dailyoutfit) return;
+    if (!dailyOutfit) return;
 
     reset({
-      name: dailyoutfit.name ?? '',
-      description: dailyoutfit.description ?? '',
-      selected_day: dailyoutfit.selected_day,
+      name: dailyOutfit.name ?? '',
+      description: dailyOutfit.description ?? '',
+      selected_day: dailyOutfit.selected_day,
     });
 
-    setImage(undefined, dailyoutfit.image_url ?? undefined);
-  }, [dailyoutfit]);
+    setImage(undefined, dailyOutfit.image_url ?? undefined);
+  }, [dailyOutfit]);
 
   const uploadFile = async (outfitId: string, file: File) => {
     if (!profile) return;
@@ -100,7 +100,7 @@ export default function EditPage() {
     setIsSubmitting(true);
 
     try {
-      let finalImageUrl = dailyoutfit?.image_url ?? '';
+      let finalImageUrl = dailyOutfit?.image_url ?? '';
 
       if (file) {
         if (file.size > MAX_FILE_SIZE_BYTES) {
