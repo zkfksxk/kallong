@@ -2,8 +2,9 @@
 
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { Button, Text } from '@mantine/core';
+import { Text } from '@mantine/core';
 import { useGetDailyOutfit } from '@/apis/querys/outfit';
+import { Button } from '@/components';
 import { Header } from '@/components/layouts/header';
 import { useRouter } from '@/i18n/navigation';
 
@@ -23,11 +24,7 @@ export default function DetailPage() {
         rightComponent={
           <Button
             onClick={() => router.push(`/closet/${id}/edit`)}
-            variant='transparent'
-            color='red.5'
-            size='md'
-            radius='md'
-            p={0}
+            variant='ghost'
           >
             수정
           </Button>

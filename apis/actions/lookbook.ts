@@ -60,7 +60,7 @@ export const createVote = async ({
   return data;
 };
 
-export const upadateLookbook = async ({
+export const updateLookbook = async ({
   id,
   image_url,
 }: {
@@ -143,7 +143,22 @@ export async function getVoteById({ from, to }: { from: number; to: number }) {
 
   const { data, error, count } = await supabase
     .from('vote')
-    .select('*')
+    .select(
+      `
+      *,
+      lookbook_a:lookbook!fk_lookbook_a (
+        id,
+        image_url,
+        name
+      ),
+      lookbook_b:lookbook!fk_lookbook_b (
+        id,
+        image_url,
+        name
+      )
+      `,
+      { count: 'exact' }
+    )
     .eq('author_id', author_id)
     .order('created_at', { ascending: false })
     .range(from, to);

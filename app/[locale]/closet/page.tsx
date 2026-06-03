@@ -17,7 +17,7 @@ export default function ClosetPage() {
   const router = useRouter();
   const [currentDay, setCurrentDay] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState<string>(
-    dayjs().format('YYYY-MM-DD')
+    dayjs().format('YYYY-MM-DD') //사용자의 로컬 date
   );
   const t = useTranslations('Closet');
   const { data: outfits } = useGetDailyOutfitInMonth(currentDay);

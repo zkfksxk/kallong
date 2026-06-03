@@ -33,7 +33,7 @@ export const createDailyOutfit = async (
   return data;
 };
 
-export const upadateDailyOutfitImage = async ({
+export const updateDailyOutfitImage = async ({
   id,
   image_url,
 }: {
@@ -57,7 +57,7 @@ export const upadateDailyOutfitImage = async ({
   return data;
 };
 
-export const upadateDailyOutfit = async ({
+export const updateDailyOutfit = async ({
   id,
   image_url,
   name,

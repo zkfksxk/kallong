@@ -4,6 +4,20 @@ import queryKeys from '@/apis/queryKeys';
 
 const PAGE_SIZE = 5;
 
+export type VoteByIdRes = VoteRes & {
+  lookbook_a: {
+    id: string;
+    image_url: string;
+    name: string;
+  } | null;
+
+  lookbook_b: {
+    id: string;
+    image_url: string;
+    name: string;
+  } | null;
+};
+
 export function useGetVoteById() {
   return useInfiniteQuery({
     queryKey: queryKeys.vote.lists(),
@@ -20,7 +34,7 @@ export function useGetVoteById() {
       const nextOffset = allPages.flatMap((p) => p.data).length;
       return nextOffset;
     },
-    select: (data): { votes: VoteRes[]; totalCount: number } => ({
+    select: (data): { votes: VoteByIdRes[]; totalCount: number } => ({
       votes: data.pages.flatMap((page) => page.data), // 모든 투표를 하나의 배열로
       totalCount: data.pages[0]?.count || 0,
     }),
