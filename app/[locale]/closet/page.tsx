@@ -4,7 +4,9 @@ import { useState } from 'react';
 import { Text } from '@mantine/core';
 import { Calendar } from '@mantine/dates';
 import dayjs from 'dayjs';
-import { useTranslations } from 'next-intl';
+import 'dayjs/locale/en';
+import 'dayjs/locale/ko';
+import { useLocale, useTranslations } from 'next-intl';
 import {
   useDeleteDailyOutfit,
   useGetDailyOutfitInMonth,
@@ -15,6 +17,7 @@ import { TrashIcon } from '@/shared/common/icons';
 
 export default function ClosetPage() {
   const router = useRouter();
+  const locale = useLocale();
   const [currentDay, setCurrentDay] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState<string>(
     dayjs().format('YYYY-MM-DD') //사용자의 로컬 date
@@ -59,6 +62,7 @@ export default function ClosetPage() {
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
       <Header isBackShow />
       <Calendar
+        locale={locale}
         className='w-full'
         hideOutsideDates
         onPreviousMonth={() =>

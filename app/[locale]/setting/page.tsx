@@ -17,7 +17,7 @@ export default function SettingPage() {
           {t('version')}
         </Text>
         <Text size='md' fw={700}>
-          1.0.4
+          1.0.5
         </Text>
       </div>
     </div>

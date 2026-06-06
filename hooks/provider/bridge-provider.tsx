@@ -97,10 +97,11 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
 
       if (message.type === 'app/ready') {
         applySettings(message.data.settings);
+        return;
       }
 
       if (message.type === 'settings/update') {
-        applySettings(message.data.settings);
+        return;
       }
     };
 
