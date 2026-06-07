@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, createContext, useEffect } from 'react';
+import { ReactNode, createContext, useEffect, useRef } from 'react';
 import { useLocale } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { usePathname, useRouter } from '@/i18n/navigation';
@@ -56,6 +56,7 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
   const locale = useLocale();
   const { setTheme } = useTheme();
   const { canUseBridge } = useDetectWebView();
+  const requestedReadyRef = useRef(false);
 
   const sendToNative = (message: WebToNativeMessage) => {
     if (!canUseBridge) return;
@@ -107,10 +108,14 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
 
     window.addEventListener('bridge-message', handleBridgeMessage);
 
-    sendToNative({
-      id: crypto.randomUUID(),
-      type: 'app/ready',
-    });
+    if (!requestedReadyRef.current) {
+      requestedReadyRef.current = true;
+
+      sendToNative({
+        id: crypto.randomUUID(),
+        type: 'app/ready',
+      });
+    }
 
     return () => {
       window.removeEventListener('bridge-message', handleBridgeMessage);
