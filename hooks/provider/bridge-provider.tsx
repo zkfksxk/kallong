@@ -46,6 +46,7 @@ type NativeToWebMessage =
 
 export type BridgeContextType = {
   updateNativeSettings: (patch: Partial<AppSettings>) => void;
+  shareImage: (payload: { dataUrl: string; filename: string }) => void;
 };
 
 export const BridgeContext = createContext<BridgeContextType | null>(null);
@@ -82,6 +83,16 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
       id: crypto.randomUUID(),
       type: 'settings/update',
       payload: patch,
+    });
+  };
+
+  const shareImage = (payload: { dataUrl: string; filename: string }) => {
+    if (!canUseBridge) return;
+
+    sendToNative({
+      id: crypto.randomUUID(),
+      type: 'image/share',
+      payload,
     });
   };
 
@@ -126,6 +137,7 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
     <BridgeContext.Provider
       value={{
         updateNativeSettings,
+        shareImage,
       }}
     >
       {children}

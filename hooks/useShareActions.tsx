@@ -1,14 +1,17 @@
 import { useRef, useState } from 'react';
 import { notifications } from '@mantine/notifications';
 import { domToPng } from 'modern-screenshot';
-import { MESSAGE_TYPE } from '@/shared/common/constants';
 import { CheckIcon, CloseIcon } from '@/shared/common/icons';
+import { useBridge } from './useBridge';
 import { useDetectWebView } from './useDetectWebView';
 
 export function useShareActions() {
-  const { isWebView } = useDetectWebView();
+  const { canUseBridge } = useDetectWebView();
+  const { shareImage } = useBridge();
   const [visible, setVisible] = useState(false);
   const captureRef = useRef<HTMLDivElement>(null);
+
+  const filename = `lookbook_${Date.now()}.png`;
 
   const handleToggleVisible = () => setVisible((prev) => !prev);
 
@@ -21,17 +24,14 @@ export function useShareActions() {
         scale: 2,
       });
 
-      if (isWebView) {
-        window.ReactNativeWebView?.postMessage(
-          JSON.stringify({
-            type: MESSAGE_TYPE.download_image,
-            data: dataUrl,
-            filename: `lookbook_${new Date().getFullYear()}.png`,
-          })
-        );
+      if (canUseBridge) {
+        shareImage({
+          dataUrl,
+          filename,
+        });
       } else {
         const link = document.createElement('a');
-        link.download = `lookbook_${Date.now()}.png`;
+        link.download = filename;
         link.href = dataUrl;
         link.click();
       }
@@ -64,7 +64,7 @@ export function useShareActions() {
     } catch {
       notifications.show({
         title: 'Copy Failed',
-        message: '복사 중 오류가 발생했습니다.',
+        message: '링크 복사 중 오류가 발생했습니다.',
         icon: <CloseIcon color='red' size={24} />,
         loading: false,
       });
