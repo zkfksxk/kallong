@@ -1,10 +1,22 @@
 import { AuthError } from '@supabase/supabase-js';
 
-export type CustomAuthError = {
-  success: false;
-  code: string;
+export type CustomError = {
   message: string;
+  result: false;
+  errorCode: string;
+  category?: ErrorCategory;
+  timestamp?: string;
 };
+
+export type ErrorCategory =
+  | 'NETWORK_ERROR'
+  | 'BAD_REQUEST'
+  | 'UNAUTHORIZED'
+  | 'FORBIDDEN'
+  | 'NOT_FOUND'
+  | 'CONFLICT'
+  | 'SERVER'
+  | 'UNKNOWN';
 
 export const AUTH_ERROR_KEYS = [
   'invalid_credentials',
@@ -15,9 +27,9 @@ export const AUTH_ERROR_KEYS = [
   'unknown_error',
 ] as const;
 
-export type AuthErrorKey = (typeof AUTH_ERROR_KEYS)[number];
+export type AuthErrorKeys = (typeof AUTH_ERROR_KEYS)[number];
 
-export const handleAuthErrorCode = (error: unknown): string => {
+export const handleAuthError = (error: unknown): string => {
   if (error instanceof AuthError && error.code) {
     const isKnownKey = (AUTH_ERROR_KEYS as readonly string[]).includes(
       error.code

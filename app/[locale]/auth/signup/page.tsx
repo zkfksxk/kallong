@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, Text, TextInput } from '@mantine/core';
 import { useLocale, useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { CustomAuthError } from '@/apis/error';
+import { CustomError } from '@/apis/error';
 import { useSignUp } from '@/apis/querys/auth/useSignUp';
 import { Button, showNotification } from '@/components';
 import { Link, useRouter } from '@/i18n/navigation';
@@ -56,8 +56,8 @@ export default function SignUpPage() {
           router.push('/auth/signin');
         },
         onError: (error) => {
-          const errorObj = JSON.parse(error.message) as CustomAuthError;
-          const message = t(`auth.error.${errorObj.code}`);
+          const errorObj = JSON.parse(error.message) as CustomError;
+          const message = t(`auth.error.${errorObj.errorCode}`);
 
           showNotification({
             title: t('auth.signUpFail'),

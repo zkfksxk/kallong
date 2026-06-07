@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
-import { CustomAuthError, handleAuthErrorCode, handleError } from '../error';
+import { CustomError, handleAuthError, handleError } from '../error';
 
 const getURL = () => {
   let url =
@@ -105,9 +105,9 @@ export async function signInWithPassword({
   });
 
   if (error) {
-    const errorData: CustomAuthError = {
-      success: false,
-      code: handleAuthErrorCode(error),
+    const errorData: CustomError = {
+      result: false,
+      errorCode: handleAuthError(error),
       message: error.message,
     };
     throw new Error(JSON.stringify(errorData));
@@ -185,9 +185,9 @@ export async function updatePassword(password: string) {
   });
 
   if (error) {
-    const errorData: CustomAuthError = {
-      success: false,
-      code: handleAuthErrorCode(error),
+    const errorData: CustomError = {
+      result: false,
+      errorCode: handleAuthError(error),
       message: error.message,
     };
     throw new Error(JSON.stringify(errorData));

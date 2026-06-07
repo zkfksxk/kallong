@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Text, TextInput } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { CustomAuthError } from '@/apis/error';
+import { CustomError } from '@/apis/error';
 import { useSignInWithGoogle, useSignInWithPassword } from '@/apis/querys/auth';
 import { Button, showNotification } from '@/components';
 import { useDetectWebView } from '@/hooks/useDetectWebView';
@@ -37,8 +37,8 @@ export default function SignInPage() {
         router.push(`/`);
       },
       onError: (error) => {
-        const errorObj = JSON.parse(error.message) as CustomAuthError;
-        const message = t(`auth.error.${errorObj.code}`);
+        const errorObj = JSON.parse(error.message) as CustomError;
+        const message = t(`auth.error.${errorObj.errorCode}`);
 
         showNotification({
           title: t('auth.signInFail'),
