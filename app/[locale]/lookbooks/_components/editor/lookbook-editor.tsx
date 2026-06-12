@@ -10,7 +10,7 @@ type Props = { target: 'first' | 'second' };
 type EditorTabValue = OutfitCategory | 'finalUrl' | 'background';
 
 export const LookbookEditor = ({ target }: Props) => {
-  const t = useTranslations('Lookbooks.editor');
+  const t = useTranslations('Lookbook.editor');
   const [activeTab, setActiveTab] = useState<EditorTabValue | null>('finalUrl');
   // const {
   //   firstLookbook,
@@ -59,7 +59,7 @@ export const LookbookEditor = ({ target }: Props) => {
           <Text>악세사리</Text>
         </Tabs.Tab> */}
         <Tabs.Tab value='finalUrl'>
-          <Text>{t('tabFinalUrl')}</Text>
+          <Text>{t('imageTab')}</Text>
         </Tabs.Tab>
         {/* <Tabs.Tab value='background'>
           <Text>배경</Text>
@@ -93,7 +93,7 @@ export const LookbookEditor = ({ target }: Props) => {
         <OutfitSection
           targetLookbook={target}
           targetOutfit='finalUrl'
-          title={t('finalUrlTitle')}
+          title={t('emptyImage')}
         />
       </Tabs.Panel>
       {/* <Tabs.Panel value='background' mb='xl'>

@@ -2,7 +2,9 @@
 
 import { useRef, useState } from 'react';
 import imageCompression from 'browser-image-compression';
+import { useTranslations } from 'next-intl';
 import { useRemoveBackground } from '@/apis/querys';
+import { showNotification } from '@/components/ui/notification';
 import { useLookbookStore } from '@/hooks/provider';
 import { COMPRESSION_OPTIONS } from '@/shared/common/constants';
 import { AccessoryCategory, Outfit } from '@/shared/common/types/types';
@@ -16,6 +18,7 @@ export function useLookbookEditor(
   targetOutfit: TargetOutfit,
   category?: AccessoryCategory
 ) {
+  const t = useTranslations();
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const {
@@ -104,9 +107,12 @@ export function useLookbookEditor(
       } else {
         setUrl(compressedUrl);
       }
-    } catch (error) {
-      console.error('Image compression failed:', error);
-      alert('이미지 업로드 중 오류가 발생했습니다.');
+    } catch {
+      showNotification({
+        title: 'Lookbook Failed',
+        message: t('Lookbook.error.imageUploadFailed'),
+        type: 'fail',
+      });
     } finally {
       setIsLoading(false);
       input.value = '';
@@ -126,9 +132,12 @@ export function useLookbookEditor(
       const newUrl = `data:image/png;base64,${data.image}`;
       const newFile = base64ToFile(data.image);
       setFileAndFinalUrl(newFile, newUrl);
-    } catch (error) {
-      console.error('Remove background faild:', error);
-      alert('배경 제거 중 오류가 발생했습니다.');
+    } catch {
+      showNotification({
+        title: 'Lookbook Failed',
+        message: t('Lookbook.error.removeBackgroundFailed'),
+        type: 'fail',
+      });
     } finally {
       setIsLoading(false);
     }

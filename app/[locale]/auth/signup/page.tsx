@@ -12,7 +12,7 @@ import { ForwardIcon } from '@/shared/common/icons';
 import { SignUpFormData, signUpSchema } from '../_constants/form';
 
 export default function SignUpPage() {
-  const t = useTranslations('Setting');
+  const t = useTranslations();
   const router = useRouter();
   const locale = useLocale();
   const methods = useForm<SignUpFormData>({
@@ -37,8 +37,8 @@ export default function SignUpPage() {
   const onSubmit = (data: SignUpFormData) => {
     if (!data.termsOfService || !data.privacyPolicy) {
       showNotification({
-        title: t('auth.signUp'),
-        message: t('auth.error.termsRequired'),
+        title: t('Common.fail', { type: t('Auth.signUp.title') }),
+        message: t('Auth.validation.termsRequired'),
         type: 'fail',
       });
       return;
@@ -60,7 +60,7 @@ export default function SignUpPage() {
           const message = t(`auth.error.${errorObj.errorCode}`);
 
           showNotification({
-            title: t('auth.signUpFail'),
+            title: t('Common.fail', { type: t('Auth.signUp.title') }),
             message,
             type: 'fail',
           });
@@ -72,15 +72,17 @@ export default function SignUpPage() {
   return (
     <div className='w-full flex flex-col'>
       <Text ta='center' size='2xl' fw={700}>
-        {t('auth.signUp')}
+        {t('Auth.signUp.title')}
       </Text>
 
       <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
         <div className='w-full flex flex-col gap-4 mb-8'>
           <TextInput
-            label={t('auth.email')}
+            label={t('Auth.field.email')}
             type='email'
-            placeholder={t('auth.emailPlaceholder')}
+            placeholder={t('Auth.placeholder', {
+              field: `${t('Auth.field.email')}을`,
+            })}
             {...register('email')}
             error={
               errors.email?.message
@@ -90,10 +92,12 @@ export default function SignUpPage() {
             disabled={isPending}
           />
           <TextInput
-            label={t('auth.password')}
+            label={t('Auth.field.password')}
             type='password'
-            placeholder={t('auth.passwordPlaceholder')}
-            description={t('auth.passwordDescription')}
+            placeholder={t('Auth.placeholder', {
+              field: `${t('Auth.field.password')}을`,
+            })}
+            description={t('Auth.passwordPolicy')}
             autoComplete='new-password'
             {...register('password')}
             error={
@@ -104,9 +108,11 @@ export default function SignUpPage() {
             disabled={isPending}
           />
           <TextInput
-            label={t('auth.passwordConfirmed')}
+            label={t('Auth.field.passwordConfirm')}
             type='password'
-            placeholder={t('auth.passwordConfirmedPlaceholder')}
+            placeholder={t('Auth.placeholder', {
+              field: `${t('Auth.field.passwordConfirm')}을`,
+            })}
             autoComplete='new-password'
             {...register('passwordConfirmed')}
             error={
@@ -117,9 +123,11 @@ export default function SignUpPage() {
             disabled={isPending}
           />
           <TextInput
-            label={t('auth.nickname')}
+            label={t('Auth.field.nickname')}
             type='text'
-            placeholder={t('auth.nicknamePlaceholder')}
+            placeholder={t('Auth.placeholder', {
+              field: `${t('Auth.field.nickname')}을`,
+            })}
             {...register('nickname')}
             error={
               errors.nickname?.message
@@ -130,7 +138,7 @@ export default function SignUpPage() {
           />
           <div className='flex flex-row flex-1 justify-between'>
             <Checkbox
-              label={t('auth.termsOfService')}
+              label={t('Auth.terms.termsOfService')}
               {...register('termsOfService')}
               error={
                 errors.termsOfService?.message
@@ -144,14 +152,14 @@ export default function SignUpPage() {
               className='inline-flex items-center gap-1'
             >
               <Text span size='sm'>
-                {t('auth.view')}
+                {t('Common.view')}
               </Text>
               <ForwardIcon className='text-black dark:text-white' size={24} />
             </Link>
           </div>
           <div className='flex flex-row flex-1 justify-between'>
             <Checkbox
-              label={t('auth.privacyPolicy')}
+              label={t('Auth.terms.privacyPolicy')}
               {...register('privacyPolicy')}
               error={
                 errors.privacyPolicy?.message
@@ -165,7 +173,7 @@ export default function SignUpPage() {
               className='inline-flex items-center gap-1'
             >
               <Text span size='sm'>
-                {t('auth.view')}
+                {t('Common.view')}
               </Text>
               <ForwardIcon className='text-black dark:text-white' size={24} />
             </Link>
@@ -178,12 +186,12 @@ export default function SignUpPage() {
           fullWidth
           disabled={isPending}
         >
-          {t('auth.signUp')}
+          {t('Auth.signUp.title')}
         </Button>
       </form>
 
       <Link href='/mypage/signin' className='mt-4 text-black dark:text-white'>
-        {t('auth.alreadyHaveAccount')}
+        {t('Auth.signIn.alreadyHaveAccount')}
       </Link>
     </div>
   );

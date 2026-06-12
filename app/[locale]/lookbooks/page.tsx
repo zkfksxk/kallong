@@ -10,7 +10,7 @@ import { useRouter } from '@/i18n/navigation';
 import { LookbookFormData, lookbookSchema } from './_constants/form';
 
 export default function LookbooksPage() {
-  const t = useTranslations('Lookbook.main');
+  const t = useTranslations();
   const router = useRouter();
   const {
     firstLookbook,
@@ -41,35 +41,42 @@ export default function LookbooksPage() {
 
   const getError = (message?: string) => {
     if (!message) return undefined;
-    if (message === 'maxLength') return t('maxLength', { maxLength: 10 });
-    return t(message as 'empty' | 'invalidCharacters');
+    if (message === 'maxLength') {
+      return t('Validation.maxLength', { max: 10 });
+    }
+
+    if (message === 'invalidCharacters') {
+      return t('Lookbook.validation.invalidCharacters');
+    }
+
+    return t('Lookbook.validation.empty');
   };
 
   return (
     <main className='bg-white dark:bg-black w-full flex flex-1 flex-col items-center justify-center gap-15'>
       <div className='w-full flex flex-col gap-5'>
         <TextInput
-          label={t('voteNameLabel')}
-          placeholder={t('voteNamePlaceholder')}
+          label={t('Lookbook.field.voteName')}
+          placeholder={t('Lookbook.placeholder.voteName')}
           {...register('voteName')}
           error={getError(errors.voteName?.message)}
         />
         <TextInput
-          label={t('firstLookLabel')}
-          placeholder={t('firstLookPlaceholder')}
+          label={t('Lookbook.field.firstLook')}
+          placeholder={t('Lookbook.placeholder.firstLook')}
           {...register('firstName')}
           error={getError(errors.firstName?.message)}
         />
         <TextInput
-          label={t('secondLookLabel')}
-          placeholder={t('secondLookPlaceholder')}
+          label={t('Lookbook.field.secondLook')}
+          placeholder={t('Lookbook.placeholder.secondLook')}
           {...register('secondName')}
           error={getError(errors.secondName?.message)}
         />
       </div>
 
       <Button onClick={handleSubmit(onSubmit)} fullWidth>
-        {t('decorateButton')}
+        {t('Lookbook.main.decorate')}
       </Button>
     </main>
   );

@@ -20,7 +20,7 @@ import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 import { CreateImage, LookbookForm } from '../_components';
 
 export default function CreateLookbooksPage() {
-  const t = useTranslations('Lookbook.create');
+  const t = useTranslations();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState<string | null>('first');
@@ -45,8 +45,8 @@ export default function CreateLookbooksPage() {
 
     if (uploadError) {
       showNotification({
-        title: 'Image upload Failed',
-        message: '이미지 업로드에 실패했습니다.',
+        title: t('Common.fail', { type: t('Lookbook.editor.imageTab') }),
+        message: t('Common.errorOccurred'),
         type: 'fail',
       });
       return;
@@ -76,8 +76,10 @@ export default function CreateLookbooksPage() {
       file2!.size > MAX_FILE_SIZE_BYTES
     ) {
       showNotification({
-        title: 'Image upload Failed',
-        message: `파일 크기가 ${MAX_FILE_SIZE_MB}MB를 초과해 업로드할 수 없습니다.`,
+        title: t('Common.fail', { type: t('Lookbook.editor.imageTab') }),
+        message: t('Lookbook.error.fileTooLarge', {
+          maxMb: MAX_FILE_SIZE_MB,
+        }),
         type: 'fail',
       });
       return;
@@ -119,7 +121,7 @@ export default function CreateLookbooksPage() {
     } catch {
       showNotification({
         title: 'Lookbook Failed',
-        message: '룩북 생성 중 에러가 발생했습니다.',
+        message: t('Lookbook.error.createFailed'),
         type: 'fail',
       });
     } finally {
@@ -137,7 +139,7 @@ export default function CreateLookbooksPage() {
             onClick={handleSubmit}
             disabled={isSubmitting}
           >
-            저장
+            {t('Common.save')}
           </Button>
         }
       />
@@ -145,10 +147,10 @@ export default function CreateLookbooksPage() {
         <Tabs color='red.5' value={activeTab} onChange={setActiveTab}>
           <Tabs.List>
             <Tabs.Tab value='first'>
-              {firstLookbook.name || t('tabFirst')}
+              {firstLookbook.name || t('Lookbook.field.firstLook')}
             </Tabs.Tab>
             <Tabs.Tab value='second'>
-              {secondLookbook.name || t('tabSecond')}
+              {secondLookbook.name || t('Lookbook.field.secondLook')}
             </Tabs.Tab>
           </Tabs.List>
           <Tabs.Panel value='first' pt='md'>
@@ -163,13 +165,13 @@ export default function CreateLookbooksPage() {
       </div>
 
       <div className='flex flex-col items-center mt-15 gap-0.5'>
-        <Text size='sm'>{t('bgRemoveQuestion')}</Text>
+        <Text size='sm'>{t('Lookbook.create.bgRemoveQuestion')}</Text>
         <Button
           variant='ghost'
           disabled={isSubmitting}
           onClick={() => router.push('/lookbooks/editor')}
         >
-          {t('editorButton')}
+          {t('Lookbook.create.moveToEditor')}
         </Button>
       </div>
     </main>

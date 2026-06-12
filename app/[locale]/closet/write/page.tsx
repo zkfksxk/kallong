@@ -26,7 +26,7 @@ import { useOutfitImageEditor } from '../_hooks/useOutfitImageEditor';
 
 export default function WritePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const t = useTranslations('Closet');
+  const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedDay = searchParams.get('day') ?? dayjs().format('YYYY-MM-DD');
@@ -72,7 +72,7 @@ export default function WritePage() {
     if (uploadError) {
       showNotification({
         title: 'Image upload Failed',
-        message: t('error.imageUploadFailed'),
+        message: t('Closet.error.imageUploadFailed'),
         type: 'fail',
       });
       return;
@@ -92,7 +92,7 @@ export default function WritePage() {
     if (!file) {
       showNotification({
         title: 'Closet Failed',
-        message: t('error.imageRequired'),
+        message: t('Closet.validation.imageRequired'),
         type: 'fail',
       });
       return;
@@ -101,7 +101,7 @@ export default function WritePage() {
     if (file.size > MAX_FILE_SIZE_BYTES) {
       showNotification({
         title: 'Image upload Failed',
-        message: t('error.fileTooLarge', { maxMb: MAX_FILE_SIZE_MB }),
+        message: t('Closet.error.fileTooLarge', { maxMb: MAX_FILE_SIZE_MB }),
         type: 'fail',
       });
       return;
@@ -127,7 +127,7 @@ export default function WritePage() {
     } catch {
       showNotification({
         title: 'Closet Failed',
-        message: t('error.createFailed'),
+        message: t('Closet.error.createFailed'),
         type: 'fail',
       });
     } finally {
@@ -146,7 +146,7 @@ export default function WritePage() {
             variant='ghost'
             disabled={!isValid || isSubmitting}
           >
-            저장
+            {t('Common.save')}
           </Button>
         }
       />
@@ -180,22 +180,22 @@ export default function WritePage() {
             className='py-1'
             icon={<ImageAddIcon size={24} color='white' />}
           >
-            이미지 추가하기
+            {t('Closet.imageAdd')}
           </Button>
         </div>
       </div>
       <div className='flex flex-col gap-10 mt-10'>
         <TextInput
           maxLength={20}
-          label={t('title')}
-          placeholder={t('validation.nameMax')}
+          label={t('Closet.field.title')}
+          placeholder={t('Validation.maxLength', { max: 20 })}
           {...register('name')}
           error={errors.name?.message ? t(errors.name.message) : undefined}
         />
         <Textarea
           maxLength={500}
-          label={t('description')}
-          placeholder={t('validation.descriptionMax')}
+          label={t('Closet.field.description')}
+          placeholder={t('Validation.maxLength', { max: 500 })}
           {...register('description')}
           error={
             errors.description?.message

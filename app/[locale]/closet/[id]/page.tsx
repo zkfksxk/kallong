@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { Text } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 import { useGetDailyOutfit } from '@/apis/querys/outfit';
 import { Button } from '@/components';
 import { Header } from '@/components/layouts/header';
@@ -13,6 +14,7 @@ export default function DetailPage() {
     id: string;
   }>();
   const router = useRouter();
+  const t = useTranslations('Common');
   const { data } = useGetDailyOutfit(id);
 
   if (!data) return;
@@ -26,7 +28,7 @@ export default function DetailPage() {
             onClick={() => router.push(`/closet/${id}/edit`)}
             variant='ghost'
           >
-            수정
+            {t('edit')}
           </Button>
         }
       />

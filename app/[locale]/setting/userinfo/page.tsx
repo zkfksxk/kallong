@@ -9,7 +9,7 @@ import { Profile, ProfileSkeleton, SettingItem } from '../_components';
 
 export default function UserInfoPage() {
   const [opened, { open, close }] = useDisclosure(false);
-  const t = useTranslations('Setting');
+  const t = useTranslations();
   const { profile } = useProfileStore((s) => s);
   const { mutate: deleteAccount, isPending } = useDeleteAccount();
 

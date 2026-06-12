@@ -13,7 +13,7 @@ import {
 } from '../../_constants/form';
 
 export default function UpdatePasswordPage() {
-  const t = useTranslations('Setting');
+  const t = useTranslations();
   const router = useRouter();
   const {
     register,
@@ -35,8 +35,10 @@ export default function UpdatePasswordPage() {
       },
       onError: () => {
         showNotification({
-          title: t('auth.passwordUpdate'),
-          message: t('auth.passwordUpdateFail'),
+          title: t('Auth.updatePassword.title'),
+          message: t('Common.fail', {
+            type: t('Auth.updatePassword.title'),
+          }),
           type: 'fail',
         });
         reset();
@@ -47,18 +49,20 @@ export default function UpdatePasswordPage() {
   return (
     <div className='w-full flex flex-col'>
       <Text ta='center' size='2xl' fw={700}>
-        {t('auth.updatePassword')}
+        {t('Auth.updatePassword.title')}
       </Text>
       <Text ta='center' size='sm'>
-        {t('auth.updatePasswordDescription')}
+        {t('Auth.updatePassword.description')}
       </Text>
       <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
         <div className='w-full flex flex-col mb-8'>
           <TextInput
-            label={t('auth.newPassword')}
+            label={t('Auth.field.newPassword')}
             type='password'
-            placeholder={t('auth.passwordPlaceholder')}
-            description={t('auth.passwordDescription')}
+            placeholder={t('Auth.placeholder', {
+              field: `${t('Auth.field.newPassword')}를`,
+            })}
+            description={t('Auth.passwordPolicy')}
             autoComplete='new-password'
             {...register('password')}
             error={
@@ -75,7 +79,7 @@ export default function UpdatePasswordPage() {
           fullWidth
           disabled={!isValid || isSubmitting}
         >
-          {t('auth.saveButton')}
+          {t('Common.save')}
         </Button>
       </form>
     </div>

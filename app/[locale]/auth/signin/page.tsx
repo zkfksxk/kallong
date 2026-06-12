@@ -5,17 +5,15 @@ import { Text, TextInput } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { CustomError } from '@/apis/error';
-import { useSignInWithGoogle, useSignInWithPassword } from '@/apis/querys/auth';
+import { useSignInWithPassword } from '@/apis/querys/auth';
 import { Button, showNotification } from '@/components';
-import { useDetectWebView } from '@/hooks/useDetectWebView';
 import { Link, useRouter } from '@/i18n/navigation';
-import { GoogleIcon } from '@/shared/common/icons';
 import { SignInFormData, signInSchema } from '../_constants/form';
 
 export default function SignInPage() {
-  const t = useTranslations('Setting');
+  const t = useTranslations();
   const router = useRouter();
-  const { isWebView } = useDetectWebView();
+  //const { isWebView } = useDetectWebView();
   const form = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
     defaultValues: { email: '', password: '' },
@@ -28,8 +26,8 @@ export default function SignInPage() {
   } = form;
   const { mutate: signIn, isPending: signInIsPending } =
     useSignInWithPassword();
-  const { mutate: signInWithGoogle, isPending: signInWithGoogleIsPending } =
-    useSignInWithGoogle();
+  // const { mutate: signInWithGoogle, isPending: signInWithGoogleIsPending } =
+  //   useSignInWithGoogle();
 
   const onSubmit = (data: SignInFormData) => {
     signIn(data, {
@@ -41,7 +39,7 @@ export default function SignInPage() {
         const message = t(`auth.error.${errorObj.errorCode}`);
 
         showNotification({
-          title: t('auth.signInFail'),
+          title: t('Common.fail', { type: t('Auth.signIn.title') }),
           message,
           type: 'fail',
         });
@@ -49,22 +47,22 @@ export default function SignInPage() {
     });
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      signInWithGoogle();
-    } catch {
-      showNotification({
-        title: t('auth.signInFail'),
-        message: t('auth.errors.googleSignInFailed'),
-        type: 'fail',
-      });
-    }
-  };
+  // const handleGoogleLogin = async () => {
+  //   try {
+  //     signInWithGoogle();
+  //   } catch {
+  //     showNotification({
+  //       title: t('auth.signInFail'),
+  //       message: t('auth.errors.googleSignInFailed'),
+  //       type: 'fail',
+  //     });
+  //   }
+  // };
 
   return (
     <div className='bg-white dark:bg-black w-full flex flex-col'>
       <Text ta='center' size='2xl' fw={700}>
-        {t('auth.signIn')}
+        {t('Auth.signIn.title')}
       </Text>
       <form
         autoComplete='off'
@@ -73,9 +71,11 @@ export default function SignInPage() {
       >
         <div className='w-full flex flex-col gap-4 mb-8'>
           <TextInput
-            label={t('auth.email')}
+            label={t('Auth.field.email')}
             type='email'
-            placeholder={t('auth.emailPlaceholder')}
+            placeholder={t('Auth.placeholder', {
+              field: `${t('Auth.field.email')}을`,
+            })}
             autoComplete='off'
             {...register('email')}
             error={
@@ -86,10 +86,12 @@ export default function SignInPage() {
             disabled={signInIsPending}
           />
           <TextInput
-            label={t('auth.password')}
+            label={t('Auth.field.password')}
             type='password'
-            placeholder={t('auth.passwordPlaceholder')}
-            description={t('auth.passwordDescription')}
+            placeholder={t('Auth.placeholder', {
+              field: `${t('Auth.field.password')}을`,
+            })}
+            description={t('Auth.passwordPolicy')}
             autoComplete='new-password'
             {...register('password')}
             error={
@@ -106,16 +108,18 @@ export default function SignInPage() {
           fullWidth
           disabled={!isValid || signInIsPending}
         >
-          {t('auth.signIn')}
+          {t('Auth.signIn.title')}
         </Button>
       </form>
 
       <div className='flex flex-row justify-end items-center mt-4 gap-2 text-md text-black dark:text-white'>
-        <Link href='/auth/signup'>{t('auth.signUp')}</Link>
+        <Link href='/auth/signup'>{t('Auth.signUp.title')}</Link>
         <div className='w-px h-4 bg-gray-300 dark:bg-gray-600' />
-        <Link href='/auth/password/reset'>{t('auth.forgotPassword')}</Link>
+        <Link href='/auth/password/reset'>
+          {t('Auth.signIn.forgotPassword')}
+        </Link>
       </div>
-      {!isWebView && (
+      {/* {!isWebView && (
         <div className='flex flex-col w-full mt-20'>
           <Button
             icon={<GoogleIcon size={18} />}
@@ -127,7 +131,7 @@ export default function SignInPage() {
             Continue with Google
           </Button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

@@ -1,10 +1,12 @@
 import { ActionIcon } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 import { AddIcon, DeleteIcon } from '@/shared/common/icons';
 import { useLookbookEditor } from '../../_hooks/useLookbookEditor';
 
 type Props = { targetLookbook: 'first' | 'second' };
 
 export const LookbookForm = ({ targetLookbook }: Props) => {
+  const t = useTranslations('Common');
   const {
     fileInputRef,
     url,
@@ -27,7 +29,7 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
           variant='outline'
           size='xl'
           radius='md'
-          title='추가'
+          title={t('add')}
           onClick={handleOpenImagePicker}
         >
           <AddIcon size={32} color='black' />
@@ -36,7 +38,7 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
           variant='outline'
           size='xl'
           radius='md'
-          title='삭제'
+          title={t('delete')}
           disabled={!url}
           onClick={handleRemoveFileAndFinalUrl}
         >

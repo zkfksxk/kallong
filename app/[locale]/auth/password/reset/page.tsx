@@ -14,7 +14,7 @@ import {
 } from '../../_constants/form';
 
 export default function ResetPasswordPage() {
-  const t = useTranslations('Setting');
+  const t = useTranslations();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const {
     register,
@@ -33,16 +33,17 @@ export default function ResetPasswordPage() {
       onSuccess: () => {
         reset();
         setIsSubmitted(true);
+
         showNotification({
-          title: t('auth.resetPassword'),
-          message: t('auth.resetPasswordSucceed'),
+          title: t('Auth.resetPassword.title'),
+          message: t('Auth.resetPassword.succeed'),
           type: 'success',
         });
       },
       onError: () => {
         showNotification({
-          title: t('auth.resetPassword'),
-          message: t('auth.resetPasswordFail'),
+          title: t('Auth.resetPassword.title'),
+          message: t('Auth.resetPassword.fail'),
           type: 'fail',
         });
       },
@@ -57,7 +58,7 @@ export default function ResetPasswordPage() {
       >
         <MailIcon size={30} />
         <Text ta='center' c='black' fw={700}>
-          {t('auth.checkEmail')}
+          {t('Auth.resetPassword.checkEmail')}
         </Text>
       </Box>
     );
@@ -66,17 +67,19 @@ export default function ResetPasswordPage() {
   return (
     <div className='w-full flex flex-col'>
       <Text ta='center' size='2xl' fw={700}>
-        {t('auth.forgotPassword')}
+        {t('Auth.signIn.forgotPassword')}
       </Text>
       <Text ta='center' size='md'>
-        {t('auth.resetPasswordDescription')}
+        {t('Auth.resetPassword.description')}
       </Text>
       <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
         <div className='w-full flex flex-col mb-8'>
           <TextInput
-            label={t('auth.email')}
+            label={t('Auth.field.email')}
             type='email'
-            placeholder={t('auth.emailPlaceholder')}
+            placeholder={t('Auth.placeholder', {
+              field: `${t('Auth.field.email')}을`,
+            })}
             {...register('email')}
             error={
               errors.email?.message
@@ -94,7 +97,7 @@ export default function ResetPasswordPage() {
           loading={isSubmitting}
           disabled={!isValid || isSubmitting}
         >
-          {t('auth.resetEmailButton')}
+          {t('Auth.resetPassword.requestEmailButton')}
         </Button>
       </form>
     </div>

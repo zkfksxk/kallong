@@ -11,7 +11,7 @@ import { useRouter } from '@/i18n/navigation';
 import { NicknameFormData, nicknameSchema } from '../_constants/form';
 
 export default function NicknameChangePage() {
-  const t = useTranslations('Setting');
+  const t = useTranslations();
   const router = useRouter();
   const { setProfile, profile } = useProfileStore((s) => s);
   const {
@@ -38,16 +38,18 @@ export default function NicknameChangePage() {
         }
 
         showNotification({
-          title: t('auth.nicknameChange'),
-          message: t('auth.nicknameChangeSucceed'),
+          title: t('Auth.profile.nicknameChange'),
+          message: t('Auth.profile.nicknameChangeSucceed'),
           type: 'success',
         });
         router.replace('/setting/userinfo');
       },
       onError: () => {
         showNotification({
-          title: t('auth.nicknameChange'),
-          message: t('auth.nicknameChangeFail'),
+          title: t('Auth.profile.nicknameChange'),
+          message: t('Common.fail', {
+            type: t('Auth.profile.nicknameChange'),
+          }),
           type: 'fail',
         });
       },
@@ -59,9 +61,11 @@ export default function NicknameChangePage() {
       <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
         <div className='w-full flex flex-col gap-2 mb-8'>
           <TextInput
-            label={t('auth.nicknameChange')}
+            label={t('Auth.profile.nicknameChange')}
             type='text'
-            placeholder={t('auth.nicknamePlaceholder')}
+            placeholder={t('Auth.placeholder', {
+              field: `${t('Auth.field.nickname')}을`,
+            })}
             {...register('nickname')}
             error={
               errors.nickname?.message
@@ -78,7 +82,7 @@ export default function NicknameChangePage() {
           loading={isSubmitting}
           disabled={!isValid || isSubmitting}
         >
-          {t('auth.saveButton')}
+          {t('Common.save')}
         </Button>
       </form>
     </div>

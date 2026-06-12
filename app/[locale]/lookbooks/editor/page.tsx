@@ -3,13 +3,13 @@
 import { useState } from 'react';
 import { Tabs } from '@mantine/core';
 import { useTranslations } from 'next-intl';
-import { LookbookEditor } from '@/app/[locale]/lookbooks/_components/editor/lookbook-editor';
 import { Header } from '@/components/layouts/header';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { CreateImage } from '../_components/create/create-image';
+import { LookbookEditor } from '../_components/editor/lookbook-editor';
 
 export default function EditLookbookPage() {
-  const t = useTranslations('Lookbook.editor');
+  const t = useTranslations();
   const { firstLookbook, secondLookbook } = useLookbookStore((s) => s);
   const [activeTab, setActiveTab] = useState<string | null>('first');
 
@@ -20,10 +20,10 @@ export default function EditLookbookPage() {
         <Tabs color='red.5' value={activeTab} onChange={setActiveTab}>
           <Tabs.List>
             <Tabs.Tab value='first'>
-              {firstLookbook.name || t('tabFirst')}
+              {firstLookbook.name || t('Lookbook.field.firstLook')}
             </Tabs.Tab>
             <Tabs.Tab value='second'>
-              {secondLookbook.name || t('tabSecond')}
+              {secondLookbook.name || t('Lookbook.field.secondLook')}
             </Tabs.Tab>
           </Tabs.List>
           <Tabs.Panel value='first' pt='md'>

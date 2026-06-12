@@ -3,168 +3,184 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "errorOccurred": "An error occurred. Please try again later.",
-    "goHome": "Go Home",
-    "fail": "{type} Failed",
-    "succeed": "Success",
-    "loadingData": "Loading data..."
+    "goHome": "Go home",
+    "fail": "{type} failed",
+    "succeed": "{type} succeeded",
+    "save": "Save",
+    "edit": "Edit",
+    "add": "Add",
+    "delete": "Delete",
+    "view": "View",
+    "back": "Back",
+    "remove": "Remove",
+    "loadingData": "Loading data...",
+    "notFound": "Page not found"
   },
   "Tab": {
     "home": "Home",
-    "my": "My",
-    "notFound": "Page not found",
-    "goHome": "Go Home"
+    "my": "My"
+  },
+  "Validation": {
+    "required": "{field} is required.",
+    "minLength": "Please enter at least {min} characters.",
+    "maxLength": "Please enter {max} characters or fewer."
   },
   "Home": {
-    "title1": "Closet",
-    "description1": "Record today's style",
-    "title2": "Vote",
-    "description2": "Start a 12-hour vote",
+    "closet": {
+      "title": "Closet",
+      "description": "Record today's style"
+    },
+    "lookbook": {
+      "title": "Vote",
+      "description": "Start a 12-hour vote"
+    },
     "startButton": "Start"
   },
   "Setting": {
-    "screen": "Screen",
+    "screen": "Screen settings",
     "english": "English",
     "korean": "Korean",
     "lang": "Language",
     "theme": "Theme",
     "light": "Light mode",
     "dark": "Dark mode",
-    "system": "System",
-    "userInfo": "User Settings",
+    "system": "System settings",
+    "userInfo": "User settings",
     "daysTogether": "Together for {daysSince} days",
     "version": "App version",
     "appInfo": {
       "introduce": "About Kallong",
-      "title": "Thank you for visiting <bold>kallong</bold>!",
+      "title": "Thank you so much for visiting <bold>Kallong</bold>!",
       "share": "If you enjoyed the project, please share it with others.",
       "notice": {
         "title": "Notice",
-        "anonymousEdit": "• Lookbooks saved by non-logged-in users cannot be edited or searched. <bold>Please make sure to save the URL!</bold>",
-        "anonymousDelete": "• Data from non-logged-in users is periodically deleted, so please save the voting results in advance.",
-        "feedback": "• We welcome feedback and will reflect it as much as possible."
+        "anonymousEdit": "• Lookbooks saved by users who are not signed in cannot be edited or searched. <bold>Please make sure to save the URL!</bold>",
+        "anonymousDelete": "• Data from users who are not signed in is deleted periodically, so please save voting results in advance.",
+        "feedback": "• Feedback is always welcome. We'll do our best to reflect it."
       },
+      "formButton": "Submit feedback",
       "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "formButton": "Submit Feedback"
-    },
-    "auth": {
-      "signUp": "Sign Up",
-      "signIn": "Sign In",
-      "logout": "Log Out",
-      "deleteAccount": "Delete Account",
+      "privacy": "Privacy Policy"
+    }
+  },
+  "Auth": {
+    "logout": "Log out",
+    "passwordPolicy": "8 to 20 characters, including at least 2 of letters, numbers, or special characters",
+    "field": {
       "email": "Email",
       "password": "Password",
-      "newPassword": "New Password",
-      "nickname": "Nickname",
-      "passwordConfirmed": "Confirm Password",
-      "emailPlaceholder": "Enter your email",
-      "passwordPlaceholder": "Enter your password",
-      "passwordConfirmedPlaceholder": "Confirm your password",
-      "nicknamePlaceholder": "Enter your nickname",
-      "passwordDescription": "At least 8 characters with 2 or more of: letters, numbers, special characters",
-      "signInFail": "Sign in failed",
-      "signUpFail": "Sign up failed",
-      "signUpSucceed": "Sign-up successful. Redirecting...",
-      "nicknameChangeSucceed": "Nickname changed successfully",
-      "nicknameChangeFail": "Failed to change nickname",
-      "passwordUpdateFail": "Failed to update password",
-      "resetPassword": "Reset Password",
-      "resetPasswordDescription": "We'll send you a password reset link via email.",
-      "resetEmailButton": "Send Email",
-      "resetPasswordSucceed": "Password reset link has been sent to your email.",
-      "resetPasswordFail": "Failed to reset password. Please try again.",
-      "checkEmail": "Please check your email.",
-      "updatePassword": "Update Password",
-      "updatePasswordDescription": "Please enter a new password different from your previous one.",
-      "nicknameChange": "Change Nickname",
-      "saveButton": "Save",
+      "newPassword": "New password",
+      "passwordConfirm": "Confirm password",
+      "nickname": "Nickname"
+    },
+    "placeholder": "Enter {field}",
+    "signIn": {
+      "title": "Sign in",
       "alreadyHaveAccount": "Already have an account?",
-      "forgotPassword": "Forgot your password?",
-      "deleteAccountTitle": "Delete Account",
-      "deleteAccountDescription": "If you delete your account, all information will be deleted. Are you sure you want to delete your account?",
-      "deleteAccountSubmit": "Delete Account",
+      "forgotPassword": "Forgot your password?"
+    },
+    "signUp": {
+      "title": "Sign up",
+      "succeed": "Sign-up successful. Redirecting..."
+    },
+    "profile": {
+      "nicknameChange": "Change nickname",
+      "nicknameChangeSucceed": "Nickname changed successfully"
+    },
+    "updatePassword": {
+      "title": "Change password",
+      "description": "Enter a new password different from your previous one"
+    },
+    "resetPassword": {
+      "title": "Reset password",
+      "description": "We'll send a password reset link to your email.",
+      "requestEmailButton": "Request verification email",
+      "succeed": "A password reset link has been sent to your email.",
+      "fail": "Failed to reset password. Please try again.",
+      "checkEmail": "Please check your email."
+    },
+    "deleteAccount": {
+      "title": "Delete account",
+      "description": "If you delete your account, all information will be deleted. Are you sure you want to continue?",
+      "submit": "Delete account"
+    },
+    "terms": {
       "termsOfService": "Terms of Service",
-      "privacyPolicy": "Privacy Policy",
-      "view": "View",
-      "validation": {
-        "emailRequired": "Please enter your email.",
-        "emailInvalidPattern": "Invalid email format.",
-        "passwordRequired": "Please enter your password.",
-        "passwordInvalidPattern": "Include at least two of: English letters, numbers, special characters.",
-        "passwordMismatch": "Passwords do not match.",
-        "passwordMin": "Please enter at least 8 characters.",
-        "passwordMax": "Please enter 20 characters or fewer.",
-        "passwordConfirmedRequired": "Please enter your password confirmed",
-        "nicknameRequired": "Please enter your nickname.",
-        "nicknameMin": "Please enter at least 1 character.",
-        "nicknameMax": "Please enter 10 characters or fewer.",
-        "nicknameInvalidPattern": "Only English letters, Korean characters, and numbers are allowed.",
-        "termsRequired": "Please agree to the terms and privacy policy."
-      },
-      "error": {
-        "invalid_credentials": "Invalid email or password.",
-        "session_expired": "Your session has expired. Please sign in again.",
-        "email_not_confirmed": "Please verify your email address.",
-        "signup_disabled": "Sign-up is currently unavailable.",
-        "over_email_send_rate_limit": "Email send limit exceeded. Please try again later.",
-        "unknown_error": "An unexpected error occurred. Please try again later.",
-        "googleSignInFailed": "Google sign-in failed."
-      }
+      "privacyPolicy": "Consent to collection and use of personal information"
+    },
+    "validation": {
+      "emailInvalidPattern": "Invalid email format.",
+      "passwordInvalidPattern": "Include at least two of uppercase/lowercase letters, numbers, or special characters.",
+      "nicknameInvalidPattern": "Only uppercase/lowercase letters, Korean characters, and numbers are allowed.",
+      "passwordMismatch": "Passwords do not match.",
+      "termsRequired": "Please agree to the terms."
+    },
+    "error": {
+      "invalid_credentials": "Invalid email or password.",
+      "session_expired": "Your session has expired. Please sign in again.",
+      "email_not_confirmed": "Email verification is required.",
+      "signup_disabled": "Sign-up is currently unavailable.",
+      "over_email_send_rate_limit": "Email send limit exceeded. Please try again later.",
+      "unknown_error": "An unknown error occurred. Please try again later.",
+      "googleSignInFailed": "Google sign-in failed."
     }
   },
   "Closet": {
-    "emptyMessage": "You haven’t written any records yet.",
-    "goToRecord": "Go to record",
-    "title": "title",
-    "description": "memo",
+    "emptyMessage": "You haven't written any records yet.",
+    "goToRecord": "Go record one",
+    "imageAdd": "Add image",
+    "field": {
+      "title": "Title",
+      "description": "Memo"
+    },
     "validation": {
-      "nameRequired": "Please enter a title.",
-      "nameMax": "Please enter no more than 20 characters.",
-      "descriptionMax": "Please enter no more than 500 characters."
+      "imageRequired": "Please select an image.",
+      "dateRequired": "Please select a date."
     },
     "error": {
-      "selectDate": "Please select a date.",
+      "createFailed": "An error occurred while creating the record.",
       "deleteFailed": "An error occurred while deleting.",
       "imageUploadFailed": "Failed to upload the image.",
-      "imageRequired": "Please select an image.",
-      "fileTooLarge": "The file exceeds the {maxMb}MB limit and cannot be uploaded.",
-      "createFailed": "An error occurred while creating the record."
+      "fileTooLarge": "The file exceeds the {maxMb}MB limit and cannot be uploaded."
     }
   },
   "Lookbook": {
-    "main": {
-      "voteNameLabel": "Vote Name",
-      "voteNamePlaceholder": "Today's Outfit",
-      "firstLookLabel": "First Style",
-      "firstLookPlaceholder": "Check Shirt-A",
-      "secondLookLabel": "Second Style",
-      "secondLookPlaceholder": "Check Shirt-B",
-      "decorateButton": "Decorate",
+    "field": {
+      "voteName": "Vote name",
+      "firstLook": "First look",
+      "secondLook": "Second look"
+    },
+    "placeholder": {
+      "voteName": "Today's outfit",
+      "firstLook": "Check shirt-A",
+      "secondLook": "Check shirt-B"
+    },
+    "validation": {
       "empty": "Please enter a value.",
-      "maxLength": "Please enter {maxLength} characters or less.",
-      "invalidCharacters": "Only English, Korean, numbers, spaces, hyphens(-), and underscores(_) are allowed."
+      "invalidCharacters": "Only English, Korean, numbers, spaces, hyphens (-), and underscores (_) are allowed."
+    },
+    "main": {
+      "decorate": "Decorate"
     },
     "create": {
-      "tabFirst": "First Look",
-      "tabSecond": "Second Look",
-      "saveButton": "Save",
-      "backButton": "Back",
       "bgRemoveQuestion": "Don't have a background-removed photo?",
-      "editorButton": "Go to Editor"
+      "moveToEditor": "Go to editor"
     },
     "editor": {
-      "tabFirst": "First Look",
-      "tabSecond": "Second Look",
-      "backButton": "Back",
-      "addButton": "Add",
-      "removeButton": "Remove",
-      "removeBgButton": "Remove Background",
-      "tabFinalUrl": "Image",
-      "finalUrlTitle": "Add an image!"
+      "removeBackground": "Remove background",
+      "imageTab": "Image",
+      "emptyImage": "Try adding an image!"
     },
     "result": {
-      "title": "View Results",
+      "title": "View results",
       "ended": "Voting has ended."
+    },
+    "error": {
+      "createFailed": "An error occurred while creating the record.",
+      "deleteFailed": "An error occurred while deleting.",
+      "imageUploadFailed": "An error occurred while uploading the image.",
+      "fileTooLarge": "The file exceeds the {maxMb}MB limit and cannot be uploaded.",
+      "removeBackgroundFailed": "An error occurred while removing the background."
     }
   }
 }

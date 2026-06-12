@@ -25,10 +25,10 @@ export default function Home() {
               color: theme.black,
             }}
           >
-            {t('title1')}
+            {t('closet.title')}
           </Text>
           <Text size='md' fw={500} c={theme.black}>
-            {t('description1')}
+            {t('closet.description')}
           </Text>
         </div>
 
@@ -49,10 +49,10 @@ export default function Home() {
               color: theme.black,
             }}
           >
-            {t('title2')}
+            {t('lookbook.title')}
           </Text>
           <Text size='md' fw={500} c={theme.black}>
-            {t('description2')}
+            {t('closet.description')}
           </Text>
         </div>
         <Link href='/lookbooks' className='w-full'>
