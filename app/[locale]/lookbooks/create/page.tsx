@@ -17,7 +17,7 @@ import {
   MAX_FILE_SIZE_MB,
 } from '@/shared/common/constants/common';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
-import { CreateImage, LookbookForm } from '../_components';
+import { LookbookForm } from '../_components';
 
 export default function CreateLookbooksPage() {
   const t = useTranslations();
@@ -67,7 +67,7 @@ export default function CreateLookbooksPage() {
 
     setIsSubmitting(true);
 
-    //2개의 Lookbook생성후 id 받음. MAX_FILE_SIZE_MB: 4MB;
+    //2개의 Lookbook생성후 id 받음. MAX_FILE_SIZE_MB: 2MB;
     const file1 = firstLookbook.data.finalFile;
     const file2 = secondLookbook.data.finalFile;
 
@@ -137,7 +137,7 @@ export default function CreateLookbooksPage() {
           <Button
             variant='ghost'
             onClick={handleSubmit}
-            disabled={isSubmitting}
+            disabled={isSubmitting || !isReadyToSubmit}
           >
             {t('Common.save')}
           </Button>
@@ -154,11 +154,9 @@ export default function CreateLookbooksPage() {
             </Tabs.Tab>
           </Tabs.List>
           <Tabs.Panel value='first' pt='md'>
-            <CreateImage lookbook={firstLookbook} />
             <LookbookForm targetLookbook='first' />
           </Tabs.Panel>
           <Tabs.Panel value='second' pt='md'>
-            <CreateImage lookbook={secondLookbook} />
             <LookbookForm targetLookbook='second' />
           </Tabs.Panel>
         </Tabs>

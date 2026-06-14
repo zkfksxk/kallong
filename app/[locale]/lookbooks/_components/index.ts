@@ -1,4 +1,3 @@
-export * from './create/create-image';
 export * from './create/lookbook-form';
 
 export * from './editor/accessory-section';

@@ -42,13 +42,6 @@ export type Vote = {
   lookbook_id_b: string;
 };
 
-export type LookbookForm = {
-  voteName: string;
-  name: string;
-  image_url?: string;
-  file?: File;
-};
-
 export type Profile = {
   id: string;
   email: string;

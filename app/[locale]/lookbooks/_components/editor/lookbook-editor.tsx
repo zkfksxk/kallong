@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Tabs, Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
+import { useLookbookStore } from '@/hooks/provider';
 import { OUTFIT_CATEGORY, OutfitCategory } from '@/shared/common/types/types';
 import { OutfitSection } from './outfit-section';
 
@@ -12,16 +14,12 @@ type EditorTabValue = OutfitCategory | 'finalUrl' | 'background';
 export const LookbookEditor = ({ target }: Props) => {
   const t = useTranslations('Lookbook.editor');
   const [activeTab, setActiveTab] = useState<EditorTabValue | null>('finalUrl');
-  // const {
-  //   firstLookbook,
-  //   secondLookbook,
-  //   updateFirstLookbook,
-  //   updateSecondLookbook,
-  // } = useLookbookStore((s) => s);
+  const { firstLookbook, secondLookbook } = useLookbookStore((s) => s);
 
-  // const lookbook = target === 'first' ? firstLookbook : secondLookbook;
+  const lookbook = target === 'first' ? firstLookbook : secondLookbook;
+  const { finalUrl } = lookbook.data;
+
   // const background = lookbook.data.background;
-
   // const handleBackgroundColor = (color: string) => {
   //   if (target === 'first') updateFirstLookbook({ background: color });
   //   else updateSecondLookbook({ background: color });
@@ -44,9 +42,20 @@ export const LookbookEditor = ({ target }: Props) => {
   };
 
   return (
-    <Tabs color='red.5' value={activeTab} onChange={handleTabChange} mt='sm'>
-      <Tabs.List>
-        {/* <Tabs.Tab value='top'>
+    <div className='flex flex-col'>
+      <div className='relative w-full max-w-125 aspect-square flex items-center justify-center border border-gray-300 rounded-md overflow-hidden bg-white'>
+        {finalUrl && (
+          <Image
+            src={finalUrl}
+            alt='final-lookbook'
+            fill
+            className='object-cover'
+          />
+        )}
+      </div>
+      <Tabs color='red.5' value={activeTab} onChange={handleTabChange} mt='sm'>
+        <Tabs.List>
+          {/* <Tabs.Tab value='top'>
           <Text>상의</Text>
         </Tabs.Tab>
         <Tabs.Tab value='bottom'>
@@ -58,14 +67,14 @@ export const LookbookEditor = ({ target }: Props) => {
         <Tabs.Tab value='accessory'>
           <Text>악세사리</Text>
         </Tabs.Tab> */}
-        <Tabs.Tab value='finalUrl'>
-          <Text>{t('imageTab')}</Text>
-        </Tabs.Tab>
-        {/* <Tabs.Tab value='background'>
+          <Tabs.Tab value='finalUrl'>
+            <Text>{t('imageTab')}</Text>
+          </Tabs.Tab>
+          {/* <Tabs.Tab value='background'>
           <Text>배경</Text>
         </Tabs.Tab> */}
-      </Tabs.List>
-      {/* <Tabs.Panel value='top' pt='md'>
+        </Tabs.List>
+        {/* <Tabs.Panel value='top' pt='md'>
         <OutfitSection
           targetLookbook={target}
           targetOutfit='topUrl'
@@ -89,14 +98,14 @@ export const LookbookEditor = ({ target }: Props) => {
       <Tabs.Panel value='accessory' pt='md'>
         <AccessorySection targetLookbook={target} />
       </Tabs.Panel> */}
-      <Tabs.Panel value='finalUrl' mb='xl'>
-        <OutfitSection
-          targetLookbook={target}
-          targetOutfit='finalUrl'
-          title={t('emptyImage')}
-        />
-      </Tabs.Panel>
-      {/* <Tabs.Panel value='background' mb='xl'>
+        <Tabs.Panel value='finalUrl' mb='xl'>
+          <OutfitSection
+            targetLookbook={target}
+            targetOutfit='finalUrl'
+            title={t('emptyImage')}
+          />
+        </Tabs.Panel>
+        {/* <Tabs.Panel value='background' mb='xl'>
         <div className='flex flex-1 flex-col items-center gap-2'>
           <Text>배경색을 선택하세요.</Text>
           <div className='flex flex-col items-center gap-2'>
@@ -131,6 +140,7 @@ export const LookbookEditor = ({ target }: Props) => {
           </div>
         </div>
       </Tabs.Panel> */}
-    </Tabs>
+      </Tabs>
+    </div>
   );
 };

@@ -5,7 +5,6 @@ import { Tabs } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { Header } from '@/components/layouts/header';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
-import { CreateImage } from '../_components/create/create-image';
 import { LookbookEditor } from '../_components/editor/lookbook-editor';
 
 export default function EditLookbookPage() {
@@ -27,11 +26,9 @@ export default function EditLookbookPage() {
             </Tabs.Tab>
           </Tabs.List>
           <Tabs.Panel value='first' pt='md'>
-            <CreateImage lookbook={firstLookbook} />
             <LookbookEditor target='first' />
           </Tabs.Panel>
           <Tabs.Panel value='second' pt='md'>
-            <CreateImage lookbook={secondLookbook} />
             <LookbookEditor target='second' />
           </Tabs.Panel>
         </Tabs>

@@ -21,7 +21,6 @@
     "my": "마이"
   },
   "Validation": {
-    "required": "{field} 입력이 필요합니다.",
     "minLength": "{min}자 이상 입력해주세요.",
     "maxLength": "{max}자 이하로 입력해주세요."
   },
@@ -134,6 +133,9 @@
       "description": "메모"
     },
     "validation": {
+      "nameRequired": "제목을 입력해주세요.",
+      "nameMax": "제목은 20자 이하로 입력해주세요.",
+      "descriptionMax": "메모는 500자 이하로 입력해주세요.",
       "imageRequired": "이미지를 선택해주세요.",
       "dateRequired": "날짜를 선택해주세요."
     },
@@ -163,10 +165,13 @@
       "decorate": "꾸미기"
     },
     "create": {
+      "imageAdd": "이미지 추가하기",
       "bgRemoveQuestion": "혹시 누끼(배경 제거) 사진이 없으신가요?",
       "moveToEditor": "에디터로 이동하기"
     },
     "editor": {
+      "imageAdd": "추가",
+      "imageDelete": "제거",
       "removeBackground": "배경 제거",
       "imageTab": "이미지",
       "emptyImage": "이미지를 추가해보세요!"

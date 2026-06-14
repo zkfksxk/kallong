@@ -16,7 +16,7 @@ type Props = {
 };
 
 export function OutfitSection({ targetLookbook, targetOutfit, title }: Props) {
-  const t = useTranslations('Lookbooks.editor');
+  const t = useTranslations('Lookbook.editor');
   const {
     fileInputRef,
     url,
@@ -43,14 +43,14 @@ export function OutfitSection({ targetLookbook, targetOutfit, title }: Props) {
           disabled={!!url}
           onClick={handleOpenImagePicker}
         >
-          {t('addButton')}
+          {t('imageAdd')}
         </Button>
         <Button
           variant='outline'
           onClick={handleRemove}
           disabled={isLoading || !url}
         >
-          {t('removeButton')}
+          {t('imageDelete')}
         </Button>
         <Button
           variant='outline'
@@ -58,7 +58,7 @@ export function OutfitSection({ targetLookbook, targetOutfit, title }: Props) {
           disabled={isLoading || !url}
           loading={isLoading}
         >
-          {t('removeBgButton')}
+          {t('removeBackground')}
         </Button>
       </div>
     </div>
