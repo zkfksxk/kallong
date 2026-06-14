@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, Ref } from 'react';
 
 //note: secondary - info용, ghost - 투명함
 type ButtonVariant = 'filled' | 'outline' | 'secondary' | 'ghost';
@@ -11,6 +11,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
   loading?: boolean;
   size?: ButtonSize;
+  ref?: Ref<HTMLButtonElement>;
 }
 
 const variantStyles = {
@@ -45,10 +46,12 @@ export const Button = ({
   fullWidth = false,
   loading = false,
   disabled,
+  ref,
   ...props
 }: ButtonProps) => {
   return (
     <button
+      ref={ref}
       className={`
         ${fullWidth ? 'w-full' : 'w-fit'}
         flex items-center justify-center gap-2 font-bold! 
