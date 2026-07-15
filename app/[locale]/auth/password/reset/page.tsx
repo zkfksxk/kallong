@@ -77,9 +77,6 @@ export default function ResetPasswordPage() {
           <TextInput
             label={t('Auth.field.email')}
             type='email'
-            placeholder={t('Auth.placeholder', {
-              field: `${t('Auth.field.email')}을`,
-            })}
             {...register('email')}
             error={
               errors.email?.message

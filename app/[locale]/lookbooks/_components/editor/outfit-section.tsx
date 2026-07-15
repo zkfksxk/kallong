@@ -1,6 +1,6 @@
 import { Button, Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
-import { Outfit } from '@/shared/common/types/types';
+import { Outfit } from '@/shared/common/types';
 import {
   TargetLookbook,
   useLookbookEditor,

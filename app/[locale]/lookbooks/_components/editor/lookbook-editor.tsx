@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Tabs, Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { useLookbookStore } from '@/hooks/provider';
-import { OUTFIT_CATEGORY, OutfitCategory } from '@/shared/common/types/types';
+import { OUTFIT_CATEGORY, OutfitCategory } from '@/shared/common/types';
 import { OutfitSection } from './outfit-section';
 
 type Props = { target: 'first' | 'second' };

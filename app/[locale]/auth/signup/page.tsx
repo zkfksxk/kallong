@@ -80,9 +80,6 @@ export default function SignUpPage() {
           <TextInput
             label={t('Auth.field.email')}
             type='email'
-            placeholder={t('Auth.placeholder', {
-              field: `${t('Auth.field.email')}을`,
-            })}
             {...register('email')}
             error={
               errors.email?.message
@@ -94,9 +91,6 @@ export default function SignUpPage() {
           <TextInput
             label={t('Auth.field.password')}
             type='password'
-            placeholder={t('Auth.placeholder', {
-              field: `${t('Auth.field.password')}을`,
-            })}
             description={t('Auth.passwordPolicy')}
             autoComplete='new-password'
             {...register('password')}
@@ -110,9 +104,6 @@ export default function SignUpPage() {
           <TextInput
             label={t('Auth.field.passwordConfirm')}
             type='password'
-            placeholder={t('Auth.placeholder', {
-              field: `${t('Auth.field.passwordConfirm')}을`,
-            })}
             autoComplete='new-password'
             {...register('passwordConfirmed')}
             error={
@@ -125,9 +116,6 @@ export default function SignUpPage() {
           <TextInput
             label={t('Auth.field.nickname')}
             type='text'
-            placeholder={t('Auth.placeholder', {
-              field: `${t('Auth.field.nickname')}을`,
-            })}
             {...register('nickname')}
             error={
               errors.nickname?.message

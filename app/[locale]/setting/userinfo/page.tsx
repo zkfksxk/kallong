@@ -28,9 +28,12 @@ export default function UserInfoPage() {
         <div className='flex flex-col mt-8'>
           <SettingItem
             url='/auth/password/reset'
-            title={t('auth.resetPassword')}
+            title={t('Auth.resetPassword.title')}
           />
-          <SettingItem url='/auth/nickname' title={t('auth.nicknameChange')} />
+          <SettingItem
+            url='/auth/nickname'
+            title={t('Auth.profile.nicknameChange')}
+          />
         </div>
         <Button
           variant='ghost'
@@ -38,15 +41,15 @@ export default function UserInfoPage() {
           className='self-start mt-auto text-red-500'
           disabled={!profile || isPending}
         >
-          {t('auth.deleteAccount')}
+          {t('Auth.deleteAccount.title')}
         </Button>
       </div>
       <CustomModal
         opened={opened}
         onClose={close}
-        title={t('auth.deleteAccountTitle')}
-        description={t('auth.deleteAccountDescription')}
-        submitLabel={t('auth.deleteAccountSubmit')}
+        title={t('Auth.deleteAccount.title')}
+        description={t('Auth.deleteAccount.description')}
+        submitLabel={t('Auth.deleteAccount.submit')}
         onSubmit={handleDeleteAccount}
       />
     </>

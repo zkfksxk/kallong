@@ -5,7 +5,7 @@ import { Group, Radio, Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { useBridge } from '@/hooks/useBridge';
-import { THEME } from '@/shared/common/constants/common';
+import { THEME } from '@/shared/common/constants';
 
 export default function ThemePage() {
   const [mounted, setMounted] = useState(false);

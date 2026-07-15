@@ -7,7 +7,7 @@ import { useRemoveBackground } from '@/apis/querys';
 import { showNotification } from '@/components/ui/notification';
 import { useLookbookStore } from '@/hooks/provider';
 import { COMPRESSION_OPTIONS } from '@/shared/common/constants';
-import { AccessoryCategory, Outfit } from '@/shared/common/types/types';
+import { AccessoryCategory, Outfit } from '@/shared/common/types';
 import { base64ToFile } from '@/shared/common/utils';
 
 export type TargetLookbook = 'first' | 'second';

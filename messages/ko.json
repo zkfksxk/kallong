@@ -72,7 +72,6 @@
       "passwordConfirm": "비밀번호 확인",
       "nickname": "닉네임"
     },
-    "placeholder": "{field} 입력하세요",
     "signIn": {
       "title": "로그인",
       "alreadyHaveAccount": "이미 계정이 있다면?",
@@ -109,7 +108,14 @@
     },
     "validation": {
       "emailInvalidPattern": "이메일 형식이 아닙니다.",
+      "passwordRequired": "비밀번호 입력이 필요합니다.",
+      "passwordMin": "8자 이상 입력해주세요.",
+      "passwordMax": "20자 이하로 입력해주세요.",
+      "passwordConfirmedRequired": "비밀번호 확인 입력이 필요합니다.",
       "passwordInvalidPattern": "대소문자+숫자+특수문자 중 2가지 이상 포함해주세요.",
+      "nicknameRequired": "닉네임 입력이 필요합니다.",
+      "nicknameMin": "1자 이상 입력해주세요.",
+      "nicknameMax": "10자 이하로 입력해주세요.",
       "nicknameInvalidPattern": "대소문자, 한글, 숫자만 사용 가능합니다.",
       "passwordMismatch": "비밀번호가 일치하지 않습니다.",
       "termsRequired": "이용 약관에 동의해주세요."

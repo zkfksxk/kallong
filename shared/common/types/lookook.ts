@@ -41,11 +41,3 @@ export type Vote = {
   lookbook_id_a: string;
   lookbook_id_b: string;
 };
-
-export type Profile = {
-  id: string;
-  email: string;
-  nickname: string;
-  created_at: string;
-  updated_at: string;
-};

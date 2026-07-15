@@ -59,9 +59,6 @@ export default function UpdatePasswordPage() {
           <TextInput
             label={t('Auth.field.newPassword')}
             type='password'
-            placeholder={t('Auth.placeholder', {
-              field: `${t('Auth.field.newPassword')}를`,
-            })}
             description={t('Auth.passwordPolicy')}
             autoComplete='new-password'
             {...register('password')}

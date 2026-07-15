@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button, Tabs, Text } from '@mantine/core';
-import { AccessoryCategory } from '@/shared/common/types/types';
+import { AccessoryCategory } from '@/shared/common/types';
 import {
   TargetLookbook,
   useLookbookEditor,

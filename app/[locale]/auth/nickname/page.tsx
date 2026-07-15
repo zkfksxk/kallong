@@ -63,9 +63,6 @@ export default function NicknameChangePage() {
           <TextInput
             label={t('Auth.profile.nicknameChange')}
             type='text'
-            placeholder={t('Auth.placeholder', {
-              field: `${t('Auth.field.nickname')}을`,
-            })}
             {...register('nickname')}
             error={
               errors.nickname?.message

@@ -9,7 +9,7 @@ import { useProfileStore } from '@/hooks/provider/profile-provider';
 import { getDaysSince } from '@/shared/common/utils';
 
 export const Profile = () => {
-  const t = useTranslations('Setting');
+  const t = useTranslations();
   const router = useRouter();
   const { profile } = useProfileStore((s) => s);
   const { mutate: signout } = useSignOut();
@@ -35,7 +35,7 @@ export const Profile = () => {
         {profile?.email}
       </Text>
       <Text c='black' size='sm'>
-        {t('daysTogether', { daysSince })}
+        {t('Setting.daysTogether', { daysSince })}
       </Text>
 
       <Button
@@ -43,7 +43,7 @@ export const Profile = () => {
         onClick={handleSignOut}
         className='text-black! self-start mt-5'
       >
-        {t('auth.logout')}
+        {t('Auth.logout')}
       </Button>
     </Box>
   );

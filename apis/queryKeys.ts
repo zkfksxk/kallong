@@ -4,9 +4,6 @@ const queryKeys = {
     details: () => [...queryKeys.profile.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.profile.details(), id] as const,
   },
-  removeBackground: {
-    all: ['removeBackground'] as const,
-  },
   lookbook: {
     all: ['lookbook'] as const,
     details: () => [...queryKeys.lookbook.all, 'detail'] as const,

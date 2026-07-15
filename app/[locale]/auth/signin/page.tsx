@@ -73,9 +73,6 @@ export default function SignInPage() {
           <TextInput
             label={t('Auth.field.email')}
             type='email'
-            placeholder={t('Auth.placeholder', {
-              field: `${t('Auth.field.email')}을`,
-            })}
             autoComplete='off'
             {...register('email')}
             error={
@@ -88,9 +85,6 @@ export default function SignInPage() {
           <TextInput
             label={t('Auth.field.password')}
             type='password'
-            placeholder={t('Auth.placeholder', {
-              field: `${t('Auth.field.password')}을`,
-            })}
             description={t('Auth.passwordPolicy')}
             autoComplete='new-password'
             {...register('password')}

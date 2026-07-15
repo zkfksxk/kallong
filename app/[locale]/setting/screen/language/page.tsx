@@ -4,7 +4,7 @@ import { Group, Radio, Text } from '@mantine/core';
 import { useLocale, useTranslations } from 'next-intl';
 import { useBridge } from '@/hooks/useBridge';
 import { useRouter } from '@/i18n/navigation';
-import { LANGUAGES } from '@/shared/common/constants/common';
+import { LANGUAGES } from '@/shared/common/constants';
 
 export default function LanguagePage() {
   const t = useTranslations('Setting');

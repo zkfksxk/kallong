@@ -14,7 +14,7 @@ import { useRouter } from '@/i18n/navigation';
 import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
-} from '@/shared/common/constants/common';
+} from '@/shared/common/constants/file';
 import { DeleteIcon, ImageAddIcon } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 import { DailyOutfitFormData, dailyOutfitSchema } from '../_constants/form';

@@ -64,7 +64,7 @@
     }
   },
   "Auth": {
-    "logout": "Log out",
+    "logout": "Logout",
     "passwordPolicy": "8 to 20 characters, including at least 2 of letters, numbers, or special characters",
     "field": {
       "email": "Email",
@@ -73,7 +73,6 @@
       "passwordConfirm": "Confirm password",
       "nickname": "Nickname"
     },
-    "placeholder": "Enter {field}",
     "signIn": {
       "title": "Sign in",
       "alreadyHaveAccount": "Already have an account?",
@@ -109,11 +108,18 @@
       "privacyPolicy": "Consent to collection and use of personal information"
     },
     "validation": {
-      "emailInvalidPattern": "Invalid email format.",
-      "passwordInvalidPattern": "Include at least two of uppercase/lowercase letters, numbers, or special characters.",
-      "nicknameInvalidPattern": "Only uppercase/lowercase letters, Korean characters, and numbers are allowed.",
-      "passwordMismatch": "Passwords do not match.",
-      "termsRequired": "Please agree to the terms."
+     "emailInvalidPattern": "Invalid email format.",
+     "passwordRequired": "Password is required.",
+     "passwordMin": "Please enter at least 8 characters.",
+     "passwordMax": "Please enter 20 characters or fewer.",
+     "passwordConfirmedRequired": "Password confirmation is required.",
+     "passwordInvalidPattern": "Include at least two of uppercase/lowercase letters, numbers, or special characters.",
+     "nicknameRequired": "Nickname is required.",
+     "nicknameMin": "Please enter at least 1 character.",
+     "nicknameMax": "Please enter 10 characters or fewer.",
+     "nicknameInvalidPattern": "Only uppercase/lowercase letters, Korean characters, and numbers are allowed.",
+     "passwordMismatch": "Passwords do not match.",
+     "termsRequired": "Please agree to the terms."
     },
     "error": {
       "invalid_credentials": "Invalid email or password.",

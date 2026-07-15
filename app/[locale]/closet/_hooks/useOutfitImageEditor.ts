@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import imageCompression from 'browser-image-compression';
 import { showNotification } from '@/components';
-import { COMPRESSION_OPTIONS } from '@/shared/common/constants/common';
+import { COMPRESSION_OPTIONS } from '@/shared/common/constants';
 
 export function useOutfitImageEditor() {
   const [file, setFile] = useState<File | undefined>(undefined);
