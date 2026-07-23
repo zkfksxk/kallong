@@ -4,6 +4,7 @@
     "confirm": "확인",
     "errorOccurred": "오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
     "goHome": "홈으로",
+    "imageUpload": "이미지 업로드",
     "fail": "{type} 실패",
     "succeed": "{type} 성공",
     "save": "저장",
@@ -30,7 +31,7 @@
       "description": "오늘의 스타일을 기록해 보세요"
     },
     "lookbook": {
-      "title": "투표",
+      "title": "룩북 투표",
       "description": "12시간 투표를 진행해 보세요"
     },
     "startButton": "시작하기"
@@ -62,6 +63,15 @@
       "privacy": "개인정보 처리방침"
     }
   },
+  "MyPage": {
+    "lookbook": {
+      "title": "룩북",
+      "empty": "투표가 없습니다."
+    },
+    "error": {
+      "lookbookDeleteFailed": "삭제 중 오류가 발생했습니다."
+    }
+  },
   "Auth": {
     "logout": "로그아웃",
     "passwordPolicy": "8자에서 20자 이하, 문자/숫자/특수문자 중 2가지 포함",
@@ -70,7 +80,11 @@
       "password": "비밀번호",
       "newPassword": "새로운 비밀번호",
       "passwordConfirm": "비밀번호 확인",
-      "nickname": "닉네임"
+      "nickname": "닉네임",
+      "terms": {
+        "termsOfService": "서비스 이용약관",
+        "privacyPolicy": "개인정보 수집 및 이용 동의"
+      }
     },
     "signIn": {
       "title": "로그인",
@@ -83,28 +97,25 @@
     },
     "profile": {
       "nicknameChange": "닉네임 변경",
-      "nicknameChangeSucceed": "닉네임 변경 성공"
+      "nicknameChangeFail": "닉네임 변경에 실패했습니다. 잠시 후 다시 시도해주세요."
     },
     "updatePassword": {
-      "title": "비밀번호 변경하기",
-      "description": "이전과 다른 새로운 비밀번호를 입력하세요"
+      "title": "비밀번호 변경",
+      "description": "이전과 다른 새로운 비밀번호를 입력하세요",
+      "fail": "비밀번호 변경에 실패했습니다. 잠시 후 다시 시도해주세요."
     },
     "resetPassword": {
       "title": "비밀번호 재설정",
       "description": "이메일로 비밀번호 재설정 링크를 보내드립니다.",
       "requestEmailButton": "인증 메일 요청하기",
       "succeed": "비밀번호 재설정 링크가 이메일로 전송되었습니다.",
-      "fail": "비밀번호 재설정에 실패했습니다. 다시 시도해주세요.",
+      "fail": "비밀번호 재설정에 실패했습니다. 잠시 후 다시 시도해주세요.",
       "checkEmail": "이메일을 확인해주세요."
     },
     "deleteAccount": {
       "title": "회원 탈퇴",
       "description": "회원 탈퇴를 하시면 모든 정보는 삭제됩니다. 탈퇴하시겠습니까?",
       "submit": "탈퇴하기"
-    },
-    "terms": {
-      "termsOfService": "서비스 이용약관",
-      "privacyPolicy": "개인정보 수집 및 이용 동의"
     },
     "validation": {
       "emailInvalidPattern": "이메일 형식이 아닙니다.",
@@ -148,7 +159,8 @@
     "error": {
       "createFailed": "생성 중 오류가 발생했습니다.",
       "deleteFailed": "삭제 중 오류가 발생했습니다.",
-      "imageUploadFailed": "이미지 업로드 중 오류가 발생했습니다.",
+      "imageUploadFailed": "이미지 업로드 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
+      "imageCompressionFailed": "이미지 압축 중 오류가 발생했습니다.",
       "fileTooLarge": "파일 크기가 {maxMb}MB를 초과해 업로드할 수 없습니다."
     }
   },

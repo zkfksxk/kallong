@@ -37,19 +37,14 @@ export default function NicknameChangePage() {
           setProfile({ ...profile, nickname: data.nickname });
         }
 
-        showNotification({
-          title: t('Auth.profile.nicknameChange'),
-          message: t('Auth.profile.nicknameChangeSucceed'),
-          type: 'success',
-        });
         router.replace('/setting/userinfo');
       },
       onError: () => {
         showNotification({
-          title: t('Auth.profile.nicknameChange'),
-          message: t('Common.fail', {
+          title: t('Common.fail', {
             type: t('Auth.profile.nicknameChange'),
           }),
+          message: t('Auth.profile.nicknameChangeFail'),
           type: 'fail',
         });
       },

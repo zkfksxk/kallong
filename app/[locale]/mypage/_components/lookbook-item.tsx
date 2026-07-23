@@ -1,8 +1,9 @@
 import { ActionIcon, Text } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
+import { useTranslations } from 'next-intl';
 import { useDeleteLookbookById } from '@/apis/querys';
+import { showNotification } from '@/components/ui';
 import { Link } from '@/i18n/navigation';
-import { CloseIcon, TrashIcon } from '@/shared/common/icons';
+import { TrashIcon } from '@/shared/common/icons';
 
 type Props = {
   vote_name: string;
@@ -15,6 +16,7 @@ export const LookbookItem = ({
   lookbook_id_a,
   lookbook_id_b,
 }: Props) => {
+  const t = useTranslations();
   const { mutateAsync: deleteLookbookById } = useDeleteLookbookById();
 
   const handleDelete = async (e: React.MouseEvent) => {
@@ -27,13 +29,10 @@ export const LookbookItem = ({
         deleteLookbookById(lookbook_id_b),
       ]);
     } catch {
-      notifications.show({
-        title: 'Lookbook Failed',
-        message: '룩북 삭제 중 에러가 발생했습니다.',
-        icon: <CloseIcon color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+      showNotification({
+        title: t('Common.fail', { type: t('MyPage.lookbook.title') }),
+        message: t('MyPage.error.lookbookDeleteFailed'),
+        type: 'fail',
       });
     }
   };

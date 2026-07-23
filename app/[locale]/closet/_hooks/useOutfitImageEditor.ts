@@ -2,10 +2,12 @@
 
 import { useRef, useState } from 'react';
 import imageCompression from 'browser-image-compression';
+import { useTranslations } from 'next-intl';
 import { showNotification } from '@/components';
 import { COMPRESSION_OPTIONS } from '@/shared/common/constants';
 
 export function useOutfitImageEditor() {
+  const t = useTranslations();
   const [file, setFile] = useState<File | undefined>(undefined);
   const [url, setUrl] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,8 +36,8 @@ export function useOutfitImageEditor() {
       setImage(compressedFile, compressedUrl);
     } catch {
       showNotification({
-        title: 'Image compress Failed',
-        message: '이미지 압축 중 오류가 발생했습니다.',
+        title: 'Closet Failed',
+        message: t('Closet.error.imageCompressionFailed'),
         type: 'fail',
       });
     } finally {

@@ -35,14 +35,14 @@ export default function ResetPasswordPage() {
         setIsSubmitted(true);
 
         showNotification({
-          title: t('Auth.resetPassword.title'),
+          title: t('Common.succeed', { type: t('Auth.resetPassword.title') }),
           message: t('Auth.resetPassword.succeed'),
           type: 'success',
         });
       },
       onError: () => {
         showNotification({
-          title: t('Auth.resetPassword.title'),
+          title: t('Common.fail', { type: t('Auth.resetPassword.title') }),
           message: t('Auth.resetPassword.fail'),
           type: 'fail',
         });

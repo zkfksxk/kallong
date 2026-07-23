@@ -2,7 +2,7 @@ import { AuthError } from '@supabase/supabase-js';
 
 export type CustomError = {
   message: string;
-  result: false;
+  result: boolean;
   errorCode: string;
   category?: ErrorCategory;
   timestamp?: string;

@@ -71,7 +71,7 @@ export default function WritePage() {
 
     if (uploadError) {
       showNotification({
-        title: 'Image upload Failed',
+        title: t('Common.fail', { type: t('Common.imageUpload') }),
         message: t('Closet.error.imageUploadFailed'),
         type: 'fail',
       });
@@ -100,7 +100,7 @@ export default function WritePage() {
 
     if (file.size > MAX_FILE_SIZE_BYTES) {
       showNotification({
-        title: 'Image upload Failed',
+        title: t('Common.fail', { type: t('Common.imageUpload') }),
         message: t('Closet.error.fileTooLarge', { maxMb: MAX_FILE_SIZE_MB }),
         type: 'fail',
       });

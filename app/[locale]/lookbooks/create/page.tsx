@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Tabs, Text } from '@mantine/core';
+import { Tabs } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import {
   useCreateLookbook,
@@ -161,8 +161,7 @@ export default function CreateLookbooksPage() {
           </Tabs.Panel>
         </Tabs>
       </div>
-
-      <div className='flex flex-col items-center mt-15 gap-0.5'>
+      {/* <div className='flex flex-col items-center mt-15 gap-0.5'>
         <Text size='sm'>{t('Lookbook.create.bgRemoveQuestion')}</Text>
         <Button
           variant='ghost'
@@ -171,7 +170,7 @@ export default function CreateLookbooksPage() {
         >
           {t('Lookbook.create.moveToEditor')}
         </Button>
-      </div>
+      </div> */}
     </main>
   );
 }

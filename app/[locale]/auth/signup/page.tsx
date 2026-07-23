@@ -126,7 +126,7 @@ export default function SignUpPage() {
           />
           <div className='flex flex-row flex-1 justify-between'>
             <Checkbox
-              label={t('Auth.terms.termsOfService')}
+              label={t('Auth.field.terms.termsOfService')}
               {...register('termsOfService')}
               error={
                 errors.termsOfService?.message
@@ -147,7 +147,7 @@ export default function SignUpPage() {
           </div>
           <div className='flex flex-row flex-1 justify-between'>
             <Checkbox
-              label={t('Auth.terms.privacyPolicy')}
+              label={t('Auth.field.terms.privacyPolicy')}
               {...register('privacyPolicy')}
               error={
                 errors.privacyPolicy?.message

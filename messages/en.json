@@ -4,6 +4,7 @@
     "confirm": "Confirm",
     "errorOccurred": "An error occurred. Please try again later.",
     "goHome": "Go home",
+    "imageUpload": "Image Upload",
     "fail": "{type} failed",
     "succeed": "{type} succeeded",
     "save": "Save",
@@ -21,7 +22,6 @@
     "my": "My"
   },
   "Validation": {
-    "required": "{field} is required.",
     "minLength": "Please enter at least {min} characters.",
     "maxLength": "Please enter {max} characters or fewer."
   },
@@ -31,7 +31,7 @@
       "description": "Record today's style"
     },
     "lookbook": {
-      "title": "Vote",
+      "title": "Lookbook Vote",
       "description": "Start a 12-hour vote"
     },
     "startButton": "Start"
@@ -63,6 +63,15 @@
       "privacy": "Privacy Policy"
     }
   },
+  "MyPage": {
+    "lookbook": {
+      "title": "Lookbook",
+      "empty": "No votes yet."
+    },
+    "error": {
+      "lookbookDeleteFailed": "An error occurred while deleting."
+    }
+  },
   "Auth": {
     "logout": "Logout",
     "passwordPolicy": "8 to 20 characters, including at least 2 of letters, numbers, or special characters",
@@ -71,7 +80,11 @@
       "password": "Password",
       "newPassword": "New password",
       "passwordConfirm": "Confirm password",
-      "nickname": "Nickname"
+      "nickname": "Nickname",
+      "terms": {
+        "termsOfService": "Terms of Service",
+        "privacyPolicy": "Consent to collection and use of personal information"
+      }
     },
     "signIn": {
       "title": "Sign in",
@@ -84,11 +97,12 @@
     },
     "profile": {
       "nicknameChange": "Change nickname",
-      "nicknameChangeSucceed": "Nickname changed successfully"
+      "nicknameChangeFail": "Failed to change nickname. Please try again later."
     },
     "updatePassword": {
       "title": "Change password",
-      "description": "Enter a new password different from your previous one"
+      "description": "Enter a new password different from your previous one",
+      "fail": "Failed to change password. Please try again later."
     },
     "resetPassword": {
       "title": "Reset password",
@@ -103,23 +117,19 @@
       "description": "If you delete your account, all information will be deleted. Are you sure you want to continue?",
       "submit": "Delete account"
     },
-    "terms": {
-      "termsOfService": "Terms of Service",
-      "privacyPolicy": "Consent to collection and use of personal information"
-    },
     "validation": {
-     "emailInvalidPattern": "Invalid email format.",
-     "passwordRequired": "Password is required.",
-     "passwordMin": "Please enter at least 8 characters.",
-     "passwordMax": "Please enter 20 characters or fewer.",
-     "passwordConfirmedRequired": "Password confirmation is required.",
-     "passwordInvalidPattern": "Include at least two of uppercase/lowercase letters, numbers, or special characters.",
-     "nicknameRequired": "Nickname is required.",
-     "nicknameMin": "Please enter at least 1 character.",
-     "nicknameMax": "Please enter 10 characters or fewer.",
-     "nicknameInvalidPattern": "Only uppercase/lowercase letters, Korean characters, and numbers are allowed.",
-     "passwordMismatch": "Passwords do not match.",
-     "termsRequired": "Please agree to the terms."
+      "emailInvalidPattern": "Invalid email format.",
+      "passwordRequired": "Password is required.",
+      "passwordMin": "Please enter at least 8 characters.",
+      "passwordMax": "Please enter 20 characters or fewer.",
+      "passwordConfirmedRequired": "Password confirmation is required.",
+      "passwordInvalidPattern": "Include at least two of uppercase/lowercase letters, numbers, or special characters.",
+      "nicknameRequired": "Nickname is required.",
+      "nicknameMin": "Please enter at least 1 character.",
+      "nicknameMax": "Please enter 10 characters or fewer.",
+      "nicknameInvalidPattern": "Only uppercase/lowercase letters, Korean characters, and numbers are allowed.",
+      "passwordMismatch": "Passwords do not match.",
+      "termsRequired": "Please agree to the terms."
     },
     "error": {
       "invalid_credentials": "Invalid email or password.",
@@ -150,6 +160,7 @@
       "createFailed": "An error occurred while creating the record.",
       "deleteFailed": "An error occurred while deleting.",
       "imageUploadFailed": "Failed to upload the image.",
+      "imageCompressionFailed": "Failed to compress the image.",
       "fileTooLarge": "The file exceeds the {maxMb}MB limit and cannot be uploaded."
     }
   },

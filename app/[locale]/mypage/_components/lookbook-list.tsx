@@ -2,12 +2,14 @@
 
 import { useEffect } from 'react';
 import { Text } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
 import { useGetVoteById } from '@/apis/querys';
 import { Loader } from '@/components';
 import { LookbookItem } from './lookbook-item';
 
 export const LookbookList = () => {
+  const t = useTranslations();
   const {
     data,
     isLoading,
@@ -28,10 +30,10 @@ export const LookbookList = () => {
 
   return (
     <div className='flex flex-1 flex-col gap-10'>
-      {data?.votes.length == 0 && (
+      {data?.votes.length === 0 && (
         <div className='flex flex-1 flex-col items-center justify-center'>
           <Text size='xl' ta='center' fw='700'>
-            투표가 없습니다.
+            {t('MyPage.lookbook.empty')}
           </Text>
         </div>
       )}

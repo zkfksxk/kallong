@@ -35,10 +35,10 @@ export default function UpdatePasswordPage() {
       },
       onError: () => {
         showNotification({
-          title: t('Auth.updatePassword.title'),
-          message: t('Common.fail', {
+          title: t('Common.fail', {
             type: t('Auth.updatePassword.title'),
           }),
+          message: t('Auth.updatePassword.fail'),
           type: 'fail',
         });
         reset();
