@@ -4,7 +4,6 @@
     "confirm": "확인",
     "errorOccurred": "오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
     "goHome": "홈으로",
-    "imageUpload": "이미지 업로드",
     "fail": "{type} 실패",
     "succeed": "{type} 성공",
     "save": "저장",
@@ -31,7 +30,7 @@
       "description": "오늘의 스타일을 기록해 보세요"
     },
     "lookbook": {
-      "title": "룩북 투표",
+      "title": "투표",
       "description": "12시간 투표를 진행해 보세요"
     },
     "startButton": "시작하기"
@@ -65,7 +64,7 @@
   },
   "MyPage": {
     "lookbook": {
-      "title": "룩북",
+      "title": "패션 투표",
       "empty": "투표가 없습니다."
     },
     "error": {
@@ -142,6 +141,7 @@
     }
   },
   "Closet": {
+    "title": "패션 기록",
     "emptyMessage": "아직 작성한 기록이 없어요",
     "goToRecord": "기록하러 가기",
     "imageAdd": "이미지 추가하기",
@@ -158,6 +158,7 @@
     },
     "error": {
       "createFailed": "생성 중 오류가 발생했습니다.",
+      "updateFailed": "수정 중 오류가 발생했습니다.",
       "deleteFailed": "삭제 중 오류가 발생했습니다.",
       "imageUploadFailed": "이미지 업로드 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
       "imageCompressionFailed": "이미지 압축 중 오류가 발생했습니다.",
@@ -165,6 +166,7 @@
     }
   },
   "Lookbook": {
+    "title": "패션 투표",
     "field": {
       "voteName": "투표 이름",
       "firstLook": "첫 번째 룩",
@@ -198,12 +200,20 @@
       "title": "결과 확인",
       "ended": "투표가 종료되었습니다."
     },
+    "share": {
+      "imageCaptureSucceed": "이미지 캡처가 완료되었습니다.",
+      "linkCopySucceed": "링크가 복사되었습니다."
+    },
     "error": {
       "createFailed": "생성 중 오류가 발생했습니다.",
       "deleteFailed": "삭제 중 오류가 발생했습니다.",
       "imageUploadFailed": "이미지 업로드 중 오류가 발생했습니다.",
       "fileTooLarge": "파일 크기가 {maxMb}MB를 초과해 업로드할 수 없습니다.",
-      "removeBackgroundFailed": "배경 제거 중 오류가 발생했습니다."
+      "removeBackgroundFailed": "배경 제거 중 오류가 발생했습니다.",
+      "voteEnded": "투표 시간이 종료되었습니다.",
+      "likeFailed": "좋아요 처리에 실패했습니다. 다시 시도해 주세요.",
+      "imageCaptureFailed": "캡처 중 오류가 발생했습니다.",
+      "linkCopyFailed": "링크 복사 중 오류가 발생했습니다."
     }
   }
 }

@@ -6,10 +6,14 @@ import { Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { useGetLookbook } from '@/apis/querys';
 import { Fallback, Loader, ShareActionButtons } from '@/components';
-import { useRemainingTime, useShareActions, useVoteActions } from '@/hooks';
 import { hanna } from '@/shared/theme/theme';
 import { ResultImage } from '../../../_components/result/result-image';
 import { VoteButton } from '../../../_components/result/vote-button';
+import {
+  useRemainingTime,
+  useShareActions,
+  useVoteActions,
+} from '../../../_hooks';
 
 export default function ResultPage() {
   const t = useTranslations('Lookbook.result');
@@ -28,7 +32,6 @@ export default function ResultPage() {
     isLoading: secondLoading,
     error: secondError,
   } = useGetLookbook(secondId);
-
   const remainingTime = useRemainingTime(firstLookbook?.created_at);
   const {
     visible,

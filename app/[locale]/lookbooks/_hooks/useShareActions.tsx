@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
-import { notifications } from '@mantine/notifications';
 import { domToPng } from 'modern-screenshot';
-import { CheckIcon, CloseIcon } from '@/shared/common/icons';
-import { useBridge } from './useBridge';
-import { useDetectWebView } from './useDetectWebView';
+import { useTranslations } from 'next-intl';
+import { showNotification } from '@/components';
+import { useBridge, useDetectWebView } from '@/hooks';
 
 export function useShareActions() {
+  const t = useTranslations();
   const { canUseBridge } = useDetectWebView();
   const { shareImage } = useBridge();
   const [visible, setVisible] = useState(false);
@@ -35,18 +35,16 @@ export function useShareActions() {
         link.href = dataUrl;
         link.click();
       }
-      notifications.show({
-        title: 'Successfully Captured',
-        message: '이미지 캡처가 완료되었습니다',
-        icon: <CheckIcon color='blue' size={24} />,
-        loading: false,
+      showNotification({
+        title: t('Common.succeed', { type: t('Lookbook.title') }),
+        message: t('Lookbook.share.imageCaptureSucceed'),
+        type: 'success',
       });
     } catch {
-      notifications.show({
-        title: 'Capture Failed',
-        message: '캡쳐 중 오류가 발생했습니다.',
-        icon: <CloseIcon color='red' size={24} />,
-        loading: false,
+      showNotification({
+        title: t('Common.fail', { type: t('Lookbook.title') }),
+        message: t('Lookbook.error.imageCaptureFailed'),
+        type: 'fail',
       });
     }
   };
@@ -55,18 +53,16 @@ export function useShareActions() {
     const copyUrl = window.document.location.href;
     try {
       await navigator.clipboard.writeText(copyUrl);
-      notifications.show({
-        title: 'Successfully Copied',
-        message: '링크가 복사되었습니다',
-        icon: <CheckIcon color='blue' size={24} />,
-        loading: false,
+      showNotification({
+        title: t('Common.succeed', { type: t('Lookbook.title') }),
+        message: t('Lookbook.share.linkCopySucceed'),
+        type: 'success',
       });
     } catch {
-      notifications.show({
-        title: 'Copy Failed',
-        message: '링크 복사 중 오류가 발생했습니다.',
-        icon: <CloseIcon color='red' size={24} />,
-        loading: false,
+      showNotification({
+        title: t('Common.fail', { type: t('Lookbook.title') }),
+        message: t('Lookbook.error.linkCopyFailed'),
+        type: 'fail',
       });
     }
   };

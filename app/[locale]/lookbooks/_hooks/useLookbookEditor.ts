@@ -109,7 +109,7 @@ export function useLookbookEditor(
       }
     } catch {
       showNotification({
-        title: 'Lookbook Failed',
+        title: t('Common.fail', { type: t('Lookbook.title') }),
         message: t('Lookbook.error.imageUploadFailed'),
         type: 'fail',
       });
@@ -134,7 +134,7 @@ export function useLookbookEditor(
       setFileAndFinalUrl(newFile, newUrl);
     } catch {
       showNotification({
-        title: 'Lookbook Failed',
+        title: t('Common.fail', { type: t('Lookbook.title') }),
         message: t('Lookbook.error.removeBackgroundFailed'),
         type: 'fail',
       });

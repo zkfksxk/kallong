@@ -91,7 +91,7 @@ export default function EditDailyOutfitForm({ dailyOutfit }: Props) {
 
     if (uploadError) {
       showNotification({
-        title: t('Common.fail', { type: t('Common.imageUpload') }),
+        title: t('Common.fail', { type: t('Closet.title') }),
         message: t('Closet.error.imageUploadFailed'),
         type: 'fail',
       });
@@ -115,7 +115,7 @@ export default function EditDailyOutfitForm({ dailyOutfit }: Props) {
 
       if (!file) {
         showNotification({
-          title: 'Closet Failed',
+          title: t('Common.fail', { type: t('Closet.title') }),
           message: t('Closet.validation.imageRequired'),
           type: 'fail',
         });
@@ -124,7 +124,7 @@ export default function EditDailyOutfitForm({ dailyOutfit }: Props) {
 
       if (file.size > MAX_FILE_SIZE_BYTES) {
         showNotification({
-          title: 'Image upload Failed',
+          title: t('Common.fail', { type: t('Closet.title') }),
           message: t('Closet.error.fileTooLarge', {
             maxMb: MAX_FILE_SIZE_MB,
           }),
@@ -146,8 +146,8 @@ export default function EditDailyOutfitForm({ dailyOutfit }: Props) {
       router.push('/closet');
     } catch {
       showNotification({
-        title: 'Closet Failed',
-        message: t('Closet.error.createFailed'),
+        title: t('Common.fail', { type: t('Closet.title') }),
+        message: t('Closet.error.updateFailed'),
         type: 'fail',
       });
     } finally {

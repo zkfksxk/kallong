@@ -18,7 +18,7 @@ import ClosetCalendar from './_components/closet-calendar';
 export default function ClosetPage() {
   const router = useRouter();
   const locale = useLocale();
-  const t = useTranslations('Closet');
+  const t = useTranslations();
   const [currentDay, setCurrentDay] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState<string>(
     dayjs().format('YYYY-MM-DD') //사용자의 로컬 date
@@ -45,8 +45,8 @@ export default function ClosetPage() {
       deleteMutate(selectedOutfit.id);
     } catch {
       showNotification({
-        title: 'Outfit failed',
-        message: t('error.deleteFailed'),
+        title: t('Common.fail', { type: t('Closet.title') }),
+        message: t('Closet.error.deleteFailed'),
         type: 'fail',
       });
     }
@@ -87,14 +87,14 @@ export default function ClosetPage() {
         ) : (
           <div className='flex flex-col justify-center items-center gap-2.5'>
             <Text c='black' fw={500}>
-              {t('emptyMessage')}
+              {t('Closet.emptyMessage')}
             </Text>
             <Button
               variant='ghost'
               onClick={handleRecord}
               className='text-black!'
             >
-              {t('goToRecord')}
+              {t('Closet.goToRecord')}
             </Button>
           </div>
         )}

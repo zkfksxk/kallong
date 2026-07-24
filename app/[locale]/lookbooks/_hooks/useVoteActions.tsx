@@ -1,34 +1,33 @@
-import { notifications } from '@mantine/notifications';
+import { useTranslations } from 'next-intl';
 import { useCheckLookbookLiked, useToggleLookbookLike } from '@/apis/querys';
-import { CloseIcon } from '@/shared/common/icons';
+import { showNotification } from '@/components/ui';
 
 export function useVoteActions(
   firstId: string,
   secondId: string,
   remainingTime: string
 ) {
+  const t = useTranslations();
   const { mutate: toggleMutate } = useToggleLookbookLike();
   const { data: isFirstLookbookLiked } = useCheckLookbookLiked(firstId);
   const { data: isSecondLookbookLiked } = useCheckLookbookLiked(secondId);
 
   const handleToggle = (lookbookId: string) => {
     if (remainingTime === '00:00') {
-      notifications.show({
-        title: 'Vote Failed',
-        message: '투표 시간이 종료되었습니다.',
-        icon: <CloseIcon color='red' size={24} />,
-        loading: false,
+      showNotification({
+        title: t('Common.fail', { type: t('Lookbook.title') }),
+        message: t('Lookbook.error.voteEnded'),
+        type: 'fail',
       });
       return;
     }
 
     toggleMutate(lookbookId, {
       onError: () => {
-        notifications.show({
-          title: 'Like Failed',
-          message: '좋아요 처리에 실패했습니다. 다시 시도해 주세요.',
-          icon: <CloseIcon color='red' size={24} />,
-          loading: false,
+        showNotification({
+          title: t('Common.fail', { type: t('Lookbook.title') }),
+          message: t('Lookbook.error.likeFailed'),
+          type: 'fail',
         });
       },
     });

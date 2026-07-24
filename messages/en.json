@@ -4,7 +4,6 @@
     "confirm": "Confirm",
     "errorOccurred": "An error occurred. Please try again later.",
     "goHome": "Go home",
-    "imageUpload": "Image Upload",
     "fail": "{type} failed",
     "succeed": "{type} succeeded",
     "save": "Save",
@@ -142,6 +141,7 @@
     }
   },
   "Closet": {
+    "title": "Fashion records",
     "emptyMessage": "You haven't written any records yet.",
     "goToRecord": "Go record one",
     "imageAdd": "Add image",
@@ -158,13 +158,15 @@
     },
     "error": {
       "createFailed": "An error occurred while creating the record.",
+      "updateFailed": "An error occurred while updating the record.",
       "deleteFailed": "An error occurred while deleting.",
-      "imageUploadFailed": "Failed to upload the image.",
+      "imageUploadFailed": "An error occurred while uploading the image. Please try again later.",
       "imageCompressionFailed": "Failed to compress the image.",
       "fileTooLarge": "The file exceeds the {maxMb}MB limit and cannot be uploaded."
     }
   },
   "Lookbook": {
+    "title": "Fashion vote",
     "field": {
       "voteName": "Vote name",
       "firstLook": "First lookbook",
@@ -198,12 +200,20 @@
       "title": "View results",
       "ended": "Voting has ended."
     },
+    "share": {
+      "imageCaptureSucceed": "Image capture is complete.",
+      "linkCopySucceed": "Link copied."
+    },
     "error": {
       "createFailed": "An error occurred while creating the record.",
       "deleteFailed": "An error occurred while deleting.",
       "imageUploadFailed": "An error occurred while uploading the image.",
       "fileTooLarge": "The file exceeds the {maxMb}MB limit and cannot be uploaded.",
-      "removeBackgroundFailed": "An error occurred while removing the background."
+      "removeBackgroundFailed": "An error occurred while removing the background.",
+      "voteEnded": "Voting has ended.",
+      "likeFailed": "Failed to update your like. Please try again.",
+      "imageCaptureFailed": "An error occurred while capturing the image.",
+      "linkCopyFailed": "An error occurred while copying the link."
     }
   }
 }

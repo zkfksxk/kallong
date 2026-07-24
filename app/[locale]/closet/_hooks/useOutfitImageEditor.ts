@@ -36,7 +36,7 @@ export function useOutfitImageEditor() {
       setImage(compressedFile, compressedUrl);
     } catch {
       showNotification({
-        title: 'Closet Failed',
+        title: t('Common.fail', { type: t('Closet.title') }),
         message: t('Closet.error.imageCompressionFailed'),
         type: 'fail',
       });
