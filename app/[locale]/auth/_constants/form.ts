@@ -10,7 +10,9 @@ export const signInSchema = z.object({
   email: z.email('Auth.validation.emailInvalidPattern'),
   password: z
     .string()
-    .min(1, 'Auth.validation.passwordRequired')
+    .refine((value) => value.trim().length > 0, {
+      message: 'Auth.validation.passwordRequired',
+    })
     .min(8, 'Auth.validation.passwordMin')
     .max(20, 'Auth.validation.passwordMax')
     .regex(PASSWORD_REGEX, 'Auth.validation.passwordInvalidPattern'),
@@ -24,17 +26,20 @@ export const signUpSchema = z
     email: z.email('Auth.validation.emailInvalidPattern'),
     password: z
       .string()
-      .min(1, 'Auth.validation.passwordRequired')
+      .refine((value) => value.trim().length > 0, {
+        message: 'Auth.validation.passwordRequired',
+      })
       .min(8, 'Auth.validation.passwordMin')
       .max(20, 'Auth.validation.passwordMax')
       .regex(PASSWORD_REGEX, 'Auth.validation.passwordInvalidPattern'),
-    passwordConfirmed: z
-      .string()
-      .min(1, 'Auth.validation.passwordConfirmedRequired'),
+    passwordConfirmed: z.string().refine((value) => value.trim().length > 0, {
+      message: 'Auth.validation.passwordConfirmedRequired',
+    }),
     nickname: z
       .string()
-      .min(1, 'Auth.validation.nicknameRequired')
-      .min(1, 'Auth.validation.nicknameMin')
+      .refine((value) => value.trim().length > 0, {
+        message: 'Auth.validation.nicknameRequired',
+      })
       .max(10, 'Auth.validation.nicknameMax')
       .regex(NICKNAME_REGEX, 'Auth.validation.nicknameInvalidPattern'),
     termsOfService: z.boolean().refine((v) => v === true, {
@@ -48,14 +53,16 @@ export const signUpSchema = z
     message: 'Auth.validation.passwordMismatch',
     path: ['passwordConfirmed'],
   });
+
 export type SignUpFormData = z.infer<typeof signUpSchema>;
 
 //닉네임 변경
 export const nicknameSchema = z.object({
   nickname: z
     .string()
-    .min(1, 'Auth.validation.nicknameRequired')
-    .min(1, 'Auth.validation.nicknameMin')
+    .refine((value) => value.trim().length > 0, {
+      message: 'Auth.validation.nicknameRequired',
+    })
     .max(10, 'Auth.validation.nicknameMax')
     .regex(NICKNAME_REGEX, 'Auth.validation.nicknameInvalidPattern'),
 });
@@ -69,10 +76,13 @@ export const resetPasswordSchema = z.object({
 
 export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
 
+//비밀번호 재생성
 export const updatePasswordSchema = z.object({
   password: z
     .string()
-    .min(1, 'Auth.validation.passwordRequired')
+    .refine((value) => value.trim().length > 0, {
+      message: 'Auth.validation.passwordRequired',
+    })
     .min(8, 'Auth.validation.passwordMin')
     .max(20, 'Auth.validation.passwordMax')
     .regex(PASSWORD_REGEX, 'Auth.validation.passwordInvalidPattern'),
