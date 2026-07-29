@@ -20,7 +20,11 @@ export {
   IoHeartSharp as HeartFillIcon,
 } from 'react-icons/io5';
 
-export { FiTrash2 as TrashIcon } from 'react-icons/fi';
+export {
+  FiTrash2 as TrashIcon,
+  FiEye as EyeIcon,
+  FiEyeOff as EyeCloseIcon,
+} from 'react-icons/fi';
 
 export { TbCapture as CaptureIcon } from 'react-icons/tb';
 

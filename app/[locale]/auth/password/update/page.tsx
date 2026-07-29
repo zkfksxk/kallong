@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Text, TextInput } from '@mantine/core';
 import { useTranslations } from 'next-intl';
@@ -7,12 +8,14 @@ import { useForm } from 'react-hook-form';
 import { useUpdatePassword } from '@/apis/querys/auth/useUpdatePassword';
 import { Button, showNotification } from '@/components';
 import { useRouter } from '@/i18n/navigation';
+import { EyeCloseIcon, EyeIcon } from '@/shared/common/icons';
 import {
   UpdatePasswordFormData,
   updatePasswordSchema,
 } from '../../_constants/form';
 
 export default function UpdatePasswordPage() {
+  const [showPassword, setShowPassword] = useState(false);
   const t = useTranslations();
   const router = useRouter();
   const {
@@ -46,6 +49,8 @@ export default function UpdatePasswordPage() {
     });
   };
 
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
   return (
     <div className='w-full flex flex-col'>
       <Text ta='center' size='2xl' fw={700}>
@@ -68,6 +73,22 @@ export default function UpdatePasswordPage() {
                 : undefined
             }
             disabled={isSubmitting}
+            rightSection={
+              <button
+                type='button'
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleClickShowPassword();
+                }}
+              >
+                {showPassword ? (
+                  <EyeCloseIcon color='#64748b' />
+                ) : (
+                  <EyeIcon color='#64748b' />
+                )}
+              </button>
+            }
           />
         </div>
         <Button

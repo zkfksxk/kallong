@@ -1,16 +1,20 @@
 'use client';
 
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Text, TextInput } from '@mantine/core';
+import { EyeIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { CustomError } from '@/apis/error';
 import { useSignInWithPassword } from '@/apis/querys/auth';
 import { Button, showNotification } from '@/components';
 import { Link, useRouter } from '@/i18n/navigation';
+import { EyeCloseIcon } from '@/shared/common/icons';
 import { SignInFormData, signInSchema } from '../_constants/form';
 
 export default function SignInPage() {
+  const [showPassword, setShowPassword] = useState(false);
   const t = useTranslations();
   const router = useRouter();
   //const { isWebView } = useDetectWebView();
@@ -28,6 +32,8 @@ export default function SignInPage() {
     useSignInWithPassword();
   // const { mutate: signInWithGoogle, isPending: signInWithGoogleIsPending } =
   //   useSignInWithGoogle();
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const onSubmit = (data: SignInFormData) => {
     signIn(data, {
@@ -84,7 +90,7 @@ export default function SignInPage() {
           />
           <TextInput
             label={t('Auth.field.password')}
-            type='password'
+            type={showPassword ? 'text' : 'password'}
             description={t('Auth.passwordPolicy')}
             autoComplete='new-password'
             {...register('password')}
@@ -94,6 +100,22 @@ export default function SignInPage() {
                 : undefined
             }
             disabled={signInIsPending}
+            rightSection={
+              <button
+                type='button'
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleClickShowPassword();
+                }}
+              >
+                {showPassword ? (
+                  <EyeCloseIcon color='#64748b' />
+                ) : (
+                  <EyeIcon color='#64748b' />
+                )}
+              </button>
+            }
           />
         </div>
         <Button
