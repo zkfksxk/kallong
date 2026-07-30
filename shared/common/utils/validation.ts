@@ -25,3 +25,18 @@ export const validateInput = (
 
   return null;
 };
+
+/**
+ * 개행 문자를 정규화하는 함수
+ * \r\n, \r, \n을 모두 \n으로 통일하여 일관된 줄바꿈 처리
+ * @param text 정규화할 텍스트
+ * @returns 정규화된 텍스트
+ */
+export const normalizeLineBreaks = (text: string): string => {
+  if (!text) return '';
+
+  return text
+    .replace(/\r\n/g, '\n') // Windows 개행 (\r\n)을 \n으로
+    .replace(/\r/g, '\n') // Mac 개행 (\r)을 \n으로
+    .replace(/\n{3,}/g, '\n\n'); // 3개 이상 연속된 개행을 2개로 제한
+};

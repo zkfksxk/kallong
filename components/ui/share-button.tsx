@@ -31,7 +31,7 @@ export function ShareActionButtons({
           variant='ghost'
           ref={buttonRef}
           onClick={onToggleVisible}
-          className='!w-14 !h-14 rounded-lg bg-black text-white dark:bg-white dark:text-black border border-gray-200 shadow-[0_4px_12px_rgba(0,0,0,0.15)]'
+          className='w-14! h-14! rounded-lg bg-black text-white dark:bg-white dark:text-black border border-gray-200 shadow-[0_4px_12px_rgba(0,0,0,0.15)]'
         >
           <GridIcon size={32} color={iconColor} />
         </Button>
@@ -39,14 +39,14 @@ export function ShareActionButtons({
           <>
             <Button
               variant='ghost'
-              className='!w-14 !h-14 rounded-lg bg-black text-white dark:bg-white dark:text-black border border-gray-200 shadow-[0_4px_12px_rgba(0,0,0,0.15)]'
+              className='w-14! h-14! rounded-lg bg-black text-white dark:bg-white dark:text-black border border-gray-200 shadow-[0_4px_12px_rgba(0,0,0,0.15)]'
               onClick={onCopy}
             >
               <CopyIcon size={32} color={iconColor} />
             </Button>
             <Button
               variant='ghost'
-              className='!w-14 !h-14 rounded-lg bg-black text-white dark:bg-white dark:text-black border border-gray-200 shadow-[0_4px_12px_rgba(0,0,0,0.15)]'
+              className='w-14! h-14! rounded-lg bg-black text-white dark:bg-white dark:text-black border border-gray-200 shadow-[0_4px_12px_rgba(0,0,0,0.15)]'
               onClick={onCapture}
             >
               <CaptureIcon size={32} color={iconColor} />

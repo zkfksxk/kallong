@@ -5,9 +5,9 @@ import { useParams } from 'next/navigation';
 import { Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { useGetDailyOutfit } from '@/apis/querys/outfit';
-import { Button } from '@/components';
-import { Header } from '@/components/layouts/header';
+import { Button, Header } from '@/components';
 import { useRouter } from '@/i18n/navigation';
+import { normalizeLineBreaks } from '@/shared/common/utils/validation';
 
 export default function DetailPage() {
   const { id } = useParams<{
@@ -41,7 +41,7 @@ export default function DetailPage() {
         <Text>{data.name}</Text>
       </div>
       <div className='bg-gray-100 dark:bg-gray-700 min-h-50 mt-10 p-4 rounded-md'>
-        <Text>{data.description}</Text>
+        <Text>{normalizeLineBreaks(data.description ?? '')}</Text>
       </div>
     </div>
   );

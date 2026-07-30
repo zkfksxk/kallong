@@ -111,9 +111,30 @@ export default function EditDailyOutfitForm({ dailyOutfit }: Props) {
     setIsSubmitting(true);
 
     try {
-      const finalImageUrl = dailyOutfit?.image_url ?? '';
+      let finalImageUrl = dailyOutfit.image_url ?? '';
 
-      if (!file) {
+      if (file) {
+        if (file.size > MAX_FILE_SIZE_BYTES) {
+          showNotification({
+            title: t('Common.fail', { type: t('Closet.title') }),
+            message: t('Closet.error.fileTooLarge', {
+              maxMb: MAX_FILE_SIZE_MB,
+            }),
+            type: 'fail',
+          });
+          return;
+        }
+
+        const uploadedUrl = await uploadFile(id, file);
+
+        if (!uploadedUrl) {
+          throw new Error('Failed to upload image');
+        }
+
+        finalImageUrl = uploadedUrl;
+      }
+
+      if (!finalImageUrl) {
         showNotification({
           title: t('Common.fail', { type: t('Closet.title') }),
           message: t('Closet.validation.imageRequired'),
@@ -122,23 +143,9 @@ export default function EditDailyOutfitForm({ dailyOutfit }: Props) {
         return;
       }
 
-      if (file.size > MAX_FILE_SIZE_BYTES) {
-        showNotification({
-          title: t('Common.fail', { type: t('Closet.title') }),
-          message: t('Closet.error.fileTooLarge', {
-            maxMb: MAX_FILE_SIZE_MB,
-          }),
-          type: 'fail',
-        });
-        return;
-      }
-
-      const uploadedUrl = await uploadFile(id, file);
-      if (!uploadedUrl) throw new Error('Failed to upload image');
-
       await updateMutate({
-        id: id,
-        image_url: finalImageUrl!,
+        id,
+        image_url: finalImageUrl,
         name: data.name,
         description: data.description,
       });
