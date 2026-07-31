@@ -108,6 +108,22 @@ export const THEME = createTheme({
         },
       },
     },
+    RadioIndicator: {
+      defaultProps: {
+        color:
+          'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+        iconColor:
+          'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+      },
+      styles: {
+        indicator: {
+          borderColor:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+          backgroundColor:
+            'light-dark(var(--mantine-color-white), var(--mantine-color-black))',
+        },
+      },
+    },
     Divider: {
       styles: {
         root: {

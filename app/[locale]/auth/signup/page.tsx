@@ -128,11 +128,6 @@ export default function SignUpPage() {
             <Checkbox
               label={t('Auth.field.terms.termsOfService')}
               {...register('termsOfService')}
-              error={
-                errors.termsOfService?.message
-                  ? t(errors.termsOfService.message as string)
-                  : undefined
-              }
               disabled={isPending}
             />
             <Link
@@ -149,11 +144,6 @@ export default function SignUpPage() {
             <Checkbox
               label={t('Auth.field.terms.privacyPolicy')}
               {...register('privacyPolicy')}
-              error={
-                errors.privacyPolicy?.message
-                  ? t(errors.privacyPolicy.message as string)
-                  : undefined
-              }
               disabled={isPending}
             />
             <Link
