@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { checkDevEnv } from '@/shared/common/utils';
 
 export default function TanstackQueryProvider({
   children,
@@ -25,6 +27,15 @@ export default function TanstackQueryProvider({
   );
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      {children}
+      {/* 개발 환경에서만 DevTools 표시 */}
+      {checkDevEnv() && (
+        <ReactQueryDevtools
+          initialIsOpen={false}
+          buttonPosition='bottom-left'
+        />
+      )}
+    </QueryClientProvider>
   );
 }
