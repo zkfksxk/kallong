@@ -18,14 +18,14 @@ export type VoteByIdRes = VoteRes & {
   } | null;
 };
 
-export function useGetVoteById() {
+export function useGetVoteById(voteName?: string, lookbookName?: string) {
   return useInfiniteQuery({
     queryKey: queryKeys.vote.lists(),
     queryFn: async ({ pageParam }) => {
       const from = pageParam;
       const to = from + PAGE_SIZE - 1;
 
-      return await getVoteById({ from, to });
+      return await getVoteById({ from, to, voteName, lookbookName });
     },
 
     initialPageParam: 0,

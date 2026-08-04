@@ -137,11 +137,21 @@ export async function checkLookbookLiked(lookbook_id: string) {
   return !!data; // null, undefined => false
 }
 
-export async function getVoteById({ from, to }: { from: number; to: number }) {
+export async function getVoteById({
+  from,
+  to,
+  voteName,
+  lookbookName,
+}: {
+  from: number;
+  to: number;
+  voteName?: string;
+  lookbookName?: string;
+}) {
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();
 
-  const { data, error, count } = await supabase
+  let query = supabase
     .from('vote')
     .select(
       `
@@ -159,7 +169,20 @@ export async function getVoteById({ from, to }: { from: number; to: number }) {
       `,
       { count: 'exact' }
     )
-    .eq('author_id', author_id)
+    .eq('author_id', author_id);
+
+  if (voteName) {
+    query = query.ilike('vote_name', `%${voteName}%`);
+  }
+
+  if (lookbookName) {
+    const lowerName = lookbookName.toLowerCase();
+    query = query.or(
+      `lookbook_a.name.ilike.%${lowerName}%,lookbook_b.name.ilike.%${lowerName}%`
+    );
+  }
+
+  const { data, error, count } = await query
     .order('created_at', { ascending: false })
     .range(from, to);
 
