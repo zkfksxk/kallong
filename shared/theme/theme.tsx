@@ -75,12 +75,12 @@ export const THEME = createTheme({
   },
   colors: {
     black: colorsTuple('#020617'),
-    white: colorsTuple('#F8FAFC'),
+    white: colorsTuple('#FFFFFF'),
     blue,
     gray,
     red,
   },
-  white: '#F8FAFC',
+  white: '#FFFFFF',
   black: '#020617',
   components: {
     Notification: {
@@ -137,6 +137,8 @@ export const THEME = createTheme({
         dropdown: {
           backgroundColor:
             'light-dark(var(--mantine-color-white), var(--mantine-color-black))',
+          borderColor:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
         },
         item: {
           color:

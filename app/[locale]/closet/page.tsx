@@ -73,10 +73,10 @@ export default function ClosetPage() {
               <Image
                 src={selectedOutfit?.image_url}
                 alt='daily-outfit'
-                width={100}
+                width={120}
                 height={80}
               />
-              <Text c='black' fw={700}>
+              <Text size='xl' fw={700}>
                 {selectedOutfit.name}
               </Text>
               <div className='ml-auto'>
@@ -119,7 +119,7 @@ export default function ClosetPage() {
             </div>
           </Link>
         ) : (
-          <div className='flex flex-col justify-center items-center gap-2.5'>
+          <div className='flex flex-col h-[200px] p-5 justify-center items-center gap-2.5'>
             <Text c='black' fw={500}>
               {t('Closet.emptyMessage')}
             </Text>

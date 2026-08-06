@@ -28,6 +28,7 @@ export const LookbookList = () => {
 
   if (isLoading) return <Loader />;
 
+  console.log('data', data);
   return (
     <div className='flex flex-1 flex-col gap-10'>
       {data?.votes.length === 0 && (
