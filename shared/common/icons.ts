@@ -18,6 +18,7 @@ export {
   IoGridOutline as GridIcon,
   IoHeartOutline as HeartOutlineIcon,
   IoHeartSharp as HeartFillIcon,
+  IoEllipsisHorizontal as MoreIcon,
 } from 'react-icons/io5';
 
 export {

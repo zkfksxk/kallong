@@ -132,6 +132,18 @@ export const THEME = createTheme({
         },
       },
     },
+    Menu: {
+      styles: {
+        dropdown: {
+          backgroundColor:
+            'light-dark(var(--mantine-color-white), var(--mantine-color-black))',
+        },
+        item: {
+          color:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+        },
+      },
+    },
     Text: {
       styles: {
         root: {

@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Text } from '@mantine/core';
+import Image from 'next/image';
+import { Menu, Text } from '@mantine/core';
 import dayjs from 'dayjs';
 import 'dayjs/locale/en';
 import 'dayjs/locale/ko';
@@ -12,7 +13,7 @@ import {
 } from '@/apis/querys/outfit';
 import { Button, Header, showNotification } from '@/components';
 import { Link, useRouter } from '@/i18n/navigation';
-import { TrashIcon } from '@/shared/common/icons';
+import { MoreIcon } from '@/shared/common/icons';
 import ClosetCalendar from './_components/closet-calendar';
 
 export default function ClosetPage() {
@@ -65,23 +66,56 @@ export default function ClosetPage() {
         onChangeMonth={setCurrentDay}
         onSelectDay={setSelectedDay}
       />
-      <div className='flex flex-col w-full min-h-37.5 items-center justify-center mt-8 bg-red-100 rounded-md gap-3'>
+      <div className='flex flex-col w-full items-center justify-center mt-8 bg-red-100 rounded-md gap-3'>
         {selectedOutfit ? (
-          <Link href={`/closet/${selectedOutfit.id}`}>
-            <div className='flex flex-row items-center gap-8'>
+          <Link className='size-full' href={`/closet/${selectedOutfit.id}`}>
+            <div className='size-full flex flex-row items-start p-5 gap-5'>
+              <Image
+                src={selectedOutfit?.image_url}
+                alt='daily-outfit'
+                width={100}
+                height={80}
+              />
               <Text c='black' fw={700}>
-                {selectedOutfit.selected_day}
+                {selectedOutfit.name}
               </Text>
-              <Button
-                variant='ghost'
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleDelete(e);
-                }}
-              >
-                <TrashIcon color='black' size={24} />
-              </Button>
+              <div className='ml-auto'>
+                <Menu width={140} position='bottom-end'>
+                  <Menu.Target>
+                    <Button
+                      variant='ghost'
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                      }}
+                    >
+                      <MoreIcon size={20} color='black' />
+                    </Button>
+                  </Menu.Target>
+
+                  <Menu.Dropdown>
+                    <Menu.Item
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        router.push(`/closet/${selectedOutfit.id}/edit`);
+                      }}
+                    >
+                      {t('Common.edit')}
+                    </Menu.Item>
+
+                    <Menu.Item
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleDelete(e);
+                      }}
+                    >
+                      {t('Common.delete')}
+                    </Menu.Item>
+                  </Menu.Dropdown>
+                </Menu>
+              </div>
             </div>
           </Link>
         ) : (
