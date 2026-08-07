@@ -4,6 +4,7 @@ import { Lookbook } from '@/shared/common/types';
 import { type Database } from '@/shared/supabase/database.types';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
 import { handleError } from '../error';
+import type { LookbookDetail, VoteList } from '../types/lookbook';
 import { getAuthorId } from './auth';
 import { deleteImagesInPath } from './storage';
 
@@ -84,7 +85,9 @@ export const updateLookbook = async ({
   return data;
 };
 
-export const getLookbook = async (id: string) => {
+export const getLookbook = async (
+  id: string
+): Promise<LookbookDetail | null> => {
   const supabase = await createSupabaseServerClient();
 
   const { data, error } = await supabase
@@ -147,7 +150,7 @@ export async function getVoteById({
   to: number;
   voteName?: string;
   lookbookName?: string;
-}) {
+}): Promise<VoteList> {
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();
 

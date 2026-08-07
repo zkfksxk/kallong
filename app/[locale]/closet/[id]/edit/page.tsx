@@ -7,10 +7,10 @@ import EditDailyOutfitForm from '../../_components/edit-form';
 
 export default function EditPage() {
   const { id } = useParams<{ id: string }>();
-  const { data: dailyOutfit, isLoading } = useGetDailyOutfit(id);
+  const { data: dailyOutfit, isLoading, error } = useGetDailyOutfit(id);
 
   if (isLoading) return <Loader />;
-  if (!dailyOutfit) return <Fallback />;
+  if (error || !dailyOutfit) return <Fallback />;
 
   return <EditDailyOutfitForm dailyOutfit={dailyOutfit} />;
 }

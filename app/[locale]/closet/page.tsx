@@ -11,7 +11,7 @@ import {
   useDeleteDailyOutfit,
   useGetDailyOutfitInMonth,
 } from '@/apis/querys/outfit';
-import { Button, Header, showNotification } from '@/components';
+import { Button, Fallback, Header, showNotification } from '@/components';
 import { Link, useRouter } from '@/i18n/navigation';
 import { MoreIcon } from '@/shared/common/icons';
 import ClosetCalendar from './_components/closet-calendar';
@@ -24,23 +24,24 @@ export default function ClosetPage() {
   const [selectedDay, setSelectedDay] = useState<string>(
     dayjs().format('YYYY-MM-DD') //사용자의 로컬 date
   );
-  const { data: outfits } = useGetDailyOutfitInMonth(currentDay);
+  const { data: outfits, error } = useGetDailyOutfitInMonth(currentDay);
   const { mutateAsync: deleteMutate } = useDeleteDailyOutfit();
 
   const selectedOutfit = outfits?.find(
     (item) => item.selected_day === selectedDay
   );
+  const outfitDays = new Set(outfits?.map((item) => item.selected_day) ?? []);
 
   const handleRecord = () => {
-    if (!selectedDay) {
-      return;
-    }
+    if (!selectedDay) return;
     router.push(`/closet/write?day=${selectedDay}`);
   };
 
   const handleDelete = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!selectedOutfit) return;
 
     try {
       deleteMutate(selectedOutfit.id);
@@ -53,7 +54,7 @@ export default function ClosetPage() {
     }
   };
 
-  const outfitDays = new Set(outfits?.map((item) => item.selected_day) ?? []);
+  if (error) return <Fallback />;
 
   return (
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
@@ -70,12 +71,14 @@ export default function ClosetPage() {
         {selectedOutfit ? (
           <Link className='size-full' href={`/closet/${selectedOutfit.id}`}>
             <div className='size-full flex flex-row items-start p-5 gap-5'>
-              <Image
-                src={selectedOutfit?.image_url}
-                alt='daily-outfit'
-                width={120}
-                height={80}
-              />
+              {selectedOutfit?.image_url && (
+                <Image
+                  src={selectedOutfit?.image_url}
+                  alt='daily-outfit'
+                  width={120}
+                  height={80}
+                />
+              )}
               <Text size='xl' fw={700}>
                 {selectedOutfit.name}
               </Text>
@@ -119,7 +122,7 @@ export default function ClosetPage() {
             </div>
           </Link>
         ) : (
-          <div className='flex flex-col h-[200px] p-5 justify-center items-center gap-2.5'>
+          <div className='flex flex-col h-50 p-5 justify-center items-center gap-2.5'>
             <Text c='black' fw={500}>
               {t('Closet.emptyMessage')}
             </Text>

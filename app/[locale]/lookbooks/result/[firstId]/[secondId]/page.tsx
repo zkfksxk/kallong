@@ -46,7 +46,8 @@ export default function ResultPage() {
 
   if (firstLoading || secondLoading) return <Loader />;
 
-  if (firstError || secondError) return <Fallback />;
+  if (firstError || secondError || !firstLookbook || !secondLookbook)
+    return <Fallback />;
 
   return (
     <main
@@ -66,7 +67,9 @@ export default function ResultPage() {
           <Text size='xl' fw='bold' className='self-end'>
             {firstLookbook.name}
           </Text>
-          <ResultImage image_url={firstLookbook.image_url} />
+          {firstLookbook.image_url && (
+            <ResultImage image_url={firstLookbook.image_url} />
+          )}
           <VoteButton
             isLiked={isFirstLookbookLiked}
             votes={firstLookbook.votes}
@@ -86,7 +89,9 @@ export default function ResultPage() {
           <Text size='xl' fw='bold' className='self-end'>
             {secondLookbook.name}
           </Text>
-          <ResultImage image_url={secondLookbook.image_url} />
+          {secondLookbook.image_url && (
+            <ResultImage image_url={secondLookbook.image_url} />
+          )}
           <VoteButton
             isLiked={isSecondLookbookLiked}
             votes={secondLookbook.votes}

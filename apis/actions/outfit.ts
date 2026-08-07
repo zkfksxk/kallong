@@ -5,6 +5,7 @@ import { DailyOutfitFormData } from '@/app/[locale]/closet/_constants/form';
 import { Database } from '@/shared/supabase/database.types';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
 import { handleError } from '../error';
+import { OutfitDetail, OutfitList } from '../types/outfit';
 import { getAuthorId } from './auth';
 import { deleteOutfitImagesInPath } from './storage';
 
@@ -88,7 +89,9 @@ export const updateDailyOutfit = async ({
   return data;
 };
 
-export const getDailyOutfit = async (id: string) => {
+export const getDailyOutfit = async (
+  id: string
+): Promise<OutfitDetail | null> => {
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();
 
@@ -106,7 +109,9 @@ export const getDailyOutfit = async (id: string) => {
   return data;
 };
 
-export async function getDailyOutfitInMonth(yearMonth: string) {
+export async function getDailyOutfitInMonth(
+  yearMonth: string
+): Promise<OutfitDetail[]> {
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();
 
@@ -135,7 +140,7 @@ export async function getOutfitList({
 }: {
   from: number;
   to: number;
-}) {
+}): Promise<OutfitList> {
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();
 

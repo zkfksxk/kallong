@@ -5,7 +5,7 @@ import { Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { useInView } from 'react-intersection-observer';
 import { useGetVoteById } from '@/apis/querys';
-import { Loader } from '@/components';
+import { Fallback, Loader } from '@/components';
 import { LookbookItem } from './lookbook-item';
 
 export const LookbookList = () => {
@@ -17,6 +17,7 @@ export const LookbookList = () => {
     isFetchingNextPage,
     hasNextPage,
     fetchNextPage,
+    error,
   } = useGetVoteById();
   const { ref, inView } = useInView();
 
@@ -28,7 +29,8 @@ export const LookbookList = () => {
 
   if (isLoading) return <Loader />;
 
-  console.log('data', data);
+  if (error) return <Fallback />;
+
   return (
     <div className='flex flex-1 flex-col gap-10'>
       {data?.votes.length === 0 && (
