@@ -81,6 +81,7 @@ export default function UpdatePasswordPage() {
                   e.stopPropagation();
                   handleClickShowPassword();
                 }}
+                className='mr-3'
               >
                 {showPassword ? (
                   <EyeCloseIcon color='#64748b' />

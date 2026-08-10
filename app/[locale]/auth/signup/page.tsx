@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, Text, TextInput } from '@mantine/core';
 import { useLocale, useTranslations } from 'next-intl';
@@ -8,10 +9,12 @@ import { CustomError } from '@/apis/error';
 import { useSignUp } from '@/apis/querys/auth/useSignUp';
 import { Button, showNotification } from '@/components';
 import { Link, useRouter } from '@/i18n/navigation';
-import { ForwardIcon } from '@/shared/common/icons';
+import { EyeCloseIcon, EyeIcon, ForwardIcon } from '@/shared/common/icons';
 import { SignUpFormData, signUpSchema } from '../_constants/form';
 
 export default function SignUpPage() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirmed, setShowPasswordConfirmed] = useState(false);
   const t = useTranslations();
   const router = useRouter();
   const locale = useLocale();
@@ -33,6 +36,14 @@ export default function SignUpPage() {
     formState: { errors },
   } = methods;
   const { mutate: signUp, isPending } = useSignUp();
+
+  const handleClickShowPassword = () => {
+    setShowPassword((show) => !show);
+  };
+
+  const handleClickShowPasswordConfirmed = () => {
+    setShowPasswordConfirmed((show) => !show);
+  };
 
   const onSubmit = (data: SignUpFormData) => {
     if (!data.termsOfService || !data.privacyPolicy) {
@@ -90,7 +101,7 @@ export default function SignUpPage() {
           />
           <TextInput
             label={t('Auth.field.password')}
-            type='password'
+            type={showPassword ? 'text' : 'password'}
             description={t('Auth.passwordPolicy')}
             autoComplete='new-password'
             {...register('password')}
@@ -100,10 +111,27 @@ export default function SignUpPage() {
                 : undefined
             }
             disabled={isPending}
+            rightSection={
+              <button
+                type='button'
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleClickShowPassword();
+                }}
+                className='mr-3'
+              >
+                {showPassword ? (
+                  <EyeCloseIcon color='#64748b' />
+                ) : (
+                  <EyeIcon color='#64748b' />
+                )}
+              </button>
+            }
           />
           <TextInput
             label={t('Auth.field.passwordConfirm')}
-            type='password'
+            type={showPasswordConfirmed ? 'text' : 'password'}
             autoComplete='new-password'
             {...register('passwordConfirmed')}
             error={
@@ -112,6 +140,23 @@ export default function SignUpPage() {
                 : undefined
             }
             disabled={isPending}
+            rightSection={
+              <button
+                type='button'
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleClickShowPasswordConfirmed();
+                }}
+                className='mr-3'
+              >
+                {showPasswordConfirmed ? (
+                  <EyeCloseIcon color='#64748b' />
+                ) : (
+                  <EyeIcon color='#64748b' />
+                )}
+              </button>
+            }
           />
           <TextInput
             label={t('Auth.field.nickname')}

@@ -108,6 +108,7 @@ export default function SignInPage() {
                   e.stopPropagation();
                   handleClickShowPassword();
                 }}
+                className='mr-3'
               >
                 {showPassword ? (
                   <EyeCloseIcon color='#64748b' />
