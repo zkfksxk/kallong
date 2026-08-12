@@ -10,7 +10,7 @@ import { Profile, ProfileSkeleton, SettingItem } from '../_components';
 export default function UserInfoPage() {
   const [opened, { open, close }] = useDisclosure(false);
   const t = useTranslations();
-  const { profile } = useProfileStore((s) => s);
+  const { profile, isLoaded } = useProfileStore((s) => s);
   const { mutate: deleteAccount, isPending } = useDeleteAccount();
 
   const handleDeleteAccount = () => {
@@ -24,7 +24,7 @@ export default function UserInfoPage() {
   return (
     <>
       <div className='bg-white dark:bg-black w-full flex flex-1 flex-col'>
-        {!profile ? <ProfileSkeleton /> : <Profile />}
+        {!isLoaded ? <ProfileSkeleton /> : profile ? <Profile /> : null}
         <div className='flex flex-col mt-8'>
           <SettingItem
             url='/auth/password/reset'

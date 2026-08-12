@@ -7,7 +7,7 @@ import { useProfileStore } from './profile-provider';
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const supabaseRef = useRef(createSupabaseBrowserClient());
-  const { setProfile, reset } = useProfileStore((s) => s);
+  const { setProfile, reset, clearProfile } = useProfileStore((s) => s);
 
   useEffect(() => {
     const supabase = supabaseRef.current;
@@ -18,9 +18,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
           setProfile(profile);
         } catch (error) {
           console.error('Failed to load profile:', error);
+          reset();
         }
       } else {
-        reset();
+        clearProfile();
       }
     });
 
@@ -33,9 +34,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
           setProfile(profile);
         } catch (error) {
           console.error('Failed to load profile:', error);
+          reset();
         }
       } else {
-        reset();
+        clearProfile();
       }
     });
 
