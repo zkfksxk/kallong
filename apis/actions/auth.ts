@@ -28,12 +28,14 @@ export async function getAuthorId(): Promise<{
 
   //인증 사용자
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  if (user?.id) {
+  const userId = session?.user?.id;
+
+  if (userId) {
     return {
-      author_id: user.id,
+      author_id: userId,
       is_anon: false, // 인증된 사용자
     };
   }
