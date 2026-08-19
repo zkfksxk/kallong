@@ -77,9 +77,10 @@ export default function ClosetPage() {
                   alt='daily-outfit'
                   width={120}
                   height={80}
+                  className='rounded-sm'
                 />
               )}
-              <Text size='xl' fw={700}>
+              <Text size='xl' c='black' fw={700}>
                 {selectedOutfit.name}
               </Text>
               <div className='ml-auto'>

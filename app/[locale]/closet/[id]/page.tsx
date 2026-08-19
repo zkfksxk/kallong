@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { useGetDailyOutfit } from '@/apis/querys/outfit';
-import { Button, Fallback, Header } from '@/components';
+import { Button, Fallback, Header, Loader } from '@/components';
 import { useRouter } from '@/i18n/navigation';
 import { normalizeLineBreaks } from '@/shared/common/utils/validation';
 
@@ -15,9 +15,10 @@ export default function DetailPage() {
   }>();
   const router = useRouter();
   const t = useTranslations('Common');
-  const { data, error } = useGetDailyOutfit(id);
+  const { data, isLoading, error } = useGetDailyOutfit(id);
 
-  if (error || !data) return <Fallback />;
+  if (isLoading || !data) return <Loader />;
+  if (error) return <Fallback />;
 
   return (
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
