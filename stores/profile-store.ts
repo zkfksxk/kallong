@@ -1,5 +1,5 @@
 import { createStore } from 'zustand';
-import { Profile } from '@/shared/common/types/types';
+import { Profile } from '@/shared/common/types/profile';
 
 export type ProfileState = {
   isLoaded: boolean;
@@ -10,6 +10,7 @@ export type ProfileAction = {
   getProfile: () => Profile | null;
   isProfileLoaded: () => boolean;
   setProfile: (profile: Profile | null) => void;
+  clearProfile: () => void;
   reset: () => void;
 };
 
@@ -30,5 +31,10 @@ export const createProfileStore = (init: ProfileState = initialState) =>
         profile,
         isLoaded: true,
       })),
+    clearProfile: () =>
+      set({
+        profile: null,
+        isLoaded: true,
+      }),
     reset: () => set(() => ({ ...initialState })),
   }));

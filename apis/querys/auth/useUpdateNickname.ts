@@ -8,7 +8,7 @@ export const useUpdateNickname = () => {
     mutationFn: (nickname: string) => updateNickname(nickname),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.PROFILE.GET_BYID,
+        queryKey: queryKeys.profile.details(),
       });
     },
   });

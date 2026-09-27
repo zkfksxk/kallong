@@ -2,34 +2,34 @@
 
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { Button, Text } from '@mantine/core';
-import { useGetDailyOutfit } from '@/apis/querys/outfit/useGetDailyOutfit';
-import { Header } from '@/components/layouts/header';
+import { Text } from '@mantine/core';
+import { useTranslations } from 'next-intl';
+import { useGetDailyOutfit } from '@/apis/querys/outfit';
+import { Button, Fallback, Header, Loader } from '@/components';
 import { useRouter } from '@/i18n/navigation';
+import { normalizeLineBreaks } from '@/shared/common/utils/validation';
 
 export default function DetailPage() {
   const { id } = useParams<{
     id: string;
   }>();
   const router = useRouter();
-  const { data } = useGetDailyOutfit(id);
+  const t = useTranslations('Common');
+  const { data, isLoading, error } = useGetDailyOutfit(id);
 
-  if (!data) return;
+  if (isLoading || !data) return <Loader />;
+  if (error) return <Fallback />;
 
   return (
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
       <Header
-        isBackbutton
+        isBackShow
         rightComponent={
           <Button
             onClick={() => router.push(`/closet/${id}/edit`)}
-            variant='transparent'
-            color='red.5'
-            size='md'
-            radius='md'
-            p={0}
+            variant='ghost'
           >
-            수정
+            {t('edit')}
           </Button>
         }
       />
@@ -42,7 +42,7 @@ export default function DetailPage() {
         <Text>{data.name}</Text>
       </div>
       <div className='bg-gray-100 dark:bg-gray-700 min-h-50 mt-10 p-4 rounded-md'>
-        <Text>{data.description}</Text>
+        <Text>{normalizeLineBreaks(data.description ?? '')}</Text>
       </div>
     </div>
   );

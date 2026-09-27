@@ -3,19 +3,18 @@
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Text, TextInput } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useResetPassword } from '@/apis/querys/auth/useResetPassword';
-import Button from '@/components/ui/button';
-import { ICONS } from '@/shared/common/icons';
+import { Button, showNotification } from '@/components';
+import { MailIcon } from '@/shared/common/icons';
 import {
   ResetPasswordFormData,
   resetPasswordSchema,
 } from '../../_constants/form';
 
 export default function ResetPasswordPage() {
-  const t = useTranslations('Setting');
+  const t = useTranslations();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const {
     register,
@@ -28,30 +27,24 @@ export default function ResetPasswordPage() {
     mode: 'onChange',
   });
   const { mutate: resetPassword } = useResetPassword(); //todo: 로그인 이후면 가입한 메일과 동일한지 확인
-  const { Alert, Mail } = ICONS;
 
   const onSubmit = (data: { email: string }) => {
     resetPassword(data.email, {
       onSuccess: () => {
         reset();
         setIsSubmitted(true);
-        notifications.show({
-          title: t('auth.resetPassword'),
-          message: t('auth.resetPasswordSucceed'),
-          icon: <Alert.Check color='blue' size={24} />,
-          withCloseButton: false,
-          loading: false,
-          color: 'transperant',
+
+        showNotification({
+          title: t('Common.succeed', { type: t('Auth.resetPassword.title') }),
+          message: t('Auth.resetPassword.succeed'),
+          type: 'success',
         });
       },
       onError: () => {
-        notifications.show({
-          title: t('auth.resetPassword'),
-          message: t('auth.resetPasswordFail'),
-          icon: <Alert.Close color='red' size={24} />,
-          withCloseButton: false,
-          loading: false,
-          color: 'transperant',
+        showNotification({
+          title: t('Common.fail', { type: t('Auth.resetPassword.title') }),
+          message: t('Auth.resetPassword.fail'),
+          type: 'fail',
         });
       },
     });
@@ -63,9 +56,9 @@ export default function ResetPasswordPage() {
         bg='red.1'
         className='w-full flex flex-col items-center gap-3 p-5 rounded-sm'
       >
-        <Mail size={30} />
+        <MailIcon size={30} />
         <Text ta='center' c='black' fw={700}>
-          {t('auth.checkEmail')}
+          {t('Auth.resetPassword.checkEmail')}
         </Text>
       </Box>
     );
@@ -74,17 +67,16 @@ export default function ResetPasswordPage() {
   return (
     <div className='w-full flex flex-col'>
       <Text ta='center' size='2xl' fw={700}>
-        {t('auth.forgotPassword')}
+        {t('Auth.signIn.forgotPassword')}
       </Text>
       <Text ta='center' size='md'>
-        {t('auth.resetPasswordDescription')}
+        {t('Auth.resetPassword.description')}
       </Text>
       <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
         <div className='w-full flex flex-col mb-8'>
           <TextInput
-            label={t('auth.email')}
+            label={t('Auth.field.email')}
             type='email'
-            placeholder={t('auth.emailPlaceholder')}
             {...register('email')}
             error={
               errors.email?.message
@@ -102,7 +94,7 @@ export default function ResetPasswordPage() {
           loading={isSubmitting}
           disabled={!isValid || isSubmitting}
         >
-          {t('auth.resetEmailButton')}
+          {t('Auth.resetPassword.requestEmailButton')}
         </Button>
       </form>
     </div>

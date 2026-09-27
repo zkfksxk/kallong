@@ -1,24 +1,23 @@
 'use client';
 
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Text, TextInput } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
+import { EyeIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { IoCloseCircle as Close } from 'react-icons/io5';
-import { CustomAuthError } from '@/apis/error';
-import { useSignInWithPassword } from '@/apis/querys/auth/useSignIn';
-import { useSignInWithGoogle } from '@/apis/querys/auth/useSignInGoogle';
-import Button from '@/components/ui/button';
-import { useDetectWebView } from '@/hooks/useDetectWebView';
+import { CustomError } from '@/apis/error';
+import { useSignInWithPassword } from '@/apis/querys/auth';
+import { Button, showNotification } from '@/components';
 import { Link, useRouter } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icons';
+import { EyeCloseIcon } from '@/shared/common/icons';
 import { SignInFormData, signInSchema } from '../_constants/form';
 
 export default function SignInPage() {
-  const t = useTranslations('Setting');
+  const [showPassword, setShowPassword] = useState(false);
+  const t = useTranslations();
   const router = useRouter();
-  const { isWebView } = useDetectWebView();
+  //const { isWebView } = useDetectWebView();
   const form = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
     defaultValues: { email: '', password: '' },
@@ -31,10 +30,10 @@ export default function SignInPage() {
   } = form;
   const { mutate: signIn, isPending: signInIsPending } =
     useSignInWithPassword();
-  const { mutate: signInWithGoogle, isPending: signInWithGoogleIsPending } =
-    useSignInWithGoogle();
+  // const { mutate: signInWithGoogle, isPending: signInWithGoogleIsPending } =
+  //   useSignInWithGoogle();
 
-  const { Google } = ICONS;
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const onSubmit = (data: SignInFormData) => {
     signIn(data, {
@@ -42,40 +41,34 @@ export default function SignInPage() {
         router.push(`/`);
       },
       onError: (error) => {
-        const errorObj = JSON.parse(error.message) as CustomAuthError;
-        const message = t(`auth.error.${errorObj.code}`);
+        const errorObj = JSON.parse(error.message) as CustomError;
+        const message = t(`auth.error.${errorObj.errorCode}`);
 
-        notifications.show({
-          title: t('auth.signInFail'),
+        showNotification({
+          title: t('Common.fail', { type: t('Auth.signIn.title') }),
           message,
-          icon: <Close color='red' size={28} />,
-          withCloseButton: false,
-          loading: false,
-          color: 'transperant',
+          type: 'fail',
         });
       },
     });
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      signInWithGoogle();
-    } catch {
-      notifications.show({
-        title: t('auth.signInFail'),
-        message: t('auth.errors.googleSignInFailed'),
-        icon: <Close color='red' size={28} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
-      });
-    }
-  };
+  // const handleGoogleLogin = async () => {
+  //   try {
+  //     signInWithGoogle();
+  //   } catch {
+  //     showNotification({
+  //       title: t('auth.signInFail'),
+  //       message: t('auth.errors.googleSignInFailed'),
+  //       type: 'fail',
+  //     });
+  //   }
+  // };
 
   return (
     <div className='bg-white dark:bg-black w-full flex flex-col'>
       <Text ta='center' size='2xl' fw={700}>
-        {t('auth.signIn')}
+        {t('Auth.signIn.title')}
       </Text>
       <form
         autoComplete='off'
@@ -84,9 +77,9 @@ export default function SignInPage() {
       >
         <div className='w-full flex flex-col gap-4 mb-8'>
           <TextInput
-            label={t('auth.email')}
+            label={t('Auth.field.email')}
             type='email'
-            placeholder={t('auth.emailPlaceholder')}
+            autoComplete='off'
             {...register('email')}
             error={
               errors.email?.message
@@ -96,10 +89,10 @@ export default function SignInPage() {
             disabled={signInIsPending}
           />
           <TextInput
-            label={t('auth.password')}
-            type='password'
-            placeholder={t('auth.passwordPlaceholder')}
-            description={t('auth.passwordDescription')}
+            label={t('Auth.field.password')}
+            type={showPassword ? 'text' : 'password'}
+            description={t('Auth.passwordPolicy')}
+            autoComplete='new-password'
             {...register('password')}
             error={
               errors.password?.message
@@ -107,6 +100,23 @@ export default function SignInPage() {
                 : undefined
             }
             disabled={signInIsPending}
+            rightSection={
+              <button
+                type='button'
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleClickShowPassword();
+                }}
+                className='mr-3'
+              >
+                {showPassword ? (
+                  <EyeCloseIcon color='#64748b' />
+                ) : (
+                  <EyeIcon color='#64748b' />
+                )}
+              </button>
+            }
           />
         </div>
         <Button
@@ -115,19 +125,21 @@ export default function SignInPage() {
           fullWidth
           disabled={!isValid || signInIsPending}
         >
-          {t('auth.signIn')}
+          {t('Auth.signIn.title')}
         </Button>
       </form>
 
       <div className='flex flex-row justify-end items-center mt-4 gap-2 text-md text-black dark:text-white'>
-        <Link href='/auth/signup'>{t('auth.noAccount')}</Link>
+        <Link href='/auth/signup'>{t('Auth.signUp.title')}</Link>
         <div className='w-px h-4 bg-gray-300 dark:bg-gray-600' />
-        <Link href='/auth/password/reset'>{t('auth.forgotPassword')}</Link>
+        <Link href='/auth/password/reset'>
+          {t('Auth.signIn.forgotPassword')}
+        </Link>
       </div>
-      {!isWebView && (
+      {/* {!isWebView && (
         <div className='flex flex-col w-full mt-20'>
           <Button
-            icon={<Google size={18} />}
+            icon={<GoogleIcon size={18} />}
             variant='secondary'
             fullWidth
             onClick={handleGoogleLogin}
@@ -136,7 +148,7 @@ export default function SignInPage() {
             Continue with Google
           </Button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

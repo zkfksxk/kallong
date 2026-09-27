@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, Ref } from 'react';
 
 //note: secondary - info용, ghost - 투명함
 type ButtonVariant = 'filled' | 'outline' | 'secondary' | 'ghost';
@@ -11,32 +11,34 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
   loading?: boolean;
   size?: ButtonSize;
+  ref?: Ref<HTMLButtonElement>;
 }
 
 const variantStyles = {
   filled: `
-    text-white font-bold
+    text-white
     bg-red-500 hover:bg-red-700 active:bg-red-900
-    rounded-lg px-[10px] py-[10px]
+    rounded-lg py-[16px] px-[12px]
     disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed
   `,
   secondary: `
-    text-white font-bold
+    text-white 
     bg-blue-700 hover:bg-blue-900 active:bg-blue-900
-    rounded-lg px-[10px] py-[10px]
-    disabled:bg-gray-300 disabled:text-gray-500 dark:disabled:bg-transparent disabled:cursor-not-allowed 
+    rounded-lg py-[16px]
+    disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed 
   `,
   outline: `
-    border border-blue-300
-    text-blue-400
-    hover:bg-blue-50
+    text-black
+    bg-white border border-black 
+    rounded-lg py-[16px]
+    disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed
   `,
   ghost: `
-    text-red-500 
+    text-black dark:text-white p-0 
   `,
 };
 
-const Button = ({
+export const Button = ({
   children,
   icon,
   variant = 'filled',
@@ -44,14 +46,16 @@ const Button = ({
   fullWidth = false,
   loading = false,
   disabled,
+  ref,
   ...props
 }: ButtonProps) => {
   return (
     <button
+      ref={ref}
       className={`
         ${fullWidth ? 'w-full' : 'w-fit'}
-        flex items-center justify-center gap-2 font-bold!
-        cursor-pointer transition-colors duration-300 font-pretendard text-[16px]
+        flex items-center justify-center gap-2 font-bold! 
+        cursor-pointer transition-colors duration-300 font-pretendard
 		    disabled:cursor-not-allowed
 		${variantStyles[variant]}
         ${className}
@@ -70,5 +74,3 @@ const Button = ({
     </button>
   );
 };
-
-export default Button;

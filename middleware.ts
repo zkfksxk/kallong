@@ -9,13 +9,12 @@ export async function middleware(req: NextRequest) {
   const intlRes = nextIntlMiddleware(req);
   const res = await updateSession(req, intlRes);
 
-  const token = crypto.randomUUID();
   const anonId = req.cookies.get('anon_id')?.value;
 
   if (!anonId) {
     res.cookies.set({
       name: 'anon_id',
-      value: token,
+      value: crypto.randomUUID(),
       httpOnly: true,
       secure: true,
       sameSite: 'lax',

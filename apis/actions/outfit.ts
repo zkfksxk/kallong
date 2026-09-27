@@ -1,16 +1,19 @@
 'use server';
 
 import dayjs from 'dayjs';
-import { DailyOutfitForm } from '@/shared/common/types/types';
+import { DailyOutfitFormData } from '@/app/[locale]/closet/_constants/form';
 import { Database } from '@/shared/supabase/database.types';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
 import { handleError } from '../error';
+import { OutfitDetail, OutfitList } from '../types/outfit';
 import { getAuthorId } from './auth';
 import { deleteOutfitImagesInPath } from './storage';
 
 export type OutfitRes = Database['public']['Tables']['outfit']['Row'];
 
-export const createDailyOutfit = async (outfit: Partial<DailyOutfitForm>) => {
+export const createDailyOutfit = async (
+  outfit: Partial<DailyOutfitFormData>
+) => {
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();
 
@@ -31,7 +34,7 @@ export const createDailyOutfit = async (outfit: Partial<DailyOutfitForm>) => {
   return data;
 };
 
-export const upadateDailyOutfitImage = async ({
+export const updateDailyOutfitImage = async ({
   id,
   image_url,
 }: {
@@ -55,7 +58,7 @@ export const upadateDailyOutfitImage = async ({
   return data;
 };
 
-export const upadateDailyOutfit = async ({
+export const updateDailyOutfit = async ({
   id,
   image_url,
   name,
@@ -86,7 +89,9 @@ export const upadateDailyOutfit = async ({
   return data;
 };
 
-export const getDailyOutfit = async (id: string) => {
+export const getDailyOutfit = async (
+  id: string
+): Promise<OutfitDetail | null> => {
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();
 
@@ -104,23 +109,15 @@ export const getDailyOutfit = async (id: string) => {
   return data;
 };
 
-export async function getDailyOutfitInMonth({
-  year,
-  month,
-}: {
-  year: number;
-  month: number;
-}) {
+export async function getDailyOutfitInMonth(
+  yearMonth: string
+): Promise<OutfitDetail[]> {
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();
 
   //해당 년도와 월에 1일-말일
-  const startDate = dayjs(`${year}-${month}-01`)
-    .startOf('month')
-    .format('YYYY-MM-DD');
-  const endDate = dayjs(`${year}-${month}-01`)
-    .endOf('month')
-    .format('YYYY-MM-DD');
+  const startDate = dayjs(yearMonth).startOf('month').toISOString();
+  const endDate = dayjs(yearMonth).endOf('month').toISOString();
 
   const { data, error } = await supabase
     .from('outfit')
@@ -143,7 +140,7 @@ export async function getOutfitList({
 }: {
   from: number;
   to: number;
-}) {
+}): Promise<OutfitList> {
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();
 

@@ -75,12 +75,12 @@ export const THEME = createTheme({
   },
   colors: {
     black: colorsTuple('#020617'),
-    white: colorsTuple('#F8FAFC'),
+    white: colorsTuple('#FFFFFF'),
     blue,
     gray,
     red,
   },
-  white: '#F8FAFC',
+  white: '#FFFFFF',
   black: '#020617',
   components: {
     Notification: {
@@ -103,6 +103,44 @@ export const THEME = createTheme({
         },
         label: {
           fontSize: '14px',
+          color:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+        },
+      },
+    },
+    RadioIndicator: {
+      defaultProps: {
+        color:
+          'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+        iconColor:
+          'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+      },
+      styles: {
+        indicator: {
+          borderColor:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+          backgroundColor:
+            'light-dark(var(--mantine-color-white), var(--mantine-color-black))',
+        },
+      },
+    },
+    Divider: {
+      styles: {
+        root: {
+          borderColor:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+        },
+      },
+    },
+    Menu: {
+      styles: {
+        dropdown: {
+          backgroundColor:
+            'light-dark(var(--mantine-color-white), var(--mantine-color-black))',
+          borderColor:
+            'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+        },
+        item: {
           color:
             'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
         },

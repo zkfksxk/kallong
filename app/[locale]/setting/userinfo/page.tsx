@@ -1,19 +1,16 @@
 'use client';
 
-import { Button } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useTranslations } from 'next-intl';
 import { useDeleteAccount } from '@/apis/querys/auth/useDeleteAccount';
-import { Profile } from '@/components/setting/profile';
-import { ProfileSkeleton } from '@/components/setting/profile-skeleton';
-import { SettingItem } from '@/components/setting/setting-item';
-import { CustomModal } from '@/components/ui/custom-modal';
+import { Button, CustomModal } from '@/components';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
+import { Profile, ProfileSkeleton, SettingItem } from '../_components';
 
 export default function UserInfoPage() {
   const [opened, { open, close }] = useDisclosure(false);
-  const t = useTranslations('Setting');
-  const { profile } = useProfileStore((s) => s);
+  const t = useTranslations();
+  const { profile, isLoaded } = useProfileStore((s) => s);
   const { mutate: deleteAccount, isPending } = useDeleteAccount();
 
   const handleDeleteAccount = () => {
@@ -27,32 +24,32 @@ export default function UserInfoPage() {
   return (
     <>
       <div className='bg-white dark:bg-black w-full flex flex-1 flex-col'>
-        {!profile ? <ProfileSkeleton /> : <Profile />}
+        {!isLoaded ? <ProfileSkeleton /> : profile ? <Profile /> : null}
         <div className='flex flex-col mt-8'>
           <SettingItem
             url='/auth/password/reset'
-            title={t('auth.resetPassword')}
+            title={t('Auth.resetPassword.title')}
           />
-          <SettingItem url='/auth/nickname' title={t('auth.nicknameChange')} />
+          <SettingItem
+            url='/auth/nickname'
+            title={t('Auth.profile.nicknameChange')}
+          />
         </div>
         <Button
-          variant='transparent'
-          size='lg'
-          fw={700}
+          variant='ghost'
           onClick={open}
-          className='self-start mt-auto'
-          style={{ padding: 0 }}
+          className='self-start mt-auto text-red-500'
           disabled={!profile || isPending}
         >
-          {t('auth.deleteAccount')}
+          {t('Auth.deleteAccount.title')}
         </Button>
       </div>
       <CustomModal
         opened={opened}
         onClose={close}
-        title={t('auth.deleteAccountTitle')}
-        description={t('auth.deleteAccountDescription')}
-        submitLabel={t('auth.deleteAccountSubmit')}
+        title={t('Auth.deleteAccount.title')}
+        description={t('Auth.deleteAccount.description')}
+        submitLabel={t('Auth.deleteAccount.submit')}
         onSubmit={handleDeleteAccount}
       />
     </>

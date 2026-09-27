@@ -1,10 +1,9 @@
 'use client';
 
-import { ActionIcon } from '@mantine/core';
+import { useTheme } from 'next-themes';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
-import { ICONS } from '@/shared/common/icons';
-
-const { Grid, Copy, Capture } = ICONS;
+import { CaptureIcon, CopyIcon, GridIcon } from '@/shared/common/icons';
+import { Button } from './button';
 
 interface ShareActionButtonsProps {
   visible: boolean;
@@ -21,56 +20,37 @@ export function ShareActionButtons({
   onCapture,
   onClose,
 }: ShareActionButtonsProps) {
+  const { theme } = useTheme();
+  const iconColor = theme === 'dark' ? 'black' : 'white';
   const buttonRef = useOutsideClick<HTMLButtonElement>(onClose);
 
   return (
-    <div className='absolute bottom-10 right-0'>
+    <div className='absolute bottom-2 right-0'>
       <div className='group relative flex flex-col-reverse items-end gap-2'>
-        <ActionIcon
-          variant='filled'
-          size='52px'
-          radius='xl'
+        <Button
+          variant='ghost'
           ref={buttonRef}
           onClick={onToggleVisible}
-          style={{
-            color:
-              'light-dark(var(--mantine-color-white), var(--mantine-color-black))',
-            background:
-              'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
-          }}
+          className='w-14! h-14! rounded-lg bg-black text-white dark:bg-white dark:text-black border border-gray-200 shadow-[0_4px_12px_rgba(0,0,0,0.15)]'
         >
-          <Grid size={32} />
-        </ActionIcon>
+          <GridIcon size={32} color={iconColor} />
+        </Button>
         {visible && (
           <>
-            <ActionIcon
-              variant='filled'
-              size='52px'
-              radius='xl'
+            <Button
+              variant='ghost'
+              className='w-14! h-14! rounded-lg bg-black text-white dark:bg-white dark:text-black border border-gray-200 shadow-[0_4px_12px_rgba(0,0,0,0.15)]'
               onClick={onCopy}
-              style={{
-                color:
-                  'light-dark(var(--mantine-color-white), var(--mantine-color-black))',
-                background:
-                  'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
-              }}
             >
-              <Copy size={32} />
-            </ActionIcon>
-            <ActionIcon
-              variant='filled'
-              size='52px'
-              radius='xl'
+              <CopyIcon size={32} color={iconColor} />
+            </Button>
+            <Button
+              variant='ghost'
+              className='w-14! h-14! rounded-lg bg-black text-white dark:bg-white dark:text-black border border-gray-200 shadow-[0_4px_12px_rgba(0,0,0,0.15)]'
               onClick={onCapture}
-              style={{
-                color:
-                  'light-dark(var(--mantine-color-white), var(--mantine-color-black))',
-                background:
-                  'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
-              }}
             >
-              <Capture size={32} />
-            </ActionIcon>
+              <CaptureIcon size={32} color={iconColor} />
+            </Button>
           </>
         )}
       </div>

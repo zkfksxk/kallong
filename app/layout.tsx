@@ -7,11 +7,11 @@ import {
 import { Notifications } from '@mantine/notifications';
 import { Analytics } from '@vercel/analytics/next';
 import { ThemeProvider } from 'next-themes';
-import TanstackQueryProvider from '@/hooks/provider/tanstackquery-provider';
-import { SITE_CONFIG } from '@/shared/common/constants/common';
+import TanstackQueryProvider from '@/hooks/provider/tanstack-query-provider';
+import { SITE_CONFIG } from '@/shared/common/constants';
 import { MatineThemeSync } from '@/shared/theme/matineThemeSync';
 import { THEME, hanna, pretendard } from '@/shared/theme/theme';
-import './globals.css';
+import './global.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.domain),

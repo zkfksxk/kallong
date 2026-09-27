@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import { getDailyOutfitInMonth } from '@/apis/actions/outfit';
 import queryKeys from '@/apis/queryKeys';
+import { OutfitDetail } from '@/apis/types/outfit';
 
 export function useGetDailyOutfitInMonth(currentDay: Date) {
-  const year = currentDay.getFullYear();
-  const month = currentDay.getMonth() + 1;
+  const yearMonth = dayjs(currentDay).format('YYYY-MM');
 
-  return useQuery({
-    queryFn: () => getDailyOutfitInMonth({ year, month }),
-    queryKey: [queryKeys.OUTFIT.MONTH],
+  return useQuery<OutfitDetail[]>({
+    queryFn: () => getDailyOutfitInMonth(yearMonth),
+    queryKey: queryKeys.outfit.inMonth(yearMonth),
   });
 }

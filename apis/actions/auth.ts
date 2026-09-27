@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
-import { CustomAuthError, handleAuthErrorCode, handleError } from '../error';
+import { CustomError, handleAuthError, handleError } from '../error';
 
 const getURL = () => {
   let url =
@@ -28,12 +28,14 @@ export async function getAuthorId(): Promise<{
 
   //인증 사용자
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  if (user?.id) {
+  const userId = session?.user?.id;
+
+  if (userId) {
     return {
-      author_id: user.id,
+      author_id: userId,
       is_anon: false, // 인증된 사용자
     };
   }
@@ -105,9 +107,9 @@ export async function signInWithPassword({
   });
 
   if (error) {
-    const errorData: CustomAuthError = {
-      success: false,
-      code: handleAuthErrorCode(error),
+    const errorData: CustomError = {
+      result: false,
+      errorCode: handleAuthError(error),
       message: error.message,
     };
     throw new Error(JSON.stringify(errorData));
@@ -126,7 +128,6 @@ export async function signInWithGoogle() {
     },
   });
 
-  console.log('google login', data, error);
   if (error) {
     throw error;
   }
@@ -186,9 +187,9 @@ export async function updatePassword(password: string) {
   });
 
   if (error) {
-    const errorData: CustomAuthError = {
-      success: false,
-      code: handleAuthErrorCode(error),
+    const errorData: CustomError = {
+      result: false,
+      errorCode: handleAuthError(error),
       message: error.message,
     };
     throw new Error(JSON.stringify(errorData));

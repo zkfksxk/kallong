@@ -4,34 +4,34 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ActionIcon, TextInput, Textarea } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
+import { TextInput, Textarea } from '@mantine/core';
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { useCreatDailyOutfit } from '@/apis/querys/outfit/useCreateDailyOutfit';
-import { useUpdateDailyOutfitImage } from '@/apis/querys/outfit/useUpdateDailyOutfitImage';
-import { Header } from '@/components/layouts/header';
-import Button from '@/components/ui/button';
-import { useProfileStore } from '@/hooks/provider/profile-provider';
-import { useOutfitImageEditor } from '@/hooks/useOutfitImageEditor';
+import {
+  useCreateDailyOutfit,
+  useUpdateDailyOutfitImage,
+} from '@/apis/querys/outfit';
+import { Button, Header, showNotification } from '@/components';
+import { useProfileStore } from '@/hooks/provider';
 import { useRouter } from '@/i18n/navigation';
 import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
-} from '@/shared/common/constants/common';
-import { ICONS } from '@/shared/common/icons';
+} from '@/shared/common/constants/file';
+import { DeleteIcon, ImageAddIcon } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
-import { DailyOutfitFormData, dailOutfitSchema } from '../_constants/form';
+import { DailyOutfitFormData, dailyOutfitSchema } from '../_constants/form';
+import { useOutfitImageEditor } from '../_hooks/useOutfitImageEditor';
 
 export default function WritePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const t = useTranslations('Closet');
+  const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedDay = searchParams.get('day') ?? dayjs().format('YYYY-MM-DD');
   const methods = useForm<DailyOutfitFormData>({
-    resolver: zodResolver(dailOutfitSchema),
+    resolver: zodResolver(dailyOutfitSchema),
     defaultValues: {
       name: '',
       description: '',
@@ -53,9 +53,8 @@ export default function WritePage() {
     handleRemove,
   } = useOutfitImageEditor();
   const { profile } = useProfileStore((s) => s);
-  const { mutateAsync: createMutate } = useCreatDailyOutfit();
+  const { mutateAsync: createMutate } = useCreateDailyOutfit();
   const { mutateAsync: updateMutate } = useUpdateDailyOutfitImage();
-  const { Add, Delete, Alert } = ICONS;
 
   const uploadFile = async (outfitId: string, file: File) => {
     if (!profile) return;
@@ -71,13 +70,10 @@ export default function WritePage() {
       .upload(filePath, file, { upsert: true }); // upset: true 존재x -> insert, 존재o -> update
 
     if (uploadError) {
-      notifications.show({
-        title: 'Image upload Failed',
-        message: t('error.imageUploadFailed'),
-        icon: <Alert.Close color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+      showNotification({
+        title: t('Common.fail', { type: t('Closet.title') }),
+        message: t('Closet.error.imageUploadFailed'),
+        type: 'fail',
       });
       return;
     }
@@ -87,7 +83,6 @@ export default function WritePage() {
     } = supabase.storage
       .from(process.env.NEXT_PUBLIC_OUTFIT_STORAGE_BUCKET!)
       .getPublicUrl(uploadData.path);
-
     return publicUrl;
   };
 
@@ -95,25 +90,19 @@ export default function WritePage() {
     if (isSubmitting) return;
 
     if (!file) {
-      notifications.show({
-        title: 'Closet Failed',
-        message: t('error.imageRequired'),
-        icon: <Alert.Close color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transparent',
+      showNotification({
+        title: t('Common.fail', { type: t('Closet.title') }),
+        message: t('Closet.validation.imageRequired'),
+        type: 'fail',
       });
       return;
     }
 
     if (file.size > MAX_FILE_SIZE_BYTES) {
-      notifications.show({
-        title: 'Image upload Failed',
-        message: t('error.fileTooLarge', { maxMb: MAX_FILE_SIZE_MB }),
-        icon: <Alert.Close color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+      showNotification({
+        title: t('Common.fail', { type: t('Closet.title') }),
+        message: t('Closet.error.fileTooLarge', { maxMb: MAX_FILE_SIZE_MB }),
+        type: 'fail',
       });
       return;
     }
@@ -136,13 +125,10 @@ export default function WritePage() {
 
       router.push('/closet');
     } catch {
-      notifications.show({
-        title: 'Closet Failed',
-        message: t('error.createFailed'),
-        icon: <Alert.Close color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+      showNotification({
+        title: t('Common.fail', { type: t('Closet.title') }),
+        message: t('Closet.error.createFailed'),
+        type: 'fail',
       });
     } finally {
       setIsSubmitting(false);
@@ -153,19 +139,31 @@ export default function WritePage() {
   return (
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
       <Header
-        isBackbutton
+        isBackShow
         rightComponent={
           <Button
             onClick={handleSubmit(onSubmit)}
             variant='ghost'
             disabled={!isValid || isSubmitting}
           >
-            저장
+            {t('Common.save')}
           </Button>
         }
       />
       <div className='relative w-full max-w-125 aspect-square flex items-center justify-center border border-gray-300 rounded-md overflow-hidden'>
-        {url && <Image src={url} alt='daily-outfit' fill />}
+        {url && (
+          <>
+            <Image src={url} alt='daily-outfit' fill />
+            <Button
+              variant='ghost'
+              disabled={!url}
+              onClick={handleRemove}
+              className='absolute top-3 right-3 z-10 flex items-center justify-center !w-10 !h-10 rounded-full bg-white shadow-md'
+            >
+              <DeleteIcon size={24} className='text-black' />
+            </Button>
+          </>
+        )}
       </div>
       <div className='flex flex-col items-center mt-8'>
         <input
@@ -175,40 +173,29 @@ export default function WritePage() {
           accept='image/*'
           className='hidden'
         />
-        <div className='flex gap-8'>
-          <ActionIcon
-            variant='outline'
-            size='xl'
-            radius='md'
-            title='추가'
+        <div className='flex justify-center'>
+          <Button
+            variant='filled'
             onClick={handleOpenImagePicker}
+            className='py-1'
+            icon={<ImageAddIcon size={24} color='white' />}
           >
-            <Add size={32} className='text-black dark:text-white' />
-          </ActionIcon>
-          <ActionIcon
-            variant='outline'
-            size='xl'
-            radius='md'
-            title='삭제'
-            disabled={!url}
-            onClick={handleRemove}
-          >
-            <Delete size={32} className='text-black dark:text-white' />
-          </ActionIcon>
+            {t('Closet.imageAdd')}
+          </Button>
         </div>
       </div>
       <div className='flex flex-col gap-10 mt-10'>
         <TextInput
           maxLength={20}
-          label={t('title')}
-          placeholder={t('validation.nameMax')}
+          label={t('Closet.field.title')}
+          placeholder={t('Validation.maxLength', { max: 20 })}
           {...register('name')}
           error={errors.name?.message ? t(errors.name.message) : undefined}
         />
         <Textarea
           maxLength={500}
-          label={t('description')}
-          placeholder={t('validation.descriptionMax')}
+          label={t('Closet.field.description')}
+          placeholder={t('Validation.maxLength', { max: 500 })}
           {...register('description')}
           error={
             errors.description?.message

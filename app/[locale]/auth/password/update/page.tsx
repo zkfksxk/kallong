@@ -1,21 +1,22 @@
 'use client';
 
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Text, TextInput } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { IoCloseCircle as Close } from 'react-icons/io5';
 import { useUpdatePassword } from '@/apis/querys/auth/useUpdatePassword';
-import Button from '@/components/ui/button';
+import { Button, showNotification } from '@/components';
 import { useRouter } from '@/i18n/navigation';
+import { EyeCloseIcon, EyeIcon } from '@/shared/common/icons';
 import {
   UpdatePasswordFormData,
   updatePasswordSchema,
 } from '../../_constants/form';
 
 export default function UpdatePasswordPage() {
-  const t = useTranslations('Setting');
+  const [showPassword, setShowPassword] = useState(false);
+  const t = useTranslations();
   const router = useRouter();
   const {
     register,
@@ -36,34 +37,35 @@ export default function UpdatePasswordPage() {
         router.push('/');
       },
       onError: () => {
-        notifications.show({
-          title: t('auth.passwordUpdate'),
-          message: t('auth.passwordUpdateFail'),
-          icon: <Close color='red' size={24} />,
-          withCloseButton: false,
-          loading: false,
-          color: 'transperant',
+        showNotification({
+          title: t('Common.fail', {
+            type: t('Auth.updatePassword.title'),
+          }),
+          message: t('Auth.updatePassword.fail'),
+          type: 'fail',
         });
         reset();
       },
     });
   };
 
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
   return (
     <div className='w-full flex flex-col'>
       <Text ta='center' size='2xl' fw={700}>
-        {t('auth.updatePassword')}
+        {t('Auth.updatePassword.title')}
       </Text>
       <Text ta='center' size='sm'>
-        {t('auth.updatePasswordDescription')}
+        {t('Auth.updatePassword.description')}
       </Text>
       <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
         <div className='w-full flex flex-col mb-8'>
           <TextInput
-            label={t('auth.newPassword')}
+            label={t('Auth.field.newPassword')}
             type='password'
-            placeholder={t('auth.passwordPlaceholder')}
-            description={t('auth.passwordDescription')}
+            description={t('Auth.passwordPolicy')}
+            autoComplete='new-password'
             {...register('password')}
             error={
               errors.password?.message
@@ -71,6 +73,23 @@ export default function UpdatePasswordPage() {
                 : undefined
             }
             disabled={isSubmitting}
+            rightSection={
+              <button
+                type='button'
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleClickShowPassword();
+                }}
+                className='mr-3'
+              >
+                {showPassword ? (
+                  <EyeCloseIcon color='#64748b' />
+                ) : (
+                  <EyeIcon color='#64748b' />
+                )}
+              </button>
+            }
           />
         </div>
         <Button
@@ -79,7 +98,7 @@ export default function UpdatePasswordPage() {
           fullWidth
           disabled={!isValid || isSubmitting}
         >
-          {t('auth.saveButton')}
+          {t('Common.save')}
         </Button>
       </form>
     </div>

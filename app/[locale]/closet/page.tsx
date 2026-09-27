@@ -1,50 +1,39 @@
 'use client';
 
 import { useState } from 'react';
-import { ActionIcon, Text } from '@mantine/core';
-import { Calendar } from '@mantine/dates';
-import { notifications } from '@mantine/notifications';
+import Image from 'next/image';
+import { Menu, Text } from '@mantine/core';
 import dayjs from 'dayjs';
-import { useTranslations } from 'next-intl';
-import { useDeleteDailyOutfit } from '@/apis/querys/outfit/useDeleteDailyOutfit';
-import { useGetDailyOutfitInMonth } from '@/apis/querys/outfit/useGetDailyOutfitInMonth';
-import { Header } from '@/components/layouts/header';
-import Button from '@/components/ui/button';
+import 'dayjs/locale/en';
+import 'dayjs/locale/ko';
+import { useLocale, useTranslations } from 'next-intl';
+import {
+  useDeleteDailyOutfit,
+  useGetDailyOutfitInMonth,
+} from '@/apis/querys/outfit';
+import { Button, Fallback, Header, showNotification } from '@/components';
 import { Link, useRouter } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icons';
+import { MoreIcon } from '@/shared/common/icons';
+import ClosetCalendar from './_components/closet-calendar';
 
 export default function ClosetPage() {
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations();
   const [currentDay, setCurrentDay] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState<string>(
-    dayjs().format('YYYY-MM-DD')
+    dayjs().format('YYYY-MM-DD') //사용자의 로컬 date
   );
-  const t = useTranslations('Closet');
-  const { data: outfits } = useGetDailyOutfitInMonth(currentDay);
+  const { data: outfits, error } = useGetDailyOutfitInMonth(currentDay);
   const { mutateAsync: deleteMutate } = useDeleteDailyOutfit();
-
-  const { Trash, Alert } = ICONS;
 
   const selectedOutfit = outfits?.find(
     (item) => item.selected_day === selectedDay
   );
-
-  const handleSelect = (date: string) => {
-    setSelectedDay(date);
-  };
+  const outfitDays = new Set(outfits?.map((item) => item.selected_day) ?? []);
 
   const handleRecord = () => {
-    if (!selectedDay) {
-      notifications.show({
-        title: 'Outfit Failed',
-        message: t('error.selectDate'),
-        icon: <Alert.Close color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
-      });
-      return;
-    }
+    if (!selectedDay) return;
     router.push(`/closet/write?day=${selectedDay}`);
   };
 
@@ -52,132 +41,98 @@ export default function ClosetPage() {
     e.preventDefault();
     e.stopPropagation();
 
+    if (!selectedOutfit) return;
+
     try {
       deleteMutate(selectedOutfit.id);
     } catch {
-      notifications.show({
-        title: 'Outfit Failed',
-        message: t('error.deleteFailed'),
-        icon: <Alert.Close color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+      showNotification({
+        title: t('Common.fail', { type: t('Closet.title') }),
+        message: t('Closet.error.deleteFailed'),
+        type: 'fail',
       });
     }
   };
 
-  const outfitDays = new Set(outfits?.map((item) => item.selected_day) ?? []);
+  if (error) return <Fallback />;
 
   return (
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
-      <Header isBackbutton />
-      <Calendar
-        className='w-full'
-        hideOutsideDates
-        onPreviousMonth={() =>
-          setCurrentDay(dayjs(currentDay).subtract(1, 'month').toDate())
-        }
-        onNextMonth={() =>
-          setCurrentDay(dayjs(currentDay).add(1, 'month').toDate())
-        }
-        getDayProps={(date) => {
-          const isFuture = dayjs(date).isAfter(dayjs(), 'day');
-          const isCurrent = dayjs(date).format('YYYY-MM-DD') === selectedDay;
-          const hasOutfit = outfitDays.has(dayjs(date).format('YYYY-MM-DD'));
-
-          return {
-            onClick: () => !isFuture && handleSelect(date),
-            disabled: isFuture,
-            style: {
-              ...(isFuture ? { color: '#ccc', cursor: 'not-allowed' } : {}),
-              ...(hasOutfit // ← isCurrent 대신 hasOutfit
-                ? {
-                    backgroundColor: '#FFC9C8',
-                    color: 'white',
-                    borderRadius: '50%',
-                  }
-                : {}),
-              ...(isCurrent
-                ? {
-                    outline: '2px solid #e3231f',
-                  }
-                : {}),
-            },
-          };
-        }}
-        styles={{
-          calendarHeader: {
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            placeItems: 'center',
-            margin: '0 auto 10px auto',
-            color:
-              'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
-          },
-          calendarHeaderLevel: { width: '100%', flex: 1, textAlign: 'center' },
-          levelsGroup: { width: '100%' },
-          yearsList: { width: '100%', tableLayout: 'fixed' as const },
-          yearsListCell: {
-            textAlign: 'center',
-            verticalAlign: 'middle',
-            width: '100%',
-          },
-          yearsListControl: {
-            width: '100%',
-          },
-          monthsList: {
-            width: '100%',
-            tableLayout: 'fixed' as const,
-          },
-          monthsListCell: {
-            textAlign: 'center',
-            verticalAlign: 'middle',
-            width: '100%',
-          },
-          monthsListControl: {
-            width: '100%',
-          },
-          monthCell: {
-            width: '100%',
-            textAlign: 'center',
-            verticalAlign: 'middle',
-          },
-          month: { width: '100%' },
-          weekday: {
-            fontSize: '14px',
-          },
-          day: {
-            fontSize: '14px',
-          },
-        }}
+      <Header isBackShow />
+      <ClosetCalendar
+        locale={locale}
+        currentDay={currentDay}
+        selectedDay={selectedDay}
+        outfitDays={outfitDays}
+        onChangeMonth={setCurrentDay}
+        onSelectDay={setSelectedDay}
       />
-      <div className='flex flex-col w-full min-h-37.5 items-center justify-center mt-8 bg-red-100 rounded-md gap-3'>
+      <div className='flex flex-col w-full items-center justify-center mt-8 bg-red-100 rounded-md gap-3'>
         {selectedOutfit ? (
-          <Link href={`/closet/${selectedOutfit.id}`}>
-            <div className='flex flex-row items-center gap-8'>
-              <Text c='black' fw={700}>
-                {selectedOutfit.selected_day}
+          <Link className='size-full' href={`/closet/${selectedOutfit.id}`}>
+            <div className='size-full flex flex-row items-start p-5 gap-5'>
+              {selectedOutfit?.image_url && (
+                <Image
+                  src={selectedOutfit?.image_url}
+                  alt='daily-outfit'
+                  width={120}
+                  height={80}
+                  className='rounded-sm'
+                />
+              )}
+              <Text size='xl' c='black' fw={700}>
+                {selectedOutfit.name}
               </Text>
-              <ActionIcon
-                variant='transparent'
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleDelete(e);
-                }}
-              >
-                <Trash color='black' size={24} />
-              </ActionIcon>
+              <div className='ml-auto'>
+                <Menu width={140} position='bottom-end'>
+                  <Menu.Target>
+                    <Button
+                      variant='ghost'
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                      }}
+                    >
+                      <MoreIcon size={20} color='black' />
+                    </Button>
+                  </Menu.Target>
+
+                  <Menu.Dropdown>
+                    <Menu.Item
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        router.push(`/closet/${selectedOutfit.id}/edit`);
+                      }}
+                    >
+                      {t('Common.edit')}
+                    </Menu.Item>
+
+                    <Menu.Item
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleDelete(e);
+                      }}
+                    >
+                      {t('Common.delete')}
+                    </Menu.Item>
+                  </Menu.Dropdown>
+                </Menu>
+              </div>
             </div>
           </Link>
         ) : (
-          <div className='flex flex-col justify-center items-center gap-[10px]'>
+          <div className='flex flex-col h-50 p-5 justify-center items-center gap-2.5'>
             <Text c='black' fw={500}>
-              {t('emptyMessage')}
+              {t('Closet.emptyMessage')}
             </Text>
-            <Button onClick={handleRecord} variant='ghost'>
-              {t('goToRecord')}
+            <Button
+              variant='ghost'
+              onClick={handleRecord}
+              className='text-black!'
+            >
+              {t('Closet.goToRecord')}
             </Button>
           </div>
         )}

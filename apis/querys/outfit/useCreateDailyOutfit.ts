@@ -2,14 +2,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createDailyOutfit } from '@/apis/actions/outfit';
 import queryKeys from '@/apis/queryKeys';
 
-export function useCreatDailyOutfit() {
+export function useCreateDailyOutfit() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: createDailyOutfit,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [queryKeys.OUTFIT.MONTH],
+        queryKey: queryKeys.outfit.month(),
       });
     },
   });

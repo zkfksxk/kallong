@@ -4,19 +4,19 @@ import { useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
-import { useGetLookbook } from '@/apis/querys/useGetLookbook';
-import Fallback from '@/components/fallback';
-import Loader from '@/components/loader';
-import { ResultImage } from '@/components/lookbooks/result/result-image';
-import { VoteButton } from '@/components/lookbooks/result/vote-button';
-import { ShareActionButtons } from '@/components/ui/share-button';
-import { useRemainingTime } from '@/hooks/useRemainingTime';
-import { useShareActions } from '@/hooks/useShareActions';
-import { useVoteActions } from '@/hooks/useVoteActions';
+import { useGetLookbook } from '@/apis/querys';
+import { Fallback, Loader, ShareActionButtons } from '@/components';
 import { hanna } from '@/shared/theme/theme';
+import { ResultImage } from '../../../_components/result/result-image';
+import { VoteButton } from '../../../_components/result/vote-button';
+import {
+  useRemainingTime,
+  useShareActions,
+  useVoteActions,
+} from '../../../_hooks';
 
 export default function ResultPage() {
-  const t = useTranslations('Lookbooks.result');
+  const t = useTranslations('Lookbook.result');
   const { firstId, secondId } = useParams<{
     firstId: string;
     secondId: string;
@@ -32,7 +32,6 @@ export default function ResultPage() {
     isLoading: secondLoading,
     error: secondError,
   } = useGetLookbook(secondId);
-
   const remainingTime = useRemainingTime(firstLookbook?.created_at);
   const {
     visible,
@@ -47,7 +46,8 @@ export default function ResultPage() {
 
   if (firstLoading || secondLoading) return <Loader />;
 
-  if (firstError || secondError) return <Fallback />;
+  if (firstError || secondError || !firstLookbook || !secondLookbook)
+    return <Fallback />;
 
   return (
     <main
@@ -67,8 +67,9 @@ export default function ResultPage() {
           <Text size='xl' fw='bold' className='self-end'>
             {firstLookbook.name}
           </Text>
-          <ResultImage image_url={firstLookbook.image_url} />
-
+          {firstLookbook.image_url && (
+            <ResultImage image_url={firstLookbook.image_url} />
+          )}
           <VoteButton
             isLiked={isFirstLookbookLiked}
             votes={firstLookbook.votes}
@@ -88,7 +89,9 @@ export default function ResultPage() {
           <Text size='xl' fw='bold' className='self-end'>
             {secondLookbook.name}
           </Text>
-          <ResultImage image_url={secondLookbook.image_url} />
+          {secondLookbook.image_url && (
+            <ResultImage image_url={secondLookbook.image_url} />
+          )}
           <VoteButton
             isLiked={isSecondLookbookLiked}
             votes={secondLookbook.votes}

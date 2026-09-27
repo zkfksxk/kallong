@@ -3,7 +3,7 @@ import { Button, Stack, Text } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 
 export default function NotFound() {
-  const t = useTranslations('Tab');
+  const t = useTranslations('Common');
 
   return (
     <main className='relative bg-white max-w-125 w-full mx-auto flex flex-1 flex-col items-center justify-center'>

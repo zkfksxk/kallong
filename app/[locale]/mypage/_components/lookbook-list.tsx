@@ -1,0 +1,49 @@
+'use client';
+
+import { useEffect } from 'react';
+import { Text } from '@mantine/core';
+import { useTranslations } from 'next-intl';
+import { useInView } from 'react-intersection-observer';
+import { useGetVoteById } from '@/apis/querys';
+import { Fallback, Loader } from '@/components';
+import { LookbookItem } from './lookbook-item';
+
+export const LookbookList = () => {
+  const t = useTranslations();
+  const {
+    data,
+    isLoading,
+    isFetching,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+    error,
+  } = useGetVoteById();
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    if (hasNextPage && !isFetching && !isFetchingNextPage && inView) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
+
+  if (isLoading) return <Loader />;
+
+  if (error) return <Fallback />;
+
+  return (
+    <div className='flex flex-1 flex-col gap-10'>
+      {data?.votes.length === 0 && (
+        <div className='flex flex-1 flex-col items-center justify-center'>
+          <Text size='xl' ta='center' fw='700'>
+            {t('MyPage.lookbook.empty')}
+          </Text>
+        </div>
+      )}
+      {data &&
+        data?.votes.map((vote) => <LookbookItem key={vote.id} {...vote} />)}
+      <div ref={ref}></div>
+      {isFetchingNextPage && <Loader />}
+    </div>
+  );
+};

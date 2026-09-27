@@ -1,40 +1,19 @@
 import axios, { type AxiosInstance } from 'axios';
 
-// export interface CustomError {
-//   code?: number;
-//   name: string;
-//   message: string;
-// }
-
-// export const createCustomError = (error: unknown): CustomError => {
-//   if (axios.isAxiosError(error)) {
-//     return {
-//       code: error.response?.status,
-//       name: error.name,
-//       message: error.message,
-//     };
-//   }
-
-//   if (error instanceof Error) {
-//     return {
-//       name: error.name,
-//       message: error.message,
-//     };
-//   }
-
-//   return {
-//     name: 'UnknownError',
-//     message: '알 수 없는 에러가 발생했습니다.',
-//   };
-// };
-
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
+// API 응답 데이터 타입 (모든 API 응답의 기본 구조)
+export interface ApiResponse<T = unknown> {
+  data: T | null; //api 응답 시 null
+  message: string;
+  result: boolean; //성공 여부
+  resultCode: number; //서버의 status code
+}
 
 const createAxiosInstance = (): AxiosInstance => {
   const axiosObj = axios.create({
     baseURL: baseURL,
     timeout: 100000, //90초
-    maxRedirects: 3,
   });
 
   axiosObj.interceptors.request.use(

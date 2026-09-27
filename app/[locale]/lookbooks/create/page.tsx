@@ -1,26 +1,26 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, Tabs, Text } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
+import { Tabs } from '@mantine/core';
 import { useTranslations } from 'next-intl';
-import { useCreateLookbook } from '@/apis/querys/useCreateLookbook';
-import { useCreateVote } from '@/apis/querys/useCreateVote';
-import { useUpdateLookbook } from '@/apis/querys/useUpdateLookbook';
+import {
+  useCreateLookbook,
+  useCreateVote,
+  useUpdateLookbook,
+} from '@/apis/querys';
+import { Button, showNotification } from '@/components';
 import { Header } from '@/components/layouts/header';
-import { CreateImage } from '@/components/lookbooks/create/create-image';
-import { LookbookForm } from '@/components/lookbooks/create/lookbook-form';
 import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
 import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
-} from '@/shared/common/constants/common';
-import { ICONS } from '@/shared/common/icons';
+} from '@/shared/common/constants/file';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
+import { LookbookForm } from '../_components';
 
 export default function CreateLookbooksPage() {
-  const t = useTranslations('Lookbooks.create');
+  const t = useTranslations();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState<string | null>('first');
@@ -28,8 +28,6 @@ export default function CreateLookbooksPage() {
   const { mutateAsync: createMutate } = useCreateLookbook();
   const { mutateAsync: updateMutate } = useUpdateLookbook();
   const { mutateAsync: createVoteMutate } = useCreateVote();
-
-  const { Alert } = ICONS;
 
   const isReadyToSubmit =
     firstLookbook.data.finalUrl && secondLookbook.data.finalUrl;
@@ -46,14 +44,10 @@ export default function CreateLookbooksPage() {
       .upload(filePath, file, { upsert: true }); // upset: true 존재x -> insert, 존재o -> update
 
     if (uploadError) {
-      console.log('storage image upload fail', uploadError);
-      notifications.show({
-        title: 'Image upload Failed',
-        message: '이미지 업로드에 실패했습니다.',
-        icon: <Alert.Close color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+      showNotification({
+        title: t('Common.fail', { type: t('Lookbook.title') }),
+        message: t('Common.errorOccurred'),
+        type: 'fail',
       });
       return;
     }
@@ -73,7 +67,7 @@ export default function CreateLookbooksPage() {
 
     setIsSubmitting(true);
 
-    //2개의 Lookbook생성후 id 받음. MAX_FILE_SIZE_MB: 4MB;
+    //2개의 Lookbook생성후 id 받음. MAX_FILE_SIZE_MB: 2MB;
     const file1 = firstLookbook.data.finalFile;
     const file2 = secondLookbook.data.finalFile;
 
@@ -81,13 +75,12 @@ export default function CreateLookbooksPage() {
       file1!.size > MAX_FILE_SIZE_BYTES ||
       file2!.size > MAX_FILE_SIZE_BYTES
     ) {
-      notifications.show({
-        title: 'Image upload Failed',
-        message: `파일 크기가 ${MAX_FILE_SIZE_MB}MB를 초과해 업로드할 수 없습니다.`,
-        icon: <Alert.Close color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+      showNotification({
+        title: t('Common.fail', { type: t('Lookbook.title') }),
+        message: t('Lookbook.error.fileTooLarge', {
+          maxMb: MAX_FILE_SIZE_MB,
+        }),
+        type: 'fail',
       });
       return;
     }
@@ -125,15 +118,11 @@ export default function CreateLookbooksPage() {
       await createVoteMutate(voteSetData);
 
       router.push(`/lookbooks/result/${firstData.id}/${secondData.id}`);
-    } catch (error) {
-      console.log('create lookbook fail', error);
-      notifications.show({
-        title: 'Lookbook Failed',
-        message: '룩북 생성 중 에러가 발생했습니다.',
-        icon: <Alert.Close color='red' size={24} />,
-        withCloseButton: false,
-        loading: false,
-        color: 'transperant',
+    } catch {
+      showNotification({
+        title: t('Common.fail', { type: t('Lookbook.title') }),
+        message: t('Lookbook.error.createFailed'),
+        type: 'fail',
       });
     } finally {
       setIsSubmitting(false);
@@ -143,52 +132,45 @@ export default function CreateLookbooksPage() {
   return (
     <main className='relative bg-white dark:bg-black max-w-125 w-full mx-auto flex flex-1 flex-col items-center'>
       <Header
-        isBackbutton
+        isBackShow
         rightComponent={
           <Button
+            variant='ghost'
             onClick={handleSubmit}
-            variant='transparent'
-            color='red.5'
-            size='md'
-            radius='md'
-            p={0}
+            disabled={isSubmitting || !isReadyToSubmit}
           >
-            저장
+            {t('Common.save')}
           </Button>
         }
       />
       <div className='flex flex-col w-full gap-8'>
-        <Tabs color='black' value={activeTab} onChange={setActiveTab}>
+        <Tabs color='red.5' value={activeTab} onChange={setActiveTab}>
           <Tabs.List>
             <Tabs.Tab value='first'>
-              {firstLookbook.name || t('tabFirst')}
+              {firstLookbook.name || t('Lookbook.field.firstLook')}
             </Tabs.Tab>
             <Tabs.Tab value='second'>
-              {secondLookbook.name || t('tabSecond')}
+              {secondLookbook.name || t('Lookbook.field.secondLook')}
             </Tabs.Tab>
           </Tabs.List>
           <Tabs.Panel value='first' pt='md'>
-            <CreateImage lookbook={firstLookbook} />
             <LookbookForm targetLookbook='first' />
           </Tabs.Panel>
           <Tabs.Panel value='second' pt='md'>
-            <CreateImage lookbook={secondLookbook} />
             <LookbookForm targetLookbook='second' />
           </Tabs.Panel>
         </Tabs>
       </div>
-
-      <div className='flex flex-col itme-center mt-15 gap-0.5'>
-        <Text size='sm'>{t('bgRemoveQuestion')}</Text>
+      {/* <div className='flex flex-col items-center mt-15 gap-0.5'>
+        <Text size='sm'>{t('Lookbook.create.bgRemoveQuestion')}</Text>
         <Button
-          variant='transparent'
-          size='sm'
+          variant='ghost'
           disabled={isSubmitting}
           onClick={() => router.push('/lookbooks/editor')}
         >
-          {t('editorButton')}
+          {t('Lookbook.create.moveToEditor')}
         </Button>
-      </div>
+      </div> */}
     </main>
   );
 }

@@ -3,7 +3,7 @@ import { TriangleAlert } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 
-export default function Fallback() {
+export function Fallback() {
   const t = useTranslations('Common');
 
   return (

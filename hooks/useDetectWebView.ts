@@ -3,15 +3,16 @@ export function useDetectWebView() {
   if (typeof window === 'undefined') {
     return {
       isWebView: false,
-      isIOSWebView: false,
-      isAndroidWebView: false,
+      canUseBridge: false,
       isIOS: false,
       isAndroid: false,
     };
   }
 
   const isReactNativeWebView = window.ReactNativeWebView !== undefined;
-
+  //브릿지 메시지를 보낼 수 있는가?
+  const canUseBridge =
+    typeof window.ReactNativeWebView?.postMessage === 'function';
   const userAgent = navigator.userAgent;
 
   // iOS 감지
@@ -26,6 +27,7 @@ export function useDetectWebView() {
 
   return {
     isWebView: isReactNativeWebView || isIOSWebView || isAndroidWebView,
+    canUseBridge,
     isIOS,
     isAndroid,
   };

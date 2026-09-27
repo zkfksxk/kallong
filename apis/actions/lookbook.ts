@@ -1,9 +1,10 @@
 'use server';
 
-import { Lookbook } from '@/shared/common/types/types';
+import { Lookbook } from '@/shared/common/types';
 import { type Database } from '@/shared/supabase/database.types';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
 import { handleError } from '../error';
+import type { LookbookDetail, VoteList } from '../types/lookbook';
 import { getAuthorId } from './auth';
 import { deleteImagesInPath } from './storage';
 
@@ -60,7 +61,7 @@ export const createVote = async ({
   return data;
 };
 
-export const upadateLookbook = async ({
+export const updateLookbook = async ({
   id,
   image_url,
 }: {
@@ -84,7 +85,9 @@ export const upadateLookbook = async ({
   return data;
 };
 
-export const getLookbook = async (id: string) => {
+export const getLookbook = async (
+  id: string
+): Promise<LookbookDetail | null> => {
   const supabase = await createSupabaseServerClient();
 
   const { data, error } = await supabase
@@ -137,14 +140,52 @@ export async function checkLookbookLiked(lookbook_id: string) {
   return !!data; // null, undefined => false
 }
 
-export async function getVoteById({ from, to }: { from: number; to: number }) {
+export async function getVoteById({
+  from,
+  to,
+  voteName,
+  lookbookName,
+}: {
+  from: number;
+  to: number;
+  voteName?: string;
+  lookbookName?: string;
+}): Promise<VoteList> {
   const supabase = await createSupabaseServerClient();
   const { author_id } = await getAuthorId();
 
-  const { data, error, count } = await supabase
+  let query = supabase
     .from('vote')
-    .select('*')
-    .eq('author_id', author_id)
+    .select(
+      `
+      *,
+      lookbook_a:lookbook!fk_lookbook_a (
+        id,
+        image_url,
+        name
+      ),
+      lookbook_b:lookbook!fk_lookbook_b (
+        id,
+        image_url,
+        name
+      )
+      `,
+      { count: 'exact' }
+    )
+    .eq('author_id', author_id);
+
+  if (voteName) {
+    query = query.ilike('vote_name', `%${voteName}%`);
+  }
+
+  if (lookbookName) {
+    const lowerName = lookbookName.toLowerCase();
+    query = query.or(
+      `lookbook_a.name.ilike.%${lowerName}%,lookbook_b.name.ilike.%${lowerName}%`
+    );
+  }
+
+  const { data, error, count } = await query
     .order('created_at', { ascending: false })
     .range(from, to);
 
@@ -177,22 +218,3 @@ export async function deleteLookbookById(lookbookId: string) {
 
   return data;
 }
-
-// export async function deleteImagesInPath(path: string) {
-//   const supabase = await createSupabaseServerClient();
-//   const { data: files, error: fetchFilesError } = await supabase.storage
-//     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
-//     .list(path);
-
-//   if (fetchFilesError) throw fetchFilesError;
-
-//   if (!files || files.length === 0) {
-//     return;
-//   }
-
-//   const { error: removeError } = await supabase.storage
-//     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
-//     .remove(files.map((file) => `${path}/${file.name}`));
-
-//   if (removeError) throw removeError;
-// }

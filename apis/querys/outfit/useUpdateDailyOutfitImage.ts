@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import { upadateDailyOutfitImage } from '@/apis/actions/outfit';
+import { updateDailyOutfitImage } from '@/apis/actions/outfit';
 
 export function useUpdateDailyOutfitImage() {
   return useMutation({
-    mutationFn: upadateDailyOutfitImage,
+    mutationFn: updateDailyOutfitImage,
   });
 }

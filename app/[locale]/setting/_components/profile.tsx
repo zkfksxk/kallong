@@ -1,0 +1,50 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { Box, Text } from '@mantine/core';
+import { useTranslations } from 'next-intl';
+import { useSignOut } from '@/apis/querys/auth';
+import { Button } from '@/components';
+import { useProfileStore } from '@/hooks/provider/profile-provider';
+import { getDaysSince } from '@/shared/common/utils';
+
+export const Profile = () => {
+  const t = useTranslations();
+  const router = useRouter();
+  const { profile } = useProfileStore((s) => s);
+  const { mutate: signout } = useSignOut();
+
+  if (!profile) return null;
+
+  const handleSignOut = () => {
+    signout(undefined, {
+      onSuccess: () => {
+        router.push('/');
+      },
+    });
+  };
+
+  const daysSince = getDaysSince(profile.created_at);
+
+  return (
+    <Box bg='red.1' className='flex flex-col p-5 rounded-md'>
+      <Text c='black' size='md' fw={700}>
+        {profile?.nickname}
+      </Text>
+      <Text c='black' size='sm'>
+        {profile?.email}
+      </Text>
+      <Text c='black' size='sm'>
+        {t('Setting.daysTogether', { daysSince })}
+      </Text>
+
+      <Button
+        variant='ghost'
+        onClick={handleSignOut}
+        className='text-black! self-start mt-5'
+      >
+        {t('Auth.logout')}
+      </Button>
+    </Box>
+  );
+};

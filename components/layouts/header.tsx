@@ -1,25 +1,27 @@
+'use client';
+
+import { ReactNode } from 'react';
 import { Text } from '@mantine/core';
-import { useRouter } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icons';
-import Button from '../ui/button';
+import { Link, useRouter } from '@/i18n/navigation';
+import { BackIcon, SettingIcon } from '@/shared/common/icons';
+import { Button } from '../ui';
 
 interface Props {
-  leftComponent?: React.ReactNode;
-  rightComponent?: React.ReactNode;
-  isBackbutton?: boolean;
+  isSettingShow?: boolean;
+  isBackShow?: boolean;
+  rightComponent?: ReactNode;
   className?: string;
   title?: string;
 }
 
 export const Header = ({
-  leftComponent,
-  rightComponent,
-  isBackbutton,
+  isSettingShow,
+  isBackShow,
   className,
+  rightComponent,
   title,
 }: Props) => {
   const router = useRouter();
-  const { Back } = ICONS;
 
   const handleBack = () => {
     router.back();
@@ -30,10 +32,10 @@ export const Header = ({
       className={`
         w-full 
         max-w-125 
-        h-18
+        h-16
         flex 
         items-center 
-        ${leftComponent || isBackbutton ? 'justify-between' : 'justify-end'}
+        ${isBackShow ? 'justify-between' : 'justify-end'}
         mx-auto
         bg-white
         dark:bg-black
@@ -42,14 +44,20 @@ export const Header = ({
         ${className}
         `}
     >
-      {isBackbutton && (
+      {isBackShow && (
         <Button variant='ghost' onClick={handleBack}>
-          <Back className='text-black dark:text-white' size={24} />
+          <BackIcon className='text-black dark:text-white' size={24} />
         </Button>
       )}
-      {leftComponent}
+
       {title && <Text>{title}</Text>}
-      {rightComponent}
+      {rightComponent && rightComponent}
+
+      {isSettingShow && (
+        <Link href='/setting'>
+          <SettingIcon className='text-black dark:text-white' size={24} />
+        </Link>
+      )}
     </header>
   );
 };
