@@ -44,7 +44,7 @@ export const LookbookItem = ({
     <Link href={`/lookbooks/result/${lookbook_id_a}/${lookbook_id_b}`}>
       <div className='flex flex-row border p-5 border-[#A41613] justify-between rounded-sm'>
         <div className='flex flex-col gap-1'>
-          <Text size='lg' className='font-bold'>
+          <Text size='lg' fw='700'>
             {vote_name}
           </Text>
           <Text size='sm'>{dayjs(created_at).format('YYYY.MM.DD')}</Text>
